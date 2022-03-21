@@ -1,47 +1,43 @@
-import { cilPeople } from '@coreui/icons'
-import CIcon from '@coreui/icons-react'
+import React, { useEffect, useState } from 'react'
+
 import {
-  CProgress,
-  CTable,
   CAvatar,
+  CCard,
+  CCardHeader,
+  CPagination,
+  CPaginationItem,
+  CTable,
   CTableBody,
   CTableDataCell,
   CTableHead,
   CTableHeaderCell,
   CTableRow,
-  CCol,
-  CDropdownToggle,
-  CDropdown,
-  CDropdownMenu,
-  CDropdownItem,
-  CDropdownDivider,
-  CPaginationItem,
-  CPagination,
-  CCardBody,
-  CCardHeader,
-  CCard,
-  CFormSelect,
-  CRow,
-  CFormInput,
-  CFormLabel,
-  CForm,
 } from '@coreui/react'
+import 'src/views/GestionUtilisateurs/liste_attente.css'
+import { getusers } from 'src/services/gestionutilisateurs'
+
+import CIcon from '@coreui/icons-react'
 import {
-  cilBell,
-  cilCalculator,
-  cilChartPie,
-  cilCursor,
-  ciluserplus,
-  cilDrop,
-  cilNotes,
+  cibCcAmex,
+  cibCcApplePay,
+  cibCcMastercard,
+  cibCcPaypal,
+  cilPlus,
+  cibCcStripe,
+  cibCcVisa,
+  cifBr,
+  cifEs,
+  cifFr,
+  cifIn,
+  cilUser,
+  cifPl,
+  cifUs,
+  cilPeople,
   cilPencil,
-  cilPuzzle,
-  cilSpeedometer,
-  cilStar,
+  cilTrash,
   cilUserPlus,
   cilUserUnfollow,
 } from '@coreui/icons'
-import React from 'react'
 
 import avatar1 from 'src/assets/images/avatars/1.jpg'
 import avatar2 from 'src/assets/images/avatars/2.jpg'
@@ -49,239 +45,287 @@ import avatar3 from 'src/assets/images/avatars/3.jpg'
 import avatar4 from 'src/assets/images/avatars/4.jpg'
 import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/6.jpg'
-import {
-  cibCcAmex,
-  cibCcApplePay,
-  cibCcMastercard,
-  cibCcPaypal,
-  cibCcStripe,
-  cibCcVisa,
-  cilPen,
-  cilTrash,
-  cibGoogle,
-  cibFacebook,
-  cibLinkedin,
-  cifBr,
-  cifEs,
-  cifFr,
-  cifIn,
-  cifPl,
-  cifUs,
-  cibTwitter,
-  cilCloudDownload,
-  cilUserFemale,
-} from '@coreui/icons'
-import { DocsExample } from 'src/components'
-const listeUtilisateurs = () => {
-  const tableExample = [
-    {
-      avatar: { src: avatar1, status: 'success' },
-      user: {
-        name: 'Yiorgos Avraamu',
-        new: true,
-        registered: 'Jan 1, 2021',
-      },
-      country: { name: 'USA', flag: cifUs },
-      usage: {
-        value: 50,
-        period: 'Jun 11, 2021 - Jul 10, 2021',
-        color: 'success',
-      },
-      payment: { name: 'Mastercard', icon: cibCcMastercard },
-      activity: '10 sec ago',
-    },
-    {
-      avatar: { src: avatar2, status: 'danger' },
-      user: {
-        name: 'Avram Tarasios',
-        new: false,
-        registered: 'Jan 1, 2021',
-      },
-      country: { name: 'Brazil', flag: cifBr },
-      usage: {
-        value: 22,
-        period: 'Jun 11, 2021 - Jul 10, 2021',
-        color: 'info',
-      },
-      payment: { name: 'Visa', icon: cibCcVisa },
-      activity: '5 minutes ago',
-    },
-    {
-      avatar: { src: avatar3, status: 'warning' },
-      user: { name: 'Quintin Ed', new: true, registered: 'Jan 1, 2021' },
-      country: { name: 'India', flag: cifIn },
-      usage: {
-        value: 74,
-        period: 'Jun 11, 2021 - Jul 10, 2021',
-        color: 'warning',
-      },
-      payment: { name: 'Stripe', icon: cibCcStripe },
-      activity: '1 hour ago',
-    },
-    {
-      avatar: { src: avatar4, status: 'secondary' },
-      user: { name: 'Enéas Kwadwo', new: true, registered: 'Jan 1, 2021' },
-      country: { name: 'France', flag: cifFr },
-      usage: {
-        value: 98,
-        period: 'Jun 11, 2021 - Jul 10, 2021',
-        color: 'danger',
-      },
-      payment: { name: 'PayPal', icon: cibCcPaypal },
-      activity: 'Last month',
-    },
-    {
-      avatar: { src: avatar5, status: 'success' },
-      user: {
-        name: 'Agapetus Tadeáš',
-        new: true,
-        registered: 'Jan 1, 2021',
-      },
-      country: { name: 'Spain', flag: cifEs },
-      usage: {
-        value: 22,
-        period: 'Jun 11, 2021 - Jul 10, 2021',
-        color: 'primary',
-      },
-      payment: { name: 'Google Wallet', icon: cibCcApplePay },
-      activity: 'Last week',
-    },
-    {
-      avatar: { src: avatar6, status: 'danger' },
-      user: {
-        name: 'Friderik Dávid',
-        new: true,
-        registered: 'Jan 1, 2021',
-      },
-      country: { name: 'Poland', flag: cifPl },
-      usage: {
-        value: 43,
-        period: 'Jun 11, 2021 - Jul 10, 2021',
-        color: 'success',
-      },
-      payment: { name: 'Amex', icon: cibCcAmex },
-      activity: 'Last week',
-    },
-  ]
 
+const Listeattente = () => {
+  let tableuser = []
+  getusers()
+    .then((response) => {
+      for (var i of response.data) {
+        tableuser.push(i)
+      }
+
+      console.log('mama', response.data)
+    })
+    .catch((e) => {})
+  console.log('ya rab', tableuser)
+  const [posts, setPosts] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [postsPerPage] = useState(4)
+  const [NextPage, setNextPage] = useState(currentPage + 1)
+  const [PreviewsPage, setPreviewsPage] = useState(1)
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setPosts(tableuser)
+    }
+
+    fetchPosts()
+  }, [])
+
+  console.log('heeehi', posts)
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage //3
+  const indexOfFirstPost = indexOfLastPost - postsPerPage
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
+  // Change page
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber)
+    if (pageNumber < posts.length / postsPerPage) setNextPage(pageNumber + 1)
+    if (pageNumber > 1) setPreviewsPage(pageNumber - 1)
+  }
+  const pageNumbers = []
+
+  for (let i = 1; i <= Math.ceil(posts.length / postsPerPage); i++) {
+    pageNumbers.push(i)
+  }
   return (
     <>
-      <CForm class="form-inline">
-        <div className="mb-3">
-          <CFormInput
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Rechercher"
-            aria-label="Search"
-            style={{
-              width: 150,
-              top: 10,
-              position: 'relative',
-            }}
-          />
-        </div>
-      </CForm>
+      <div className="table-data__tool">
+        <div className="table-data__tool-left">
+          <div className="rs-select2--light rs-select2--md">
+            <select
+              className="js-select2"
+              name="property"
+              style={{
+                height: 40,
+                width: 150,
+                'text-align': 'center',
+                border: 'none',
+                'font-size': '1.2em',
+                color: '#888888',
+              }}
+            >
+              <option
+                selected="selected"
+                style={{
+                  height: 50,
+                }}
+              >
+                Role
+              </option>
+              <option value="">Formateurs</option>
+              <option value="">Candidats</option>
+            </select>
+          </div>
+          <div className="rs-select2--light rs-select2--sm">
+            <select
+              className="js-select2"
+              name="time"
+              style={{
+                height: 40,
+                width: 110,
+                'text-align': 'center',
+                border: 'none',
+                'font-size': '1.2em',
+                color: '#888888',
+              }}
+            >
+              <option selected="selected">Genre</option>
+              <option value="">Homme</option>
+              <option value="">Femme</option>
+            </select>
+          </div>
 
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader
+          <button
+            className="au-btn-filter"
             style={{
-              backgroundColor: '#43BFF1',
-              marginBottom: 30,
-              color: 'white',
-              'font-size': 'large',
+              height: 40,
+              width: 100,
+              'text-align': 'center',
+              border: 'none',
+              'font-size': '1.2em',
+              color: 'BLACK',
             }}
           >
-            <strong>Liste des utilisateurs</strong>
-          </CCardHeader>
-          <CCardBody>
-            <CTable align="middle" className="mb-0 border" hover responsive>
-              <CTableHead color="light">
-                <CTableRow>
-                  <CTableHeaderCell className="text-center">
-                    <CIcon icon={cilPeople} />
-                  </CTableHeaderCell>
-                  <CTableHeaderCell>Utilisateur</CTableHeaderCell>
-                  <CTableHeaderCell className="text-center">Poste</CTableHeaderCell>
-                  <CTableHeaderCell>E-mail</CTableHeaderCell>
-                  <CTableHeaderCell className="text-center">Numero de telephone</CTableHeaderCell>
-                  <CTableHeaderCell>Date de creation du comte</CTableHeaderCell>
-                  <CTableHeaderCell>Action</CTableHeaderCell>
-                </CTableRow>
-              </CTableHead>
-              <CTableBody>
-                {tableExample.map((item, index) => (
-                  <CTableRow v-for="item in tableItems" key={index}>
-                    <CTableDataCell className="text-center">
-                      <CAvatar size="md" src={item.avatar.src} status={item.avatar.status} />
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{item.user.name}</div>
-                      <div className="small text-medium-emphasis">
-                        <span>{item.user.new ? 'New' : 'Recurring'}</span> | Registered:{' '}
-                        {item.user.registered}
-                      </div>
-                    </CTableDataCell>
-                    <CTableDataCell className="text-center">
-                      <CIcon size="xl" icon={item.country.flag} title={item.country.name} />
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div className="clearfix">
-                        <div className="float-start">
-                          <strong>{item.usage.value}%</strong>
-                        </div>
-                        <div className="float-end">
-                          <small className="text-medium-emphasis">{item.usage.period}</small>
-                        </div>
-                      </div>
-                      <CProgress thin color={item.usage.color} value={item.usage.value} />
-                    </CTableDataCell>
-                    <CTableDataCell className="text-center">
-                      <CIcon size="xl" icon={item.payment.icon} />
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div className="small text-medium-emphasis">Last login</div>
-                      <strong>{item.activity}</strong>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <CIcon
-                        icon={cilTrash}
-                        customClassName="nav-icon"
-                        style={{
-                          marginTop: 10,
-                          width: 30,
-                          height: 30,
-                          marginRight: 10,
-                          color: 'red',
-                        }}
-                      />
+            <i
+              className="zmdi zmdi-filter-list"
+              style={{ height: 40, width: 100, 'text-align': 'center' }}
+            ></i>
+            filters
+          </button>
+        </div>
+        <div className="table-data__tool-right">
+          <button
+            className="au-btn au-btn-icon au-btn--green au-btn--small"
+            style={{ width: 200, height: 50, backgroundColor: '#213f77', color: 'white' }}
+          >
+            <CIcon
+              icon={cilPlus}
+              customClassName="nav-icon"
+              style={{
+                marginTop: 5,
+                width: 20,
+                height: 20,
+                color: 'white',
+              }}
+            ></CIcon>
+            <i className="zmdi zmdi-plus"></i> Ajouter Formation
+          </button>
+        </div>
+      </div>
+      <CCard>
+        <CCardHeader style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}>
+          Liste d{"'"}attente
+        </CCardHeader>
+        <CTable align="middle" className="mb-0 border" hover responsive>
+          <CTableHead color="light">
+            <CTableRow>
+              <CTableHeaderCell className="text-center">
+                <CIcon icon={cilPeople} />
+              </CTableHeaderCell>
+              <CTableHeaderCell>Nom</CTableHeaderCell>
+              <CTableHeaderCell>Prénom</CTableHeaderCell>
+              <CTableHeaderCell className="text-center">Role</CTableHeaderCell>
+              <CTableHeaderCell className="text-center">Genre</CTableHeaderCell>
+              <CTableHeaderCell>E-mail</CTableHeaderCell>
+              <CTableHeaderCell className="text-center">Etat civil</CTableHeaderCell>
+              <CTableHeaderCell>Date Inscription</CTableHeaderCell>
+              <CTableHeaderCell>Action</CTableHeaderCell>
+            </CTableRow>
+          </CTableHead>
+          <CTableBody>
+            {currentPosts.map((item, index) => (
+              <CTableRow v-for="item in tableItems" key={index}>
+                <CTableDataCell className="text-center">
+                  <CAvatar size="md" src="#" status="#" />
+                </CTableDataCell>
 
-                      <CIcon
-                        icon={cilPencil}
-                        customClassName="nav-icon"
-                        style={{
-                          marginTop: 10,
-                          width: 30,
-                          height: 30,
-                          color: 'green',
-                        }}
-                      />
-                    </CTableDataCell>
-                  </CTableRow>
-                ))}
-              </CTableBody>
-            </CTable>
-            <CPagination aria-label="Page navigation example" style={{ marginTop: 50 }}>
-              <CPaginationItem>Previous</CPaginationItem>
-              <CPaginationItem>1</CPaginationItem>
-              <CPaginationItem>2</CPaginationItem>
-              <CPaginationItem>3</CPaginationItem>
-              <CPaginationItem>Next</CPaginationItem>
-            </CPagination>
-          </CCardBody>
-        </CCard>
-      </CCol>
+                {/* Nom*/}
+                <CTableDataCell>
+                  <div>{item.nom}</div>
+                  <div className="small text-medium-emphasis">
+                    <span>{item.nom ? 'New' : 'Recurring'}</span> | Registered: {item.nom}
+                  </div>
+                </CTableDataCell>
+                {/* Prénom*/}
+                <CTableDataCell>
+                  <div>{item.prenom}</div>
+                  <div className="small text-medium-emphasis">
+                    <span>{item.prenom ? 'New' : 'Recurring'}</span> | Registered: {item.prenom}
+                  </div>
+                </CTableDataCell>
+                {/* Role*/}
+                <CTableDataCell>
+                  <div>{item.prenom}</div>
+                  <div className="small text-medium-emphasis">
+                    <span>{item.authority[0].authority ? 'New' : 'Recurring'}</span>
+                  </div>
+                </CTableDataCell>
+                {/* CIN*/}
+                <CTableDataCell>
+                  <div>{item.prenom}</div>
+                  <div className="small text-medium-emphasis">
+                    <span>{item.numero_de_telephone ? 'New' : 'Recurring'}</span>
+                  </div>
+                </CTableDataCell>
+                {/* Email*/}
+                <CTableDataCell>
+                  <div>{item.prenom}</div>
+                  <div className="small text-medium-emphasis">
+                    <span>{item.email ? 'New' : 'Recurring'}</span>
+                  </div>
+                </CTableDataCell>
+                {/* Date Inscription*/}
+                <CTableDataCell>
+                  <div className="small text-medium-emphasis">Last login</div>
+                  <strong>{item.createdAt}</strong>
+                </CTableDataCell>
+                {/* Date Inscription*/}
+                <CTableDataCell>
+                  <div className="small text-medium-emphasis">Last login</div>
+                  <strong>{item.lastLogin}</strong>
+                </CTableDataCell>
+                {/* Approuver*/}
+                <CTableDataCell>
+                  <button
+                    style={{
+                      border: 0,
+                      backgroundColor: 'transparent',
+                    }}
+                  >
+                    <CIcon
+                      icon={cilUser}
+                      customClassName="nav-icon"
+                      style={{
+                        marginTop: 5,
+                        width: 30,
+                        height: 30,
+                        color: '#213f77',
+                        marginLeft: 7,
+                        marginRight: 7,
+                      }}
+                    />
+                  </button>
+                  <button
+                    style={{
+                      border: 0,
+                      backgroundColor: 'transparent',
+                    }}
+                  >
+                    <CIcon
+                      icon={cilTrash}
+                      customClassName="nav-icon"
+                      style={{
+                        marginTop: 5,
+                        width: 30,
+                        height: 30,
+                        color: 'red',
+                      }}
+                    />
+                  </button>
+                </CTableDataCell>
+              </CTableRow>
+            ))}
+          </CTableBody>
+        </CTable>
+        <div style={{ 'text-align': ' center' }}>
+          <br></br>
+          <CPagination
+            className="justify-content-end"
+            aria-label="Page navigation example"
+            style={{ marginRight: 20 }}
+          >
+            <a
+              onClick={() => {
+                if (PreviewsPage != 0) setCurrentPage(PreviewsPage)
+              }}
+            >
+              <CPaginationItem
+                aria-label="Previous"
+                disabled
+                style={{ marginleft: 300, backgroundcolor: 'red' }}
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </CPaginationItem>
+            </a>
+            {pageNumbers.map((number) => (
+              <a key={number} onClick={() => paginate(number)}>
+                <CPaginationItem>{number}</CPaginationItem>
+              </a>
+            ))}
+            <a
+              onClick={() => {
+                setCurrentPage(NextPage)
+              }}
+            >
+              <CPaginationItem aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </CPaginationItem>
+            </a>
+          </CPagination>
+        </div>
+      </CCard>
     </>
   )
 }
-export default listeUtilisateurs
+export default Listeattente

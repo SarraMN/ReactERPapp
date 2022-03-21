@@ -20,12 +20,12 @@ const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 const Register = React.lazy(() => import('./views/pages/register/Register'))
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
+const ForgetPassword = React.lazy(() => import('./views/pages/forgetpassword/ForgetPassword'))
+const UserProfile = React.lazy(() => import('./views/GestionUtilisateurs/userProfile'))
+const Reinitialiser_mdp = React.lazy(() =>
+  import('./views/pages/Reinitialiser_mdp/Reinitialiser_mdp'),
+)
 
-/* Login.propTypes = {
-  loading: PropTypes.any,
-  error: PropTypes.any,
-  props: PropTypes.any,
-} */
 class App extends Component {
   render() {
     return (
@@ -33,9 +33,18 @@ class App extends Component {
         <Suspense fallback={loading}>
           <Routes>
             <Route exact path="/" name="Login Page" element={<Login />} />
-            <Route exact path="/Inscription" name="Register Page" element={<Register />} />
+            <Route exact path="/register" name="Register Page" element={<Register />} />
             <Route exact path="/404" name="Page 404" element={<Page404 />} />
             <Route exact path="/500" name="Page 500" element={<Page500 />} />
+            <Route exact path="/ForgetPassword" name="Page 500" element={<ForgetPassword />} />
+            {/*             <Route exact path="/userProfile" name="UserProfile" element={<UserProfile />} />
+             */}{' '}
+            <Route
+              exact
+              path="/Reinitialiser_mdp"
+              name="Page 500"
+              element={<Reinitialiser_mdp />}
+            />
             <Route path="*" name="Home" element={<DefaultLayout />} />
           </Routes>
         </Suspense>

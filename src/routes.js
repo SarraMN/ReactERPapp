@@ -55,6 +55,9 @@ const listeFormation = React.lazy(() => import('./views/GestionFormation/listeFo
 
 //utilisateurs
 const listeUtilisateurs = React.lazy(() => import('./views/GestionUtilisateurs/listeUtilisateurs'))
+const listeAttente = React.lazy(() => import('./views/GestionUtilisateurs/listeAttente'))
+const userProfile = React.lazy(() => import('./views/GestionUtilisateurs/userProfile'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -106,6 +109,12 @@ const routes = [
     element: listeUtilisateurs,
   },
   { path: '/GestionFormation/listeFormation', name: 'Fomations', element: listeFormation },
+  { path: '/GestionUtilisateurs/listeAttente', name: 'listeAttente', element: listeAttente },
+  {
+    path: '/GestionUtilisateurs/listeUtilisateurs/userProfile',
+    name: 'userProfile',
+    element: userProfile,
+  },
 ]
 
 export default routes

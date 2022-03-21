@@ -26,16 +26,7 @@ const _nav = [
       text: 'NEW',
     },
   },
-  {
-    component: CNavTitle,
-    name: 'Formation',
-  },
-  // {
-  //   component: CNavItem,
-  //   name: 'Colors',
-  //   to: '/theme/colors',
-  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  // },
+
   {
     component: CNavItem,
     name: 'Gestion Formation',

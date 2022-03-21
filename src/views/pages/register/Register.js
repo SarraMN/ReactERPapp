@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { UserIns } from 'src/services/UserService'
 import { connect } from 'react-redux'
 import React, { useState } from 'react'
@@ -7,14 +6,26 @@ import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import Swal from 'sweetalert2'
 import PropTypes from 'prop-types'
+import 'src/views/pages/register/register.css'
+import { useNavigate } from 'react-router-dom'
 
-const Register = ({ loading, error, ...props }) => {
-  function Notification_succes() {
+const Register = (props) => {
+  let navigate = useNavigate()
+
+  function Notification_succes(evt) {
     Swal.fire(
       'La demande d’inscription a été effectuée avec succès.',
       'You clicked the button!',
       'success',
     )
+    navigate('/')
+  }
+  function Notification_problemedesaisie(err) {
+    Swal.fire({
+      icon: 'error',
+      title: 'probleme de saisir',
+      text: err,
+    })
   }
   function Vider_champs(evt) {
     evt.adresse = ''
@@ -43,7 +54,13 @@ const Register = ({ loading, error, ...props }) => {
     Genre: '',
     roles: '',
   })
-
+  function Notification_probleme() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Probleme !',
+      text: 'Quelque chose ne va pas ! Veuillez réessayer',
+    })
+  }
   const handleSubmit = (evt) => {
     values.adressse = evt.adresse
     values.nom = evt.nom
@@ -56,15 +73,19 @@ const Register = ({ loading, error, ...props }) => {
     values.userName = evt.nom
     values.roles = evt.roles
     values.password = evt.password
-    evt.preventDefault()
-    props.authenticate()
+    //  evt.preventDefault()
+    // props.authenticate()
+    console.log(values)
     UserIns(values)
       .then((response) => {
         if (response.status === 200) {
-          props.setUser(response.data)
-          props.history.push('/')
+          Notification_succes(evt)
+
+          // props.setUser(response.data)
+          //  props.history.push('/')
         } else {
-          props.loginFailure('Something Wrong!Please Try Again')
+          //  props.loginFailure('Something Wrong!Please Try Again')
+          Notification_probleme()
         }
       })
       .catch((err) => {
@@ -72,18 +93,24 @@ const Register = ({ loading, error, ...props }) => {
           switch (err.response.status) {
             case 401:
               console.log('401 status')
-              props.loginFailure('Authentication Failed.Bad Credentials')
+              //props.loginFailure('Authentication Failed.Bad Credentials')
+              Notification_probleme()
               break
+            case 400:
+              Notification_problemedesaisie(err.response.data)
+              //props.loginFailure('Authentication Failed.Bad Credentials')
+              // Notification_probleme()
+              break
+
             default:
-              props.loginFailure('Something Wrong!Please Try Again')
+              // props.loginFailure('Something Wrong!Please Try Again')
+              Notification_probleme()
           }
         } else {
-          props.loginFailure('Something Wrong!Please Try Again')
+          // props.loginFailure('Something Wrong!Please Try Again')
+          Notification_probleme()
         }
       })
-
-    Notification_succes()
-    Vider_champs(evt)
   }
 
   const handleChange = (e) => {
@@ -131,7 +158,7 @@ const Register = ({ loading, error, ...props }) => {
       })}
       onSubmit={(values) => handleSubmit(values)}
       render={({ errors, status, touched }) => (
-        <div className="page-content3">
+        <div className="page-content3 bg-light">
           <div className="page-content">
             <div className="form-v10-content">
               <Form className="form-detail">
@@ -300,8 +327,8 @@ const Register = ({ loading, error, ...props }) => {
                         }
                       >
                         <option value="" disabled selected hidden></option>
-                        <option value="User_Condidat">Candidat</option>
-                        <option value="User_Profeser">Formateur</option>
+                        <option value="User_Candidat">Candidat</option>
+                        <option value="User_Professer">Formateur</option>
                       </Field>
                       <span className="select-btn">
                         <i className="zmdi zmdi-chevron-down"></i>

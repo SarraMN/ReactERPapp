@@ -1,22 +1,58 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
-import { authenticate, authFailure, authSuccess } from 'src/redux/authActions'
 import { Link } from 'react-router-dom'
-import { userLogin } from 'src/services/UserService'
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardGroup,
+  CCardImage,
+  CCol,
+  CContainer,
+  CInputGroup,
+  CInputGroupText,
+  CRow,
+} from '@coreui/react'
+import { userLogin, fetchUserData } from 'src/services/UserService'
+import 'src/views/pages/login/login.css'
+import ReactImg from 'src/assets/images/logo1.png'
 import { useState } from 'react'
-import { connect, ErrorMessage, Field, Form, Formik } from 'formik'
+import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import PropTypes from 'prop-types'
+import CIcon from '@coreui/icons-react'
+import { cilLockLocked, cilUser } from '@coreui/icons'
+import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
-const Login = ({ loading, error, ...props }) => {
-  console.log('response', props)
+const Login = (props) => {
+  function Notification_userinvalide() {
+    Swal.fire({
+      icon: 'error',
+      title: 'utilisateur invalide',
+      text: 'essayer de saisir un username et mot de passe valides',
+    })
+  }
+  function Notification_comptenonactive() {
+    Swal.fire({
+      icon: 'error',
+      title: 'compte non activé',
+      text: 'vous allez recevoir un mail de activation lors de la activation de votre compte par le administrateur ',
+    })
+  }
 
+  function Notification_probleme() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Probleme !',
+      text: 'Quelque chose ne va pas ! Veuillez réessayer',
+    })
+  }
   const [values, setValues] = useState({
     userName: '',
     password: '',
   })
+  let navigate = useNavigate()
 
-  const handleSubmit = (evt) => {
+  function handleSubmit(evt) {
     console.log('coy')
 
     values.password = evt.password
@@ -27,16 +63,26 @@ const Login = ({ loading, error, ...props }) => {
     //     evt.preventDefault();
     console.log(values.password)
     console.log(values.userName)
-
-    props.authenticate()
+    //props.authenticate()
 
     userLogin(values)
       .then((response) => {
         if (response.status === 200) {
-          props.setUser(response.data)
-          props.history.push('/Accueil')
+          console.log('cou', response)
+          localStorage.setItem('USER_KEY', response.data.token)
+
+          fetchUserData()
+            .then((response) => {
+              localStorage.setItem('Role', response.data.roles[0].authority)
+            })
+            .catch((e) => {
+              // localStorage.clear()
+            })
+
+          console.log(response.data)
+          navigate('/*')
         } else {
-          props.loginFailure('Something Wrong!Please Try Again')
+          Notification_userinvalide()
         }
       })
       .catch((err) => {
@@ -44,26 +90,21 @@ const Login = ({ loading, error, ...props }) => {
           switch (err.response.status) {
             case 401:
               console.log('401 status')
-              props.loginFailure('Authentication Failed.Bad Credentials')
+              Notification_userinvalide()
+              break
+            case 400:
+              console.log('400 status')
+              Notification_comptenonactive()
               break
             default:
-              props.loginFailure('Something Wrong!Please Try Again')
+              Notification_probleme()
           }
         } else {
-          props.loginFailure('Something Wrong!Please Try Again')
+          //    props.loginFailure('Something Wrong!Please Try Again')
+          Notification_probleme()
         }
       })
   }
-
-  const handleChange = (e) => {
-    e.persist()
-    setValues((values) => ({
-      ...values,
-      [e.target.name]: e.target.value,
-    }))
-  }
-
-  console.log('Loading ', loading)
   return (
     <Formik
       initialValues={{
@@ -76,44 +117,25 @@ const Login = ({ loading, error, ...props }) => {
       })}
       onSubmit={(values) => handleSubmit(values)}
       render={({ errors, status, touched }) => (
-        <div className="page-content2">
-          <section className="ftco-section">
-            <div className="container">
-              <div className="row justify-content-center">
-                <div className="col-md-12 col-lg-10">
-                  <div className="wrap d-md-flex">
-                    <div
-                      className="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last"
-                      style={{ 'border-top-right-radius': 10, 'border-bottom-right-radius': 10 }}
-                    >
-                      <div className="text w-100">
-                        <h2>Bienvenue</h2>
-                        <br></br>
-                        <p>Vous ne aavez pas un compte?</p>
-                        <br></br>
-
-                        <button
-                          className="btn btn-white btn-outline-white"
-                          onClick={() => {
-                            History.push('/Inscription')
-                          }}
-                        >
-                          Inscripion
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      className="login-wrap p-4 p-lg-5"
-                      style={{ 'border-top-left-radius': 10, 'border-bottom-left-radius': 10 }}
-                    >
-                      <div className="d-flex">
-                        <div className="w-100">
-                          <h2>Connexion </h2>
-                        </div>
-                      </div>
-                      <Form className="signin-form">
-                        <div className="form-group mb-3">
-                          <label className="label">User-Name</label>
+        <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+          <CContainer style={{ 'border-radius': 90 }}>
+            <CRow className="justify-content-center" style={{ 'border-radius': 90 }}>
+              <CCol md={8}>
+                <CCardGroup>
+                  <CCard className="p-4">
+                    <CCardBody>
+                      <Form>
+                        <h1>Connexion</h1>
+                        <p className="text-medium-emphasis">Connectez-vous à votre compte</p>
+                        <CInputGroup className="mb-3">
+                          <CInputGroupText
+                            style={{
+                              'border-top-left-radius': 30,
+                              'border-bottom-left-radius': 30,
+                            }}
+                          >
+                            <CIcon icon={cilUser} />
+                          </CInputGroupText>
 
                           <Field
                             type="text"
@@ -124,6 +146,10 @@ const Login = ({ loading, error, ...props }) => {
                               (errors.username && touched.username ? ' is-invalid' : '')
                             }
                             placeholder="username"
+                            style={{
+                              'border-top-right-radius': 30,
+                              'border-bottom-right-radius': 30,
+                            }}
                           />
                           <ErrorMessage
                             style={{ fontSize: 12, color: 'red' }}
@@ -131,14 +157,16 @@ const Login = ({ loading, error, ...props }) => {
                             component="div"
                             className="invalid-feedback"
                           />
-
-                          {/*        <input id="username" type="text" className="form-control"  value={values.userName} onChange={handleChange} name="userName" required />
-                           */}
-                        </div>
-                        <div className="form-group mb-3">
-                          <label className="label">Mot de passe</label>
-                          {/*    <input id="password" type="password" className="form-control"  value={values.password} onChange={handleChange} name="password" required/>
-                           */}
+                        </CInputGroup>
+                        <CInputGroup className="mb-4">
+                          <CInputGroupText
+                            style={{
+                              'border-top-left-radius': 30,
+                              'border-bottom-left-radius': 30,
+                            }}
+                          >
+                            <CIcon icon={cilLockLocked} />
+                          </CInputGroupText>
                           <Field
                             type="text"
                             id="password"
@@ -148,6 +176,10 @@ const Login = ({ loading, error, ...props }) => {
                               (errors.password && touched.password ? ' is-invalid' : '')
                             }
                             placeholder="Password"
+                            style={{
+                              'border-top-right-radius': 30,
+                              'border-bottom-right-radius': 30,
+                            }}
                           />
                           <ErrorMessage
                             style={{ fontSize: 12, color: 'red' }}
@@ -155,67 +187,71 @@ const Login = ({ loading, error, ...props }) => {
                             component="div"
                             className="invalid-feedback"
                           />
-                        </div>
-
-                        <div className="form-group">
-                          {/*   <button type="submit" className="form-control btn btn-primary submit px-3">Connecter
-                {loading && (
-                                        <Spinner
-                                        as="span"
-                                        animation="border"
-                                        size="sm"
-                                        role="status"
-                                        aria-hidden="true"
-                                      />
-                                    )}
-                </button> */}
-                          <input
-                            type="submit"
-                            name="register"
-                            className="form-control btn btn-primary submit px-3"
-                            value="Connecter"
-                          />
-                        </div>
-                        <div className="form-group d-md-flex">
-                          <div className="w-100 text-md-center">
-                            <p
-                              className="btn-mot"
-                              onClick={() => {
-                                History.push('/ForgetPassword')
-                              }}
-                            >
-                              {' '}
-                              Mot de passe oublié
-                            </p>
-                          </div>
-                        </div>
+                        </CInputGroup>
+                        <CRow>
+                          <CCol xs={12}>
+                            <input
+                              type="submit"
+                              name="register"
+                              className="form-control text-center mt-3  btn btn-primary submit px-3"
+                              value="Connecter"
+                              style={{ 'border-radius': 30, width: 300, marginleft: 130 }}
+                            />
+                          </CCol>
+                          <br></br>
+                          <CCol xs={12} className="text-right text-center">
+                            <Link to="/ForgetPassword">
+                              <CButton
+                                color="link"
+                                className="px-0  btn-mot"
+                                style={{ color: 'black' }}
+                              >
+                                mot de passe oublié ?{' '}
+                              </CButton>
+                            </Link>
+                          </CCol>
+                        </CRow>
                       </Form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+                    </CCardBody>
+                  </CCard>
+                  <CCard
+                    className="text-white bg-primary py-5"
+                    style={{ width: '44%', paddingTop: 130, margintop: 100 }}
+                  >
+                    <CCardBody className="text-center">
+                      <div>
+                        <CCardImage src={ReactImg} alt="W3C" width="100" height="170"></CCardImage>
+                        <p
+                          style={{
+                            color: 'black',
+                            margintop: '150',
+                            fontWeight: '500',
+                            fontSize: '17px',
+                          }}
+                        >
+                          {' '}
+                          Vous ne avez pas un compte
+                        </p>
+                        <Link to="/register">
+                          <CButton
+                            className="mt-3 btn btn-white btn-outline-white"
+                            active
+                            tabIndex={-1}
+                            style={{ 'border-radius': 30, width: 200 }}
+                          >
+                            Inscription
+                          </CButton>
+                        </Link>
+                      </div>
+                    </CCardBody>
+                  </CCard>
+                </CCardGroup>
+              </CCol>
+            </CRow>
+          </CContainer>
         </div>
       )}
     />
   )
 }
-
-/* const mapStateToProps = ({ auth }) => {
-  console.log('state ', auth)
-  return {
-    loading: auth.loading,
-    error: auth.error,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    authenticate: () => dispatch(authenticate()),
-    setUser: (data) => dispatch(authSuccess(data)),
-    loginFailure: (message) => dispatch(authFailure(message)),
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Login) */
 export default Login
