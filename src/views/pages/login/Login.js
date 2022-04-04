@@ -68,9 +68,7 @@ const Login = (props) => {
     userLogin(values)
       .then((response) => {
         if (response.status === 200) {
-          console.log('cou', response)
           localStorage.setItem('USER_KEY', response.data.token)
-
           fetchUserData()
             .then((response) => {
               localStorage.setItem('Role', response.data.roles[0].authority)

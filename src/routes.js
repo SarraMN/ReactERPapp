@@ -57,6 +57,12 @@ const listeFormation = React.lazy(() => import('./views/GestionFormation/listeFo
 const listeUtilisateurs = React.lazy(() => import('./views/GestionUtilisateurs/listeUtilisateurs'))
 const listeAttente = React.lazy(() => import('./views/GestionUtilisateurs/listeAttente'))
 const userProfile = React.lazy(() => import('./views/GestionUtilisateurs/userProfile'))
+const responsables = React.lazy(() => import('./views/GestionUtilisateurs/Responsables'))
+const responsable = React.lazy(() => import('./views/GestionUtilisateurs/responsable'))
+const ajoutresponsable = React.lazy(() => import('./views/GestionUtilisateurs/Ajoutresponsable'))
+const compte = React.lazy(() => import('./views/GestionCompte/gestioncompte'))
+const formations = React.lazy(() => import('./views/Consulter_formation/formations'))
+const cours = React.lazy(() => import('./views/Consulter_formation/cours'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -114,6 +120,36 @@ const routes = [
     path: '/GestionUtilisateurs/listeUtilisateurs/userProfile',
     name: 'userProfile',
     element: userProfile,
+  },
+  {
+    path: '/GestionUtilisateurs/Responsables/ajoutresponsable',
+    name: 'Ajout de un responsable',
+    element: ajoutresponsable,
+  },
+  {
+    path: '/GestionUtilisateurs/Responsables',
+    name: 'responsables',
+    element: responsables,
+  },
+  {
+    path: '/GestionUtilisateurs/Responsables/responsable',
+    name: 'responsable',
+    element: responsable,
+  },
+  {
+    path: '/GestionCompte/gestioncompte',
+    name: 'Mon Compte',
+    element: compte,
+  },
+  {
+    path: '/Consulter_formation/formations',
+    name: 'Les Formations',
+    element: formations,
+  },
+  {
+    path: '/Consulter_formation/formations/cours',
+    name: 'Les cours',
+    element: cours,
   },
 ]
 

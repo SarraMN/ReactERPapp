@@ -17,11 +17,19 @@ import ReactImg from 'src/assets/images/logo3.png'
 import navigation from '../_nav'
 import _nav_admin from '../_nav_admin'
 import { cilSpeedometer, cilMenu } from '@coreui/icons'
+import _nav_formateur from 'src/_nav_formateur'
+import _nav from '../_nav'
 
 let app = navigation
 const role = localStorage.getItem('Role')
 if (role == 'Admin') {
   app = _nav_admin
+}
+if (role == 'User_Candidat') {
+  app = _nav
+}
+if (role == 'User_Professer') {
+  app = _nav_formateur
 }
 const AppSidebar = () => {
   const dispatch = useDispatch()

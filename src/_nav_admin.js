@@ -38,12 +38,12 @@ const _nav_admin = [
     items: [
       {
         component: CNavItem,
-        name: 'liste Attente',
-        to: '/GestionUtilisateurs/listeAttente',
+        name: 'Les responsables',
+        to: '/GestionUtilisateurs/responsables',
       },
       {
         component: CNavItem,
-        name: 'liste utilisateurs',
+        name: 'liste Candidats',
         to: '/GestionUtilisateurs/listeUtilisateurs',
       },
     ],

@@ -21,6 +21,7 @@ const Register = (props) => {
     navigate('/')
   }
   function Notification_problemedesaisie(err) {
+    console.log(err)
     Swal.fire({
       icon: 'error',
       title: 'probleme de saisir',
@@ -70,8 +71,8 @@ const Register = (props) => {
     values.etat_civil = evt.etat_civil
     values.numero_de_telephone = evt.numero_de_telephone
     values.date_de_naissance = evt.date_de_naissance
-    values.userName = evt.nom
-    values.roles = evt.roles
+    values.userName = evt.UserName
+    values.roles = 'User_Candidat'
     values.password = evt.password
     //  evt.preventDefault()
     // props.authenticate()
@@ -101,7 +102,12 @@ const Register = (props) => {
               //props.loginFailure('Authentication Failed.Bad Credentials')
               // Notification_probleme()
               break
-
+            case 500:
+              console.log(err)
+              Notification_problemedesaisie(err.response.data)
+              //props.loginFailure('Authentication Failed.Bad Credentials')
+              // Notification_probleme()
+              break
             default:
               // props.loginFailure('Something Wrong!Please Try Again')
               Notification_probleme()
@@ -131,8 +137,9 @@ const Register = (props) => {
         nom: '',
         numero_de_telephone: '',
         adresse: '',
-        roles: '',
+        UserName: '',
         etat_civil: '',
+        genre: '',
       }}
       validationSchema={Yup.object().shape({
         date_de_naissance: Yup.string().required('date_de_naissance est invalide'),
@@ -154,7 +161,7 @@ const Register = (props) => {
           .required('Adresse est requis')
           .min(6, 'adresse doit être au moins de 6 caractères'),
         etat_civil: Yup.string().required('Etat civil est requis'),
-        roles: Yup.string().required('Role est requis'),
+        UserName: Yup.string().required('UserName est requis'),
       })}
       onSubmit={(values) => handleSubmit(values)}
       render={({ errors, status, touched }) => (
@@ -245,7 +252,7 @@ const Register = (props) => {
                               type="radio"
                               checked="checked"
                               name="genre"
-                              value={(values.genre = 'Homme')}
+                              value={(values.Genre = 'Homme')}
                               onChange={handleChange}
                             />
                             <span className="checkmark"></span>
@@ -255,7 +262,7 @@ const Register = (props) => {
                             <input
                               type="radio"
                               name="genre"
-                              value={(values.genre = 'Femme')}
+                              value={(values.Genre = 'Femme')}
                               onChange={handleChange}
                             />
                             <span className="checkmark"></span>
@@ -313,33 +320,22 @@ const Register = (props) => {
                   <br></br>
                   <br></br>
 
-                  <div className="form-group">
-                    <div className="form-row form-row-1">
-                      <div className="label3"> Vous etes un : </div>
-                    </div>
-                    <div className="form-row form-row-2">
-                      <Field
-                        name="roles"
-                        component="select"
-                        style={{ 'border-radius': 0 }}
-                        classNameName={
-                          ' form-control' + (errors.roles && touched.roles ? ' is-invalid' : '')
-                        }
-                      >
-                        <option value="" disabled selected hidden></option>
-                        <option value="User_Candidat">Candidat</option>
-                        <option value="User_Professer">Formateur</option>
-                      </Field>
-                      <span className="select-btn">
-                        <i className="zmdi zmdi-chevron-down"></i>
-                      </span>
-                      <ErrorMessage
-                        style={{ fontSize: 12, color: 'red' }}
-                        name="roles"
-                        component="div"
-                        classNameName="invalid-feedback"
-                      />
-                    </div>
+                  <div className="form-row form-row">
+                    <Field
+                      type="text"
+                      name="UserName"
+                      style={{ 'border-radius': 0 }}
+                      classNameName={
+                        ' form-control' + (errors.UserName && touched.UserName ? ' is-invalid' : '')
+                      }
+                      placeholder="UserName"
+                    />
+                    <ErrorMessage
+                      style={{ fontSize: 12, color: 'red' }}
+                      name="UserName"
+                      component="div"
+                      classNameName="invalid-feedback"
+                    />
                   </div>
 
                   <div className="form-row">

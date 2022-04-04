@@ -1,7 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import 'src/views/GestionUtilisateurs/userProfile.css'
+import { useLocation } from 'react-router-dom'
 
-const userProfile = () => {
+const UserProfile = () => {
+  let userId = useLocation()
+  console.log('amaaan', userId)
+  const [values] = useState({
+    userName: userId.state.utilisateur.userName,
+    password: userId.state.utilisateur.password,
+    nom: userId.state.utilisateur.nom,
+    prenom: userId.state.utilisateur.prenom,
+    date_de_naissance: userId.state.utilisateur.date_de_naissance,
+    numero_de_telephone: userId.state.utilisateur.numero_de_telephone,
+    adresse: userId.state.utilisateur.adresse,
+    etat_civil: userId.state.utilisateur.etat_civil,
+    email: userId.state.utilisateur.email,
+    genre: userId.state.utilisateur.genre,
+    authority: userId.state.utilisateur.authority,
+    id: userId.state.utilisateur.id,
+    date_creation: userId.state.utilisateur.createdAt,
+    date_derniere_conn: userId.state.utilisateur.lastLogin,
+  })
   return (
     <div className="container rounded bg-white mt-5 mb-5">
       <div className="row">
@@ -12,8 +31,8 @@ const userProfile = () => {
               width="150px"
               src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
             />
-            <span className="font-weight-bold">user name</span>
-            <span className="text-black-50">edogaru@mail.com.my</span>
+            <span className="font-weight-bold">{values.userName}</span>
+            <span className="text-black-50">{values.email}</span>
             <span> </span>
           </div>
         </div>
@@ -100,7 +119,7 @@ const userProfile = () => {
                       >
                         Nom :
                       </label>
-                      <span> Amdouni</span>
+                      <span> {values.nom}</span>
                       {/*                       <input type="text" className="form-control" placeholder="Amdouni" value="" />
                        */}{' '}
                     </div>
@@ -111,7 +130,31 @@ const userProfile = () => {
                       >
                         Prenom :
                       </label>
-                      <span> sirine</span>
+                      <span> {values.prenom}</span>
+                      {/*                       <input type="text" className="form-control" value="" placeholder="Prenom" />
+                       */}{' '}
+                    </div>
+                  </div>
+                  <div className="row mt-2">
+                    <div className="col-md-6" style={{ paddingtop: 50 }}>
+                      <label
+                        className="labels"
+                        style={{ 'font-size': '17px', 'font-weight': 'bold' }}
+                      >
+                        Date de naissance :
+                      </label>
+                      <span> {values.date_de_naissance}</span>
+                      {/*                       <input type="text" className="form-control" placeholder="Amdouni" value="" />
+                       */}{' '}
+                    </div>
+                    <div className="col-md-6">
+                      <label
+                        className="labels"
+                        style={{ 'font-size': '17px', 'font-weight': 'bold' }}
+                      >
+                        Adresse :
+                      </label>
+                      <span> {values.adresse}</span>
                       {/*                       <input type="text" className="form-control" value="" placeholder="Prenom" />
                        */}{' '}
                     </div>
@@ -124,7 +167,7 @@ const userProfile = () => {
                       >
                         Numero de telephone :
                       </label>
-                      <span> 22929388</span>
+                      <span> {values.numero_de_telephone}</span>
                       {/*                       <input type="text" className="form-control" placeholder="Amdouni" value="" />
                        */}{' '}
                     </div>
@@ -133,9 +176,9 @@ const userProfile = () => {
                         className="labels"
                         style={{ 'font-size': '17px', 'font-weight': 'bold' }}
                       >
-                        Adresse :
+                        E-mail :
                       </label>
-                      <span> Manouba,mornaguia</span>
+                      <span>{values.email}</span>
                       {/*                       <input type="text" className="form-control" value="" placeholder="Prenom" />
                        */}{' '}
                     </div>
@@ -148,7 +191,7 @@ const userProfile = () => {
                       >
                         Genre :
                       </label>
-                      <span> Femme</span>
+                      <span>{values.genre}</span>
                       {/*                       <input type="text" className="form-control" placeholder="Amdouni" value="" />
                        */}{' '}
                     </div>
@@ -159,7 +202,7 @@ const userProfile = () => {
                       >
                         Etat civil :
                       </label>
-                      <span>Celibataire</span>
+                      <span>{values.etat_civil}</span>
                       {/*                       <input type="text" className="form-control" value="" placeholder="Prenom" />
                        */}{' '}
                     </div>
@@ -172,7 +215,7 @@ const userProfile = () => {
                       >
                         Date de creation :
                       </label>
-                      <span> 12/05/2021</span>
+                      <span>{values.date_creation}</span>
                       {/*                       <input type="text" className="form-control" placeholder="Amdouni" value="" />
                        */}{' '}
                     </div>
@@ -183,7 +226,7 @@ const userProfile = () => {
                       >
                         Date de derniere connexion :
                       </label>
-                      <span>26/01/2022</span>
+                      <span>{values.date_derniere_conn}</span>
                       {/*                       <input type="text" className="form-control" value="" placeholder="Prenom" />
                        */}{' '}
                     </div>
@@ -215,4 +258,4 @@ const userProfile = () => {
     </div>
   )
 }
-export default userProfile
+export default UserProfile

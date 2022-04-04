@@ -44,3 +44,21 @@ export const update_motdepasseoublie = (authRequest) => {
     data: authRequest,
   })
 }
+
+export const VerifPassword = (authRequest) => {
+  console.log(authRequest)
+  return axios({
+    method: 'Post',
+    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/users/verifPassword`,
+    data: authRequest,
+  })
+}
+
+export const updateuser = (authRequest) => {
+  console.log(authRequest)
+  return axios({
+    method: 'Put',
+    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/users/updateUser/` + authRequest.id,
+    data: authRequest,
+  })
+}

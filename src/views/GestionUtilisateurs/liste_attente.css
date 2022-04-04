@@ -288,6 +288,21 @@
     margin-bottom: 10px;
   }
 }
+#searchbar {
+  border-radius: 10px;
+}
+
+/* When the input field gets focus,
+     change its width to 100% */
+
+#list {
+  font-size: 1.5em;
+  margin-left: 90px;
+}
+
+.animals {
+  display: list-item;
+}
 .rs-select2--light .select2-container--default .select2-selection--single {
   border: none;
   outline: none;
