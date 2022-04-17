@@ -37,7 +37,13 @@ const _nav = [
     component: CNavItem,
     name: 'Les Formations',
     to: '/Consulter_formation/formations',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Mes Formations',
+    to: '/Mes_formations/Mes_formations',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
 ]
 

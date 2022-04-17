@@ -1,121 +1,61 @@
 import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
-const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
-const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
-
-// Base
-const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
-const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
-const Cards = React.lazy(() => import('./views/base/cards/Cards'))
-const Carousels = React.lazy(() => import('./views/base/carousels/Carousels'))
-const Collapses = React.lazy(() => import('./views/base/collapses/Collapses'))
-const ListGroups = React.lazy(() => import('./views/base/list-groups/ListGroups'))
-const Navs = React.lazy(() => import('./views/base/navs/Navs'))
-const Paginations = React.lazy(() => import('./views/base/paginations/Paginations'))
-const Placeholders = React.lazy(() => import('./views/base/placeholders/Placeholders'))
-const Popovers = React.lazy(() => import('./views/base/popovers/Popovers'))
-const Progress = React.lazy(() => import('./views/base/progress/Progress'))
-const Spinners = React.lazy(() => import('./views/base/spinners/Spinners'))
-const Tables = React.lazy(() => import('./views/base/tables/Tables'))
-const Tooltips = React.lazy(() => import('./views/base/tooltips/Tooltips'))
-
-// Buttons
-const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
-const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'))
-const Dropdowns = React.lazy(() => import('./views/buttons/dropdowns/Dropdowns'))
-
-//Forms
-const ChecksRadios = React.lazy(() => import('./views/forms/checks-radios/ChecksRadios'))
-const FloatingLabels = React.lazy(() => import('./views/forms/floating-labels/FloatingLabels'))
-const FormControl = React.lazy(() => import('./views/forms/form-control/FormControl'))
-const InputGroup = React.lazy(() => import('./views/forms/input-group/InputGroup'))
-const Layout = React.lazy(() => import('./views/forms/layout/Layout'))
-const Range = React.lazy(() => import('./views/forms/range/Range'))
-const Select = React.lazy(() => import('./views/forms/select/Select'))
-const Validation = React.lazy(() => import('./views/forms/validation/Validation'))
-
-const Charts = React.lazy(() => import('./views/charts/Charts'))
-
-// Icons
-const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'))
-const Flags = React.lazy(() => import('./views/icons/flags/Flags'))
-const Brands = React.lazy(() => import('./views/icons/brands/Brands'))
-
-// Notifications
-const Alerts = React.lazy(() => import('./views/notifications/alerts/Alerts'))
-const Badges = React.lazy(() => import('./views/notifications/badges/Badges'))
-const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
-const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
-
-const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
-
-//Formation
-const listeFormation = React.lazy(() => import('./views/GestionFormation/listeFormation'))
 
 //utilisateurs
 const listeUtilisateurs = React.lazy(() => import('./views/GestionUtilisateurs/listeUtilisateurs'))
-const listeAttente = React.lazy(() => import('./views/GestionUtilisateurs/listeAttente'))
 const userProfile = React.lazy(() => import('./views/GestionUtilisateurs/userProfile'))
 const responsables = React.lazy(() => import('./views/GestionUtilisateurs/Responsables'))
 const responsable = React.lazy(() => import('./views/GestionUtilisateurs/responsable'))
 const ajoutresponsable = React.lazy(() => import('./views/GestionUtilisateurs/Ajoutresponsable'))
 const compte = React.lazy(() => import('./views/GestionCompte/gestioncompte'))
 const formations = React.lazy(() => import('./views/Consulter_formation/formations'))
-const cours = React.lazy(() => import('./views/Consulter_formation/cours'))
-
+const tousFormations = React.lazy(() => import('./views/Consulter_formation/tousFormations'))
+const historique = React.lazy(() =>
+  import('./views/gestion_demandes/historiques_demandes_formations'),
+)
+const demandes_formation = React.lazy(() =>
+  import('./views/gestion_demandes/demandes_inscription_formation'),
+)
+const demandes_examen = React.lazy(() =>
+  import('./views/gestion_demandes/demandes_inscriptions_examens'),
+)
+//Formation
+const ajouterFormation = React.lazy(() => import('./views/GestionFormation/AjouterFormation'))
+const listeFormation = React.lazy(() => import('./views/GestionFormation/listeFormation'))
+const formationsByCategorie = React.lazy(() =>
+  import('./views/Consulter_formation/formationsByCategorie'),
+)
+const Info = React.lazy(() => import('./views/Consulter_formation/formationInfo'))
+//Cours
+const ListeCours = React.lazy(() => import('./views/GestionCours/listeCours'))
+const Mes_formations = React.lazy(() => import('./views/Mes_formations/Mes_formations'))
+const Ajout_organisme = React.lazy(() =>
+  import('./views/gestion_organismes_conventionnes/Ajout_organisme_conventionne'),
+)
+const modifier_organisme = React.lazy(() =>
+  import('./views/gestion_organismes_conventionnes/updateOrganisme'),
+)
+const organismes_conventionnes = React.lazy(() =>
+  import('./views/gestion_organismes_conventionnes/organismes_conventionnes'),
+)
+const Profile_organisme = React.lazy(() =>
+  import('./views/gestion_organismes_conventionnes/organisme_conventionne'),
+)
+const pdf = React.lazy(() => import('./views/GestionCours/pdf'))
+const gestion_examen = React.lazy(() => import('./views/gestion_examen/gestion_examen'))
+const test = React.lazy(() => import('./views/gestion_examen/test'))
+const Ajoutxamen = React.lazy(() => import('./views/gestion_examen/AjoutExamen'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/theme', name: 'Theme', element: Colors, exact: true },
-  { path: '/theme/colors', name: 'Colors', element: Colors },
-  { path: '/theme/typography', name: 'Typography', element: Typography },
-  { path: '/base', name: 'Base', element: Cards, exact: true },
-  { path: '/base/accordion', name: 'Accordion', element: Accordion },
-  { path: '/base/breadcrumbs', name: 'Breadcrumbs', element: Breadcrumbs },
-  { path: '/base/cards', name: 'Cards', element: Cards },
-  { path: '/base/carousels', name: 'Carousel', element: Carousels },
-  { path: '/base/collapses', name: 'Collapse', element: Collapses },
-  { path: '/base/list-groups', name: 'List Groups', element: ListGroups },
-  { path: '/base/navs', name: 'Navs', element: Navs },
-  { path: '/base/paginations', name: 'Paginations', element: Paginations },
-  { path: '/base/placeholders', name: 'Placeholders', element: Placeholders },
-  { path: '/base/popovers', name: 'Popovers', element: Popovers },
-  { path: '/base/progress', name: 'Progress', element: Progress },
-  { path: '/base/spinners', name: 'Spinners', element: Spinners },
-  { path: '/base/tables', name: 'Tables', element: Tables },
-  { path: '/base/tooltips', name: 'Tooltips', element: Tooltips },
-  { path: '/buttons', name: 'Buttons', element: Buttons, exact: true },
-  { path: '/buttons/buttons', name: 'Buttons', element: Buttons },
-  { path: '/buttons/dropdowns', name: 'Dropdowns', element: Dropdowns },
-  { path: '/buttons/button-groups', name: 'Button Groups', element: ButtonGroups },
-  { path: '/charts', name: 'Charts', element: Charts },
-  { path: '/forms', name: 'Forms', element: FormControl, exact: true },
-  { path: '/forms/form-control', name: 'Form Control', element: FormControl },
-  { path: '/forms/select', name: 'Select', element: Select },
-  { path: '/forms/checks-radios', name: 'Checks & Radios', element: ChecksRadios },
-  { path: '/forms/range', name: 'Range', element: Range },
-  { path: '/forms/input-group', name: 'Input Group', element: InputGroup },
-  { path: '/forms/floating-labels', name: 'Floating Labels', element: FloatingLabels },
-  { path: '/forms/layout', name: 'Layout', element: Layout },
-  { path: '/forms/validation', name: 'Validation', element: Validation },
-  { path: '/icons', exact: true, name: 'Icons', element: CoreUIIcons },
-  { path: '/icons/coreui-icons', name: 'CoreUI Icons', element: CoreUIIcons },
-  { path: '/icons/flags', name: 'Flags', element: Flags },
-  { path: '/icons/brands', name: 'Brands', element: Brands },
-  { path: '/notifications', name: 'Notifications', element: Alerts, exact: true },
-  { path: '/notifications/alerts', name: 'Alerts', element: Alerts },
-  { path: '/notifications/badges', name: 'Badges', element: Badges },
-  { path: '/notifications/modals', name: 'Modals', element: Modals },
-  { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
-  { path: '/widgets', name: 'Widgets', element: Widgets },
+
   {
     path: '/GestionUtilisateurs/listeUtilisateurs',
     name: 'Utilisateurs',
     element: listeUtilisateurs,
   },
   { path: '/GestionFormation/listeFormation', name: 'Fomations', element: listeFormation },
-  { path: '/GestionUtilisateurs/listeAttente', name: 'listeAttente', element: listeAttente },
   {
     path: '/GestionUtilisateurs/listeUtilisateurs/userProfile',
     name: 'userProfile',
@@ -147,9 +87,100 @@ const routes = [
     element: formations,
   },
   {
-    path: '/Consulter_formation/formations/cours',
-    name: 'Les cours',
-    element: cours,
+    path: '/Consulter_formation/formations/formationsByCategorie',
+    name: 'Formations',
+    element: formationsByCategorie,
+  },
+  {
+    path: '/Consulter_formation/formations/tousFormations',
+    name: 'Formations',
+    element: tousFormations,
+  },
+
+  {
+    path: '/gestion_demandes/demandes_inscription_formation',
+    name: 'Les Demandes',
+    element: demandes_formation,
+  },
+  {
+    path: '/gestion_demandes/demandes_inscriptions_examens',
+    name: 'Les Demandes',
+    element: demandes_examen,
+  },
+  {
+    path: '/gestion_demandes/demandes_inscription_formation/historiques_demandes_formations',
+    name: 'Les historiques',
+    element: historique,
+  },
+  {
+    path: '/GestionFormation/AjouterFormation',
+    name: 'Ajouter fomation',
+    element: ajouterFormation,
+  },
+  {
+    path: '/GestionFormation/listeFormation',
+    name: 'liste fomations',
+    element: listeFormation,
+  },
+  {
+    path: '/GestionUtilisateurs/listeUtilisateurs/userProfile',
+    name: 'userProfile',
+    element: userProfile,
+  },
+  {
+    path: '/Consulter_formation/formations/formationInfo',
+    name: 'Info',
+    element: Info,
+  },
+  {
+    path: '/GestionFormation/listeFormation/listeCours',
+    name: 'liste Cours',
+    element: ListeCours,
+  },
+  {
+    path: '/Mes_formations/Mes_formations',
+    name: 'Mes Formations',
+    element: Mes_formations,
+  },
+  {
+    path: '/gestion_organismes_conventionnes/organismes_conventionnes',
+    name: 'Les organismes onventionnés',
+    element: organismes_conventionnes,
+  },
+  {
+    path: '/gestion_organismes_conventionnes/organismes_conventionnes/Ajout_organisme_conventionne',
+    name: 'Ajout un organisme convensioné',
+    element: Ajout_organisme,
+  },
+  {
+    path: '/gestion_organismes_conventionnes/organismes_conventionnes/updateOrganisme',
+    name: 'Modifier un organisme convensioné',
+    element: modifier_organisme,
+  },
+  {
+    path: '/gestion_organismes_conventionnes/organismes_conventionnes/organisme_conventionne',
+    name: 'Profile organisme',
+    element: Profile_organisme,
+  },
+  {
+    path: '/GestionFormation/listeFormation/listeCours/pdf',
+    name: 'Cours en PDF',
+    element: pdf,
+  },
+  {
+    path: '/gestion_examen/gestion_examen',
+    name: 'gestion_examen',
+    element: gestion_examen,
+  },
+  {
+    path: '/gestion_examen/test',
+    name: 'gestion_examen',
+    element: test,
+  },
+  {
+    path: '/gestion_examen/gestion_examen/AjoutExamen',
+    name: 'Ajout Examen',
+    element: Ajoutxamen,
   },
 ]
 

@@ -63,10 +63,10 @@ const Register = (props) => {
     })
   }
   const handleSubmit = (evt) => {
+    console.log('valueees', evt)
     values.adressse = evt.adresse
     values.nom = evt.nom
     values.prenom = evt.prenom
-    values.Genre = evt.genre
     values.email = evt.email
     values.etat_civil = evt.etat_civil
     values.numero_de_telephone = evt.numero_de_telephone
@@ -79,6 +79,7 @@ const Register = (props) => {
     console.log(values)
     UserIns(values)
       .then((response) => {
+        console.log('resultat', response)
         if (response.status === 200) {
           Notification_succes(evt)
 
@@ -165,271 +166,275 @@ const Register = (props) => {
       })}
       onSubmit={(values) => handleSubmit(values)}
       render={({ errors, status, touched }) => (
-        <div className="page-content3 bg-light">
-          <div className="page-content">
-            <div className="form-v10-content">
-              <Form className="form-detail">
-                <div className="form-left">
-                  <h2>Inscription </h2>
+        <div className="register">
+          <div className="page-content3 ">
+            <div className="page-content">
+              <div className="form-v10-content">
+                <Form className="form-detail">
+                  <div className="form-left">
+                    <h2>Inscription </h2>
 
-                  <div className="form-group">
-                    <div className="form-row form-row-1">
-                      <Field
-                        type="text"
-                        name="nom"
-                        style={{ 'border-radius': 0 }}
-                        classNameName={
-                          ' form-control' + (errors.nom && touched.nom ? ' is-invalid' : '')
-                        }
-                        placeholder="Nom"
-                      />
+                    <div className="form-group">
+                      <div className="form-row form-row-1">
+                        <Field
+                          type="text"
+                          name="nom"
+                          style={{ 'border-radius': 0 }}
+                          classNameName={
+                            ' form-control' + (errors.nom && touched.nom ? ' is-invalid' : '')
+                          }
+                          placeholder="Nom"
+                        />
 
-                      <ErrorMessage
-                        style={{ fontSize: 12, color: 'red' }}
-                        name="nom"
-                        component="div"
-                        classNameName="invalid-feedback"
-                      />
+                        <ErrorMessage
+                          style={{ fontSize: 15, color: '#F21C1C' }}
+                          name="nom"
+                          component="div"
+                          classNameName="invalid-feedback"
+                        />
+                      </div>
+                      <div className="form-row form-row-2">
+                        <Field
+                          type="text"
+                          name="prenom"
+                          style={{ 'border-radius': 0, placeholderTextColor: 'red' }}
+                          classNameName={
+                            ' form-control' + (errors.prenom && touched.prenom ? ' is-invalid' : '')
+                          }
+                          placeholder="Prenom"
+                        />
+
+                        <ErrorMessage
+                          style={{ fontSize: 15, color: '#F21C1C' }}
+                          name="prenom"
+                          component="div"
+                          classNameName="invalid-feedback"
+                        />
+                      </div>
                     </div>
-                    <div className="form-row form-row-2">
-                      <Field
-                        type="text"
-                        name="prenom"
-                        style={{ 'border-radius': 0, placeholderTextColor: 'red' }}
-                        classNameName={
-                          ' form-control' + (errors.prenom && touched.prenom ? ' is-invalid' : '')
-                        }
-                        placeholder="Prenom"
-                      />
 
-                      <ErrorMessage
-                        style={{ fontSize: 12, color: 'red' }}
-                        name="prenom"
-                        component="div"
-                        classNameName="invalid-feedback"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <div className="form-row form-row-5">
-                      <div className="label2"> Date de naissance : </div>
-                    </div>
-                    <div className="form-row form-row-6">
-                      <Field
-                        type="date"
-                        id="date_de_naissance"
-                        style={{ 'border-radius': 0 }}
-                        name="date_de_naissance"
-                        min="1920-01-01"
-                        max="2020-12-31"
-                        classNameName={
-                          ' form-control' +
-                          (errors.date_de_naissance && touched.date_de_naissance
-                            ? ' is-invalid'
-                            : '')
-                        }
-                      />
-                      <ErrorMessage
-                        style={{ fontSize: 12, color: 'red' }}
-                        name="date_de_naissance"
-                        component="div"
-                        classNameName="invalid-feedback"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <div className="input-group">
+                    <div className="form-group">
                       <div className="form-row form-row-5">
-                        <label className="label1">Genre :</label>
-                      </div>{' '}
+                        <div className="label2"> Date de naissance : </div>
+                      </div>
                       <div className="form-row form-row-6">
-                        <div className="p-t-10">
-                          <label className="radio-container m-r-45">
-                            Homme
-                            <input
-                              type="radio"
-                              checked="checked"
-                              name="genre"
-                              value={(values.Genre = 'Homme')}
-                              onChange={handleChange}
-                            />
-                            <span className="checkmark"></span>
-                          </label>
-                          <label className="radio-container">
-                            Femme
-                            <input
-                              type="radio"
-                              name="genre"
-                              value={(values.Genre = 'Femme')}
-                              onChange={handleChange}
-                            />
-                            <span className="checkmark"></span>
-                          </label>
+                        <Field
+                          type="date"
+                          id="date_de_naissance"
+                          style={{ 'border-radius': 0 }}
+                          name="date_de_naissance"
+                          min="1920-01-01"
+                          max="2020-12-31"
+                          classNameName={
+                            ' form-control' +
+                            (errors.date_de_naissance && touched.date_de_naissance
+                              ? ' is-invalid'
+                              : '')
+                          }
+                        />
+                        <ErrorMessage
+                          style={{ fontSize: 15, color: '#F21C1C' }}
+                          name="date_de_naissance"
+                          component="div"
+                          classNameName="invalid-feedback"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <div className="input-group">
+                        <div className="form-row form-row-5">
+                          <label className="label1">Genre :</label>
+                        </div>{' '}
+                        <div className="form-row form-row-6">
+                          <div className="p-t-10">
+                            <label className="radio-container m-r-45">
+                              Homme
+                              <input
+                                type="radio"
+                                checked="checked"
+                                name="genre"
+                                value={(values.Genre = 'Homme')}
+                                onChange={handleChange}
+                              />
+                              <span className="checkmark"></span>
+                            </label>
+                            <label className="radio-container">
+                              Femme
+                              <input
+                                type="radio"
+                                name="genre"
+                                value={(values.Genre = 'Femme')}
+                                onChange={handleChange}
+                              />
+                              <span className="checkmark"></span>
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="form-row">
-                    <Field
-                      type="tel"
-                      id="numero_de_telephone"
-                      style={{ 'border-radius': 0, '::placeholder color': 'blue' }}
-                      name="numero_de_telephone"
-                      classNameName={
-                        ' form-control' +
-                        (errors.numero_de_telephone && touched.numero_de_telephone
-                          ? ' is-invalid'
-                          : '')
-                      }
-                      placeholder="Numero de telephone"
-                    />
-                    <ErrorMessage
-                      style={{ fontSize: 12, color: 'red' }}
-                      name="numero_de_telephone"
-                      component="div"
-                      classNameName="invalid-feedback"
-                    />
-                  </div>
+                    <div className="form-row">
+                      <Field
+                        type="tel"
+                        id="numero_de_telephone"
+                        style={{ 'border-radius': 0, '::placeholder color': 'blue' }}
+                        name="numero_de_telephone"
+                        classNameName={
+                          ' form-control' +
+                          (errors.numero_de_telephone && touched.numero_de_telephone
+                            ? ' is-invalid'
+                            : '')
+                        }
+                        placeholder="Numero de telephone"
+                      />
+                      <ErrorMessage
+                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        name="numero_de_telephone"
+                        component="div"
+                        classNameName="invalid-feedback"
+                      />
+                    </div>
 
-                  <br></br>
+                    <br></br>
 
-                  <div className="form-row">
-                    <Field
-                      type="text"
-                      name="adresse"
-                      style={{ 'border-radius': 0 }}
-                      classNameName={
-                        ' form-control' + (errors.adresse && touched.adresse ? ' is-invalid' : '')
-                      }
-                      placeholder="Adresse"
-                    />
+                    <div className="form-row">
+                      <Field
+                        type="text"
+                        name="adresse"
+                        style={{ 'border-radius': 0 }}
+                        classNameName={
+                          ' form-control' + (errors.adresse && touched.adresse ? ' is-invalid' : '')
+                        }
+                        placeholder="Adresse"
+                      />
 
-                    <ErrorMessage
-                      style={{ fontSize: 12, color: 'red' }}
-                      name="adresse"
-                      component="div"
-                      classNameName="invalid-feedback"
-                    />
+                      <ErrorMessage
+                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        name="adresse"
+                        component="div"
+                        classNameName="invalid-feedback"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="form-right">
-                  <br></br>
-                  <br></br>
-                  <br></br>
+                  <div className="form-right">
+                    <br></br>
+                    <br></br>
+                    <br></br>
 
-                  <div className="form-row form-row">
-                    <Field
-                      type="text"
-                      name="UserName"
-                      style={{ 'border-radius': 0 }}
-                      classNameName={
-                        ' form-control' + (errors.UserName && touched.UserName ? ' is-invalid' : '')
-                      }
-                      placeholder="UserName"
-                    />
-                    <ErrorMessage
-                      style={{ fontSize: 12, color: 'red' }}
-                      name="UserName"
-                      component="div"
-                      classNameName="invalid-feedback"
-                    />
-                  </div>
+                    <div className="form-row form-row">
+                      <Field
+                        type="text"
+                        name="UserName"
+                        style={{ 'border-radius': 0 }}
+                        classNameName={
+                          ' form-control' +
+                          (errors.UserName && touched.UserName ? ' is-invalid' : '')
+                        }
+                        placeholder="UserName"
+                      />
+                      <ErrorMessage
+                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        name="UserName"
+                        component="div"
+                        classNameName="invalid-feedback"
+                      />
+                    </div>
 
-                  <div className="form-row">
-                    <Field
-                      name="etat_civil"
-                      component="select"
-                      style={{ 'border-radius': 0 }}
-                      classNameName={
-                        ' form-control' +
-                        (errors.etat_civil && touched.etat_civil ? ' is-invalid' : '')
-                      }
-                    >
-                      <option value="" disabled selected hidden>
-                        Etat civil
-                      </option>
-                      <option value="Celibataire">Celibataire</option>
-                      <option value="Marié(e)">Marié(e)</option>
-                    </Field>
-                    <span className="select-btn">
-                      <i className="zmdi zmdi-chevron-down"></i>
-                    </span>
+                    <div className="form-row">
+                      <Field
+                        name="etat_civil"
+                        component="select"
+                        style={{ 'border-radius': 0 }}
+                        classNameName={
+                          ' form-control' +
+                          (errors.etat_civil && touched.etat_civil ? ' is-invalid' : '')
+                        }
+                      >
+                        <option value="" disabled selected hidden>
+                          Etat civil
+                        </option>
+                        <option value="Celibataire">Celibataire</option>
+                        <option value="Marié(e)">Marié(e)</option>
+                      </Field>
+                      <span className="select-btn">
+                        <i className="zmdi zmdi-chevron-down"></i>
+                      </span>
 
-                    <ErrorMessage
-                      style={{ fontSize: 12, color: 'red' }}
-                      name="etat_civil"
-                      component="div"
-                      classNameName="invalid-feedback"
-                    />
-                  </div>
-                  <br></br>
-                  <div className="form-row">
-                    <Field
-                      type="text"
-                      id="email"
-                      style={{ 'border-radius': 0, 'placeholder-color': 'red' }}
-                      name="email"
-                      classNameName={
-                        ' form-control' + (errors.email && touched.email ? ' is-invalid' : '')
-                      }
-                      placeholder="E-mail"
-                    />
-                    <ErrorMessage
-                      style={{ fontSize: 12, color: 'red' }}
-                      name="email"
-                      component="div"
-                      classNameName="invalid-feedback"
-                    />
-                  </div>
-                  <br></br>
-                  <div className="form-row">
-                    <Field
-                      type="password"
-                      id="password"
-                      style={{ 'border-radius': 0, color: 'white' }}
-                      name="password"
-                      classNameName={
-                        ' form-control' + (errors.password && touched.password ? ' is-invalid' : '')
-                      }
-                      placeholder="Mot de passe"
-                    />
-                    <ErrorMessage
-                      style={{ fontSize: 12, color: 'red' }}
-                      name="password"
-                      component="div"
-                      classNameName="invalid-feedback"
-                    />
-                  </div>
-                  <br></br>
-                  <div className="form-row">
-                    <Field
-                      type="password"
-                      id="confirmPassword"
-                      style={{ 'border-radius': 0 }}
-                      name="confirmPassword"
-                      classNameName={
-                        ' form-control' +
-                        (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')
-                      }
-                      placeholder="Confirmer le mot de passe"
-                    />
-                    <ErrorMessage
-                      style={{ fontSize: 12, color: 'red' }}
-                      name="confirmPassword"
-                      component="div"
-                      classNameName="invalid-feedback"
-                    />
-                  </div>
+                      <ErrorMessage
+                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        name="etat_civil"
+                        component="div"
+                        classNameName="invalid-feedback"
+                      />
+                    </div>
+                    <br></br>
+                    <div className="form-row">
+                      <Field
+                        type="text"
+                        id="email"
+                        style={{ 'border-radius': 0, 'placeholder-color': 'red' }}
+                        name="email"
+                        classNameName={
+                          ' form-control' + (errors.email && touched.email ? ' is-invalid' : '')
+                        }
+                        placeholder="E-mail"
+                      />
+                      <ErrorMessage
+                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        name="email"
+                        component="div"
+                        classNameName="invalid-feedback"
+                      />
+                    </div>
+                    <br></br>
+                    <div className="form-row">
+                      <Field
+                        type="password"
+                        id="password"
+                        style={{ 'border-radius': 0, color: 'white' }}
+                        name="password"
+                        classNameName={
+                          ' form-control' +
+                          (errors.password && touched.password ? ' is-invalid' : '')
+                        }
+                        placeholder="Mot de passe"
+                      />
+                      <ErrorMessage
+                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        name="password"
+                        component="div"
+                        classNameName="invalid-feedback"
+                      />
+                    </div>
+                    <br></br>
+                    <div className="form-row">
+                      <Field
+                        type="password"
+                        id="confirmPassword"
+                        style={{ 'border-radius': 0 }}
+                        name="confirmPassword"
+                        classNameName={
+                          ' form-control' +
+                          (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')
+                        }
+                        placeholder="Confirmer le mot de passe"
+                      />
+                      <ErrorMessage
+                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        name="confirmPassword"
+                        component="div"
+                        classNameName="invalid-feedback"
+                      />
+                    </div>
 
-                  <div className="form-row-last">
-                    <div classNameName="form-group"></div>
-                    <input type="submit" name="register" className="register" value="Valider" />
+                    <div className="form-row-last">
+                      <div classNameName="form-group"></div>
+                      <input type="submit" name="register" className="register" value="Valider" />
+                    </div>
                   </div>
-                </div>
-              </Form>
+                </Form>
+              </div>
             </div>
           </div>
         </div>

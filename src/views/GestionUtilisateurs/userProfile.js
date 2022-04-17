@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import 'src/views/GestionUtilisateurs/userProfile.css'
 import { useLocation } from 'react-router-dom'
+import { GetformationsCandidat, getUserById } from 'src/services/UserService'
+import { getfile } from 'src/services/fileService'
+import avatar8 from './../../assets/images/profile_homme.png'
 
 const UserProfile = () => {
+  let [formations, setFormations] = useState([])
+
   let userId = useLocation()
   console.log('amaaan', userId)
   const [values] = useState({
@@ -20,17 +25,32 @@ const UserProfile = () => {
     id: userId.state.utilisateur.id,
     date_creation: userId.state.utilisateur.createdAt,
     date_derniere_conn: userId.state.utilisateur.lastLogin,
+    image: userId.state.utilisateur.image,
+    logo: avatar8,
   })
+
+  useEffect(() => {
+    GetformationsCandidat(values.id)
+      .then((response) => {
+        console.log('hiiii', response.data)
+        setFormations(response.data)
+      })
+      .catch((e) => {})
+    if (values.image !== null) {
+      getfile(values.image.id)
+        .then((response) => {
+          console.log('taswira', response)
+          values.logo = URL.createObjectURL(response.data)
+        })
+        .catch((e) => {})
+    }
+  }, [])
   return (
     <div className="container rounded bg-white mt-5 mb-5">
       <div className="row">
         <div className="col-md-3 border-right">
           <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-            <img
-              className="rounded-circle mt-5"
-              width="150px"
-              src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-            />
+            <img className="rounded-circle mt-5" width="150px" src={values.logo} alt="user" />
             <span className="font-weight-bold">{values.userName}</span>
             <span className="text-black-50">{values.email}</span>
             <span> </span>
@@ -238,8 +258,30 @@ const UserProfile = () => {
                   role="tabpanel"
                   aria-labelledby="pills-profile-tab"
                 >
-                  <app-admin-etudiant></app-admin-etudiant>
-                  <h1>hello</h1>
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">titre</th>
+                        <th scope="col">categorie</th>
+                        <th scope="col">prix</th>
+                        <th scope="col">Nombre de cours</th>
+                        <th scope="col">Date de creation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {formations.map((item, index) => (
+                        <tr key={index}>
+                          <th scope="row">{item.id}</th>
+                          <td>{item.titre}</td>
+                          <td>{item.categorie}</td>
+                          <td>{item.prix}</td>
+                          <td>{item.nbrCours}</td>
+                          <td>{item.dateCreation}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
                 <div
                   className="tab-pane fade"
@@ -247,8 +289,30 @@ const UserProfile = () => {
                   role="tabpanel"
                   aria-labelledby="pills-contact-tab"
                 >
-                  <app-admin-departements></app-admin-departements>
-                  <h1>coucou</h1>
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">titre</th>
+                        <th scope="col">categorie</th>
+                        <th scope="col">prix</th>
+                        <th scope="col">Nombre de cours</th>
+                        <th scope="col">Date de creation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {formations.map((item, index) => (
+                        <tr key={index}>
+                          <th scope="row">{item.id}</th>
+                          <td>{item.titre}</td>
+                          <td>{item.categorie}</td>
+                          <td>{item.prix}</td>
+                          <td>{item.nbrCours}</td>
+                          <td>{item.dateCreation}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </span>

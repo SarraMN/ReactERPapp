@@ -14,7 +14,9 @@ import {
 } from '@coreui/react'
 import { userLogin, fetchUserData } from 'src/services/UserService'
 import 'src/views/pages/login/login.css'
-import ReactImg from 'src/assets/images/logo1.png'
+/* import ReactImg from 'src/assets/images/logo1.png'
+ */
+import ReactImg from 'src/images/logo.png'
 import { useState } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
@@ -22,6 +24,8 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+
+import background from 'src/images/backimage.png'
 
 const Login = (props) => {
   function Notification_userinvalide() {
@@ -115,79 +119,92 @@ const Login = (props) => {
       })}
       onSubmit={(values) => handleSubmit(values)}
       render={({ errors, status, touched }) => (
-        <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
-          <CContainer style={{ 'border-radius': 90 }}>
-            <CRow className="justify-content-center" style={{ 'border-radius': 90 }}>
-              <CCol md={8}>
-                <CCardGroup>
-                  <CCard className="p-4">
-                    <CCardBody>
-                      <Form>
-                        <h1>Connexion</h1>
-                        <p className="text-medium-emphasis">Connectez-vous à votre compte</p>
-                        <CInputGroup className="mb-3">
-                          <CInputGroupText
-                            style={{
-                              'border-top-left-radius': 30,
-                              'border-bottom-left-radius': 30,
-                            }}
-                          >
-                            <CIcon icon={cilUser} />
-                          </CInputGroupText>
+        <div className="login">
+          <div
+            className=" min-vh-100 d-flex flex-row align-items-center"
+            style={
+              {
+                /*    backgroundImage: `url(${background})`, */
+              }
+            }
+          >
+            <CContainer style={{ 'border-radius': 90 }}>
+              <CRow
+                className="justify-content-center"
+                style={{
+                  'border-radius': 90,
+                }}
+              >
+                <CCol md={8}>
+                  <CCardGroup>
+                    <CCard className="p-4">
+                      <CCardBody>
+                        <Form>
+                          <h2 style={{ 'font-family': 'Cursive' }}>Connexion</h2>
+                          <p className="text-medium-emphasis">Connectez-vous à votre compte</p>
+                          <CInputGroup className="mb-3">
+                            <CInputGroupText
+                              style={{
+                                'border-top-left-radius': 30,
+                                'border-bottom-left-radius': 30,
+                              }}
+                            >
+                              <CIcon icon={cilUser} />
+                            </CInputGroupText>
 
-                          <Field
-                            type="text"
-                            id="username"
-                            name="username"
-                            className={
-                              ' form-control' +
-                              (errors.username && touched.username ? ' is-invalid' : '')
-                            }
-                            placeholder="username"
-                            style={{
-                              'border-top-right-radius': 30,
-                              'border-bottom-right-radius': 30,
-                            }}
-                          />
-                          <ErrorMessage
-                            style={{ fontSize: 12, color: 'red' }}
-                            name="username"
-                            component="div"
-                            className="invalid-feedback"
-                          />
-                        </CInputGroup>
-                        <CInputGroup className="mb-4">
-                          <CInputGroupText
-                            style={{
-                              'border-top-left-radius': 30,
-                              'border-bottom-left-radius': 30,
-                            }}
-                          >
-                            <CIcon icon={cilLockLocked} />
-                          </CInputGroupText>
-                          <Field
-                            type="text"
-                            id="password"
-                            name="password"
-                            className={
-                              ' form-control' +
-                              (errors.password && touched.password ? ' is-invalid' : '')
-                            }
-                            placeholder="Password"
-                            style={{
-                              'border-top-right-radius': 30,
-                              'border-bottom-right-radius': 30,
-                            }}
-                          />
-                          <ErrorMessage
-                            style={{ fontSize: 12, color: 'red' }}
-                            name="password"
-                            component="div"
-                            className="invalid-feedback"
-                          />
-                        </CInputGroup>
-                        <CRow>
-                          <CCol xs={12}>
+                            <Field
+                              type="text"
+                              id="username"
+                              name="username"
+                              className={
+                                ' form-control' +
+                                (errors.username && touched.username ? ' is-invalid' : '')
+                              }
+                              placeholder="username"
+                              style={{
+                                'border-top-right-radius': 30,
+                                'border-bottom-right-radius': 30,
+                              }}
+                            />
+                            <ErrorMessage
+                              style={{ fontSize: 12, color: 'red' }}
+                              name="username"
+                              component="div"
+                              className="invalid-feedback"
+                            />
+                          </CInputGroup>
+                          <CInputGroup className="mb-4">
+                            <CInputGroupText
+                              style={{
+                                'border-top-left-radius': 30,
+                                'border-bottom-left-radius': 30,
+                              }}
+                            >
+                              <CIcon icon={cilLockLocked} />
+                            </CInputGroupText>
+                            <Field
+                              type="text"
+                              id="password"
+                              name="password"
+                              className={
+                                ' form-control' +
+                                (errors.password && touched.password ? ' is-invalid' : '')
+                              }
+                              placeholder="Password"
+                              style={{
+                                'border-top-right-radius': 30,
+                                'border-bottom-right-radius': 30,
+                              }}
+                            />
+                            <ErrorMessage
+                              style={{ fontSize: 12, color: 'red' }}
+                              name="password"
+                              component="div"
+                              className="invalid-feedback"
+                            />
+                          </CInputGroup>
+                          <CRow style={{ 'text-align': 'center' }}>
+                            {/*   <CCol xs={12}>
                             <input
                               type="submit"
                               name="register"
@@ -196,57 +213,104 @@ const Login = (props) => {
                               style={{ 'border-radius': 30, width: 300, marginleft: 130 }}
                             />
                           </CCol>
-                          <br></br>
-                          <CCol xs={12} className="text-right text-center">
-                            <Link to="/ForgetPassword">
-                              <CButton
-                                color="link"
-                                className="px-0  btn-mot"
-                                style={{ color: 'black' }}
+                        */}{' '}
+                            <CCol xs={12} className="text-right text-center">
+                              <button
+                                type="submit"
+                                style={{
+                                  'border-radius': '30px',
+                                  color: 'white',
+                                  borderColor: 'white',
+                                  'background-color': '#321fdb',
+                                  height: '50px',
+                                }}
+                                className="btn btn-lg btn-block"
                               >
-                                mot de passe oublié ?{' '}
-                              </CButton>
-                            </Link>
-                          </CCol>
-                        </CRow>
-                      </Form>
-                    </CCardBody>
-                  </CCard>
-                  <CCard
-                    className="text-white bg-primary py-5"
-                    style={{ width: '44%', paddingTop: 130, margintop: 100 }}
-                  >
-                    <CCardBody className="text-center">
-                      <div>
-                        <CCardImage src={ReactImg} alt="W3C" width="100" height="170"></CCardImage>
-                        <p
-                          style={{
-                            color: 'black',
-                            margintop: '150',
-                            fontWeight: '500',
-                            fontSize: '17px',
-                          }}
-                        >
-                          {' '}
-                          Vous ne avez pas un compte
-                        </p>
-                        <Link to="/register">
-                          <CButton
-                            className="mt-3 btn btn-white btn-outline-white"
+                                Connecter
+                              </button>
+                            </CCol>{' '}
+                            <CCol xs={12} className="text-right text-center">
+                              <Link to="/ForgetPassword">
+                                <CButton
+                                  color="link"
+                                  className="px-0  btn-mot"
+                                  style={{ color: 'black' }}
+                                >
+                                  mot de passe oublié ?{' '}
+                                </CButton>
+                              </Link>
+                            </CCol>{' '}
+                          </CRow>
+                        </Form>
+                      </CCardBody>
+                    </CCard>
+                    <CCard
+                      className="text-white bg-primary py-5"
+                      style={{ width: '80%', paddingTop: 100, margintop: 50 }}
+                    >
+                      <CCardBody className="text-center">
+                        <div>
+                          {/*                         <CCardImage src={ReactImg} alt="W3C" width="25" height="80"></CCardImage>
+                           */}{' '}
+                          <div>
+                            <h1
+                              style={{
+                                'padding-top': '20px',
+                                'font-family': 'Sans-serif',
+                                'font-size': '3.3em',
+                              }}
+                            >
+                              Bienvenue
+                            </h1>
+                          </div>
+                          <div style={{ paddingTop: 30 }}>
+                            <p
+                              style={{
+                                color: 'white',
+                                'margin-top': '300',
+                                fontWeight: '500',
+                                fontSize: '17px',
+                              }}
+                            >
+                              {' '}
+                              Vous n{"'"}avez pas un compte
+                            </p>
+                          </div>
+                          <Link to="/register">
+                            {/*   <CButton
+                              className="mt-3 btn btn-white btn-outline-white" 
                             active
                             tabIndex={-1}
-                            style={{ 'border-radius': 30, width: 200 }}
+                            style={{
+                              'border-radius': 30,
+                              width: 200,
+                              'background-color': 'Transparent',
+                            }}
                           >
+                            {' '}
                             Inscription
-                          </CButton>
-                        </Link>
-                      </div>
-                    </CCardBody>
-                  </CCard>
-                </CCardGroup>
-              </CCol>
-            </CRow>
-          </CContainer>
+                          </CButton> */}
+                            <button
+                              style={{
+                                'border-radius': '30px',
+                                color: 'white',
+                                borderColor: 'white',
+                                width: '150px',
+                              }}
+                              type="button"
+                              className="btn btn-outline-primary"
+                            >
+                              Inscription
+                            </button>
+                          </Link>
+                        </div>
+                      </CCardBody>
+                    </CCard>
+                  </CCardGroup>
+                </CCol>
+              </CRow>
+            </CContainer>
+          </div>
         </div>
       )}
     />

@@ -21,14 +21,32 @@ import {
   cilUser,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import { useEffect, useState } from 'react'
+import { uploadfile, getfile } from 'src/services/fileService'
+import { userLogin, fetchUserData } from 'src/services/UserService'
 
-import avatar8 from './../../assets/images/avatars/8.jpg'
+import avatar8 from './../../assets/images/profile_homme.png'
 
 const AppHeaderDropdown = () => {
+  const [profileimg, setProfileimg] = useState(avatar8)
+
+  useEffect(() => {
+    fetchUserData().then((response) => {
+      console.log('idimage', response.data.idimage)
+      if (response.data.idimage !== 0) {
+        getfile(response.data.idimage)
+          .then((response) => {
+            setProfileimg(URL.createObjectURL(response.data))
+          })
+          .catch((e) => {})
+      } else {
+      }
+    })
+  }, [])
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar src={avatar8} size="md" />
+        <CAvatar src={profileimg} size="md" />
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-light fw-semibold py-2">Account</CDropdownHeader>

@@ -5,7 +5,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import 'src/views/GestionUtilisateurs/Ajoutresponsable.css'
 import Swal from 'sweetalert2'
-import { UserIns } from 'src/services/UserService'
+import { addResponsable, UserIns } from 'src/services/UserService'
 import { uploadfile } from 'src/services/fileService'
 import { sendMail } from 'src/services/UserService'
 import axios from 'axios'
@@ -16,6 +16,7 @@ const Ajoutresponsable = () => {
 
   const [profileimg, setProfileimg] = useState(ReactImg)
   function imageHandler(e) {
+    console.log('coucou', e)
     console.log('coucou', e.target.files[0])
     setImage(e.target.files[0])
     const reader = new FileReader()
@@ -116,11 +117,10 @@ const Ajoutresponsable = () => {
       headers: { 'Content-Type': 'multipart/form-data' },
     }).then(
       function (response) {
-        console.log('khraa1', response.data)
         if (response.data !== 0) {
           values.idimage = response.data
           console.log('values', values)
-          UserIns(values)
+          addResponsable(values)
             .then((response) => {
               if (response.status === 200) {
                 Notification_succes(evt)

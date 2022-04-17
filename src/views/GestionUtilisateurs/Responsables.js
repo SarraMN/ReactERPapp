@@ -1,4 +1,5 @@
 import {
+  CAvatar,
   CCard,
   CCardHeader,
   CPagination,
@@ -11,84 +12,110 @@ import {
   CTableRow,
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
-import { getformateurs, getusers, deleteuser } from 'src/services/gestionutilisateurs'
+import { getcandidats, getformateurs } from 'src/services/gestionutilisateurs'
+import { uploadfile, getfile } from 'src/services/fileService'
+
+import 'src/views/gestion_demandes/demandes_inscriptions.css'
+import ReactImg from 'src/images/teacher-2.jpg'
+
 import CIcon from '@coreui/icons-react'
+import { cilBan, cilCheckCircle, cilList, cilEnvelopeClosed, cilPhone } from '@coreui/icons'
 import {
-  cilPeople,
-  cilUserPlus,
-  cilPlus,
-  cilPencil,
-  cilUserUnfollow,
-  cilDataTransferDown,
-  cilTrash,
-  cilCalendar,
-  cilFilter,
-} from '@coreui/icons'
-import { useNavigate } from 'react-router-dom'
+  getdemandes_ins_formations,
+  accepterdemande,
+  refuserdemande,
+} from 'src/services/demandes_inscriptionService'
 import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 
-import 'src/views/GestionUtilisateurs/liste_attente.css'
-import { StylesProvider } from '@material-ui/core'
+const Demandes_inscriptions = () => {
+  let navigate = useNavigate()
+  const [profileimg, setProfileimg] = useState(ReactImg)
 
-const Responsables = (id) => {
   function notification_deValidation(id) {
     Swal.fire({
-      title: 'Souhaitez-vous supprimer cet utilisateur ?',
+      title: 'Souhaitez-vous refuser cette demande?',
       showDenyButton: true,
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonText: 'valider',
-      denyButtonText: `invalider`,
+      denyButtonText: `annuler`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        deleteuser(id)
+        refuserdemande(id)
           .then((response) => {
             console.log('data', response.data)
           })
           .catch((e) => {})
 
-        Swal.fire('cet compte est supprimé avec succes!', '', 'success')
-        getformateurs()
+        Swal.fire('cette demande est rejetée sans encombre.', '', 'success')
+        getdemandes_ins_formations()
           .then((response) => {
+            console.log('hayd data', response.data)
             setPosts(response.data)
-            console.log('data', response.data)
           })
           .catch((e) => {})
       } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
+        Swal.fire('Les modifications ne sont pas enregistrées', '', 'info')
       }
     })
   }
-  let navigate = useNavigate()
+  function notification_deValidation2(id) {
+    Swal.fire({
+      title: 'Seriez-vous prêt à accepter cette demande?',
+      showDenyButton: true,
+      confirmButtonText: 'valider',
+      denyButtonText: `annuler`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        accepterdemande(id)
+          .then((response) => {
+            console.log('data', response.data)
+          })
+          .catch((e) => {})
 
-  function RespoProfil(user) {
-    navigate('/GestionUtilisateurs/Responsables/responsable', {
-      state: { utilisateur: user },
+        Swal.fire('cette demande est acceptée sans problème.', '', 'success')
+        getdemandes_ins_formations()
+          .then((response) => {
+            console.log('data', response.data)
+
+            setPosts(response.data)
+          })
+          .catch((e) => {})
+      } else if (result.isDenied) {
+        Swal.fire('Les modifications ne sont pas enregistrées', '', 'info')
+      }
     })
   }
-  function AjouterResponsable() {
-    navigate('/GestionUtilisateurs/Responsables/ajoutresponsable')
-  }
-  function Deleteuser(id) {
-    console.log('yaa rabi', id)
-    notification_deValidation(id)
-  }
 
-  const [posts, setPosts] = useState(null)
+  function Ajoutresponsable() {
+    navigate('/GestionUtilisateurs/Responsables/Ajoutresponsable')
+  }
+  let [images, setimages] = useState([])
+  const [posts, setPosts] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage] = useState(6)
   const [NextPage, setNextPage] = useState(currentPage + 1)
   const [PreviewsPage, setPreviewsPage] = useState(1)
   const [activeNumber, setactiveNumber] = useState(1)
-
   useEffect(() => {
     getformateurs()
       .then((response) => {
+        console.log(response.data)
+        response.data.map((item, index) =>
+          getfile(item.image.id)
+            .then((response) => {
+              images.push(URL.createObjectURL(response.data))
+              setProfileimg(URL.createObjectURL(response.data))
+              console.log('hello', response.data)
+            })
+            .catch((e) => {}),
+        )
         setPosts(response.data)
-        console.log('data', response.data)
+        console.log('aloo', images)
       })
       .catch((e) => {})
   }, [])
+  console.log('hello', posts[0])
 
   if (posts) {
     // Get current posts
@@ -106,199 +133,164 @@ const Responsables = (id) => {
     for (let i = 1; i <= Math.ceil(posts.length / postsPerPage); i++) {
       pageNumbers.push(i)
     }
-
     return (
-      <>
-        <div style={{ paddingbottom: '100px' }}>
-          <div>
-            <div className="table-data__tool-right">
-              <button
-                className="au-btn au-btn-icon au-btn--green au-btn--small"
-                style={{
-                  width: 200,
-                  height: 50,
-                  backgroundColor: '#213f77',
-                  color: 'white',
-                  /*    align: 'right',
-                  float: 'right',
-            */
-                }}
-                onClick={AjouterResponsable}
-              >
-                <CIcon
-                  icon={cilPlus}
-                  customClassName="nav-icon"
-                  style={{
-                    marginTop: 5,
-                    width: 20,
-                    height: 20,
-                    color: 'white',
-                  }}
-                ></CIcon>
-                <i className="zmdi zmdi-plus"></i> Ajouter Responsable
-              </button>
-            </div>
-            {/*   <input
-              style={{ height: '40px' }}
-              id="searchbar"
-              type="text"
-              name="search"
-              placeholder=" chercher responsable"
-            /> */}
-          </div>
-          <br></br>
-        </div>
-        <CCard>
-          <CCardHeader style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}>
-            <CIcon
-              icon={cilPeople}
-              style={{
-                marginRight: 15,
-              }}
-            />
-            Liste des responsables
-          </CCardHeader>
-          <CTable align="middle" className="mb-0 border" hover responsive>
-            <CTableHead color="light">
-              <CTableRow>
-                <CTableHeaderCell className="text-center">Nom</CTableHeaderCell>
-                <CTableHeaderCell className="text-center">Prénom</CTableHeaderCell>
-                <CTableHeaderCell className="text-center">Genre</CTableHeaderCell>
-                <CTableHeaderCell className="text-center">E-mail</CTableHeaderCell>
-                <CTableHeaderCell className="text-center">Numero</CTableHeaderCell>
-                <CTableHeaderCell className="text-center">Date de creation</CTableHeaderCell>
-                <CTableHeaderCell className="text-center">derniere connexion</CTableHeaderCell>
-                <CTableHeaderCell className="text-center">Action a faire</CTableHeaderCell>
-              </CTableRow>
-            </CTableHead>
-            <CTableBody>
-              {currentPosts.map((item, index) => (
-                <CTableRow v-for="item in tableItems" key={index}>
-                  {/* Nom*/}
-                  <CTableDataCell className="text-center" onClick={(index) => RespoProfil(item)}>
-                    <div className="small text-medium-emphasis">
-                      <strong>{item.nom}</strong>
-                    </div>
-                  </CTableDataCell>
-                  {/* Prénom*/}
-                  <CTableDataCell className="text-center" onClick={(index) => RespoProfil(item)}>
-                    <div className="small text-medium-emphasis">
-                      <strong>{item.prenom}</strong>
-                    </div>
-                  </CTableDataCell>
-                  {/* genre*/}
-                  <CTableDataCell className="text-center" onClick={(index) => RespoProfil(item)}>
-                    <div className="small text-medium-emphasis">
-                      <strong>{item.genre}</strong>
-                    </div>
-                  </CTableDataCell>
-                  {/* Email*/}
-                  <CTableDataCell className="text-center" onClick={(index) => RespoProfil(item)}>
-                    <div className="small text-medium-emphasis">
-                      <strong>{item.email}</strong>
-                    </div>
-                  </CTableDataCell>
-                  {/* Numtell*/}
-                  <CTableDataCell className="text-center" onClick={(index) => RespoProfil(item)}>
-                    <div className="small text-medium-emphasis">
-                      <strong>{item.numero_de_telephone}</strong>
-                    </div>
-                  </CTableDataCell>
-                  {/* LastLogin*/}
-                  <CTableDataCell className="text-center" onClick={(index) => RespoProfil(item)}>
-                    <div className="small text-medium-emphasis">
-                      <strong>{item.createdAt}</strong>
-                    </div>
-                  </CTableDataCell>
-                  {/* LastLogin*/}
-                  <CTableDataCell className="text-center" onClick={(index) => RespoProfil(item)}>
-                    <div className="small text-medium-emphasis">
-                      <strong>{item.lastLogin}15/05/2022</strong>
-                    </div>
-                  </CTableDataCell>
-                  {/* Approuver*/}
-                  <CTableDataCell style={{ textAlign: 'center' }}>
-                    <button
-                      style={{
-                        border: 0,
-                        backgroundColor: 'transparent',
-                      }}
-                      onClick={(index) => Deleteuser(item.id)}
-                    >
-                      <CIcon
-                        icon={cilTrash}
-                        customClassName="nav-icon"
-                        style={{
-                          marginTop: 5,
-                          width: 30,
-                          height: 30,
-                          color: 'red',
-                        }}
-                      />
-                    </button>
-                    <button
-                      style={{
-                        border: 0,
-                        backgroundColor: 'transparent',
-                      }}
-                    >
-                      <CIcon
-                        icon={cilDataTransferDown}
-                        customClassName="nav-icon"
-                        style={{
-                          marginTop: 5,
-                          width: 30,
-                          height: 30,
-                          color: 'blue',
-                        }}
-                      />
-                    </button>
-                  </CTableDataCell>
-                </CTableRow>
-              ))}
-            </CTableBody>
-          </CTable>
-          <div style={{ 'text-align': ' center' }}>
-            <br></br>
-            <CPagination
-              className="justify-content-end"
-              aria-label="Page navigation example"
-              style={{ marginRight: 20 }}
+      <div>
+        <div>
+          <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
+            <button
+              className="btn btn-outline-primary btn-sm mb-0"
+              style={{ 'font-size': '18px' }}
+              onClick={Ajoutresponsable}
             >
-              <a
-                onClick={() => {
-                  if (PreviewsPage != 0) {
-                    setCurrentPage(PreviewsPage)
-                    paginate(PreviewsPage)
-                    setactiveNumber(PreviewsPage)
-                  }
-                }}
-              >
-                <CPaginationItem aria-label="Previous" disabled>
-                  <span aria-hidden="true">&laquo;</span>
-                </CPaginationItem>
-              </a>
-              <a>
-                <CPaginationItem active>{activeNumber}</CPaginationItem>
-              </a>
-              <a
-                onClick={() => {
-                  if (currentPage < posts.length / postsPerPage) {
-                    setCurrentPage(NextPage)
-                    paginate(NextPage)
-                    setactiveNumber(NextPage)
-                  }
-                }}
-              >
-                <CPaginationItem aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </CPaginationItem>
-              </a>
-            </CPagination>
+              Ajouter Responsable
+            </button>
           </div>
-        </CCard>
-      </>
+        </div>
+        <div className="container-fluid py-4">
+          <div className="row">
+            <div className="col-12">
+              <div className="card my-4">
+                <div
+                  className="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
+                  style={{ 'background-color': 'white' }}
+                >
+                  <div className="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <h6
+                      className="text-white ps-3"
+                      style={{ 'font-weight': 'bold', 'font-size': '22px' }}
+                    >
+                      Les responsables
+                    </h6>
+                  </div>
+                </div>
+                <div className="card-body px-0 pb-2" style={{ 'background-color': 'white' }}>
+                  <div className="table-responsive p-0" style={{ 'background-color': 'white' }}>
+                    <section className="" style={{ 'background-color': 'white' }}>
+                      <div className="container" style={{ 'background-color': 'white' }}>
+                        <div className="row" style={{ 'background-color': 'white' }}>
+                          {currentPosts.map((item, index) => (
+                            <div
+                              className="col-md-6 col-lg-3  d-flex align-items-stretch"
+                              key={index}
+                            >
+                              <div className="staff">
+                                <div className="img-wrap d-flex align-items-stretch">
+                                  <div
+                                    className="img align-self-stretch"
+                                    style={{
+                                      backgroundImage: `url(${images[index]})`,
+                                    }}
+                                  ></div>
+                                </div>
+                                <div className="text pt-3">
+                                  <h3>
+                                    <a href="instructor-details.html">
+                                      {item.nom} {item.prenom}
+                                    </a>
+                                  </h3>
+                                  <span style={{ color: '#1D6BDF', 'font-size': '13px' }}>
+                                    Date de naissance: {item.date_de_naissance}
+                                  </span>{' '}
+                                  <div className="faded">
+                                    <p style={{ 'font-size': '14px', 'margin-top': '5px' }}>
+                                      <CIcon
+                                        icon={cilEnvelopeClosed}
+                                        customClassName="nav-icon"
+                                        style={{
+                                          width: 15,
+                                          height: 15,
+                                          marginRight: 2,
+                                        }}
+                                      />
+                                      {item.email}
+                                      <br></br>
+                                      <CIcon
+                                        icon={cilPhone}
+                                        customClassName="nav-icon"
+                                        style={{
+                                          width: 15,
+                                          height: 15,
+                                        }}
+                                      />
+                                      {item.numero_de_telephone}
+                                    </p>
+
+                                    <ul className="ftco-social text-center">
+                                      <li>
+                                        <a href="#">
+                                          <span className="fa fa-twitter"></span>
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="#">
+                                          <span className="fa fa-facebook"></span>
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="#">
+                                          <span className="fa fa-google"></span>
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a href="#">
+                                          <span className="fa fa-instagram"></span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </section>
+                    <div style={{ 'text-align': ' center' }}>
+                      <br></br>
+                      <CPagination
+                        className="justify-content-end"
+                        aria-label="Page navigation example"
+                        style={{ marginRight: 20 }}
+                      >
+                        <a
+                          onClick={() => {
+                            if (PreviewsPage != 0) {
+                              setCurrentPage(PreviewsPage)
+                              paginate(PreviewsPage)
+                              setactiveNumber(PreviewsPage)
+                            }
+                          }}
+                        >
+                          <CPaginationItem aria-label="Previous" disabled>
+                            <span aria-hidden="true">&laquo;</span>
+                          </CPaginationItem>
+                        </a>
+                        <a>
+                          <CPaginationItem active>{activeNumber}</CPaginationItem>
+                        </a>
+                        <a
+                          onClick={() => {
+                            if (currentPage < posts.length / postsPerPage) {
+                              setCurrentPage(NextPage)
+                              paginate(NextPage)
+                              setactiveNumber(NextPage)
+                            }
+                          }}
+                        >
+                          <CPaginationItem aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </CPaginationItem>
+                        </a>
+                      </CPagination>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     )
   } else return <div>un probleme de connexion avec le serveur </div>
 }
-export default Responsables
+export default Demandes_inscriptions

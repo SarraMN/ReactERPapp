@@ -113,64 +113,87 @@ const ForgetPassword = (props) => {
       })}
       onSubmit={(values) => handleSubmit(values)}
       render={({ errors, status, touched }) => (
-        <div className="page-content3">
-          <div className="page-content4">
-            <div className="form-v10-content">
-              <Form className="form-detail" action="#" method="post" id="myform">
-                <div
-                  className="form-right"
-                  style={{
-                    'border-top-left-radius': 10,
-                    'border-bottom-left-radius': 10,
-                  }}
-                >
-                  <h2
+        <div className="ForgetPassword">
+          <div className="page-content3">
+            <div className="page-content4">
+              <div className="form-v10-content">
+                <Form className="form-detail" action="#" method="post" id="myform">
+                  <div
+                    className="form-right"
                     style={{
-                      'border-bottom-right-radius': 10,
+                      'border-top-left-radius': 10,
                       'border-bottom-left-radius': 10,
                     }}
                   >
-                    Mot de passe oublié
-                  </h2>
+                    <div
+                      className="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
+                      style={{ 'background-color': '#92acce', 'border-radius': 5 }}
+                    >
+                      <div className="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6
+                          className="text-white ps-3"
+                          style={{
+                            'font-weight': 'bold',
+                            'font-size': '30px',
+                            'text-align': 'center',
+                          }}
+                        >
+                          Mot de passe oublié
+                        </h6>
+                      </div>
+                    </div>
 
-                  <div className="label4">
-                    {' '}
-                    Saisissez votre adresse e-mail pour réinitialiser votre mot de passe.{' '}
-                  </div>
-                  <div
-                    classNameName="form-row2 text-center"
-                    style={{ 'text-align': 'center', marginTop: 40 }}
-                  >
-                    <Field
-                      type="Email"
-                      id="Email"
-                      style={{ 'border-radius': 0, width: 'Auto' }}
-                      name="Email"
-                      classNameName={
-                        ' form-control' + (errors.Email && touched.Email ? ' is-invalid' : '')
-                      }
-                      placeholder="Email"
-                    />
-                    <ErrorMessage
-                      style={{ fontSize: 12, color: 'red' }}
-                      name="Email"
-                      component="div"
-                      classNameName="invalid-feedback"
-                    />
-                  </div>
+                    <div className="label4">
+                      {' '}
+                      Saisissez votre adresse e-mail pour réinitialiser votre mot de passe.{' '}
+                    </div>
+                    <div style={{ 'text-align': 'center', marginTop: 40 }}>
+                      <Field
+                        type="Email"
+                        id="Email"
+                        style={{ width: 'Auto' }}
+                        name="Email"
+                        classNameName={
+                          ' form-control' + (errors.Email && touched.Email ? ' is-invalid' : '')
+                        }
+                        placeholder="Email"
+                      />
+                      <ErrorMessage
+                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        name="Email"
+                        component="div"
+                        classNameName="invalid-feedback"
+                      />
+                    </div>
 
-                  <div className="form-row-last" style={{ 'text-align': 'center' }}>
-                    <input
+                    <div
+                      className="form-row-last"
+                      style={{ 'text-align': 'center', marginBottom: 70 }}
+                    >
+                      {/*  <input
                       type="submit"
                       name="register"
                       className="form-control register2"
                       value="Renitialiser"
-                    />
-                    {/*                  <input type="submit"  onClick={()=>{history.push("/EmailEnvoyeForgetPassword")} }name="register" className="register2" value="Renitialiser"/>
-                     */}{' '}
+                    /> */}
+                      <button
+                        type="submit"
+                        style={{
+                          'border-radius': '30px',
+                          color: 'white',
+                          borderColor: 'white',
+                          width: '150px',
+                        }}
+                        className="btn btn-outline-primary "
+                      >
+                        Renitialiser
+                      </button>
+                      {/*                  <input type="submit"  onClick={()=>{history.push("/EmailEnvoyeForgetPassword")} }name="register" className="register2" value="Renitialiser"/>
+                       */}{' '}
+                    </div>
                   </div>
-                </div>
-              </Form>
+                </Form>
+              </div>
             </div>
           </div>
         </div>

@@ -88,17 +88,30 @@ const Reinitialiser_mdp = () => {
                   className="form-right"
                   style={{ 'border-top-left-radius': 10, 'border-bottom-left-radius': 10 }}
                 >
-                  <h2 style={{ 'border-bottom-right-radius': 10, 'border-bottom-left-radius': 10 }}>
-                    Reinitialiser le mot de passe
-                  </h2>
-
+                  <div
+                    className="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
+                    style={{ 'background-color': '#92acce', 'border-radius': 5 }}
+                  >
+                    <div className="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                      <h6
+                        className="text-white ps-3"
+                        style={{
+                          'font-weight': 'bold',
+                          'font-size': '30px',
+                          'text-align': 'center',
+                        }}
+                      >
+                        Reinitialiser le mot de passe
+                      </h6>
+                    </div>
+                  </div>
                   <div className="label5">
                     {' '}
                     saisissez un nouveau mot de passe pour votre compte.
                   </div>
 
                   <div className="form-row-last">
-                    <div classNameName="form-row3">
+                    <div classNameName="form-row3" style={{ paddingRight: 50 }}>
                       <Field
                         type="password"
                         id="password"
@@ -108,10 +121,10 @@ const Reinitialiser_mdp = () => {
                           ' form-control' +
                           (errors.password && touched.password ? ' is-invalid' : '')
                         }
-                        placeholder="password"
+                        placeholder="mot de passe"
                       />
                       <ErrorMessage
-                        style={{ fontSize: 12, color: 'red' }}
+                        style={{ fontSize: 15, color: '#F21C1C' }}
                         name="password"
                         component="div"
                         classNameName="invalid-feedback"
@@ -133,7 +146,7 @@ const Reinitialiser_mdp = () => {
                       />
                       <ErrorMessage
                         name="confirmPassword"
-                        style={{ fontSize: 12, color: 'red' }}
+                        style={{ fontSize: 15, color: '#F21C1C' }}
                         component="div"
                         classNameName="invalid-feedback"
                       />
@@ -141,16 +154,30 @@ const Reinitialiser_mdp = () => {
                        */}{' '}
                     </div>
 
-                    <input
+                    {/*      <input
                       type="submit"
                       name="register"
                       className="register3"
                       value="Réinitialiser"
                       style={{ marginTop: 50 }}
-                    />
-                    <br></br>
-                    <br></br>
+                    /> */}
                   </div>
+                  <div className="form-row-last" style={{ 'text-align': 'center' }}>
+                    <button
+                      type="submit"
+                      style={{
+                        'border-radius': '30px',
+                        color: 'white',
+                        borderColor: 'white',
+                        width: '150px',
+                      }}
+                      className="btn btn-outline-primary "
+                    >
+                      Renitialiser
+                    </button>
+                  </div>
+                  <br></br>
+                  <br></br>
                 </div>
               </Form>
             </div>

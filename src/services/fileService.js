@@ -26,3 +26,37 @@ export const getfile = (authRequest) => {
     responseType: 'blob',
   })
 }
+export const getfilebyid = (authRequest) => {
+  return axios({
+    method: 'GET',
+    url: `${process.env.hostUrl || 'http://localhost:8080'}/file/getfile/` + authRequest,
+    headers: {
+      Authorization: 'Bearer ' + getToken(),
+    },
+    responseType: 'blob',
+  })
+}
+const [logo, setlogo] = ''
+export const downloadContract = (response) => {
+  getfile(response.document.id)
+    .then((response) => {
+      console.log('taswira111', response)
+      setlogo(URL.createObjectURL(response.data))
+      console.log('taswira', logo)
+    })
+    .catch((e) => {})
+  let httpClient = new XMLHttpRequest()
+  httpClient.open('get', logo, true)
+  httpClient.responseType = 'blob'
+  httpClient.onload = function () {
+    const file = new Blob([httpClient.response], { type: 'application/pdf' })
+    const fileURL = URL.createObjectURL(file)
+    const link = document.createElement('a')
+    link.href = fileURL
+    link.download = 'cours.pdf'
+    link.click()
+    // document.body.removeChild(link);
+    URL.revokeObjectURL(fileURL)
+  }
+  httpClient.send()
+}

@@ -6,9 +6,11 @@ import {
   cilChartPie,
   cilCursor,
   cilDrop,
+  cilFeaturedPlaylist,
   cilNotes,
   cilPencil,
   cilPuzzle,
+  cilSchool,
   cilSpeedometer,
   cilStar,
   cilUser,
@@ -29,15 +31,35 @@ const _nav_formateur = [
 
   {
     component: CNavItem,
-    name: 'Gestion Formation',
-    to: '/GestionFormation/listeFormation',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
     name: 'Mon Compte',
     to: '/GestionCompte/gestioncompte',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavGroup,
+    name: 'Gestion Formation',
+    to: '/GestionFormation',
+    icon: <CIcon icon={cilSchool} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'liste formations',
+        to: '/GestionFormation/listeFormation',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Gestion examens',
+    to: '/gestion_examen',
+    icon: <CIcon icon={cilFeaturedPlaylist} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'gestion_examen',
+        to: '/gestion_examen/gestion_examen',
+      },
+    ],
   },
 ]
 

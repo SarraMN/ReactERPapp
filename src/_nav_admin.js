@@ -11,7 +11,9 @@ import {
   cilPuzzle,
   cilSpeedometer,
   cilStar,
+  cilEnvelopeClosed,
   cilUser,
+  cilBank,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -25,6 +27,12 @@ const _nav_admin = [
       color: 'info',
       text: 'NEW',
     },
+  },
+  {
+    component: CNavItem,
+    name: 'Organismes conventionnés',
+    to: '/gestion_organismes_conventionnes/organismes_conventionnes',
+    icon: <CIcon icon={cilBank} customClassName="nav-icon" />,
   },
   /*   {
     component: CNavTitle,
@@ -45,6 +53,24 @@ const _nav_admin = [
         component: CNavItem,
         name: 'liste Candidats',
         to: '/GestionUtilisateurs/listeUtilisateurs',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Demandes',
+    to: '/gestion_demandes',
+    icon: <CIcon icon={cilEnvelopeClosed} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Inscription formations',
+        to: '/gestion_demandes/demandes_inscription_formation',
+      },
+      {
+        component: CNavItem,
+        name: 'Inscription examens',
+        to: '/gestion_demandes/demandes_inscriptions_examens',
       },
     ],
   },
