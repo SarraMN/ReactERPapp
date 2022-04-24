@@ -30,6 +30,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Demandes_inscriptions = () => {
   let navigate = useNavigate()
+  const [bool, setBool] = useState(false)
 
   function notification_deValidation(id) {
     Swal.fire({
@@ -47,6 +48,9 @@ const Demandes_inscriptions = () => {
           .catch((e) => {})
 
         Swal.fire('cette demande est rejetée sans encombre.', '', 'success')
+        setBool(true)
+        setBool(false)
+
         getdemandes_ins_formations()
           .then((response) => {
             console.log('hayd data', response.data)
@@ -73,10 +77,10 @@ const Demandes_inscriptions = () => {
           .catch((e) => {})
 
         Swal.fire('cette demande est acceptée sans problème.', '', 'success')
+        setBool(true)
+        setBool(false)
         getdemandes_ins_formations()
           .then((response) => {
-            console.log('data', response.data)
-
             setPosts(response.data)
           })
           .catch((e) => {})
@@ -123,7 +127,7 @@ const Demandes_inscriptions = () => {
         console.log('data', response.data)
       })
       .catch((e) => {})
-  }, [])
+  }, [bool])
   if (posts) {
     // Get current posts
     const indexOfLastPost = currentPage * postsPerPage //3

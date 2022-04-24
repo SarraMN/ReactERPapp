@@ -183,7 +183,7 @@ const Login = (props) => {
                               <CIcon icon={cilLockLocked} />
                             </CInputGroupText>
                             <Field
-                              type="text"
+                              type="password"
                               id="password"
                               name="password"
                               className={
@@ -278,7 +278,7 @@ const Login = (props) => {
                           </div>
                           <Link to="/register">
                             {/*   <CButton
-                              className="mt-3 btn btn-white btn-outline-white" 
+                              className="mt-3 btn btn-white btn-outline-white"
                             active
                             tabIndex={-1}
                             style={{

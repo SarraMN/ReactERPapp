@@ -23,7 +23,7 @@ import 'src/views/gestion_examen/gestion_examen.css'
 import { uploadfile, getfile } from 'src/services/fileService'
 import { addQuestion, getQuestions, getReponseByQuestion } from 'src/services/questionService'
 import { addreponse } from 'src/services/reponseService'
-import { getQuestionByExamen } from 'src/services/examenService'
+import { getQuestionByExamen, updateExamen } from 'src/services/examenService'
 import {
   VerifPassword,
   updateuser,
@@ -37,22 +37,49 @@ import ReactImg from 'src/assets/images/logo1.jpg'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { getFormations } from 'src/services/FormationService'
-import { addExamen } from 'src/services/examenService'
+import { addExamen, getExamen } from 'src/services/examenService'
 import { Modal, Button } from 'react-bootstrap'
 import CIcon from '@coreui/icons-react'
 import { cilPencil, cilTrash } from '@coreui/icons'
+import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import Questions from 'src/views/gestion_examen/updateQuestions'
 
-import Questions from 'src/views/gestion_examen/questions'
+const UpdateExamen = () => {
+  //initialisation
+  let examen = useLocation()
+  const [intitule, setintitule] = useState()
+  const [duree, setduree] = useState()
+  const [bool, setbool] = useState(false)
+  const [formation, setformation] = useState({})
+  const [dateCreation, sedateCreation] = useState()
+  const [dateMdf, sedateMdf] = useState()
+  const [etat, setEtat] = useState('Non archivé')
+  const [etat2, setEtat2] = useState('Non archivé')
+  const [idexamen, setIdexamen] = useState(examen.state.UpdateExamen)
 
-const Ajoutxamen = () => {
-  const [idexamen, setIdexamen] = useState(0)
-  const [idquestion, setIdQuestion] = useState(0)
-  const [showAjt, setShowAjt] = useState(false)
-  const [check, setcheck] = useState('res1')
-  const [questions, setquestions] = useState([])
-
-  const handleShowAjt = () => setShowAjt(true)
-  const handleCloseAjt = () => setShowAjt(false)
+  useEffect(() => {
+    getExamen(examen.state.UpdateExamen).then((response) => {
+      console.log('hehi response', response)
+      setintitule(response.data.intitule)
+      setduree(response.data.duree)
+      setformation(response.data.formation)
+      setEtat(response.data.etat)
+      setEtat2(response.data.etat)
+      sedateCreation(response.data.dateCreation)
+      setIdexamen(response.data.id)
+      sedateMdf(response.data.dateMdf)
+      if (response.data.etat === 'Non archivé') {
+        document.getElementById('exampleRadios1').checked = true
+        document.getElementById('exampleRadios2').checked = false
+      } else {
+        document.getElementById('exampleRadios2').checked = true
+        document.getElementById('exampleRadios1').checked = false
+      }
+      console.log('haa wkhytyyy', response.data.etat)
+    })
+  }, [bool])
+  let navigate = useNavigate()
 
   const [formations, setFormations] = useState([])
   function Notification_failure() {
@@ -63,7 +90,6 @@ const Ajoutxamen = () => {
     })
   }
   useEffect(() => {
-    console.log('data')
     getFormations()
       .then((response) => {
         console.log('data', response)
@@ -72,13 +98,6 @@ const Ajoutxamen = () => {
       .catch((e) => {})
   }, [])
 
-  function Notification_Passwordupdate() {
-    Swal.fire('votre nouveau mot de passe a bien été enregistré', '', 'success')
-  }
-  function Notification_succes() {
-    Swal.fire('Organisme est ajouté avec succes ', '', 'success')
-  }
-
   function Notification_probleme() {
     Swal.fire({
       icon: 'error',
@@ -86,25 +105,64 @@ const Ajoutxamen = () => {
       text: 'Quelque chose ne va pas ! Veuillez réessayer',
     })
   }
-  const [etat, setEtat] = useState('Non archivé')
+
   const [initialValues2, setinitialValues2] = useState({
     intitule: '',
     duree: '',
     formation: '',
     etat: '',
   })
-
+  initialValues2.intitule = intitule
+  initialValues2.duree = duree
+  initialValues2.formation = formation.titre
+  initialValues2.etat = etat
   const [values, setValues] = useState({
     intitule: '',
     duree: '',
     dateCreation: '',
     dateMdf: '',
-    auteur: { id: '' },
-    formation: { id: '' },
     etat: '',
+    formation: { id: '' },
+    id: '',
   })
-  const changerInfo1 = (e) => {
-    values.intitule = e.intitule
+  function Notification_pasdechangement() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Probleme !',
+      text: 'y a pas des changement',
+    })
+  }
+  function Notification_updateExamen() {
+    Swal.fire('vos modifications ont été enregistrées ', '', 'success')
+  }
+  const modifierInfoGenrales = (e) => {
+    if (
+      e.duree === duree &&
+      e.formation === formation.titre &&
+      e.intitule === intitule &&
+      etat2 === etat
+    ) {
+      Notification_pasdechangement()
+    } else {
+      values.intitule = e.intitule
+      values.duree = e.duree
+      values.dateCreation = dateCreation
+      values.dateMdf = dateMdf
+      values.formation.id = e.formation
+      values.etat = etat
+      values.id = idexamen
+      if (e.formation === formation.titre) values.formation.id = formation.id
+      updateExamen(values).then((response) => {
+        if (response.status === 200) {
+          Notification_updateExamen()
+          setbool(true)
+          setbool(false)
+        } else {
+          Notification_probleme()
+        }
+      })
+    }
+    /*     values.intitule = e.intitule
     values.duree = e.duree
     values.etat = etat
     values.formation.id = e.formation
@@ -113,17 +171,12 @@ const Ajoutxamen = () => {
       if (response3.status === 200) {
         console.log('avec succée')
         setIdexamen(response3.data.id)
-        document.getElementById('pillsprofiletab2').disabled = false
-        document.getElementById('pillsprofiletab1').disabled = true
-        document.getElementById('pillsprofiletab2').click()
-        document.getElementById('pillsprofiletab1').ariaSelected = 'false'
-        document.getElementById('pillsprofiletab2').ariaSelected = 'true'
         console.log('sabaaa7', document.getElementById('pillsprofiletab2').ariaSelected)
       } else if (response3.status === 500) {
         console.log('failure')
         Notification_failure()
       }
-    })
+    }) */
   }
 
   return (
@@ -133,7 +186,7 @@ const Ajoutxamen = () => {
           className="nav nav-pills mb-3"
           id="pills-tab"
           role="tablist"
-          style={{ marginRight: '42%', marginLeft: '42%' }}
+          style={{ marginRight: '20%', marginLeft: '20%' }}
         >
           <li className="nav-item" role="presentation">
             <button
@@ -146,14 +199,12 @@ const Ajoutxamen = () => {
               aria-controls="pills-home"
               style={{
                 height: '60px',
-                width: '60px',
                 'font-size': '18 px',
                 'font-weight': 'bold',
-                'border-radius': '60px',
                 marginRight: '20px',
               }}
             >
-              1
+              Modifier Les informations generales
             </button>
           </li>
           <li className="nav-item" role="presentation">
@@ -167,14 +218,11 @@ const Ajoutxamen = () => {
               aria-controls="pills-profile"
               style={{
                 height: '60px',
-                width: '60px',
                 'font-size': '18 px',
                 'font-weight': 'bold',
-                'border-radius': '60px',
               }}
-              disabled
             >
-              2
+              Modifier Les questions
             </button>
           </li>
         </ul>
@@ -199,19 +247,11 @@ const Ajoutxamen = () => {
                     .max(180, 'maximum de duréé de un examen 180 minutes')
                     .integer('la durée de examen ne peut pas inclure de point décimal'),
                 })}
-                onSubmit={(values) => changerInfo1(values)}
+                onSubmit={(values) => modifierInfoGenrales(values)}
                 render={({ errors, status, touched }) => (
                   <Form>
                     <>
                       <div className="card">
-                        <header className="card-header">
-                          <p className="card-header-title">
-                            <span className="icon">
-                              <i className="mdi mdi-account-circle"></i>
-                            </span>
-                            Informations generales
-                          </p>
-                        </header>
                         <div className="card-content">
                           <div className="conteneur"></div>
                           <div styleName={{ display: 'inline-block', margin: '0 2%' }}>
@@ -275,9 +315,6 @@ const Ajoutxamen = () => {
                                     <Field
                                       name="formation"
                                       component="select"
-                                      /* onChange={(e) => {
-                                        initialValues2.formation = e.target.value
-                                      }} */
                                       style={{ 'border-radius': 0, marginBottom: '10px' }}
                                       className={
                                         'flex input' +
@@ -316,7 +353,7 @@ const Ajoutxamen = () => {
                                   onChange={(e) => {
                                     setEtat('Non archivé')
                                   }}
-                                  defaultChecked
+                                  /* defaultChecked */
                                 />
                                 <CFormCheck
                                   type="radio"
@@ -340,7 +377,7 @@ const Ajoutxamen = () => {
                                   className="button blue"
                                   style={{ width: '100px', 'background-color': '#213f77' }}
                                 >
-                                  Continuer
+                                  Modifier
                                 </button>
                               </div>
                             </div>
@@ -353,10 +390,17 @@ const Ajoutxamen = () => {
               />
             </section>
           </div>
-          <Questions examen={idexamen}></Questions>
+          <div
+            className="tab-pane fade"
+            id="pills-profile"
+            role="tabpanel"
+            aria-labelledby="pills-profile-tab"
+          >
+            <Questions examen={idexamen}></Questions>
+          </div>
         </div>
       </span>
     </div>
   )
 }
-export default Ajoutxamen
+export default UpdateExamen

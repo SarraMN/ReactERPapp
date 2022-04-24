@@ -1,0 +1,103 @@
+.heading-section .subheading {
+  font-size: 13px;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #4986fc;
+  text-transform: uppercase;
+}
+
+.heading-section h2 {
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.heading-section h2 span {
+  font-weight: 400;
+}
+@media (max-width: 767.98px) {
+  .heading-section h2 {
+    font-size: 28px;
+  }
+}
+
+.heading-section.heading-section-white .subheading {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.heading-section.heading-section-white h2 {
+  font-size: 40px;
+  color: #fff;
+}
+
+.heading-section.heading-section-white p {
+  color: rgba(255, 255, 255, 0.9);
+}
+.block-21 .text {
+  width: calc(100% - 90px);
+}
+.block-21 .text .heading {
+  font-size: 18px;
+  font-weight: 500;
+}
+.block-21 .text .heading a {
+  color: #000000;
+}
+.block-21 .text .heading a:hover,
+.block-21 .text .heading a:active,
+.block-21 .text .heading a:focus {
+  color: #4986fc;
+}
+.block-21 .text .meta > div {
+  display: inline-block;
+  font-size: 12px;
+  margin-right: 5px;
+}
+.block-21 .text .meta > div a {
+  color: gray;
+}
+
+.services {
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  width: 100%;
+  padding: 30px;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 0px 2px 25px -16px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: 0px 2px 25px -16px rgba(0, 0, 0, 0.26);
+  box-shadow: 0px 2px 25px -16px rgba(0, 0, 0, 0.26);
+  position: relative;
+}
+.services .icon {
+  line-height: 1.3;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #4986fc;
+  margin-bottom: 5px;
+}
+.services .icon span {
+  font-size: 40px;
+  color: #fff;
+}
+.services .icon.icon-2 {
+  background: #e449ad;
+}
+.services .icon.icon-3 {
+  background: #fc9927;
+}
+.services .icon.icon-4 {
+  background: #24d2c8;
+}
+.services .media-body {
+  position: relative;
+}
+.services .media-body h3 {
+  font-size: 18px;
+  font-weight: 500;
+}

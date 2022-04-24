@@ -996,3 +996,18 @@
   cursor: pointer;
   margin-left: 50px;
 }
+.home_search_button2 {
+  width: 180px;
+  height: 36px;
+  background: #1e4f70;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  margin-left: 50px;
+}

@@ -25,32 +25,34 @@ const Mes_formations = (props) => {
   const [selectValue, setselectValue] = useState('3')
   let navigate = useNavigate()
   let [images, setimages] = useState([])
+  let [bool, setbool] = useState(false)
 
   useEffect(() => {
     fetchUserData()
       .then((response2) => {
-        console.log('id res', response2.data.id)
         setId(response2.data.id)
-        console.log('id', id)
+        console.log('tkhlet')
         GetformationsCandidat(response2.data.id)
           .then((response) => {
-            console.log('sirine', response.data.length)
-            if (response.data.length != 0) {
-              response.data.reverse().map((item, index) => {
-                console.log('item', item)
-                getfile(item.image.id)
-                  .then((response2) => {
-                    images.push(URL.createObjectURL(response2.data))
-                  })
-                  .catch((e) => {})
-              })
-              setPosts(response.data.reverse())
+            if (response.data.length !== 0) {
+              test(response.data)
             }
           })
           .catch((e) => {})
       })
       .catch((e) => {})
-  }, [])
+  }, [bool])
+  function test(liste) {
+    liste.reverse().map((item, index) => {
+      getfile(item.image.id)
+        .then((response2) => {
+          setbool(true)
+          images.push(URL.createObjectURL(response2.data))
+        })
+        .catch((e) => {})
+    })
+    setPosts(liste.reverse())
+  }
   if (posts) {
     // Get current posts
     const indexOfLastPost = currentPage * postsPerPage //3
@@ -101,7 +103,10 @@ const Mes_formations = (props) => {
                       <a
                         href="#"
                         className="img"
-                        style={{ 'background-image': `url(${images[index]})` }}
+                        style={{
+                          'background-image': `url(${images[index]})`,
+                          'background-size': '300px 250px',
+                        }}
                       >
                         <span className="price">{item.categorie}</span>
                       </a>
@@ -109,7 +114,7 @@ const Mes_formations = (props) => {
                     <div className="course_body">
                       <h3 className="course_title" style={{ marginBottom: 25 }}>
                         <strong>
-                          <Link to="/Consulter_formation/formations/formationInfo" state={item}>
+                          <Link to="/Mes_formations/Mes_formations/FormationInfo" state={item}>
                             {item.titre}
                           </Link>
                         </strong>

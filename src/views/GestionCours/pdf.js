@@ -51,7 +51,6 @@ function App() {
       link.href = fileURL
       link.download = 'cours.pdf'
       link.click()
-      // document.body.removeChild(link);
       URL.revokeObjectURL(fileURL)
     }
     httpClient.send()

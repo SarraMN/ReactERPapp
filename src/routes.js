@@ -46,6 +46,10 @@ const pdf = React.lazy(() => import('./views/GestionCours/pdf'))
 const gestion_examen = React.lazy(() => import('./views/gestion_examen/gestion_examen'))
 const test = React.lazy(() => import('./views/gestion_examen/test'))
 const Ajoutxamen = React.lazy(() => import('./views/gestion_examen/AjoutExamen'))
+const modifierexamen = React.lazy(() => import('./views/gestion_examen/updateExamen'))
+const MaFormationInfo = React.lazy(() => import('./views/Mes_formations/FormationInfo'))
+const voirCours = React.lazy(() => import('./views/Mes_formations/voirCours'))
+const passageexamen = React.lazy(() => import('./views/Mes_formations/ExamenInfo'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -181,6 +185,26 @@ const routes = [
     path: '/gestion_examen/gestion_examen/AjoutExamen',
     name: 'Ajout Examen',
     element: Ajoutxamen,
+  },
+  {
+    path: '/gestion_examen/gestion_examen/updateExamen',
+    name: 'modifier Examen',
+    element: modifierexamen,
+  },
+  {
+    path: '/Mes_formations/Mes_formations/FormationInfo',
+    name: 'consulter formation',
+    element: MaFormationInfo,
+  },
+  {
+    path: '/Mes_formations/Mes_formations/FormationInfo/voirCours',
+    name: 'Voir cours',
+    element: voirCours,
+  },
+  {
+    path: '/Mes_formations/Mes_formations/FormationInfo/ExamenInfo',
+    name: 'Passage du examen',
+    element: passageexamen,
   },
 ]
 

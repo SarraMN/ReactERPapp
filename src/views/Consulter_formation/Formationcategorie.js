@@ -24,6 +24,7 @@ const Formationcategorie = (props) => {
   const [activeNumber, setactiveNumber] = useState(1)
   const [selectValue, setselectValue] = useState('3')
   const [typeCandidat, setTypeCandidat] = useState('')
+  const [bool, setbool] = useState(false)
   let navigate = useNavigate()
   let [images, setimages] = useState([])
 
@@ -36,6 +37,7 @@ const Formationcategorie = (props) => {
             console.log('item', item)
             getfile(item.image.id)
               .then((response2) => {
+                setbool(true)
                 images.push(URL.createObjectURL(response2.data))
               })
               .catch((e) => {})
@@ -44,7 +46,7 @@ const Formationcategorie = (props) => {
         }
       })
       .catch((e) => {})
-  }, [])
+  }, [bool])
   useEffect(() => {
     fetchUserData()
       .then((response) => {
@@ -111,7 +113,10 @@ const Formationcategorie = (props) => {
                       <a
                         href="#"
                         className="img"
-                        style={{ 'background-image': `url(${images[index]})` }}
+                        style={{
+                          'background-image': `url(${images[index]})`,
+                          'background-size': '300px 250px',
+                        }}
                       >
                         <span className="price">{item.categorie}</span>
                       </a>

@@ -31,7 +31,7 @@ import {
   getCoursById,
   editCours,
   DeleteCours,
-  archiverCours,
+  ChangerEtatCours,
 } from 'src/services/CoursService'
 import { useLocation, useNavigate } from 'react-router-dom'
 import CoursInfo from './CoursInfo'
@@ -192,7 +192,7 @@ const ListeCours = () => {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        archiverCours(id)
+        ChangerEtatCours(id)
           .then(() => {
             Swal.fire('Modification avec succes!', '', 'success')
             setBoolarchive(true)
@@ -223,7 +223,7 @@ const ListeCours = () => {
 
         Swal.fire('cette formation a été supprimé avec succes!', '', 'success')
       } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
+        Swal.fire('Les modifications ne sont pas enregistrées', '', 'info')
       }
     })
   }

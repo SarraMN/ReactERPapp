@@ -64,10 +64,10 @@ export const editCours = (id, authRequest) => {
   })
 }
 
-export const archiverCours = (id) => {
+export const ChangerEtatCours = (id) => {
   return axios({
     method: 'PUT',
-    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/cours/archiver/` + id,
+    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/cours/ChangerEtatCours/` + id,
     headers: {
       Authorization: 'Bearer ' + getToken(),
     },

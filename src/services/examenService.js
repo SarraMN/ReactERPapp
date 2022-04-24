@@ -64,3 +64,12 @@ export const addExamen = (authRequest) => {
     },
   })
 }
+export const ChangerEtatExamen = (id) => {
+  return axios({
+    method: 'PUT',
+    url: `${process.env.hostUrl || 'http://localhost:8080'}/examen/ChangerEtatExamen/` + id,
+    headers: {
+      Authorization: 'Bearer ' + getToken(),
+    },
+  })
+}

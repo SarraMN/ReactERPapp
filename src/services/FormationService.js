@@ -66,10 +66,11 @@ export const editFormation = (id, authRequest) => {
   })
 }
 
-export const archiverformation = (id) => {
+export const ChangerEtatFormation = (id) => {
   return axios({
     method: 'PUT',
-    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/formation/archiver/` + id,
+    url:
+      `${process.env.hostUrl || 'http://localhost:8080'}/api/formation/ChangerEtatFormation/` + id,
     headers: {
       Authorization: 'Bearer ' + getToken(),
     },

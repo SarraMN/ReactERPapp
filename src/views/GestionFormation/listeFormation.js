@@ -25,7 +25,7 @@ import { getFormations } from 'src/services/FormationService'
 import { Modal, Button } from 'react-bootstrap'
 import AjoutForm from 'src/views/GestionFormation/AjouterFormation'
 import { DeleteFormation } from 'src/services/FormationService'
-import { getFormation, archiverformation } from 'src/services/FormationService'
+import { getFormation, ChangerEtatFormation } from 'src/services/FormationService'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -251,8 +251,14 @@ const ListeFormation = () => {
   const [showAjt, setShowAjt] = useState(false)
   const [showMdf, setShowMdf] = useState(false)
 
-  const handleShowAjt = () => setShowAjt(true)
-  const handleCloseAjt = () => setShowAjt(false)
+  const handleShowAjt = () => {
+    settest(false)
+    setShowAjt(true)
+  }
+  const handleCloseAjt = () => {
+    settest(false)
+    setShowAjt(false)
+  }
 
   const handleShowMdf = () => setShowMdf(true)
   const handleCloseMdf = () => setShowMdf(false)
@@ -267,7 +273,7 @@ const ListeFormation = () => {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        archiverformation(id)
+        ChangerEtatFormation(id)
           .then(() => {
             Swal.fire('Modification avec succes!', '', 'success')
             setBoolarchive(true)
@@ -304,7 +310,6 @@ const ListeFormation = () => {
     })
   }
   let navigate = useNavigate()
-
   function Voircours(id) {
     navigate('/GestionFormation/listeFormation/listeCours', {
       state: { state: id },
@@ -321,33 +326,29 @@ const ListeFormation = () => {
     }
     reader.readAsDataURL(e.target.files[0])
   }
+  const [test, settest] = useState(false)
   /*getFormation */
   useEffect(() => {
     getFormations()
       .then((response) => {
-        console.log('hello', response.data)
-
         response.data.map((item, index) => {
           getfile(item.image.id)
             .then((response2) => {
+              settest(true)
               images.push(URL.createObjectURL(response2.data))
               console.log('hello', response2.data)
             })
             .catch((e) => {})
           nombre_candidatsParFormation(item.id)
             .then((response3) => {
-              console.log('nbrrr', response3)
               nbrcandidats.push(response3.data)
-              console.log('hello', response3.data)
             })
             .catch((e) => {})
         })
         setPosts(response.data)
       })
       .catch((e) => {})
-  }, [showAjt, showMdf, bool, boolarchive])
-
-  /*s'il ya aucune formation*/
+  }, [showAjt, showMdf, bool, test, boolarchive])
   if (posts.length == 0)
     return (
       <>

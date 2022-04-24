@@ -126,10 +126,6 @@ const AjouterFormation = () => {
   }
 
   const handleSubmit = (event) => {
-    console.log('imageee', image)
-    if (image == ReactImg) console.log('tbadel walo')
-    else console.log('tbadel hajet')
-
     if (
       titre === '' ||
       categorie === '' ||

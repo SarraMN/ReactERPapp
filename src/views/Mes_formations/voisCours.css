@@ -1,0 +1,198 @@
+.sidebar_categories {
+  margin-top: 16px;
+}
+.sidebar_categories ul li {
+  position: relative;
+  width: 100%;
+  height: 51px;
+}
+.sidebar_categories ul li:not(:last-of-type) {
+  border-bottom: solid 1px #e5e5e5;
+}
+.sidebar_categories ul li a {
+  display: block;
+  position: relative;
+  font-size: 14px;
+  color: #76777a;
+  line-height: 51px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+.sidebar_categories ul li a::before {
+  display: inline-block;
+  position: relative;
+  font-family: 'FontAwesome';
+  content: '\f101';
+  margin-right: 4px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+.sidebar_categories ul li:hover a,
+.sidebar_categories ul li:hover a::before {
+  color: #14bdee;
+}
+.sidebar_latest {
+  margin-top: 31px;
+}
+.sidebar_section_title {
+  font-family: 'Roboto Slab', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #384158;
+  line-height: 0.75;
+}
+.sidebar_categories {
+  margin-top: 16px;
+}
+.sidebar_categories ul li {
+  position: relative;
+  width: 100%;
+  height: 51px;
+}
+.sidebar_categories ul li:not(:last-of-type) {
+  border-bottom: solid 1px #e5e5e5;
+}
+.sidebar_categories ul li a {
+  display: block;
+  position: relative;
+  font-size: 14px;
+  color: #76777a;
+  line-height: 51px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+.sidebar_categories ul li a::before {
+  display: inline-block;
+  position: relative;
+  font-family: 'FontAwesome';
+  content: '\f101';
+  margin-right: 4px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+.sidebar_categories ul li:hover a,
+.sidebar_categories ul li:hover a::before {
+  color: #14bdee;
+}
+.sidebar_categories ul li {
+  position: relative;
+  width: 100%;
+  height: 51px;
+}
+.sidebar_section:not(:last-child) {
+  margin-bottom: 60px;
+}
+.sidebar_section_title {
+  font-family: 'Roboto Slab', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #384158;
+  line-height: 0.75;
+}
+ul {
+  list-style: none;
+  margin-bottom: 0px;
+}
+p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  line-height: 1.85;
+  font-weight: 400;
+  color: #76777a;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+  text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+}
+p a {
+  display: inline;
+  position: relative;
+  color: inherit;
+  border-bottom: solid 1px #ffa07f;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+p:last-of-type {
+  margin-bottom: 0;
+}
+a,
+a:hover,
+a:visited,
+a:active,
+a:link {
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+  text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+}
+p a:active {
+  position: relative;
+  color: #ff6347;
+}
+p a:hover {
+  color: #ffffff;
+  background: #ffa07f;
+}
+p a:hover::after {
+  opacity: 0.2;
+}
+.sidebar_banner_overlay {
+  background: #14bdee;
+  opacity: 0.7;
+}
+
+.banner_button {
+  width: 200px;
+  height: 46px;
+  background: #ffffff;
+  border-radius: 3px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+.banner_button a {
+  display: block;
+  color: #14bdee;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  margin-left: -0.1em;
+  text-transform: uppercase;
+  line-height: 46px;
+  margin-top: 21px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+
+.product__details__tab {
+  padding-top: 85px;
+}
+
+.product__details__tab .nav-tabs {
+  border-bottom: none;
+  justify-content: center;
+  position: relative;
+}
+
+.product__details__tab .nav-tabs li {
+  margin-right: 65px;
+}

@@ -55,6 +55,14 @@ const AjouterCours = (props) => {
       text: 'le serveur ne repond pas!',
     })
   }
+
+  function taillefichiertroplarge() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Taille du fichier',
+      text: 'Le fichier est trop volumineux!',
+    })
+  }
   function Notification_Succees() {
     Swal.fire('Succès!', 'Le cours a été ajouter avec succès', 'success')
   }
@@ -91,25 +99,29 @@ const AjouterCours = (props) => {
       }).then(
         function (response) {
           console.log('filleee', response)
-          values.document.id = response.data
-          setValidated(true)
-          console.log('etat', etat)
-          values.titre = titre
-          values.description = description
-          values.objectif = objectif
-          values.formation.id = props.id
-          values.etat = etat
-          console.log('values', values)
-          AjoutCours(values).then((response) => {
-            if (response.status === 200) {
-              console.log('avec succée')
-              initialiser()
-              Notification_Succees()
-            } else if (response.status === 500) {
-              console.log('failure')
-              Notification_failure()
-            }
-          })
+          if (response.data === 0) {
+            taillefichiertroplarge()
+          } else {
+            values.document.id = response.data
+            setValidated(true)
+            console.log('etat', etat)
+            values.titre = titre
+            values.description = description
+            values.objectif = objectif
+            values.formation.id = props.id
+            values.etat = etat
+            console.log('values', values)
+            AjoutCours(values).then((response) => {
+              if (response.status === 200) {
+                console.log('avec succée')
+                initialiser()
+                Notification_Succees()
+              } else if (response.status === 500) {
+                console.log('failure')
+                Notification_failure()
+              }
+            })
+          }
         },
         function (error) {},
       )

@@ -89,7 +89,7 @@ const Demandes_inscriptions = () => {
                       className="text-white ps-3"
                       style={{ 'font-weight': 'bold', 'font-size': '22px' }}
                     >
-                      istorique des demandes
+                      Historique des demandes
                     </h6>
                   </div>
                 </div>
