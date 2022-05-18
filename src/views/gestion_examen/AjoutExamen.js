@@ -8,6 +8,7 @@ import {
   CFormInput,
   CFormLabel,
   CFormCheck,
+  CAlert,
 } from '@coreui/react'
 import React from 'react'
 import { userLogin, fetchUserData, updatepassword } from 'src/services/UserService'
@@ -191,13 +192,13 @@ const Ajoutxamen = () => {
               <Formik
                 initialValues={initialValues2}
                 validationSchema={Yup.object().shape({
-                  intitule: Yup.string().required('intitule est requis'),
-                  formation: Yup.string().required('formation est requise'),
+                  intitule: Yup.string().required('Intitule est requis'),
+                  formation: Yup.string().required('Formation est requise'),
                   duree: Yup.number()
-                    .required('la durée est requis')
-                    .min(10, 'minimum de duréé de un examen 10 minutes')
-                    .max(180, 'maximum de duréé de un examen 180 minutes')
-                    .integer('la durée de examen ne peut pas inclure de point décimal'),
+                    .required('La durée est requise')
+                    .min(10, 'Minimum de duréé de un examen 10 minutes')
+                    .max(180, 'Maximum de duréé de un examen 180 minutes')
+                    .integer('La durée de examen ne peut pas inclure de point décimal'),
                 })}
                 onSubmit={(values) => changerInfo1(values)}
                 render={({ errors, status, touched }) => (
@@ -335,11 +336,23 @@ const Ajoutxamen = () => {
                           <div style={{ 'margin-top': '5px', float: 'right', align: 'right' }}>
                             <div>
                               <div className="control">
-                                <button
+                                {/* <button
                                   type="submit"
                                   className="button blue"
                                   style={{ width: '100px', 'background-color': '#213f77' }}
                                 >
+                                  Continuer
+                                </button> */}
+                                <button
+                                  className="btnAdd"
+                                  type="submit"
+                                  style={{ height: '40px', width: '150px' }}
+                                >
+                                  <i
+                                    className="fa fa-check"
+                                    aria-hidden="true"
+                                    style={{ marginRight: '9px' }}
+                                  ></i>
                                   Continuer
                                 </button>
                               </div>
@@ -347,6 +360,11 @@ const Ajoutxamen = () => {
                           </div>
                         </div>
                       </div>{' '}
+                      <br></br>
+                      <CAlert color="danger" dismissible onClose={() => {}}>
+                        <strong> Remarque :</strong> un examen ne peut pas etre envoyer a un
+                        candidat que lorsqu{"'"}il presente au minimum cinque questions.
+                      </CAlert>
                     </>
                   </Form>
                 )}

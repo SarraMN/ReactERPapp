@@ -11954,8 +11954,7 @@ textarea.form-control {
   top: -30px;
   left: 0;
   right: 0;
-  padding: 15px 10px;
-  background: transparent;
+  background-color: fade(#ffffff, 50%);
   opacity: 0;
   -moz-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
@@ -11969,7 +11968,7 @@ textarea.form-control {
 .staff:hover .ftco-social,
 .staff:focus .ftco-social {
   opacity: 1;
-  top: -50px;
+  top: -80px;
 }
 .staff:hover .img,
 .staff:focus .img {

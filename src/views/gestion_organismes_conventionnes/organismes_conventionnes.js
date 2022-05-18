@@ -14,6 +14,7 @@ import {
 import React, { useEffect, useState } from 'react'
 
 import 'src/views/gestion_demandes/demandes_inscriptions.css'
+import 'src/views/gestion_organismes_conventionnes/Organisme.css'
 
 import CIcon from '@coreui/icons-react'
 import {
@@ -23,6 +24,8 @@ import {
   cilDataTransferDown,
   cilTrash,
   cilPencil,
+  cilPlus,
+  cilIndustry,
 } from '@coreui/icons'
 import avatar8 from 'src/assets/images/logo1.jpg'
 import { uploadfile, getfile } from 'src/services/fileService'
@@ -165,12 +168,12 @@ const Organismes_conventionnes = () => {
         <div>
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
             <button
-              className="btn btn-outline-primary btn-sm mb-0"
+              className="btnAdd btn-sm mb-0"
               style={{ 'font-size': '18px' }}
               onClick={AjouterOrganisme}
             >
               <CIcon
-                icon={cilList}
+                icon={cilIndustry}
                 customClassName="nav-icon"
                 style={{
                   width: 20,

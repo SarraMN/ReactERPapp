@@ -35,6 +35,9 @@ const Reinitialiser_mdp = () => {
       },
     })
   }
+  function retour() {
+    navigate('/')
+  }
   const handleSubmit = (e) => {
     values.password = e.password
 
@@ -76,7 +79,7 @@ const Reinitialiser_mdp = () => {
           .required('Le mot de passe est requis'),
         confirmPassword: Yup.string()
           .oneOf([Yup.ref('password'), null], 'les mots de passe doivent correspondre')
-          .required('Confirmer le mot de passe est requis'),
+          .required('La confirmation du mot de passe est requis'),
       })}
       onSubmit={(values) => handleSubmit(values)}
       render={({ errors, status, touched }) => (
@@ -101,13 +104,13 @@ const Reinitialiser_mdp = () => {
                           'text-align': 'center',
                         }}
                       >
-                        Reinitialiser le mot de passe
+                        Réinitialiser le mot de passe
                       </h6>
                     </div>
                   </div>
                   <div className="label5">
                     {' '}
-                    saisissez un nouveau mot de passe pour votre compte.
+                    Saisissez un nouveau mot de passe pour votre compte.
                   </div>
 
                   <div className="form-row-last">
@@ -124,7 +127,7 @@ const Reinitialiser_mdp = () => {
                         placeholder="mot de passe"
                       />
                       <ErrorMessage
-                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        style={{ fontSize: 15, color: '#FF3030' }}
                         name="password"
                         component="div"
                         classNameName="invalid-feedback"
@@ -146,21 +149,11 @@ const Reinitialiser_mdp = () => {
                       />
                       <ErrorMessage
                         name="confirmPassword"
-                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        style={{ fontSize: 15, color: '#FF3030' }}
                         component="div"
                         classNameName="invalid-feedback"
                       />
-                      {/*               <input type="password"   required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Confirmer mot de passe"/>
-                       */}{' '}
                     </div>
-
-                    {/*      <input
-                      type="submit"
-                      name="register"
-                      className="register3"
-                      value="Réinitialiser"
-                      style={{ marginTop: 50 }}
-                    /> */}
                   </div>
                   <div className="form-row-last" style={{ 'text-align': 'center' }}>
                     <button
@@ -173,11 +166,25 @@ const Reinitialiser_mdp = () => {
                       }}
                       className="btn btn-outline-primary "
                     >
-                      Renitialiser
+                      Réinitialiser
                     </button>
                   </div>
                   <br></br>
-                  <br></br>
+                  <p
+                    className="btn"
+                    style={{
+                      color: 'white',
+                      'font-size': '15px',
+                    }}
+                    onClick={() => retour()}
+                  >
+                    <i
+                      className="fa fa-backward"
+                      aria-hidden="true"
+                      style={{ marginRight: '5px' }}
+                    ></i>
+                    Retour
+                  </p>
                 </div>
               </Form>
             </div>

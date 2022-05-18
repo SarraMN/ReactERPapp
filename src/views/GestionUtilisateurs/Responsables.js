@@ -12,14 +12,21 @@ import {
   CTableRow,
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
-import { getcandidats, getformateurs } from 'src/services/gestionutilisateurs'
+import { deleteuser, getcandidats, getformateurs } from 'src/services/gestionutilisateurs'
 import { uploadfile, getfile } from 'src/services/fileService'
 
 import 'src/views/gestion_demandes/demandes_inscriptions.css'
 import ReactImg from 'src/images/teacher-2.jpg'
 
 import CIcon from '@coreui/icons-react'
-import { cilBan, cilCheckCircle, cilList, cilEnvelopeClosed, cilPhone } from '@coreui/icons'
+import {
+  cilBan,
+  cilCheckCircle,
+  cilList,
+  cilEnvelopeClosed,
+  cilPhone,
+  cilTrash,
+} from '@coreui/icons'
 import {
   getdemandes_ins_formations,
   accepterdemande,
@@ -31,26 +38,36 @@ import { useNavigate } from 'react-router-dom'
 const Demandes_inscriptions = () => {
   let navigate = useNavigate()
   const [profileimg, setProfileimg] = useState(ReactImg)
-
+  function Deleteuser(id) {
+    notification_deValidation(id)
+  }
   function notification_deValidation(id) {
     Swal.fire({
-      title: 'Souhaitez-vous refuser cette demande?',
+      title: 'Souhaitez-vous supprimer cet responsable ?',
       showDenyButton: true,
-      showCancelButton: false,
       confirmButtonText: 'valider',
       denyButtonText: `annuler`,
     }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        refuserdemande(id)
+        deleteuser(id)
           .then((response) => {
             console.log('data', response.data)
           })
           .catch((e) => {})
 
-        Swal.fire('cette demande est rejetée sans encombre.', '', 'success')
-        getdemandes_ins_formations()
+        Swal.fire('La suppression de ce compte a réussi!', '', 'success')
+        getformateurs()
           .then((response) => {
-            console.log('hayd data', response.data)
+            console.log(response.data)
+            response.data.map((item, index) =>
+              getfile(item.image.id)
+                .then((response) => {
+                  images.push(URL.createObjectURL(response.data))
+                  setProfileimg(URL.createObjectURL(response.data))
+                })
+                .catch((e) => {}),
+            )
             setPosts(response.data)
           })
           .catch((e) => {})
@@ -59,34 +76,11 @@ const Demandes_inscriptions = () => {
       }
     })
   }
-  function notification_deValidation2(id) {
-    Swal.fire({
-      title: 'Seriez-vous prêt à accepter cette demande?',
-      showDenyButton: true,
-      confirmButtonText: 'valider',
-      denyButtonText: `annuler`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        accepterdemande(id)
-          .then((response) => {
-            console.log('data', response.data)
-          })
-          .catch((e) => {})
-
-        Swal.fire('cette demande est acceptée sans problème.', '', 'success')
-        getdemandes_ins_formations()
-          .then((response) => {
-            console.log('data', response.data)
-
-            setPosts(response.data)
-          })
-          .catch((e) => {})
-      } else if (result.isDenied) {
-        Swal.fire('Les modifications ne sont pas enregistrées', '', 'info')
-      }
+  function ResponsebleProfil(user) {
+    navigate('/GestionUtilisateurs/Responsables/responsable', {
+      state: { utilisateur: user },
     })
   }
-
   function Ajoutresponsable() {
     navigate('/GestionUtilisateurs/Responsables/Ajoutresponsable')
   }
@@ -106,12 +100,10 @@ const Demandes_inscriptions = () => {
             .then((response) => {
               images.push(URL.createObjectURL(response.data))
               setProfileimg(URL.createObjectURL(response.data))
-              console.log('hello', response.data)
             })
             .catch((e) => {}),
         )
         setPosts(response.data)
-        console.log('aloo', images)
       })
       .catch((e) => {})
   }, [])
@@ -137,11 +129,12 @@ const Demandes_inscriptions = () => {
       <div>
         <div>
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
-            <button
-              className="btn btn-outline-primary btn-sm mb-0"
-              style={{ 'font-size': '18px' }}
-              onClick={Ajoutresponsable}
-            >
+            <button className="btnAdd btn-sm mb-0" onClick={Ajoutresponsable}>
+              <i
+                className="flex fa fa-user-plus"
+                aria-hidden="true"
+                style={{ marginRight: 10 }}
+              ></i>
               Ajouter Responsable
             </button>
           </div>
@@ -176,6 +169,7 @@ const Demandes_inscriptions = () => {
                               <div className="staff">
                                 <div className="img-wrap d-flex align-items-stretch">
                                   <div
+                                    onClick={(index) => ResponsebleProfil(item)}
                                     className="img align-self-stretch"
                                     style={{
                                       backgroundImage: `url(${images[index]})`,
@@ -184,7 +178,10 @@ const Demandes_inscriptions = () => {
                                 </div>
                                 <div className="text pt-3">
                                   <h3>
-                                    <a href="instructor-details.html">
+                                    <a
+                                      href="instructor-details.html"
+                                      onClick={(index) => ResponsebleProfil(item)}
+                                    >
                                       {item.nom} {item.prenom}
                                     </a>
                                   </h3>
@@ -216,26 +213,24 @@ const Demandes_inscriptions = () => {
                                     </p>
 
                                     <ul className="ftco-social text-center">
-                                      <li>
-                                        <a href="#">
-                                          <span className="fa fa-twitter"></span>
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#">
-                                          <span className="fa fa-facebook"></span>
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#">
-                                          <span className="fa fa-google"></span>
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#">
-                                          <span className="fa fa-instagram"></span>
-                                        </a>
-                                      </li>
+                                      <button
+                                        style={{
+                                          border: 0,
+                                          backgroundColor: 'transparent',
+                                        }}
+                                        onClick={(index) => Deleteuser(item.id)}
+                                      >
+                                        <CIcon
+                                          icon={cilTrash}
+                                          customClassName="nav-icon"
+                                          style={{
+                                            marginTop: 5,
+                                            width: 60,
+                                            height: 60,
+                                            color: '#DC1E1E',
+                                          }}
+                                        />
+                                      </button>
                                     </ul>
                                   </div>
                                 </div>

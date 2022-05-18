@@ -613,32 +613,13 @@ const UpdateQuestions = (props) => {
       <br></br>
       <div style={{ align: 'right', float: 'right' }}>
         <button
-          className="btnAjQuestion"
+          className="btnAdd"
           onClick={validerExamen}
           type="submit"
-          style={{
-            float: 'right',
-            align: 'right',
-            border: ' 1px solid black',
-            height: '48px',
-            width: '150px',
-            'font-size': '1em',
-            'font-style': 'inherit',
-            marginLeft: '10px',
-            backgroundColor: '#213f77',
-            color: 'white',
-          }}
+          style={{ height: '40px', width: '150px' }}
         >
-          <p
-            style={{
-              'font-size': '1.2em',
-              marginTop: '4px',
-            }}
-          >
-            {' '}
-            <i className="fa fa-check" aria-hidden="true" style={{ marginRight: '6px' }}></i>
-            Valider
-          </p>
+          <i className="fa fa-check" aria-hidden="true" style={{ marginRight: '9px' }}></i>
+          Valider
         </button>
       </div>
     </div>

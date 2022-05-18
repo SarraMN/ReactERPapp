@@ -32,15 +32,13 @@ class App extends Component {
             <Route exact path="/" name="Login Page" element={<Login />} />
             <Route exact path="/register" name="Register Page" element={<Register />} />
             <Route exact path="/ForgetPassword" name="Page 500" element={<ForgetPassword />} />
-            {/*             <Route exact path="/userProfile" name="UserProfile" element={<UserProfile />} />
-             */}{' '}
             <Route
               exact
               path="/Reinitialiser_mdp"
               name="Page 500"
               element={<Reinitialiser_mdp />}
             />
-            <Route path="*" name="Home" element={<DefaultLayout />} />
+            <Route path="*" name="rtr" element={<DefaultLayout />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

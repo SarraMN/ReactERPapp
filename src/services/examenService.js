@@ -23,12 +23,45 @@ export const getExamen = (authRequest) => {
     },
   })
 }
+export const getExamenByFormation = (authRequest) => {
+  return axios({
+    method: 'GET',
+    url:
+      `${process.env.hostUrl || 'http://localhost:8080'}/examen/getExamenByFormation/` +
+      authRequest,
+    headers: {
+      Authorization: 'Bearer ' + getToken(),
+    },
+  })
+}
 export const getQuestionByExamen = (authRequest) => {
   console.log(authRequest)
   return axios({
     method: 'GET',
     url:
       `${process.env.hostUrl || 'http://localhost:8080'}/examen/getQuestionByExamen/` + authRequest,
+    headers: {
+      Authorization: 'Bearer ' + getToken(),
+    },
+  })
+}
+export const getQuestionAndReponsesByExamen = (authRequest) => {
+  console.log(authRequest)
+  return axios({
+    method: 'GET',
+    url:
+      `${process.env.hostUrl || 'http://localhost:8080'}/examen/getQuestionAndReponsesByExamen/` +
+      authRequest,
+    headers: {
+      Authorization: 'Bearer ' + getToken(),
+    },
+  })
+}
+export const getExamenAleatoire = (authRequest) => {
+  return axios({
+    method: 'GET',
+    url:
+      `${process.env.hostUrl || 'http://localhost:8080'}/examen/getExamenAleatoire/` + authRequest,
     headers: {
       Authorization: 'Bearer ' + getToken(),
     },

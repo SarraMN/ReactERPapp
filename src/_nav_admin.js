@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CIcon from '@coreui/icons-react'
 import {
   cilBell,
@@ -14,30 +14,48 @@ import {
   cilEnvelopeClosed,
   cilUser,
   cilBank,
+  cilNewspaper,
+  cilWarning,
+  cilAccountLogout,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import { getdemandes_ins_formations } from './services/demandes_inscriptionService'
+import { ReclamationsNonTraitees } from './services/ReclamationService'
+import { useDispatch, useSelector } from 'react-redux'
 
+function NbrDemandes() {
+  const dispatch = useDispatch()
+  const nbrDemandes = useSelector((state) => state.nbrDemandes)
+  getdemandes_ins_formations()
+    .then((response) => {
+      dispatch({ type: 'set', nbrDemandes: response.data.length })
+    })
+    .catch((e) => {})
+  return nbrDemandes
+}
+function NbrReclamations() {
+  const dispatch = useDispatch()
+  const nbrReclamations = useSelector((state) => state.nbrReclamations)
+  ReclamationsNonTraitees()
+    .then((response) => {
+      dispatch({ type: 'set', nbrReclamations: response.data.length })
+    })
+    .catch((e) => {})
+  return nbrReclamations
+}
 const _nav_admin = [
   {
     component: CNavItem,
-    name: 'Accueil',
+    name: 'Tableau du bord',
     to: '/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
   },
   {
     component: CNavItem,
-    name: 'Organismes conventionnés',
+    name: 'Les organisation',
     to: '/gestion_organismes_conventionnes/organismes_conventionnes',
     icon: <CIcon icon={cilBank} customClassName="nav-icon" />,
   },
-  /*   {
-    component: CNavTitle,
-    name: 'Formation',
-  }, */
   {
     component: CNavGroup,
     name: 'Gestion Utilisateurs',
@@ -57,22 +75,36 @@ const _nav_admin = [
     ],
   },
   {
-    component: CNavGroup,
+    component: CNavItem,
     name: 'Demandes',
-    to: '/gestion_demandes',
+    to: '/gestion_demandes/demandes_inscription_formation',
     icon: <CIcon icon={cilEnvelopeClosed} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Inscription formations',
-        to: '/gestion_demandes/demandes_inscription_formation',
-      },
-      {
-        component: CNavItem,
-        name: 'Inscription examens',
-        to: '/gestion_demandes/demandes_inscriptions_examens',
-      },
-    ],
+    badge: {
+      color: 'info',
+      text: <NbrDemandes />,
+    },
+  },
+  {
+    component: CNavItem,
+    name: 'Actualités',
+    to: '/Gestion_Actualite/Actualites',
+    icon: <CIcon icon={cilNewspaper} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Reclamations',
+    to: '/GestionReclamation/ReclamationAttentes',
+    icon: <CIcon icon={cilWarning} customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: <NbrReclamations />,
+    },
+  },
+  {
+    component: CNavItem,
+    name: 'Deconnecter',
+    to: '/',
+    icon: <CIcon icon={cilAccountLogout} customClassName="nav-icon" />,
   },
 ]
 

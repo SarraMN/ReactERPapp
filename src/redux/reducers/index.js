@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
-import auth from 'src/redux/reducers/auth'
+import PassageExamen from 'src/redux/reducers/passageExamen'
 
 export default combineReducers({
-  auth,
+  PassageExamen,
 })

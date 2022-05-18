@@ -14,21 +14,11 @@ import {
   cilSpeedometer,
   cilStar,
   cilUser,
+  cilAccountLogout,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav_formateur = [
-  {
-    component: CNavItem,
-    name: 'Accueil',
-    to: '/dashboard',
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
-  },
-
   {
     component: CNavItem,
     name: 'Mon Compte',
@@ -36,30 +26,22 @@ const _nav_formateur = [
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
   {
-    component: CNavGroup,
-    name: 'Gestion Formation',
-    to: '/GestionFormation',
+    component: CNavItem,
+    name: 'Gestion formations',
+    to: '/GestionFormation/listeFormation',
     icon: <CIcon icon={cilSchool} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'liste formations',
-        to: '/GestionFormation/listeFormation',
-      },
-    ],
   },
   {
-    component: CNavGroup,
+    component: CNavItem,
     name: 'Gestion examens',
-    to: '/gestion_examen',
+    to: '/gestion_examen/gestion_examen',
     icon: <CIcon icon={cilFeaturedPlaylist} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'gestion_examen',
-        to: '/gestion_examen/gestion_examen',
-      },
-    ],
+  },
+  {
+    component: CNavItem,
+    name: 'Deconnecter',
+    to: '/',
+    icon: <CIcon icon={cilAccountLogout} customClassName="nav-icon" />,
   },
 ]
 

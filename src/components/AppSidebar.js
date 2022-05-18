@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { CCardImage, CSidebar, CSidebarBrand, CSidebarNav, CSidebarToggler } from '@coreui/react'
@@ -19,23 +19,31 @@ import _nav_admin from '../_nav_admin'
 import { cilSpeedometer, cilMenu } from '@coreui/icons'
 import _nav_formateur from 'src/_nav_formateur'
 import _nav from '../_nav'
+import { fetchUserData } from 'src/services/UserService'
 
 let app = navigation
-const role = localStorage.getItem('Role')
-if (role == 'Admin') {
-  app = _nav_admin
-}
-if (role == 'User_Candidat') {
-  app = _nav
-}
-if (role == 'User_Professer') {
-  app = _nav_formateur
-}
+
 const AppSidebar = () => {
   const dispatch = useDispatch()
   const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   const sidebarShow = useSelector((state) => state.sidebarShow)
+  const app = useSelector((state) => state.app)
+  let role
+  useEffect(() => {
+    fetchUserData().then((response) => {
+      console.log('nav bar', response.data.roles[0].authority)
 
+      if (response.data.roles[0].authority === 'Admin') {
+        dispatch({ type: 'set', app: _nav_admin })
+      }
+      if (response.data.roles[0].authority === 'User_Candidat') {
+        dispatch({ type: 'set', app: _nav })
+      }
+      if (response.data.roles[0].authority === 'User_Professer') {
+        dispatch({ type: 'set', app: _nav_formateur })
+      }
+    })
+  }, [])
   return (
     <CSidebar
       position="fixed"
@@ -56,11 +64,11 @@ const AppSidebar = () => {
         <SimpleBar>
           <AppSidebarNav items={app} />
         </SimpleBar>
-      </CSidebarNav>
+      </CSidebarNav>{' '}
       <CSidebarToggler
         className="d-none d-lg-flex"
         onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
-      />
+      ></CSidebarToggler>
     </CSidebar>
   )
 }

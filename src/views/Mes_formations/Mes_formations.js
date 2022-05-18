@@ -11,12 +11,17 @@ import ReactImg2 from 'src/images/work-3.jpg'
 import ReactImg3 from 'src/images/work-5.jpg'
 import ReactImg4 from 'src/images/Graphic_designer.jpg'
 import ReactImg5 from 'src/images/work-6.jpg'
+import { EffectCoverflow, Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/effect-coverflow'
+import 'swiper/css/pagination'
 import { fetchUserData, GetformationsCandidat } from 'src/services/UserService'
 const Mes_formations = (props) => {
   const [categorie, setCategorie] = useState(props)
   const [id, setId] = useState()
 
-  const [posts, setPosts] = useState()
+  const [posts, setPosts] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage, setpostsPerPage] = useState(3)
   const [NextPage, setNextPage] = useState(currentPage + 1)
@@ -25,33 +30,35 @@ const Mes_formations = (props) => {
   const [selectValue, setselectValue] = useState('3')
   let navigate = useNavigate()
   let [images, setimages] = useState([])
+  let [images2, setimages2] = useState([])
   let [bool, setbool] = useState(false)
 
   useEffect(() => {
+    test()
+  }, [bool])
+
+  function test() {
     fetchUserData()
       .then((response2) => {
         setId(response2.data.id)
-        console.log('tkhlet')
         GetformationsCandidat(response2.data.id)
           .then((response) => {
             if (response.data.length !== 0) {
-              test(response.data)
+              response.data.reverse().map((item, index) => {
+                getfile(item.image.id)
+                  .then((response2) => {
+                    setbool(true)
+                    images[item.id] = URL.createObjectURL(response2.data)
+                    images2.push(item.id)
+                  })
+                  .catch((e) => {})
+              })
+              setPosts(response.data)
             }
           })
           .catch((e) => {})
       })
       .catch((e) => {})
-  }, [bool])
-  function test(liste) {
-    liste.reverse().map((item, index) => {
-      getfile(item.image.id)
-        .then((response2) => {
-          setbool(true)
-          images.push(URL.createObjectURL(response2.data))
-        })
-        .catch((e) => {})
-    })
-    setPosts(liste.reverse())
   }
   if (posts) {
     // Get current posts
@@ -92,56 +99,64 @@ const Mes_formations = (props) => {
                   <span>{posts.length} Formations Disponibles</span>
                 )}
               </h6>
-              {currentPosts.map((item, index) => (
-                <div
-                  className="col-lg-4 course_col"
-                  style={{ marginTop: 25, marginRight: 0 }}
-                  key={index}
-                >
-                  <div className="course">
-                    <div className="project-wrap">
-                      <a
-                        href="#"
-                        className="img"
-                        style={{
-                          'background-image': `url(${images[index]})`,
-                          'background-size': '300px 250px',
-                        }}
-                      >
-                        <span className="price">{item.categorie}</span>
-                      </a>
-                    </div>
-                    <div className="course_body">
-                      <h3 className="course_title" style={{ marginBottom: 25 }}>
-                        <strong>
-                          <Link to="/Mes_formations/Mes_formations/FormationInfo" state={item}>
-                            {item.titre}
-                          </Link>
-                        </strong>
-                      </h3>
-                      <div className="course_text">
-                        <p>{item.description.substr(0, 35)}...</p>
-                      </div>
-                      <div className="course_Date">
-                        <strong>Date de publication :</strong> {item.dateCreation}
-                      </div>
-                    </div>
-                    <div className="course_footer">
-                      <div className="course_footer_content d-flex flex-row align-items-center justify-content-start">
-                        <div className="course_info">
-                          <i className="fa fa-graduation-cap" aria-hidden="true"></i>
-                          <span>20 Student</span>
+              <Swiper
+                slidesPerView={3}
+                spaceBetween={10}
+                pagination={{
+                  clickable: true,
+                }}
+                modules={[Pagination]}
+                className="mySwiper2"
+              >
+                {posts.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <div>
+                      <div className="course">
+                        <div className="project-wrap">
+                          <a
+                            href="#"
+                            className="img"
+                            style={{
+                              'background-image': `url(${images[item.id]})`,
+                              'background-size': '300px 250px',
+                            }}
+                          >
+                            <span className="price">{item.categorie}</span>
+                          </a>
                         </div>
-                        <div className="course_info">
-                          <i className="fa fa-star" aria-hidden="true" />
-                          <span>5 Ratings</span>
+                        <div className="course_body">
+                          <h3 className="course_title" style={{ marginBottom: 25 }}>
+                            <strong>
+                              <Link to="/Mes_formations/Mes_formations/FormationInfo" state={item}>
+                                {item.titre}
+                              </Link>
+                            </strong>
+                          </h3>
+                          <div className="course_text">
+                            <p>{item.description.substr(0, 35)}...</p>
+                          </div>
+                          <div className="course_Date">
+                            <strong>Date de publication :</strong> {item.dateCreation}
+                          </div>
                         </div>
-                        <div className="course_price ml-auto">{item.prix} DT</div>
+                        <div className="course_footer">
+                          <div className="course_footer_content d-flex flex-row align-items-center justify-content-start">
+                            <div className="course_info">
+                              <i className="fa fa-graduation-cap" aria-hidden="true"></i>
+                              <span>20 etudiants</span>
+                            </div>
+                            <div className="course_info">
+                              <i className="fa fa-star" aria-hidden="true" />
+                              <span>5 Ratings</span>
+                            </div>
+                            <div className="course_price ml-auto">{item.prix} DT</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
           </div>
 
@@ -189,17 +204,7 @@ const Mes_formations = (props) => {
             <div className="ml-auto clearfix">
               <div className="courses_show_text">
                 <span className="courses_showing">1-{postsPerPage}</span> de{' '}
-                <span className="courses_total">{posts.length}</span> resultats:
-              </div>
-              <div className="courses_show_content">
-                <span>Voir: </span>
-                <span></span>
-                <span></span>
-                <select onClick={handleChange}>
-                  <option value="3">3</option>
-                  <option value="2">2</option>
-                  <option value="8">8</option>
-                </select>
+                <span className="courses_total">{posts.length}</span> resultats
               </div>
             </div>
           </div>

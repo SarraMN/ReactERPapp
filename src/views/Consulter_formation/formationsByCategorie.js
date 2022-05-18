@@ -14,7 +14,6 @@ import ReactImg5 from 'src/images/work-6.jpg'
 import Formationcategorie from './Formationcategorie'
 const FormationsByCategorie = () => {
   let formation = useLocation()
-  console.log('jiyyyttt', formation.state)
 
   return (
     <div>

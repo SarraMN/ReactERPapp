@@ -1,7 +1,6 @@
 import { UserIns } from 'src/services/UserService'
 import { connect } from 'react-redux'
 import React, { useState } from 'react'
-import { authenticate, authFailure } from 'src/redux/authActions'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import Swal from 'sweetalert2'
@@ -12,10 +11,13 @@ import { useNavigate } from 'react-router-dom'
 const Register = (props) => {
   let navigate = useNavigate()
 
+  function retour() {
+    navigate('/')
+  }
   function Notification_succes(evt) {
     Swal.fire(
-      'La demande d’inscription a été effectuée avec succès.',
-      'You clicked the button!',
+      'Votre compte a ete créé avec succès.',
+      'vous pouvez connecter tout de suite',
       'success',
     )
     navigate('/')
@@ -24,7 +26,7 @@ const Register = (props) => {
     console.log(err)
     Swal.fire({
       icon: 'error',
-      title: 'probleme de saisir',
+      title: 'Probleme de saisie',
       text: err,
     })
   }
@@ -52,8 +54,9 @@ const Register = (props) => {
     adressse: '',
     etat_civil: '',
     email: '',
-    Genre: '',
+    Genre: 'Homme',
     roles: '',
+    genre: 'Homme',
   })
   function Notification_probleme() {
     Swal.fire({
@@ -140,19 +143,19 @@ const Register = (props) => {
         adresse: '',
         UserName: '',
         etat_civil: '',
-        genre: '',
+        genre: 'Homme',
       }}
       validationSchema={Yup.object().shape({
-        date_de_naissance: Yup.string().required('date_de_naissance est invalide'),
-        nom: Yup.string().required('nom est requis'),
-        prenom: Yup.string().required('prenom est requis'),
-        email: Yup.string().required('Email est requis').email('Email est invalide'),
+        date_de_naissance: Yup.string().required('Date de naissance est requise'),
+        nom: Yup.string().required('Nom est requis'),
+        prenom: Yup.string().required('Prenom est requis'),
+        email: Yup.string().required('E-mail est requis').email('E-mail est invalide'),
         password: Yup.string()
           .min(6, 'Le mot de passe doit être au moins de 6 caractères')
           .required('Le mot de passe est requis'),
         confirmPassword: Yup.string()
           .oneOf([Yup.ref('password'), null], 'les mots de passe doivent correspondre')
-          .required('Confirmer le mot de passe est requis'),
+          .required('la confirmation du mot de passe est requise'),
         numero_de_telephone: Yup.number()
           .required('Numero de telephone est requis')
           .typeError('Numero de telephone invalide')
@@ -160,9 +163,9 @@ const Register = (props) => {
           .integer('Un numéro de téléphone ne peut pas inclure de point décimal'),
         adresse: Yup.string()
           .required('Adresse est requis')
-          .min(6, 'adresse doit être au moins de 6 caractères'),
+          .min(6, 'Adresse doit contenir au moins 6 caractères'),
         etat_civil: Yup.string().required('Etat civil est requis'),
-        UserName: Yup.string().required('UserName est requis'),
+        UserName: Yup.string().required('Identifiant est requis'),
       })}
       onSubmit={(values) => handleSubmit(values)}
       render={({ errors, status, touched }) => (
@@ -187,7 +190,7 @@ const Register = (props) => {
                         />
 
                         <ErrorMessage
-                          style={{ fontSize: 15, color: '#F21C1C' }}
+                          style={{ fontSize: 15, color: '#FF3030' }}
                           name="nom"
                           component="div"
                           classNameName="invalid-feedback"
@@ -205,7 +208,7 @@ const Register = (props) => {
                         />
 
                         <ErrorMessage
-                          style={{ fontSize: 15, color: '#F21C1C' }}
+                          style={{ fontSize: 15, color: '#FF3030' }}
                           name="prenom"
                           component="div"
                           classNameName="invalid-feedback"
@@ -233,7 +236,7 @@ const Register = (props) => {
                           }
                         />
                         <ErrorMessage
-                          style={{ fontSize: 15, color: '#F21C1C' }}
+                          style={{ fontSize: 15, color: '#FF3030' }}
                           name="date_de_naissance"
                           component="div"
                           classNameName="invalid-feedback"
@@ -244,9 +247,11 @@ const Register = (props) => {
                     <div className="form-group">
                       <div className="input-group">
                         <div className="form-row form-row-5">
-                          <label className="label1">Genre :</label>
+                          <label className="label2" style={{ paddingBottom: '20px' }}>
+                            Genre :
+                          </label>
                         </div>{' '}
-                        <div className="form-row form-row-6">
+                        <div className="form-row form-row-7">
                           <div className="p-t-10">
                             <label className="radio-container m-r-45">
                               Homme
@@ -289,7 +294,7 @@ const Register = (props) => {
                         placeholder="Numero de telephone"
                       />
                       <ErrorMessage
-                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        style={{ fontSize: 15, color: '#FF3030' }}
                         name="numero_de_telephone"
                         component="div"
                         classNameName="invalid-feedback"
@@ -310,7 +315,7 @@ const Register = (props) => {
                       />
 
                       <ErrorMessage
-                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        style={{ fontSize: 15, color: '#FF3030' }}
                         name="adresse"
                         component="div"
                         classNameName="invalid-feedback"
@@ -331,10 +336,10 @@ const Register = (props) => {
                           ' form-control' +
                           (errors.UserName && touched.UserName ? ' is-invalid' : '')
                         }
-                        placeholder="UserName"
+                        placeholder="Identifiant"
                       />
                       <ErrorMessage
-                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        style={{ fontSize: 15, color: '#FF3030' }}
                         name="UserName"
                         component="div"
                         classNameName="invalid-feedback"
@@ -362,7 +367,7 @@ const Register = (props) => {
                       </span>
 
                       <ErrorMessage
-                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        style={{ fontSize: 15, color: '#FF3030' }}
                         name="etat_civil"
                         component="div"
                         classNameName="invalid-feedback"
@@ -381,7 +386,7 @@ const Register = (props) => {
                         placeholder="E-mail"
                       />
                       <ErrorMessage
-                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        style={{ fontSize: 15, color: '#FF3030' }}
                         name="email"
                         component="div"
                         classNameName="invalid-feedback"
@@ -401,7 +406,7 @@ const Register = (props) => {
                         placeholder="Mot de passe"
                       />
                       <ErrorMessage
-                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        style={{ fontSize: 15, color: '#FF3030' }}
                         name="password"
                         component="div"
                         classNameName="invalid-feedback"
@@ -421,7 +426,7 @@ const Register = (props) => {
                         placeholder="Confirmer le mot de passe"
                       />
                       <ErrorMessage
-                        style={{ fontSize: 15, color: '#F21C1C' }}
+                        style={{ fontSize: 15, color: '#FF3030' }}
                         name="confirmPassword"
                         component="div"
                         classNameName="invalid-feedback"
@@ -429,8 +434,21 @@ const Register = (props) => {
                     </div>
 
                     <div className="form-row-last">
-                      <div classNameName="form-group"></div>
                       <input type="submit" name="register" className="register" value="Valider" />
+                    </div>
+                    <div style={{ 'text-align': 'center' }}>
+                      <p
+                        className="btn"
+                        style={{
+                          color: 'white',
+                          'font-size': '16px',
+                          'text-align': 'center',
+                          'text-decoration': 'underline',
+                        }}
+                        onClick={() => retour()}
+                      >
+                        vous avez un compte?
+                      </p>
                     </div>
                   </div>
                 </Form>

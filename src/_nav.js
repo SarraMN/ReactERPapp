@@ -12,14 +12,35 @@ import {
   cilSpeedometer,
   cilStar,
   cilUser,
+  cilNewspaper,
+  cilWarning,
+  cilAccountLogout,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUserData, GetformationsCandidat } from './services/UserService'
 
+function NbrFormationCandidat() {
+  const dispatch = useDispatch()
+  const nbrFormations = useSelector((state) => state.nbrFormations)
+
+  fetchUserData()
+    .then((response2) => {
+      GetformationsCandidat(response2.data.id)
+        .then((response) => {
+          console.log('ya halla', response.data)
+          dispatch({ type: 'set', nbrFormations: response.data.length })
+        })
+        .catch((e) => {})
+    })
+    .catch((e) => {})
+  return nbrFormations
+}
 const _nav = [
   {
     component: CNavItem,
     name: 'Accueil',
-    to: '/dashboard',
+    to: '/accueil',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     badge: {
       color: 'info',
@@ -44,6 +65,28 @@ const _nav = [
     name: 'Mes Formations',
     to: '/Mes_formations/Mes_formations',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: <NbrFormationCandidat />,
+    },
+  },
+  {
+    component: CNavItem,
+    name: 'Les actualités',
+    to: '/consulterActualite/consulterActualite',
+    icon: <CIcon icon={cilNewspaper} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Reclamation',
+    to: '/Reclamations/SuiviReclamations',
+    icon: <CIcon icon={cilWarning} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Deconnecter',
+    to: '/',
+    icon: <CIcon icon={cilAccountLogout} customClassName="nav-icon" />,
   },
 ]
 

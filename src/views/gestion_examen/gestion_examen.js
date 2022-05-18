@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react'
 import CIcon from '@coreui/icons-react'
 import { CCard, CCardHeader, CFormTextarea } from '@coreui/react'
 import 'src/views/gestion_demandes/demandes_inscriptions.css'
+import 'src/views/gestion_examen/gestion_examen.css'
 
 import { cilList, cilTrash, cilPencil, cilCheck } from '@coreui/icons'
 import avatar8 from 'src/assets/images/logo1.jpg'
@@ -29,14 +30,17 @@ import {
   getAllExamens,
   deleteExamen,
   getQuestionByExamen,
+  getExamenByFormation,
 } from 'src/services/examenService'
 import { Modal, Button } from 'react-bootstrap'
 import { getReponseByQuestion } from 'src/services/questionService'
 import ConsulterQuestionsExamen from 'src/views/gestion_examen/consulterQuestionsExamen'
+import { getFormations } from 'src/services/FormationService'
 const Gestion_examen = () => {
   let navigate = useNavigate()
   const [profileimg, setProfileimg] = useState(avatar8)
   const [bool, setbool] = useState(false)
+  const [test2, settest2] = useState(false)
   const [bool2, setbool2] = useState(false)
 
   function notification_deValidation(id) {
@@ -167,7 +171,7 @@ const Gestion_examen = () => {
       state: { organisme: id },
     })
   }
-  function AjouterOrganisme() {
+  function AjouterExamen() {
     navigate('/gestion_examen/gestion_examen/AjoutExamen')
   }
   const [posts, setPosts] = useState(null)
@@ -178,16 +182,40 @@ const Gestion_examen = () => {
   const [activeNumber, setactiveNumber] = useState(1)
   let [images, setimages] = useState([])
   let [nbrPersonnels, setNbrPersonnels] = useState([])
-
+  const [formations, setFormations] = useState([])
+  useEffect(() => {
+    console.log('data')
+    getFormations()
+      .then((response) => {
+        console.log('data', response)
+        setFormations(response.data)
+      })
+      .catch((e) => {})
+  }, [])
   useEffect(() => {
     getAllExamens()
       .then((response) => {
         setPosts(response.data)
       })
       .catch((e) => {})
-  }, [bool])
+  }, [bool, test2])
   console.log(nbrPersonnels)
-
+  function filtrage(e) {
+    let F = document.getElementById('pet-select').value
+    if (F === 'Tous') {
+      getAllExamens()
+        .then((response) => {
+          setPosts(response.data)
+        })
+        .catch((e) => {})
+    } else {
+      getExamenByFormation(F)
+        .then((response) => {
+          setPosts(response.data)
+        })
+        .catch((e) => {})
+    }
+  }
   if (posts) {
     // Get current posts
     const indexOfLastPost = currentPage * postsPerPage //3
@@ -208,21 +236,16 @@ const Gestion_examen = () => {
       <div>
         <div>
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
-            <button
-              className="btn btn-outline-primary btn-sm mb-0"
-              style={{ 'font-size': '18px' }}
-              onClick={AjouterOrganisme}
-            >
-              <CIcon
-                icon={cilList}
-                customClassName="nav-icon"
+            <button className="btnAdd btn-sm mb-0" onClick={AjouterExamen}>
+              <i
+                className="fa fa-plus"
+                aria-hidden="true"
                 style={{
-                  width: 20,
-                  height: 20,
                   'margin-right': 5,
+                  fontSize: 20,
                 }}
-              />
-              Ajouter un examen
+              ></i>
+              Ajouter examen
             </button>
           </div>
           <Modal
@@ -385,6 +408,7 @@ const Gestion_examen = () => {
             </Modal.Body>
           </Modal>
         </div>
+
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
@@ -400,6 +424,70 @@ const Gestion_examen = () => {
                   </div>
                 </div>
 
+                <div className="container">
+                  <div className="row">
+                    <div className="col-12">
+                      <div
+                        className="d-flex align-items-center section-title justify-content-between"
+                        style={{ marginRight: '50px', marginLeft: '50px' }}
+                      >
+                        <p
+                          className="mb-0 text-nowrap mr-3"
+                          style={{ 'font-size': '15px', marginTop: '10px' }}
+                        >
+                          <i
+                            className="fa fa-filter"
+                            aria-hidden="true"
+                            style={{ marginRight: '5px' }}
+                          ></i>
+                          Filtrage par formation
+                        </p>
+                        <div
+                          className="border-top w-100 border-primary d-none d-sm-block"
+                          style={{ marginTop: '10px' }}
+                        ></div>
+                        <div>
+                          {/*  <a
+                            style={{
+                              width: '210px',
+                              borderColor: 'black',
+                              'background-color': '#213f77',
+                              color: 'white',
+                            }}
+                            className="btn btn-sm btn-primary-outline ml-sm-3 d-none d-sm-block"
+                          >
+                            Voir tous les formations
+                          </a> */}
+                          <select
+                            name="pets"
+                            id="pet-select"
+                            style={{
+                              width: '200px',
+                              height: '35px',
+                              paddingLeft: '10px',
+                              border: '0.5px solid #485AA6',
+                              marginTop: '15px',
+                              'font-size': '14px',
+                              color: 'black',
+                            }}
+                            onChange={(e) => {
+                              filtrage(e)
+                            }}
+                          >
+                            <option value="Tous" style={{ 'font-size': '14px' }}>
+                              Tous les formations
+                            </option>
+                            {formations.map((item, index) => (
+                              <option key={index} value={item.id} style={{ 'font-size': '14px' }}>
+                                {item.titre}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div className="card-body px-0 pb-2">
                   <div className="table-responsive p-0">
                     <table className="table align-items-center mb-0">
@@ -522,10 +610,7 @@ const Gestion_examen = () => {
                               className="align-middle text-center text-sm"
                               onClick={(index) => ShowExamen(item)}
                             >
-                              <span
-                                className="badge badge-sm"
-                                style={{ color: 'black', 'font-size': '12px' }}
-                              >
+                              <span style={{ 'font-size': '14px', color: '#3B3737' }}>
                                 {item.id}
                               </span>
                             </td>
@@ -533,7 +618,7 @@ const Gestion_examen = () => {
                               className="align-middle text-center"
                               onClick={(index) => ShowExamen(item)}
                             >
-                              <span className="text-secondary text-xs font-weight-bold">
+                              <span style={{ 'font-size': '14px', color: '#3B3737' }}>
                                 {item.intitule}
                               </span>
                             </td>
@@ -541,7 +626,7 @@ const Gestion_examen = () => {
                               className="align-middle text-center"
                               onClick={(index) => ShowExamen(item)}
                             >
-                              <span className="text-secondary text-xs font-weight-bold">
+                              <span style={{ 'font-size': '14px', color: '#3B3737' }}>
                                 {item.formation.titre}
                               </span>
                             </td>{' '}
@@ -549,7 +634,7 @@ const Gestion_examen = () => {
                               className="align-middle text-center"
                               onClick={(index) => ShowExamen(item)}
                             >
-                              <span className="text-secondary text-xs font-weight-bold">
+                              <span style={{ 'font-size': '14px', color: '#3B3737' }}>
                                 {item.duree} minutes
                               </span>
                             </td>
@@ -557,7 +642,7 @@ const Gestion_examen = () => {
                               className="align-middle text-center"
                               onClick={(index) => ShowExamen(item)}
                             >
-                              <span className="text-secondary text-xs font-weight-bold">
+                              <span style={{ 'font-size': '14px', color: '#3B3737' }}>
                                 {item.dateCreation}
                               </span>
                             </td>
@@ -565,18 +650,18 @@ const Gestion_examen = () => {
                               className="align-middle text-center"
                               onClick={(index) => ShowExamen(item)}
                             >
-                              <span className="text-secondary text-xs font-weight-bold">
+                              <span style={{ 'font-size': '14px', color: '#3B3737' }}>
                                 {item.dateMdf}
                               </span>
                             </td>{' '}
                             <td className="align-middle text-center">
-                              <span className="text-secondary text-xs font-weight-bold">
+                              <span className="text-secondary text-xs ">
                                 {item.etat === 'archivé' ? (
                                   <p
                                     onClick={(index) => changerEtat(item)}
                                     className="fa fa-eye-slash"
                                     aria-hidden="true"
-                                    style={{ fontSize: 20, color: '#140788', paddingTop: '10' }}
+                                    style={{ fontSize: 20, color: '#140788', paddingTop: '15px' }}
                                     title="Non archivé"
                                   ></p>
                                 ) : (
@@ -584,7 +669,7 @@ const Gestion_examen = () => {
                                     onClick={(index) => changerEtat(item)}
                                     className="fa fa-eye"
                                     aria-hidden="true"
-                                    style={{ fontSize: 20, color: '#140788', paddingTop: '10' }}
+                                    style={{ fontSize: 20, color: '#140788', paddingTop: '15px' }}
                                     title="Archiver"
                                   ></p>
                                 )}
@@ -602,9 +687,8 @@ const Gestion_examen = () => {
                                   icon={cilTrash}
                                   customClassName="nav-icon"
                                   style={{
-                                    marginTop: 5,
-                                    width: 30,
-                                    height: 30,
+                                    width: 25,
+                                    height: 25,
                                     color: 'red',
                                   }}
                                 />
@@ -620,9 +704,8 @@ const Gestion_examen = () => {
                                   icon={cilPencil}
                                   customClassName="nav-icon"
                                   style={{
-                                    marginTop: 5,
-                                    width: 30,
-                                    height: 30,
+                                    width: 25,
+                                    height: 25,
                                     color: 'green',
                                   }}
                                 />
@@ -632,7 +715,18 @@ const Gestion_examen = () => {
                         ))}
                       </tbody>
                     </table>
+                    <br></br>
+
                     <div style={{ 'text-align': ' center' }}>
+                      <div className="col">
+                        <div className="pagination_container d-flex flex-row align-items-center justify-content-start">
+                          <div className="courses_show_container ml-auto clearfix">
+                            <div className="courses_show_text">
+                              <span>1-{postsPerPage}</span> de <span>{posts.length}</span> resultats
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <br></br>
                       <CPagination
                         className="justify-content-end"
@@ -669,6 +763,10 @@ const Gestion_examen = () => {
                           </CPaginationItem>
                         </a>
                       </CPagination>
+                      <div
+                        className="row pagination_row"
+                        style={{ marginRight: 15, marginBottom: 15 }}
+                      ></div>
                     </div>
                   </div>
                 </div>

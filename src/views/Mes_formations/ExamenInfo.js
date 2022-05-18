@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import 'src/views/GestionUtilisateurs/userProfile.css'
 import 'src/views/Mes_formations/examen.css'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { fetchUserData, GetformationsCandidat, getUserById } from 'src/services/UserService'
 import { getfile } from 'src/services/fileService'
 import avatar8 from './../../assets/images/profile_homme.png'
@@ -28,8 +28,48 @@ import examenlogo1 from './../../assets/images/certificat.png'
 import examenlogo2 from './../../assets/images/question.png'
 import examenlogo3 from './../../assets/images/score.png'
 import examenlogo4 from './../../assets/images/duree.png'
+import { getExamen, getExamenAleatoire, getQuestionByExamen } from 'src/services/examenService'
+import { getFormation } from 'src/services/FormationService'
 
 const ExamenInfo = () => {
+  const [candidatinscrit, setCandidatinscrit] = useState({})
+  const [formation, setformation] = useState({})
+  const [examen, setExamen] = useState({})
+  const [nbrQuestion, setnbrQuestion] = useState(0)
+  const location = useLocation()
+  useEffect(() => {
+    fetchUserData()
+      .then((response) => {
+        getUserById(response.data.id).then((response) => {
+          setCandidatinscrit(response.data)
+        })
+      })
+      .catch((e) => {})
+    getFormation(location.state).then((response) => {
+      console.log('alo', response.data)
+      setformation(response.data)
+    })
+    getExamenAleatoire(location.state)
+      .then((response) => {
+        setExamen(response.data)
+        console.log('al reponse', response)
+        getQuestionByExamen(response.data.id)
+          .then((response) => {
+            setnbrQuestion(response.data.length)
+            console.log('al reponse', response)
+          })
+          .catch((e) => {})
+      })
+      .catch((e) => {})
+  }, [])
+  let navigate = useNavigate()
+
+  function commencerexamen() {
+    navigate('/Mes_formations/Mes_formations/FormationInfo/ExamenInfo/passageExamen', {
+      state: { examen: examen },
+    })
+  }
+
   return (
     <div>
       <CCard>
@@ -38,12 +78,14 @@ const ExamenInfo = () => {
             <div className="row d-flex">
               <div className="col-md-6 heading-section pr-md-5  d-flex align-items-center">
                 <div className="w-100 mb-4 mb-md-0">
-                  <span className="subheading">Bienvenue </span>
-                  <h2 className="mb-4">Examen:</h2>
+                  <span className="subheading">
+                    Bienvenue {candidatinscrit.nom} {candidatinscrit.prenom}{' '}
+                  </span>
+                  <h2 className="mb-4">Examen:{formation.titre}</h2>
                   <p>Le test c{"'"}est juste un bon moyen pour evaluer vos connaissances</p>
                   <p>
                     Vous obtiendrez 1 point pour chaque bonne réponse. À la fin du Quiz, votre score
-                    total sera affiché. Le score maximum est de 25 points.
+                    total sera affiché. Le score maximum est de {nbrQuestion} points.
                   </p>
                   <div className="d-flex  align-items-center mt-md-4" style={{}}>
                     <img
@@ -59,6 +101,7 @@ const ExamenInfo = () => {
                     <span></span>
 
                     <Button
+                      onClick={() => commencerexamen()}
                       variant="primary"
                       size="lg"
                       style={{ width: '100%', float: 'right', align: 'right', marginLeft: '20px' }}
@@ -89,7 +132,7 @@ const ExamenInfo = () => {
                         <h3 className="heading mb-3" style={{ marginLeft: '35px' }}>
                           Durée
                         </h3>
-                        <p>Votre examen ca va dure environ 35 minutes</p>
+                        <p>Votre examen ca va dure environ {examen.duree} minutes</p>
                       </div>
                     </div>
                   </div>

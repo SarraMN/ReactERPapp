@@ -1,4 +1,4 @@
-import { CFormCheck } from '@coreui/react'
+import { CAlert, CFormCheck } from '@coreui/react'
 import React from 'react'
 import { useEffect, useState } from 'react'
 
@@ -219,7 +219,7 @@ const Questions = (props) => {
       }
     })
   }
-
+  /* 
   if (props.examen !== 0 && Listquestions.length === 0) {
     return (
       <div id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -365,14 +365,17 @@ const Questions = (props) => {
             </div>
           </div>
         </section>
-        <p style={{ color: '#AD0303' }}>
-          Remarque : afin de creer un examen il faut ajouter au minimum un question{' '}
-        </p>
+        <br></br>
+        <CAlert color="danger" dismissible onClose={() => {}}>
+          <strong> Remarque :</strong> afin de creer un examen il faut ajouter au minimum un
+          question{' '}
+        </CAlert>
       </div>
     )
-  } else if (props.examen === 0) {
+  } else */
+  if (props.examen === 0) {
     return <div></div>
-  } else {
+  } else if (Listquestions.length === 0) {
     return (
       <div id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
         <section className="moncompte">
@@ -466,6 +469,307 @@ const Questions = (props) => {
                       <th className="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
+                  <tbody></tbody>
+                </table>
+                <div style={{ 'text-align': ' center' }}>
+                  <br></br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <Modal
+          size="lg"
+          show={showAjt}
+          onHide={handleCloseAjt}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header
+            closeButton
+            style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}
+          >
+            <CIcon
+              icon={cilPencil}
+              style={{
+                marginRight: 15,
+              }}
+            />
+            Ajouter question
+          </Modal.Header>
+          <Modal.Body>
+            <section className="moncompte">
+              <div className="card">
+                <div className="card-content">
+                  <Formik
+                    initialValues={{
+                      question: '',
+                      reponse1: '',
+                      reponse2: '',
+                      reponse3: '',
+                    }}
+                    validationSchema={Yup.object().shape({
+                      question: Yup.string().required('Le question est requis'),
+                      reponse3: Yup.string().required('La reponse est requis'),
+                      reponse1: Yup.string().required('La reponse est requis'),
+                      reponse2: Yup.string().required('La reponse est requis'),
+                    })}
+                    onSubmit={(values) => ajouterquestion(values)}
+                    render={({ errors, status, touched }) => (
+                      <Form>
+                        <div className="field">
+                          <label className="label">Question Numero {numerodequestion}</label>
+                          <div className="control">
+                            <Field
+                              type="text"
+                              name="question"
+                              id="question"
+                              className={
+                                'input' + (errors.question && touched.question ? ' is-invalid' : '')
+                              }
+                            />{' '}
+                            <ErrorMessage
+                              style={{ fontSize: 12, color: 'red' }}
+                              name="question"
+                              component="div"
+                              classNameName="invalid-feedback"
+                            />
+                          </div>
+                        </div>
+                        <div className="field">
+                          <label className="label">Reponses :</label>
+                          <div classsName="field-body">
+                            <CFormCheck
+                              type="radio"
+                              name="etat"
+                              id="exampleRadios1"
+                              value="res1"
+                              onChange={(e) => {
+                                setcheck('res1')
+                              }}
+                              defaultChecked
+                            ></CFormCheck>
+                            <Field
+                              style={{
+                                marginLeft: '25px',
+                                width: '300px',
+                                marginBottom: '10px',
+                              }}
+                              type="text"
+                              name="reponse1"
+                              id="reponse1"
+                              className={
+                                'input' + (errors.reponse1 && touched.reponse1 ? ' is-invalid' : '')
+                              }
+                            />{' '}
+                            <ErrorMessage
+                              style={{ fontSize: 12, color: 'red' }}
+                              name="reponse1"
+                              component="div"
+                              classNameName="invalid-feedback"
+                            />
+                            <br></br>
+                            <CFormCheck
+                              type="radio"
+                              name="etat"
+                              value="res2"
+                              onChange={(e) => {
+                                setcheck('res2')
+                              }}
+                            ></CFormCheck>
+                            <Field
+                              style={{
+                                marginLeft: '25px',
+                                width: '300px',
+                                marginBottom: '10px',
+                              }}
+                              type="text"
+                              name="reponse2"
+                              className={
+                                'input' + (errors.reponse2 && touched.reponse2 ? ' is-invalid' : '')
+                              }
+                            />{' '}
+                            <ErrorMessage
+                              style={{ fontSize: 12, color: 'red' }}
+                              name="reponse2"
+                              component="div"
+                              classNameName="invalid-feedback"
+                            />
+                            <br></br>
+                            <CFormCheck
+                              type="radio"
+                              name="etat"
+                              id="exampleRadios3"
+                              value="res3"
+                              onChange={(e) => {
+                                setcheck('res3')
+                              }}
+                            ></CFormCheck>
+                            <Field
+                              style={{ marginLeft: '25px', width: '300px' }}
+                              type="text"
+                              name="reponse3"
+                              className={
+                                'input' + (errors.reponse3 && touched.reponse3 ? ' is-invalid' : '')
+                              }
+                            />{' '}
+                            <ErrorMessage
+                              style={{ fontSize: 12, color: 'red' }}
+                              name="reponse3"
+                              component="div"
+                              classNameName="invalid-feedback"
+                            />
+                          </div>
+                        </div>
+                        <div style={{ 'margin-top': '5px', float: 'right', align: 'right' }}>
+                          <div>
+                            <div className="control">
+                              <input
+                                type="submit"
+                                name="register"
+                                style={{ width: '100px', 'background-color': '#213f77' }}
+                                className="button blue "
+                                value="Valider"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </Form>
+                    )}
+                  />
+                </div>
+              </div>
+            </section>
+          </Modal.Body>
+        </Modal>
+        <br></br>
+        <div style={{ align: 'right', float: 'right' }}>
+          <button
+            className="btnAjQuestion"
+            onClick={validerExamen}
+            type="submit"
+            style={{
+              float: 'right',
+              align: 'right',
+              border: ' 1px solid black',
+              height: '48px',
+              width: '200px',
+              'font-size': '1em',
+              'font-style': 'inherit',
+              marginLeft: '10px',
+              backgroundColor: '#213f77',
+              color: 'white',
+            }}
+          >
+            <p
+              style={{
+                'font-size': '1.2em',
+                marginTop: '4px',
+              }}
+            >
+              {' '}
+              <i className="fa fa-check" aria-hidden="true" style={{ marginRight: '6px' }}></i>
+              Valider L{"'"}examen
+            </p>
+          </button>
+        </div>
+      </div>
+    )
+  } else {
+    return (
+      <div id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <section className="moncompte">
+          <div className="card">
+            <header className="card-heade">
+              <p
+                style={{
+                  color: 'black',
+                  paddingTop: '20px',
+                  paddingLeft: '10px',
+                  'font-size': '1.2em',
+                }}
+              >
+                <span style={{ marginTop: '140px' }}>La liste des questions :</span>
+                <div
+                  style={{
+                    float: 'right',
+                    align: 'right',
+                    paddingRight: '25px',
+                    marginBottom: '10px',
+                  }}
+                >
+                  <button
+                    onClick={handleShowAjt}
+                    type="submit"
+                    style={{
+                      height: '50px',
+                      width: '50px',
+                      'border-radius': '60px',
+                      backgroundColor: 'green',
+                      color: 'white',
+                    }}
+                  >
+                    <i className="fa fa-plus" aria-hidden="true" style={{ fontSize: 35 }}></i>
+                  </button>
+                </div>
+              </p>
+            </header>
+            <div>
+              <div className="table-responsive p-0" style={{ height: '300px' }}>
+                <table className="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th className="text-center ">
+                        <p
+                          style={{
+                            color: 'light',
+                            'font-size': '15px',
+                            'font-weight': 'bold',
+                          }}
+                        >
+                          Numero
+                        </p>
+                      </th>
+                      <th className="text-center ">
+                        <p
+                          style={{
+                            color: 'light',
+                            'font-size': '15px',
+                            'font-weight': 'bold',
+                          }}
+                        >
+                          {' '}
+                          Questions
+                        </p>
+                      </th>{' '}
+                      <th style={{ 'text-align': 'left' }}>
+                        <p
+                          style={{
+                            color: 'light',
+                            'font-size': '17px',
+                            'font-weight': 'bold',
+                          }}
+                        >
+                          {' '}
+                          Reponses
+                        </p>
+                      </th>
+                      <th className="text-center ">
+                        <p
+                          style={{
+                            color: 'light',
+                            'font-size': '15px',
+                            'font-weight': 'bold',
+                          }}
+                        >
+                          {' '}
+                          Action
+                        </p>
+                      </th>
+                      <th className="text-secondary opacity-7"></th>
+                    </tr>
+                  </thead>
                   <tbody>
                     {Listquestions.map((item, index) => (
                       <tr key={index}>
@@ -488,8 +792,7 @@ const Questions = (props) => {
                           /*                                   onClick={(index) => organsimeProfil(item)}
                            */
                         >
-                          {' '}
-                          {item.question}
+                          <p style={{ width: '200px' }}> {item.question}</p>
                           <span
                             className="badge badge-sm"
                             style={{ color: 'black', 'font-size': '12px' }}
@@ -547,7 +850,7 @@ const Questions = (props) => {
                           </span>
                         </td>
 
-                        <td className="align-middle text-center">
+                        <td className="align-middle text-center" style={{ width: '200px' }}>
                           <span onClick={() => DeleteQuestion(item.id)}>
                             <i
                               className="fa fa-trash-o"
@@ -770,7 +1073,7 @@ const Questions = (props) => {
         </Modal>
         <br></br>
         <div style={{ align: 'right', float: 'right' }}>
-          <button
+          {/*    <button
             className="btnAjQuestion"
             onClick={validerExamen}
             type="submit"
@@ -797,6 +1100,15 @@ const Questions = (props) => {
               <i className="fa fa-check" aria-hidden="true" style={{ marginRight: '6px' }}></i>
               Valider L{"'"}examen
             </p>
+          </button> */}
+          <button
+            className="btnAdd"
+            onClick={validerExamen}
+            type="submit"
+            style={{ height: '50px', width: '220px' }}
+          >
+            <i className="fa fa-check" aria-hidden="true" style={{ marginRight: '9px' }}></i>
+            Valider L{"'"}examen
           </button>
         </div>
       </div>

@@ -7,10 +7,14 @@ import 'src/views/pages/forgetpassword/forgetpassword.css'
 import { useNavigate } from 'react-router-dom'
 
 const ForgetPassword = (props) => {
+  let navigate = useNavigate()
+
+  function retour() {
+    navigate('/')
+  }
   function Vider_champs(evt) {
     evt.Email = ''
   }
-  let navigate = useNavigate()
 
   function Notification_Echec() {
     Swal.fire({
@@ -168,14 +172,8 @@ const ForgetPassword = (props) => {
 
                     <div
                       className="form-row-last"
-                      style={{ 'text-align': 'center', marginBottom: 70 }}
+                      style={{ 'text-align': 'center', marginBottom: 50 }}
                     >
-                      {/*  <input
-                      type="submit"
-                      name="register"
-                      className="form-control register2"
-                      value="Renitialiser"
-                    /> */}
                       <button
                         type="submit"
                         style={{
@@ -188,9 +186,22 @@ const ForgetPassword = (props) => {
                       >
                         Renitialiser
                       </button>
-                      {/*                  <input type="submit"  onClick={()=>{history.push("/EmailEnvoyeForgetPassword")} }name="register" className="register2" value="Renitialiser"/>
-                       */}{' '}
                     </div>
+                    <p
+                      className="btn"
+                      style={{
+                        color: 'white',
+                        'font-size': '15px',
+                      }}
+                      onClick={() => retour()}
+                    >
+                      <i
+                        className="fa fa-backward"
+                        aria-hidden="true"
+                        style={{ marginRight: '5px' }}
+                      ></i>
+                      Retour
+                    </p>
                   </div>
                 </Form>
               </div>

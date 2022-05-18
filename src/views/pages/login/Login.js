@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
 import { Link } from 'react-router-dom'
 import {
   CButton,
@@ -17,7 +18,6 @@ import 'src/views/pages/login/login.css'
 /* import ReactImg from 'src/assets/images/logo1.png'
  */
 import ReactImg from 'src/images/logo.png'
-import { useState } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import CIcon from '@coreui/icons-react'
@@ -31,8 +31,8 @@ const Login = (props) => {
   function Notification_userinvalide() {
     Swal.fire({
       icon: 'error',
-      title: 'utilisateur invalide',
-      text: 'essayer de saisir un username et mot de passe valides',
+      title: 'Utilisateur invalide',
+      text: 'Essayer de saisir un identifiant et un mot de passe valides',
     })
   }
   function Notification_comptenonactive() {
@@ -55,10 +55,10 @@ const Login = (props) => {
     password: '',
   })
   let navigate = useNavigate()
-
+  useEffect(() => {
+    localStorage.clear()
+  }, [])
   function handleSubmit(evt) {
-    console.log('coy')
-
     values.password = evt.password
     values.userName = evt.username
     console.log(values.password)
@@ -114,8 +114,8 @@ const Login = (props) => {
         password: '',
       }}
       validationSchema={Yup.object().shape({
-        username: Yup.string().required('username  est requis'),
-        password: Yup.string().required('mot de passe est requis'),
+        username: Yup.string().required('Identifiant  est requis'),
+        password: Yup.string().required('Le mot de passe est requis'),
       })}
       onSubmit={(values) => handleSubmit(values)}
       render={({ errors, status, touched }) => (
@@ -160,7 +160,7 @@ const Login = (props) => {
                                 ' form-control' +
                                 (errors.username && touched.username ? ' is-invalid' : '')
                               }
-                              placeholder="username"
+                              placeholder="identifiant"
                               style={{
                                 'border-top-right-radius': 30,
                                 'border-bottom-right-radius': 30,
@@ -190,7 +190,7 @@ const Login = (props) => {
                                 ' form-control' +
                                 (errors.password && touched.password ? ' is-invalid' : '')
                               }
-                              placeholder="Password"
+                              placeholder="mot de passe"
                               style={{
                                 'border-top-right-radius': 30,
                                 'border-bottom-right-radius': 30,
@@ -229,15 +229,15 @@ const Login = (props) => {
                                 Connecter
                               </button>
                             </CCol>{' '}
-                            <CCol xs={12} className="text-right text-center">
-                              <Link to="/ForgetPassword">
-                                <CButton
+                            <CCol xs={12} className="text-center">
+                              <Link to="/ForgetPassword" style={{ color: 'black' }}>
+                                <p
                                   color="link"
                                   className="px-0  btn-mot"
-                                  style={{ color: 'black' }}
+                                  style={{ color: 'black', 'text-decoration-color': 'black' }}
                                 >
                                   mot de passe oublié ?{' '}
-                                </CButton>
+                                </p>
                               </Link>
                             </CCol>{' '}
                           </CRow>

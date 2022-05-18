@@ -12,7 +12,11 @@ import ReactImg3 from 'src/images/work-5.jpg'
 import ReactImg4 from 'src/images/Graphic_designer.jpg'
 import ReactImg5 from 'src/images/work-6.jpg'
 import { fetchUserData, getUserById } from 'src/services/UserService'
-
+import { EffectCoverflow, Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/effect-coverflow'
+import 'swiper/css/pagination'
 const Formationcategorie = (props) => {
   const [categorie, setCategorie] = useState(props)
 
@@ -31,14 +35,13 @@ const Formationcategorie = (props) => {
   useEffect(() => {
     getformationbycategorie(categorie.categorie)
       .then((response) => {
-        console.log('sirine', response.data.length)
         if (response.data.length != 0) {
           response.data.reverse().map((item, index) => {
             console.log('item', item)
             getfile(item.image.id)
               .then((response2) => {
                 setbool(true)
-                images.push(URL.createObjectURL(response2.data))
+                images[item.id] = URL.createObjectURL(response2.data)
               })
               .catch((e) => {})
           })
@@ -102,62 +105,70 @@ const Formationcategorie = (props) => {
                   <span>{posts.length} Formations Disponibles</span>
                 )}
               </h6>
-              {currentPosts.map((item, index) => (
-                <div
-                  className="col-lg-4 course_col"
-                  style={{ marginTop: 25, marginRight: 0 }}
-                  key={index}
-                >
-                  <div className="course">
-                    <div className="project-wrap">
-                      <a
-                        href="#"
-                        className="img"
-                        style={{
-                          'background-image': `url(${images[index]})`,
-                          'background-size': '300px 250px',
-                        }}
-                      >
-                        <span className="price">{item.categorie}</span>
-                      </a>
-                    </div>
-                    <div className="course_body">
-                      <h3 className="course_title" style={{ marginBottom: 25 }}>
-                        <strong>
-                          <Link to="/Consulter_formation/formations/formationInfo" state={item}>
-                            {item.titre}
-                          </Link>
-                        </strong>
-                      </h3>
-                      <div className="course_text">
-                        <p>{item.description.substr(0, 35)}...</p>
-                      </div>
-                      <div className="course_Date">
-                        <strong>Date de publication :</strong> {item.dateCreation}
-                      </div>
-                    </div>
-                    <div className="course_footer">
-                      <div className="course_footer_content d-flex flex-row align-items-center justify-content-start">
-                        <div className="course_info">
-                          <i className="fa fa-graduation-cap" aria-hidden="true"></i>
-                          <span>20 Student</span>
+              <Swiper
+                slidesPerView={3}
+                spaceBetween={10}
+                pagination={{
+                  clickable: true,
+                }}
+                modules={[Pagination]}
+                className="mySwiper2"
+              >
+                {currentPosts.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <div>
+                      <div className="course">
+                        <div className="project-wrap">
+                          <a
+                            href="#"
+                            className="img"
+                            style={{
+                              'background-image': `url(${images[item.id]})`,
+                              'background-size': '300px 250px',
+                            }}
+                          >
+                            <span className="price">{item.categorie}</span>
+                          </a>
                         </div>
-                        <div className="course_info">
-                          <i className="fa fa-star" aria-hidden="true" />
-                          <span>5 Ratings</span>
+                        <div className="course_body">
+                          <h3 className="course_title" style={{ marginBottom: 25 }}>
+                            <strong>
+                              <Link to="/Consulter_formation/formations/formationInfo" state={item}>
+                                {item.titre}
+                              </Link>
+                            </strong>
+                          </h3>
+                          <div className="course_text">
+                            <p>{item.description.substr(0, 35)}...</p>
+                          </div>
+                          <div className="course_Date">
+                            <strong>Date de publication :</strong> {item.dateCreation}
+                          </div>
                         </div>
-                        <div className="course_price ml-auto">
-                          {typeCandidat === 'candidatSimple' ? (
-                            <p>{item.prix} DT</p>
-                          ) : (
-                            <p> {item.prix_organismes_conventiones} DT</p>
-                          )}
+                        <div className="course_footer">
+                          <div className="course_footer_content d-flex flex-row align-items-center justify-content-start">
+                            <div className="course_info">
+                              <i className="fa fa-graduation-cap" aria-hidden="true"></i>
+                              <span>20 Student</span>
+                            </div>
+                            <div className="course_info">
+                              <i className="fa fa-star" aria-hidden="true" />
+                              <span>5 Ratings</span>
+                            </div>
+                            <div className="course_price ml-auto">
+                              {typeCandidat === 'candidatSimple' ? (
+                                <p>{item.prix} DT</p>
+                              ) : (
+                                <p> {item.prix_organismes_conventiones} DT</p>
+                              )}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
           </div>
 
@@ -206,16 +217,6 @@ const Formationcategorie = (props) => {
               <div className="courses_show_text">
                 <span className="courses_showing">1-{postsPerPage}</span> de{' '}
                 <span className="courses_total">{posts.length}</span> resultats:
-              </div>
-              <div className="courses_show_content">
-                <span>Voir: </span>
-                <span></span>
-                <span></span>
-                <select onClick={handleChange}>
-                  <option value="3">3</option>
-                  <option value="2">2</option>
-                  <option value="8">8</option>
-                </select>
               </div>
             </div>
           </div>

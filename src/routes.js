@@ -50,9 +50,32 @@ const modifierexamen = React.lazy(() => import('./views/gestion_examen/updateExa
 const MaFormationInfo = React.lazy(() => import('./views/Mes_formations/FormationInfo'))
 const voirCours = React.lazy(() => import('./views/Mes_formations/voirCours'))
 const passageexamen = React.lazy(() => import('./views/Mes_formations/ExamenInfo'))
+const passageexamen2 = React.lazy(() => import('./views/Mes_formations/passageExamen'))
+const certificat = React.lazy(() => import('./views/Mes_formations/certificat'))
+const Actualites = React.lazy(() => import('./views/Gestion_Actualite/Actualites'))
+const AjouterActualite = React.lazy(() => import('./views/Gestion_Actualite/Ajouter_Actualite'))
+const consulterActualite = React.lazy(() => import('./views/consulterActualite/consulterActualite'))
+const actualiteInfo = React.lazy(() => import('./views/consulterActualite/actualiteInfo'))
+const Accueil = React.lazy(() => import('./views/Accueil/accueil'))
+const reclamations = React.lazy(() => import('./views/Reclamation/SuiviReclamations'))
+const AjoutReclamation = React.lazy(() => import('./views/Reclamation/AjoutReclamation'))
+const ConsulterReclamation = React.lazy(() => import('./views/Reclamation/ConsulterReclamation'))
+const ReclamationsAttentes = React.lazy(() =>
+  import('./views/GestionReclamation/ReclamationsAttentes'),
+)
+const RepondreReclamation = React.lazy(() =>
+  import('./views/GestionReclamation/RepondreReclamation'),
+)
+const ReclamationTraitees = React.lazy(() =>
+  import('./views/GestionReclamation/ReclamationsTraitees'),
+)
+const ConsulterReclamationTraitee = React.lazy(() =>
+  import('./views/GestionReclamation/ConsulterReclamationTraitee'),
+)
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/', exact: true, name: 'Accueil' },
+  { path: '/dashboard', name: 'tableau du bord', element: Dashboard },
+  { path: '/accueil', name: 'Accueil', element: Accueil },
 
   {
     path: '/GestionUtilisateurs/listeUtilisateurs',
@@ -173,7 +196,7 @@ const routes = [
   },
   {
     path: '/gestion_examen/gestion_examen',
-    name: 'gestion_examen',
+    name: 'Gestion examens',
     element: gestion_examen,
   },
   {
@@ -202,9 +225,74 @@ const routes = [
     element: voirCours,
   },
   {
+    path: '/Mes_formations/Mes_formations/FormationInfo/certificat',
+    name: 'Voir certificat',
+    element: certificat,
+  },
+  {
     path: '/Mes_formations/Mes_formations/FormationInfo/ExamenInfo',
-    name: 'Passage du examen',
+    name: 'Examen',
     element: passageexamen,
+  },
+  {
+    path: '/Mes_formations/Mes_formations/FormationInfo/ExamenInfo/passageExamen',
+    name: 'Passage examen',
+    element: passageexamen2,
+  },
+  {
+    path: '/Gestion_Actualite/Actualites',
+    name: 'Actualites',
+    element: Actualites,
+  },
+  {
+    path: '/Gestion_Actualite/Actualites/Ajouter_Actualite',
+    name: 'Ajouter_Actualite',
+    element: AjouterActualite,
+  },
+  {
+    path: '/consulterActualite/consulterActualite',
+    name: 'Les actualite',
+    element: consulterActualite,
+  },
+  {
+    path: '/consulterActualite/consulterActualite/actualiteInfo',
+    name: 'Actualite Info',
+    element: actualiteInfo,
+  },
+  {
+    path: '/Reclamations/SuiviReclamations',
+    name: 'Reclamations',
+    element: reclamations,
+  },
+  {
+    path: '/Reclamations/AjoutReclamation',
+    name: 'Ajout reclamation',
+    element: AjoutReclamation,
+  },
+  {
+    path: '/Reclamations/SuiviReclamations/ConsulterReclamation',
+    name: 'Consulter reclamation',
+    element: ConsulterReclamation,
+  },
+  {
+    path: '/GestionReclamation/ReclamationAttentes',
+    name: 'Reclamations en attentes',
+    element: ReclamationsAttentes,
+  },
+  {
+    path: '/GestionReclamation/ReclamationAttentes/RepondreReclamation',
+    name: 'Consulter reclamation',
+    element: RepondreReclamation,
+  },
+  {
+    path: '/GestionReclamation/ReclamationAttentes/ReclamationsTraitees',
+    name: 'Reclamations traitées',
+    element: ReclamationTraitees,
+  },
+  {
+    path: '/GestionReclamation/ReclamationAttentes/ReclamationsTraitees/ConsulterReclamationTraitee',
+    name: 'Reclamation',
+    element: ConsulterReclamationTraitee,
   },
 ]
 

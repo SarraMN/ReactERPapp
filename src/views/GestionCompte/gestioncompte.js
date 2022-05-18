@@ -32,6 +32,7 @@ import * as Yup from 'yup'
 import ReactImg from 'src/assets/images/profile_homme.png'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { useDispatch } from 'react-redux'
 
 const Gestioncompte = () => {
   const [values, setValues] = useState({
@@ -45,7 +46,7 @@ const Gestioncompte = () => {
     adressse: '',
     etat_civil: '',
     email: '',
-    Genre: '',
+    genre: '',
     roles: '',
     idimage: '',
     updatedAt: '',
@@ -65,12 +66,14 @@ const Gestioncompte = () => {
   const [roles, setRoles] = useState()
   const [email, setEmail] = useState()
   const [Genre, setGenre] = useState()
+  const [Genre2, setGenre2] = useState()
   const [idimage, setIdimage] = useState()
   const [image, setImage] = useState()
   const [image2, setImage2] = useState()
   const [updatedAt, setUpdatedAt] = useState()
   const [createdAt, setCreatedAt] = useState()
   const [lastLogin, setLastLogin] = useState()
+  const [test, settest] = useState(false)
   const [verifpassword, setVerifpassword] = useState({ id: '', password: '' })
   function Notification_Passwordupdate() {
     Swal.fire('votre nouveau mot de passe a bien été enregistré', '', 'success')
@@ -107,20 +110,22 @@ const Gestioncompte = () => {
       text: 'Le ancien mot de passe est incorrect',
     })
   }
+  const dispatch = useDispatch()
+
   const [profileimg, setProfileimg] = useState(ReactImg)
-  const changerInfo2 = (e) => {
+  const changerInfo3 = (e) => {
     if (e.nom === nom && e.prenom === prenom && image2 === image) {
       Notification_pasdechangement()
     } else {
       setNom(e.nom)
       setPrenom(e.prenom)
-      initialValues.nom = nom
-      initialValues.prenom = prenom
+      initialValues2.nom = nom
+      initialValues2.prenom = prenom
       values.id = id
       values.adressse = adressse
       values.nom = e.nom
       values.prenom = e.prenom
-      values.Genre = Genre
+      values.genre = Genre
       values.email = email
       values.etat_civil = etat_civil
       values.numero_de_telephone = numero_de_telephone
@@ -144,6 +149,8 @@ const Gestioncompte = () => {
         }).then(
           function (response) {
             if (response.data !== 0) {
+              dispatch({ type: 'set', image: URL.createObjectURL(image2) })
+
               values.idimage = response.data
               setIdimage(response.data)
               console.log(values)
@@ -172,22 +179,28 @@ const Gestioncompte = () => {
       }
     }
   }
-  const changerInfo1 = (e) => {
+  const changerInfo2 = (e) => {
     console.log('alllli', e)
-    console.log('e.etat_civil', e.etat_civil)
-    console.log('etat_civil', etat_civil)
-    console.log('Genre', Genre)
-    console.log('e.Genre', e.Genre)
+    console.log('e.etat_civil', values)
+    console.log('e.etat_civil', adressse)
+
     if (
       e.email === email &&
       e.etat_civil === etat_civil &&
       e.date_de_naissance === date_de_naissance &&
       e.adresse === adressse &&
-      e.Genre === Genre &&
-      e.numero_de_telephone === numero_de_telephone
+      Genre2 === Genre &&
+      e.numero_de_telephone === numero_de_telephone &&
+      e.nom === nom &&
+      e.prenom === prenom &&
+      image2 === image
     ) {
       Notification_pasdechangement()
     } else {
+      initialValues2.nom = nom
+      initialValues2.prenom = prenom
+      setNom(e.nom)
+      setPrenom(e.prenom)
       setEmail(e.email)
       setDate_de_naissance(e.date_de_naissance)
       setEtat_civil(e.etat_civil)
@@ -195,10 +208,10 @@ const Gestioncompte = () => {
       setNumero_de_telephone(e.numero_de_telephone)
       setGenre(e.Genre)
       console.log('ee', e)
+      values.nom = e.nom
+      values.prenom = e.prenom
       values.id = id
       values.adressse = e.adresse
-      values.nom = nom
-      values.prenom = prenom
       values.email = e.email
       values.etat_civil = e.etat_civil
       values.numero_de_telephone = e.numero_de_telephone
@@ -208,19 +221,54 @@ const Gestioncompte = () => {
       values.updatedAt = updatedAt
       values.createdAt = createdAt
       values.lastLogin = lastLogin
-      values.Genre = Genre
+      values.genre = Genre
       values.idimage = idimage
-      console.log('alooo1', values.Genre)
-      console.log('alooo2', Genre)
-
-      console.log('alooo', values)
-      updateuser(values).then((response) => {
-        if (response.status === 200) {
-          Notification_Info1update()
-        } else {
-          Notification_probleme()
-        }
-      })
+      if (e.adresse === undefined) {
+        values.adressse = adressse
+      }
+      values.idimage = idimage
+      console.log('hay image1', image2)
+      console.log('hay image1', image)
+      if (image2 !== image) {
+        setImage(image2)
+        const formData = new FormData()
+        formData.append('file', image2)
+        axios({
+          method: 'post',
+          url: 'http://localhost:8080/file/upload',
+          data: formData,
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }).then(
+          function (response) {
+            if (response.data !== 0) {
+              values.idimage = response.data
+              setIdimage(response.data)
+              updateuser(values).then((response) => {
+                if (response.status === 200) {
+                  Notification_Info1update()
+                  settest(true)
+                  settest(false)
+                } else {
+                  Notification_probleme()
+                }
+              })
+            } else {
+              Notification_problemedeimage()
+            }
+          },
+          function (error) {},
+        )
+      } else {
+        updateuser(values).then((response) => {
+          if (response.status === 200) {
+            Notification_Info1update()
+            settest(true)
+            settest(false)
+          } else {
+            Notification_probleme()
+          }
+        })
+      }
     }
   }
   const changerpassword = (e) => {
@@ -229,7 +277,6 @@ const Gestioncompte = () => {
     verifpassword.password = e.old_password
     VerifPassword(verifpassword)
       .then((response) => {
-        console.log('response', response.data)
         if (response.data == true) {
           values.id = id
           values.adressse = adressse
@@ -269,7 +316,7 @@ const Gestioncompte = () => {
   }
   useEffect(() => {
     fetchUserData().then((response) => {
-      console.log('hehi response', response)
+      console.log('haw al create at', response)
       setUserName(response.data.userName)
       setId(response.data.id)
       setNom(response.data.nom)
@@ -279,6 +326,7 @@ const Gestioncompte = () => {
       setEmail(response.data.email)
       setNumero_de_telephone(response.data.numero_de_telephone)
       setGenre(response.data.genre)
+      setGenre2(response.data.genre)
       setIdimage(response.data.idimage)
       setEtat_civil(response.data.etat_civil)
       setUpdatedAt(response.data.updatedAt)
@@ -290,13 +338,14 @@ const Gestioncompte = () => {
         getfile(response.data.idimage)
           .then((response) => {
             setImage(response.data)
+            setImage2(response.data)
             setProfileimg(URL.createObjectURL(response.data))
           })
           .catch((e) => {})
       } else {
       }
     })
-  }, [])
+  }, [test])
 
   function imageHandler(e) {
     setImage2(e.target.files[0])
@@ -309,11 +358,11 @@ const Gestioncompte = () => {
     reader.readAsDataURL(e.target.files[0])
   }
 
-  const [initialValues, setinitialValues] = useState({
+  /*   const [initialValues, setinitialValues] = useState({
     nom: '',
     prenom: '',
     image: '',
-  })
+  }) */
   const [initialValues2, setinitialValues2] = useState({
     date_de_naissance: '',
     numero_de_telephone: '',
@@ -321,38 +370,51 @@ const Gestioncompte = () => {
     etat_civil: '',
     Genre: '',
     email: '',
+    nom: '',
+    prenom: '',
+    image: '',
   })
   initialValues2.date_de_naissance = date_de_naissance
   initialValues2.numero_de_telephone = numero_de_telephone
   initialValues2.adresse = adressse
   initialValues2.etat_civil = etat_civil
   initialValues2.email = email
-  initialValues.nom = nom
-  initialValues.prenom = prenom
   initialValues2.Genre = Genre
+  initialValues2.nom = nom
+  initialValues2.prenom = prenom
 
   return (
     <div>
       <section className="moncompte">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
-          <div className="card">
-            <header className="card-header">
-              <p className="card-header-title">
-                <span className="icon">
-                  <i className="mdi mdi-account"></i>
-                </span>
-                {/* Profile */}
-              </p>
-            </header>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={Yup.object().shape({
-                nom: Yup.string().required('nom est requis'),
-                prenom: Yup.string().required('prenom est requis'),
-              })}
-              onSubmit={(values) => changerInfo2(values)}
-              render={({ errors, status, touched }) => (
-                <Form>
+        <Formik
+          initialValues={initialValues2}
+          validationSchema={Yup.object().shape({
+            nom: Yup.string().required('nom est requis'),
+            prenom: Yup.string().required('prenom est requis'),
+            email: Yup.string().required('Email est requis').email('Email est invalide'),
+            date_de_naissance: Yup.string().required('date_de_naissance est invalide'),
+            numero_de_telephone: Yup.number()
+              .required('Numero de telephone est requis')
+              .typeError('Numero de telephone invalide')
+              .min(8, 'Numero de telephone de 8 chifres')
+              .integer('Un numéro de téléphone ne peut pas inclure de point décimal'),
+            adresse: Yup.string()
+              .required('Adresse est requis')
+              .min(6, 'adresse doit être au moins de 6 caractères'),
+          })}
+          onSubmit={(values) => changerInfo2(values)}
+          render={({ errors, status, touched }) => (
+            <Form>
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
+                <div className="card">
+                  <header className="card-header">
+                    <p className="card-header-title">
+                      <span className="icon">
+                        <i className="mdi mdi-account"></i>
+                      </span>
+                      Editer le profil
+                    </p>
+                  </header>
                   <div className="card-content">
                     <div className="image w-48 h-48 mx-auto">
                       <img src={profileimg} alt="user" className="rounded-full" />
@@ -424,52 +486,18 @@ const Gestioncompte = () => {
                         />{' '}
                       </div>
                     </div>
-
-                    <div style={{ 'margin-top': '5px', float: 'right', align: 'right' }}>
-                      <div>
-                        <div className="control">
-                          <button
-                            type="submit"
-                            className="button blue"
-                            style={{ width: '100px', 'background-color': '#213f77' }}
-                          >
-                            Valider
-                          </button>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-                </Form>
-              )}
-            />
-          </div>
-          <div className="card">
-            <header className="card-header">
-              <p className="card-header-title">
-                <span className="icon">
-                  <i className="mdi mdi-account-circle"></i>
-                </span>
-                Editer le profil
-              </p>
-            </header>
-            <Formik
-              initialValues={initialValues2}
-              validationSchema={Yup.object().shape({
-                email: Yup.string().required('Email est requis').email('Email est invalide'),
-                date_de_naissance: Yup.string().required('date_de_naissance est invalide'),
-                numero_de_telephone: Yup.number()
-                  .required('Numero de telephone est requis')
-                  .typeError('Numero de telephone invalide')
-                  .min(8, 'Numero de telephone de 8 chifres')
-                  .integer('Un numéro de téléphone ne peut pas inclure de point décimal'),
-                adresse: Yup.string()
-                  .required('Adresse est requis')
-                  .min(6, 'adresse doit être au moins de 6 caractères'),
-              })}
-              onSubmit={(values) => changerInfo1(values)}
-              render={({ errors, status, touched }) => (
-                <div className="card-content">
-                  <Form>
+                </div>
+                <div className="card">
+                  <header className="card-header">
+                    <p className="card-header-title">
+                      <span className="icon">
+                        <i className="mdi mdi-account-circle"></i>
+                      </span>
+                    </p>
+                  </header>
+
+                  <div className="card-content">
                     <div className="conteneur"></div>
                     <div className="field">
                       <label className="label">Date de naissance</label>
@@ -523,7 +551,7 @@ const Gestioncompte = () => {
                                   checked={Genre === 'Homme'}
                                   type="radio"
                                   name="Genre"
-                                  value={(values.Genre = 'Homme')}
+                                  value={(values.genre = 'Homme')}
                                   onChange={(e) => {
                                     setGenre(e.target.value)
                                   }}
@@ -536,7 +564,7 @@ const Gestioncompte = () => {
                                  */}{' '}
                                 <input
                                   checked={Genre === 'Femme'}
-                                  value={(values.Genre = 'Femme')}
+                                  value={(values.genre = 'Femme')}
                                   onChange={(e) => {
                                     setGenre(e.target.value)
                                   }}
@@ -563,10 +591,22 @@ const Gestioncompte = () => {
                         (errors.etat_civil && touched.etat_civil ? ' is-invalid' : '')
                       }
                     >
-                      <option selected={etat_civil == 'Marié(e)'} value="Marié(e)">
+                      <option
+                        selected={etat_civil === 'Marié(e)'}
+                        value="Marié(e)"
+                        onChange={(e) => {
+                          initialValues2.etat_civil = 'Marié(e)'
+                        }}
+                      >
                         Marié(e)
                       </option>
-                      <option selected={etat_civil == 'Celibataire'} value="Celibataire">
+                      <option
+                        selected={etat_civil === 'Celibataire'}
+                        value="Celibataire"
+                        onChange={(e) => {
+                          initialValues2.etat_civil = 'Celibataire'
+                        }}
+                      >
                         Celibataire
                       </option>
                     </select>
@@ -672,12 +712,12 @@ const Gestioncompte = () => {
                         </div>
                       </div>
                     </div>
-                  </Form>
+                  </div>
                 </div>
-              )}
-            />
-          </div>
-        </div>
+              </div>
+            </Form>
+          )}
+        />
         <div className="card">
           <header className="card-header">
             <p className="card-header-title">

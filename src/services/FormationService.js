@@ -24,6 +24,17 @@ export const nombre_candidatsParFormation = (authRequest) => {
     },
   })
 }
+export const GetformationsByFormateur = (authRequest) => {
+  return axios({
+    method: 'GET',
+    url:
+      `${process.env.hostUrl || 'http://localhost:8080'}/api/formation/GetformationsByFormateur/` +
+      authRequest,
+    headers: {
+      Authorization: 'Bearer ' + getToken(),
+    },
+  })
+}
 
 export const AjoutFormation = (authRequest) => {
   return axios({

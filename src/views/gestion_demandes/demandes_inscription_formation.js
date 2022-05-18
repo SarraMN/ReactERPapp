@@ -18,7 +18,7 @@ import { uploadfile, getfile } from 'src/services/fileService'
 import 'src/views/gestion_demandes/demandes_inscriptions.css'
 
 import CIcon from '@coreui/icons-react'
-import { cilBan, cilCheckCircle, cilList } from '@coreui/icons'
+import { cilBan, cilCheckCircle, cilFolderOpen, cilList } from '@coreui/icons'
 
 import {
   getdemandes_ins_formations,
@@ -27,10 +27,13 @@ import {
 } from 'src/services/demandes_inscriptionService'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Demandes_inscriptions = () => {
   let navigate = useNavigate()
   const [bool, setBool] = useState(false)
+  const dispatch = useDispatch()
+  let nbrDemandes = useSelector((state) => state.nbrDemandes)
 
   function notification_deValidation(id) {
     Swal.fire({
@@ -47,16 +50,17 @@ const Demandes_inscriptions = () => {
           })
           .catch((e) => {})
 
-        Swal.fire('cette demande est rejetée sans encombre.', '', 'success')
+        Swal.fire('cette demande est rejetée avec succés.', '', 'success')
         setBool(true)
         setBool(false)
-
         getdemandes_ins_formations()
           .then((response) => {
             console.log('hayd data', response.data)
             setPosts(response.data)
           })
           .catch((e) => {})
+        dispatch({ type: 'set', nbrDemandes: nbrDemandes - 1 })
+        nbrDemandes = nbrDemandes - 1
       } else if (result.isDenied) {
         Swal.fire('Les modifications ne sont pas enregistrées', '', 'info')
       }
@@ -76,14 +80,17 @@ const Demandes_inscriptions = () => {
           })
           .catch((e) => {})
 
-        Swal.fire('cette demande est acceptée sans problème.', '', 'success')
+        Swal.fire('cette demande est acceptée avec succés', '', 'success')
         setBool(true)
         setBool(false)
+
         getdemandes_ins_formations()
           .then((response) => {
             setPosts(response.data)
           })
           .catch((e) => {})
+        dispatch({ type: 'set', nbrDemandes: nbrDemandes - 1 })
+        nbrDemandes = nbrDemandes - 1
       } else if (result.isDenied) {
         Swal.fire('Les modifications ne sont pas enregistrées', '', 'info')
       }
@@ -148,13 +155,9 @@ const Demandes_inscriptions = () => {
       <div>
         <div>
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
-            <button
-              className="btn btn-outline-primary btn-sm mb-0"
-              style={{ 'font-size': '18px' }}
-              onClick={voirhistorique}
-            >
+            <button className="btnAdd btn-sm mb-0" onClick={voirhistorique}>
               <CIcon
-                icon={cilList}
+                icon={cilFolderOpen}
                 customClassName="nav-icon"
                 style={{
                   width: 20,

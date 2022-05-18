@@ -39,10 +39,9 @@ const Commentaires = (props) => {
   const [voirplus1, setvoirplus1] = useState(false)
   const [idcandidat, setidcandidat] = useState(0)
 
-  console.log('ach jani', props.idcours)
   useEffect(() => {
+    console.log('jiyyt commentaires', props.idcours)
     fetchUserData().then((response) => {
-      console.log('hehi response', response)
       setidcandidat(response.data.id)
     })
   }, [])
@@ -50,7 +49,6 @@ const Commentaires = (props) => {
     setvoirplus1(false)
     getAllcommentaire(props.idcours)
       .then((response) => {
-        console.log('zoookkkk', response.data)
         setListeCommentaires(response.data)
         if (response.data.length > 4) {
           console.log('true')
@@ -206,7 +204,6 @@ const Commentaires = (props) => {
           Notification_Succees()
           getAllcommentaire(props.idcours)
             .then((response) => {
-              console.log('zoookkkk', response.data)
               setListeCommentaires(response.data)
               if (response.data.length > 4) {
                 console.log('true')
@@ -215,7 +212,6 @@ const Commentaires = (props) => {
 
               response.data.map((item, index) => {
                 if (index < 4) {
-                  console.log('ena jiyyt')
                   ListeCommentaires4.push(item)
                 }
                 if (item.proprietaire.image === null) {
@@ -231,7 +227,6 @@ const Commentaires = (props) => {
               setListeCommentaires2(ListeCommentaires4)
               setListeCommentaires3(ListeCommentaires4)
               setphotopropreitaire(photopropreitaire2.reverse())
-              console.log('kifssh al tsawer', photopropreitaire2)
               setListeCommentaires4([])
               setphotopropreitaire2([])
             })

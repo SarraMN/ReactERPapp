@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -19,11 +19,20 @@ import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 import { logo } from 'src/assets/brand/logo'
 import ReactImg from 'src/assets/images/logo3.png'
+import { fetchUserData } from 'src/services/UserService'
 
 const AppHeader = () => {
   const dispatch = useDispatch()
-  const sidebarShow = useSelector((state) => state.sidebarShow)
+  const [nom, setnom] = useState()
+  const [prenom, setprenom] = useState()
 
+  const sidebarShow = useSelector((state) => state.sidebarShow)
+  useEffect(() => {
+    fetchUserData().then((response) => {
+      setnom(response.data.nom)
+      setprenom(response.data.prenom)
+    })
+  }, [])
   return (
     <CHeader position="sticky" className="mb-4">
       <CContainer fluid>
@@ -39,23 +48,9 @@ const AppHeader = () => {
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CCardImage src={ReactImg} alt="tac-tic" width="20" height="50"></CCardImage>
         </CHeaderNav>
-        <CHeaderNav>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilBell} size="lg" />
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilList} size="lg" />
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilEnvelopeOpen} size="lg" />
-            </CNavLink>
-          </CNavItem>
-        </CHeaderNav>
+        <p style={{ 'font-family': 'cursive', marginTop: '20px' }}>
+          Bienvenue {nom} {prenom}
+        </p>
         <CHeaderNav className="ms-3">
           <AppHeaderDropdown />
         </CHeaderNav>

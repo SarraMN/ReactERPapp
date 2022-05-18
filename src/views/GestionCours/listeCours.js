@@ -1,4 +1,4 @@
-import { cilPencil } from '@coreui/icons'
+import { cilPencil, cilPlus } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import Swal from 'sweetalert2'
 import {
@@ -53,7 +53,7 @@ const ListeCours = () => {
 
   const [posts, setPosts] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [postsPerPage, setpostsPerPage] = useState(3)
+  const [postsPerPage, setpostsPerPage] = useState(6)
   const [NextPage, setNextPage] = useState(currentPage + 1)
   const [PreviewsPage, setPreviewsPage] = useState(1)
   const [activeNumber, setactiveNumber] = useState(1)
@@ -131,7 +131,6 @@ const ListeCours = () => {
   let navigate = useNavigate()
 
   function pdfbyid(id) {
-    console.log('ach b3athtlk', id)
     navigate('/GestionFormation/listeFormation/listeCours/pdf', {
       state: { pdf: id },
     })
@@ -206,7 +205,7 @@ const ListeCours = () => {
   }
   function supprimerCours(id) {
     Swal.fire({
-      title: 'Souhaitez-vous supprimer cet utilisateur ?',
+      title: 'Souhaitez-vous supprimer cet cours ?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'supprimer',
@@ -265,12 +264,9 @@ const ListeCours = () => {
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >
-            <Modal.Header
-              closeButton
-              style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}
-            >
+            <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
               <CIcon
-                icon={cilPencil}
+                icon={cilPlus}
                 style={{
                   marginRight: 15,
                 }}
@@ -343,7 +339,17 @@ const ListeCours = () => {
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >
-            <Modal.Header closeButton></Modal.Header>
+            <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
+              <CIcon
+                icon={cilPlus}
+                style={{
+                  marginRight: 15,
+                  color: '#213f77',
+                  fontWeight: 'bold',
+                }}
+              />
+              Ajouter cours
+            </Modal.Header>{' '}
             <Modal.Body>
               <AjoutForm id={idcours} />
             </Modal.Body>
@@ -378,18 +384,6 @@ const ListeCours = () => {
                   {/* Ressources*/}
                   <CTableDataCell className="text-center">
                     <div className="small text-medium-emphasis">
-                      <span
-                        onClick={() => {
-                          downloadContract(item)
-                        }}
-                      >
-                        <i
-                          className="fa fa-download"
-                          aria-hidden="true"
-                          style={{ marginRight: 18, fontSize: 20, color: '#3399ff' }}
-                          title="télécharger"
-                        ></i>
-                      </span>
                       <span
                         onClick={() => {
                           pdfbyid(item.document.id)
@@ -473,25 +467,20 @@ const ListeCours = () => {
                         aria-labelledby="contained-modal-title-vcenter"
                         centered
                       >
-                        <Modal.Header closeButton></Modal.Header>
+                        <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
+                          <CIcon
+                            icon={cilPencil}
+                            style={{
+                              marginRight: 15,
+                              color: '#213f77',
+                              fontWeight: 'bold',
+                            }}
+                          />
+                          Modifier Cours
+                        </Modal.Header>{' '}
                         <Modal.Body>
                           {/* <AjoutForm formation={formation} /> */}
                           <CCard>
-                            <CCardHeader
-                              style={{
-                                backgroundColor: '#213f77',
-                                color: 'white',
-                                fontWeight: 'bold',
-                              }}
-                            >
-                              <CIcon
-                                icon={cilPencil}
-                                style={{
-                                  marginRight: 15,
-                                }}
-                              />
-                              Modifier Cours
-                            </CCardHeader>
                             <CForm
                               className="row g-3 needs-validation"
                               noValidate
@@ -706,10 +695,7 @@ const ListeCours = () => {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
               >
-                <Modal.Header
-                  closeButton
-                  style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}
-                >
+                <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
                   <CIcon
                     icon={cilPencil}
                     style={{
@@ -770,17 +756,7 @@ const ListeCours = () => {
               <div className="pagination_container d-flex flex-row align-items-center justify-content-start">
                 <div className="courses_show_container ml-auto clearfix">
                   <div className="courses_show_text">
-                    <span>1-{postsPerPage}</span> de <span>{posts.length}</span> resultats:
-                  </div>
-                  <div className="courses_show_content">
-                    <span>Voir: </span>
-                    <span></span>
-                    <span></span>
-                    <select onClick={handleChange}>
-                      <option value="3">3</option>
-                      <option value="2">2</option>
-                      <option value="8">8</option>
-                    </select>
+                    <span>1-{postsPerPage}</span> de <span>{posts.length}</span> resultats
                   </div>
                 </div>
               </div>

@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import 'src/views/GestionUtilisateurs/userProfile.css'
 import { useLocation } from 'react-router-dom'
+import { getfile } from 'src/services/fileService'
+import avatar8 from './../../assets/images/profile_homme.png'
+import { GetformationsByFormateur } from 'src/services/FormationService'
 
 const Responsable = () => {
+  let [formations, setFormations] = useState([])
   let userId = useLocation()
-  console.log('amaaan', userId)
+  useEffect(() => {
+    getfile(userId.state.utilisateur.image.id)
+      .then((response) => {
+        avatar8 = URL.createObjectURL(response.data)
+      })
+      .catch((e) => {})
+    GetformationsByFormateur(values.id)
+      .then((response) => {
+        console.log('hiiii', response.data)
+        setFormations(response.data)
+      })
+      .catch((e) => {})
+  }, [])
   const [values] = useState({
     userName: userId.state.utilisateur.userName,
     password: userId.state.utilisateur.password,
@@ -21,16 +37,13 @@ const Responsable = () => {
     date_creation: userId.state.utilisateur.createdAt,
     date_derniere_conn: userId.state.utilisateur.lastLogin,
   })
+
   return (
     <div className="container rounded bg-white mt-5 mb-5">
       <div className="row">
         <div className="col-md-3 border-right">
           <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-            <img
-              className="rounded-circle mt-5"
-              width="150px"
-              src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-            />
+            <img className="rounded-circle mt-5" width="150px" src={avatar8} alt="user" />
             <span className="font-weight-bold">{values.userName}</span>
             <span className="text-black-50">{values.email}</span>
             <span> </span>
@@ -78,27 +91,6 @@ const Responsable = () => {
                     }}
                   >
                     formations
-                  </button>
-                </li>
-
-                <li className="nav-item" role="presentation">
-                  <button
-                    className="nav-link"
-                    id="pills-contact-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#pills-contact"
-                    type="button"
-                    role="tab"
-                    aria-controls="pills-contact"
-                    aria-selected="false"
-                    style={{
-                      height: '50px',
-                      width: '250px',
-                      'font-size': '18px',
-                      'font-weight': 'bold',
-                    }}
-                  >
-                    Examens
                   </button>
                 </li>
               </ul>
@@ -238,17 +230,30 @@ const Responsable = () => {
                   role="tabpanel"
                   aria-labelledby="pills-profile-tab"
                 >
-                  <app-admin-etudiant></app-admin-etudiant>
-                  <h1>hello</h1>
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="pills-contact"
-                  role="tabpanel"
-                  aria-labelledby="pills-contact-tab"
-                >
-                  <app-admin-departements></app-admin-departements>
-                  <h1>coucou</h1>
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">titre</th>
+                        <th scope="col">categorie</th>
+                        <th scope="col">prix</th>
+                        <th scope="col">Nombre de cours</th>
+                        <th scope="col">Date de creation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {formations.map((item, index) => (
+                        <tr key={index}>
+                          <th scope="row">{item.id}</th>
+                          <td>{item.titre}</td>
+                          <td>{item.categorie}</td>
+                          <td>{item.prix}</td>
+                          <td>{item.nbrCours}</td>
+                          <td>{item.dateCreation}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </span>

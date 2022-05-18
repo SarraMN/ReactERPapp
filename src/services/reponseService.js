@@ -4,7 +4,7 @@ const getToken = () => {
   return localStorage.getItem('USER_KEY')
 }
 
-export const getAllreponses = (authRequest) => {
+export const getAllreponses = () => {
   return axios({
     method: 'GET',
     url: `${process.env.hostUrl || 'http://localhost:8080'}/reponse/getAll`,

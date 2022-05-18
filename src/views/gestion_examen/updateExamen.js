@@ -372,11 +372,23 @@ const UpdateExamen = () => {
                           <div style={{ 'margin-top': '5px', float: 'right', align: 'right' }}>
                             <div>
                               <div className="control">
-                                <button
+                                {/*    <button
                                   type="submit"
                                   className="button blue"
                                   style={{ width: '100px', 'background-color': '#213f77' }}
                                 >
+                                  Modifier
+                                </button> */}
+                                <button
+                                  className="btnAdd"
+                                  type="submit"
+                                  style={{ height: '40px', width: '150px' }}
+                                >
+                                  <i
+                                    className="fa fa-check"
+                                    aria-hidden="true"
+                                    style={{ marginRight: '9px' }}
+                                  ></i>
                                   Modifier
                                 </button>
                               </div>

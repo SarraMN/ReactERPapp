@@ -283,7 +283,7 @@ const VoirCours = (props) => {
 
                       <header className="App-header" style={{ align: 'center', float: 'center' }}>
                         <Document file={logo} onLoadSuccess={onDocumentLoadSuccess}>
-                          <Page height="500" width="750" pageNumber={pageNumber} />
+                          <Page height="500" width="600" pageNumber={pageNumber} />
                         </Document>
                         <div
                           style={{

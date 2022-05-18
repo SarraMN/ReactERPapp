@@ -1,4 +1,4 @@
-import { cilPencil } from '@coreui/icons'
+import { cilPencil, cilPlus } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import Swal from 'sweetalert2'
 import { editFormation, nombre_candidatsParFormation } from 'src/services/FormationService'
@@ -335,7 +335,7 @@ const ListeFormation = () => {
           getfile(item.image.id)
             .then((response2) => {
               settest(true)
-              images.push(URL.createObjectURL(response2.data))
+              images[item.id] = URL.createObjectURL(response2.data)
               console.log('hello', response2.data)
             })
             .catch((e) => {})
@@ -360,7 +360,7 @@ const ListeFormation = () => {
               </span>
               Les formations
             </p>
-            <button href="tutorial-single.html" className="btn-Aj" onClick={handleShowAjt}>
+            <button className="btn-Aj" onClick={handleShowAjt}>
               <i
                 className="flex fa fa-plus-circle"
                 aria-hidden="true"
@@ -376,7 +376,18 @@ const ListeFormation = () => {
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >
-            <Modal.Header closeButton></Modal.Header>
+            <Modal.Header
+              closeButton
+              style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}
+            >
+              <CIcon
+                icon={cilPencil}
+                style={{
+                  marginRight: 15,
+                }}
+              />
+              Ajouter formation
+            </Modal.Header>{' '}
             <Modal.Body>
               <AjoutForm />
             </Modal.Body>
@@ -444,7 +455,17 @@ const ListeFormation = () => {
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >
-            <Modal.Header closeButton></Modal.Header>
+            <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
+              <CIcon
+                icon={cilPlus}
+                style={{
+                  marginRight: 15,
+                  color: '#213f77',
+                  fontWeight: 'bold',
+                }}
+              />
+              Ajouter formation
+            </Modal.Header>{' '}
             <Modal.Body>
               <AjoutForm />
             </Modal.Body>
@@ -455,7 +476,7 @@ const ListeFormation = () => {
                 <div className="img-wrap">
                   <a href="#">
                     <img
-                      src={images[index]}
+                      src={images[item.id]}
                       alt="Image"
                       className="img-fluid"
                       style={{ width: '500px', height: '270px' }}
@@ -464,8 +485,7 @@ const ListeFormation = () => {
                 </div>
                 <div className="it-cont">
                   <h3>
-                    <a href="#">{item.titre}</a>
-                    <span style={{ marginLeft: 10 }}>{item.prix} Dt</span>
+                    <a href="#">Formation: {item.titre}</a>
                   </h3>
                   {/* <p>{item.description.substr(1, 60)}...</p> */}
                   <div style={{ marginBottom: 12 }}>
@@ -475,7 +495,7 @@ const ListeFormation = () => {
                       aria-hidden="true"
                     ></i>
                     <span className="info-det">Prix:</span>
-                    <span className="info-det" style={{ marginLeft: 225 }}>
+                    <span className="info-det" style={{ marginLeft: 170 }}>
                       {item.prix} Dt
                     </span>
                   </div>
@@ -485,9 +505,13 @@ const ListeFormation = () => {
                       style={{ color: '#3399ff', marginRight: 14 }}
                       aria-hidden="true"
                     ></i>
-                    <span className="info-det">Prix de organismes conventionés:</span>
-                    <span className="info-det" style={{ marginLeft: 16 }}>
+                    <span className="info-det">Prix pour les organismes </span>
+                    <span className="info-det" style={{ marginLeft: 20 }}>
                       {item.prix_organismes_conventiones} Dt
+                    </span>
+                    <br></br>
+                    <span className="info-det" style={{ marginLeft: '32px' }}>
+                      conventionés:
                     </span>
                   </div>
                   <div className="meta">
@@ -498,8 +522,8 @@ const ListeFormation = () => {
                         aria-hidden="true"
                       ></i>
                       <span className="info-det">Créer par:</span>
-                      <span className="info-det" style={{ marginLeft: 190 }}>
-                        {item.auteur.prenom} {item.auteur.nom}
+                      <span className="info-det" style={{ marginLeft: 135 }}>
+                        {item.auteur.nom} {item.auteur.prenom}
                       </span>
                     </div>
                     <div style={{ marginBottom: 12 }}>
@@ -508,8 +532,8 @@ const ListeFormation = () => {
                         style={{ color: '#3399ff', marginRight: 14 }}
                         aria-hidden="true"
                       ></i>
-                      <span className="info-det">Categorie:</span>
-                      <span className="info-det" style={{ marginLeft: 180 }}>
+                      <span className="info-det">Catégorie:</span>
+                      <span className="info-det" style={{ marginLeft: 130 }}>
                         {item.categorie}
                       </span>
                     </div>
@@ -521,8 +545,8 @@ const ListeFormation = () => {
                         aria-hidden="true"
                       ></i>
                       <span className="info-det">Candidats inscrits:</span>
-                      <span className="info-det" style={{ marginLeft: 130 }}>
-                        {nbrcandidats[index]}candidats
+                      <span className="info-det" style={{ marginLeft: 77 }}>
+                        {nbrcandidats[index]} Candidats
                       </span>
                     </div>
                     <div>
@@ -559,21 +583,18 @@ const ListeFormation = () => {
                   aria-labelledby="contained-modal-title-vcenter"
                   centered
                 >
-                  <Modal.Header closeButton></Modal.Header>
+                  <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
+                    <CIcon
+                      icon={cilPencil}
+                      style={{
+                        marginRight: 15,
+                      }}
+                    />
+                    Modifier une formation
+                  </Modal.Header>{' '}
                   <Modal.Body>
                     {/* <AjoutForm formation={formation} /> */}
                     <CCard>
-                      <CCardHeader
-                        style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}
-                      >
-                        <CIcon
-                          icon={cilPencil}
-                          style={{
-                            marginRight: 15,
-                          }}
-                        />
-                        Modifier Formation
-                      </CCardHeader>
                       <CForm
                         className="row g-3 needs-validation"
                         noValidate
@@ -665,13 +686,7 @@ const ListeFormation = () => {
                               'text-align': 'center',
                             }}
                           >
-                            <img
-                              src={image}
-                              alt="photo"
-                              className="responsive"
-                              width="500"
-                              height="200"
-                            />
+                            <img src={image} alt="photo" width="300" height="180" />
                           </div>
                           <div className="field-body mx-auto" style={{ 'margin-top': '15px' }}>
                             <div
@@ -813,38 +828,21 @@ const ListeFormation = () => {
 
                         <CCol xs={12}>
                           <Button
-                            className="btn-Aj"
                             style={{
-                              backgroundColor: 'white',
-                              color: '#140788',
-                              width: 100,
-                              marginTop: 20,
-                              marginRight: 20,
                               position: 'absolute',
                               bottom: 0,
                               right: 0,
+                              'border-radius': '13px',
+                              color: '#213f77',
+                              borderColor: '#213f77',
+                              width: '120px',
+                              height: '40px',
+                              'font-weight': 'bold',
                             }}
                             onClick={handleSubmitMdf}
                           >
                             Modifier
                           </Button>
-                          {/*  <button
-                            className="button blue"
-                            style={{
-                              color: 'white',
-                              'font-size': '1.2em',
-                              width: 150,
-                              marginTop: 20,
-                              marginRight: 20,
-                              position: 'absolute',
-                              'border-radius': '30px',
-                              bottom: 0,
-                              right: 0,
-                            }}
-                            onClick={handleSubmitMdf}
-                          >
-                            Valider
-                          </button> */}
                         </CCol>
                       </CForm>
                     </CCard>
@@ -922,16 +920,6 @@ const ListeFormation = () => {
                 <div className="courses_show_container ml-auto clearfix">
                   <div className="courses_show_text">
                     <span>1-{postsPerPage}</span> de <span>{posts.length}</span> resultats:
-                  </div>
-                  <div className="courses_show_content">
-                    <span>Voir: </span>
-                    <span></span>
-                    <span></span>
-                    <select onClick={handleChange}>
-                      <option value="3">3</option>
-                      <option value="2">2</option>
-                      <option value="8">8</option>
-                    </select>
                   </div>
                 </div>
               </div>

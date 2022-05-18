@@ -174,7 +174,6 @@ const AjouterFormation = () => {
             AjoutFormation(values).then((response3) => {
               if (response3.status === 200) {
                 console.log('avec succée')
-                initialiser()
                 Notification_Succees()
               } else if (response3.status === 500) {
                 console.log('failure')
@@ -193,15 +192,6 @@ const AjouterFormation = () => {
   return (
     <>
       <CCard>
-        <CCardHeader style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}>
-          <CIcon
-            icon={cilPencil}
-            style={{
-              marginRight: 15,
-            }}
-          />
-          Ajouter Formation
-        </CCardHeader>
         <CForm
           className="row g-3 needs-validation"
           noValidate
@@ -263,7 +253,7 @@ const AjouterFormation = () => {
           </CCol>
           <CCol md={6}>
             <CFormLabel style={{ fontWeight: 'bold' }} htmlFor="validationCustom01">
-              Prix d{"'"}organismes conventionés
+              Prix pour les organismes conventionés
             </CFormLabel>
             <CFormInput
               type="number"
@@ -275,7 +265,7 @@ const AjouterFormation = () => {
                 setprix_organismes_conventiones(e.target.value)
               }}
             />
-            <CFormFeedback invalid>prix_organismes_conventiones est requis</CFormFeedback>
+            <CFormFeedback invalid>prix pour les organismes conventiones est requis</CFormFeedback>
           </CCol>
           <CCol md={6}>
             <div /* className="image w-48 h-48 mx-auto" */ style={{ 'text-align': 'center' }}>
@@ -327,7 +317,7 @@ const AjouterFormation = () => {
           </CCol>
           <CCol md={6}>
             <CFormLabel style={{ fontWeight: 'bold' }} htmlFor="exampleFormControlTextarea1">
-              Déscription (min 50 caractères)
+              Déscription (minimum 50 caractères)
             </CFormLabel>
             <CFormTextarea
               id="exampleFormControlTextarea1"
@@ -418,23 +408,23 @@ const AjouterFormation = () => {
             >
               Ajouter
             </button> */}
-            <button
+
+            <Button
               style={{
                 position: 'absolute',
                 bottom: 0,
                 right: 0,
-                'border-radius': '30px',
+                'border-radius': '13px',
                 color: '#213f77',
                 borderColor: '#213f77',
                 width: '120px',
                 height: '40px',
                 'font-weight': 'bold',
               }}
-              type="button"
               onClick={handleSubmit}
             >
               Ajouter
-            </button>
+            </Button>
           </CCol>
         </CForm>
       </CCard>

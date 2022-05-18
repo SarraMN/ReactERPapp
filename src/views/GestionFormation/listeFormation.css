@@ -23,6 +23,20 @@
   margin-bottom: 20px;
   font-size: 25px;
 }
+.btnAdd:hover {
+  background-color: #140788;
+  color: white;
+  border: 2px solid #140788;
+}
+
+.btnAdd {
+  font-size: 18px;
+  border-radius: 7px;
+  border-color: #213f77;
+  border: 2px solid;
+  color: #213f77;
+}
+
 .tutorial-item h3 a {
   color: #3399ff;
   text-decoration: none;
@@ -163,7 +177,6 @@
   border-radius: 3px;
   font-size: 12px;
   font-weight: 900;
-  text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
   margin-right: 30px;
@@ -177,12 +190,12 @@
   height: 40px;
   outline: none;
   border-radius: 3px;
-  font-size: 14px;
-  font-weight: 900;
-  letter-spacing: 0.1em;
+  font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
   margin-right: 30px;
   margin-top: 18px;
+  border-radius: 7px;
 }
 .btn-arch {
   background: white;

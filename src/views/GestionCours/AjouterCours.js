@@ -135,15 +135,6 @@ const AjouterCours = (props) => {
   return (
     <>
       <CCard>
-        <CCardHeader style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}>
-          <CIcon
-            icon={cilPencil}
-            style={{
-              marginRight: 15,
-            }}
-          />
-          Ajouter Cours
-        </CCardHeader>
         <CForm
           className="row g-3 needs-validation"
           noValidate

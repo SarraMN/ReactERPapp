@@ -112,7 +112,7 @@ function App() {
       <div>
         <header className="App-header">
           <Document file={logo} onLoadSuccess={onDocumentLoadSuccess}>
-            <Page height="500" width="1000" pageNumber={pageNumber} />
+            <Page height="500" width="700" pageNumber={pageNumber} />
           </Document>
           <p>
             {' '}

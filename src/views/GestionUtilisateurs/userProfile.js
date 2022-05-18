@@ -26,6 +26,7 @@ const UserProfile = () => {
     date_creation: userId.state.utilisateur.createdAt,
     date_derniere_conn: userId.state.utilisateur.lastLogin,
     image: userId.state.utilisateur.image,
+    organisme_conventionne: userId.state.utilisateur.organisme_conventionne,
     logo: avatar8,
   })
 
@@ -98,27 +99,6 @@ const UserProfile = () => {
                     }}
                   >
                     formations
-                  </button>
-                </li>
-
-                <li className="nav-item" role="presentation">
-                  <button
-                    className="nav-link"
-                    id="pills-contact-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#pills-contact"
-                    type="button"
-                    role="tab"
-                    aria-controls="pills-contact"
-                    aria-selected="false"
-                    style={{
-                      height: '50px',
-                      width: '250px',
-                      'font-size': '18px',
-                      'font-weight': 'bold',
-                    }}
-                  >
-                    Examens
                   </button>
                 </li>
               </ul>
@@ -198,7 +178,7 @@ const UserProfile = () => {
                       >
                         E-mail :
                       </label>
-                      <span>{values.email}</span>
+                      <span> {values.email}</span>
                       {/*                       <input type="text" className="form-control" value="" placeholder="Prenom" />
                        */}{' '}
                     </div>
@@ -211,7 +191,7 @@ const UserProfile = () => {
                       >
                         Genre :
                       </label>
-                      <span>{values.genre}</span>
+                      <span> {values.genre}</span>
                       {/*                       <input type="text" className="form-control" placeholder="Amdouni" value="" />
                        */}{' '}
                     </div>
@@ -222,7 +202,7 @@ const UserProfile = () => {
                       >
                         Etat civil :
                       </label>
-                      <span>{values.etat_civil}</span>
+                      <span> {values.etat_civil}</span>
                       {/*                       <input type="text" className="form-control" value="" placeholder="Prenom" />
                        */}{' '}
                     </div>
@@ -235,7 +215,7 @@ const UserProfile = () => {
                       >
                         Date de creation :
                       </label>
-                      <span>{values.date_creation}</span>
+                      <span> {values.date_creation}</span>
                       {/*                       <input type="text" className="form-control" placeholder="Amdouni" value="" />
                        */}{' '}
                     </div>
@@ -244,50 +224,34 @@ const UserProfile = () => {
                         className="labels"
                         style={{ 'font-size': '17px', 'font-weight': 'bold' }}
                       >
-                        Date de derniere connexion :
+                        Derniere connexion :
                       </label>
-                      <span>{values.date_derniere_conn}</span>
+                      <span> {values.date_derniere_conn}</span>
                       {/*                       <input type="text" className="form-control" value="" placeholder="Prenom" />
                        */}{' '}
                     </div>
                   </div>
+                  {values.organisme_conventionne === null ? (
+                    <span></span>
+                  ) : (
+                    <div className="row mt-2">
+                      <div className="col-md-6" style={{ paddingtop: 50 }}>
+                        <label
+                          className="labels"
+                          style={{ 'font-size': '17px', 'font-weight': 'bold' }}
+                        >
+                          Organisme conventioné :
+                        </label>
+                        <span> {values.organisme_conventionne.nom}</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <div
                   className="tab-pane fade"
                   id="pills-profile"
                   role="tabpanel"
                   aria-labelledby="pills-profile-tab"
-                >
-                  <table className="table table-striped">
-                    <thead>
-                      <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">titre</th>
-                        <th scope="col">categorie</th>
-                        <th scope="col">prix</th>
-                        <th scope="col">Nombre de cours</th>
-                        <th scope="col">Date de creation</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {formations.map((item, index) => (
-                        <tr key={index}>
-                          <th scope="row">{item.id}</th>
-                          <td>{item.titre}</td>
-                          <td>{item.categorie}</td>
-                          <td>{item.prix}</td>
-                          <td>{item.nbrCours}</td>
-                          <td>{item.dateCreation}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="pills-contact"
-                  role="tabpanel"
-                  aria-labelledby="pills-contact-tab"
                 >
                   <table className="table table-striped">
                     <thead>

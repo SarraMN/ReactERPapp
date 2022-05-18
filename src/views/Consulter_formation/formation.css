@@ -617,3 +617,16 @@
 
 @media only screen and (max-width: 400px) {
 }
+.btnAdd:hover {
+  background-color: #140788;
+  color: white;
+  border: 2px solid #213f77;
+}
+
+.btnAdd {
+  font-size: 18px;
+  border-radius: 10px;
+  border-color: #213f77;
+  border: 2px solid;
+  color: #213f77;
+}

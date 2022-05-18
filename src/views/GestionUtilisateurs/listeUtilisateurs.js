@@ -163,7 +163,7 @@ const ListeUtilisateurs = () => {
                               Id
                             </p>
                           </th>
-                          <th className="text-center ">
+                          <th className="text-center " style={{ width: '240px' }}>
                             <p
                               style={{
                                 color: 'light',
@@ -172,7 +172,7 @@ const ListeUtilisateurs = () => {
                               }}
                             >
                               {' '}
-                              Nom Prenom
+                              Nom &amp; Prenom
                             </p>
                           </th>{' '}
                           <th className="text-center ">
@@ -184,7 +184,7 @@ const ListeUtilisateurs = () => {
                               }}
                             >
                               {' '}
-                              E-mail
+                              Etat civil
                             </p>
                           </th>
                           <th className="text-center ">
@@ -199,7 +199,7 @@ const ListeUtilisateurs = () => {
                               Numero
                             </p>
                           </th>
-                          <th className="text-center ">
+                          <th className="text-center " style={{ width: '200px' }}>
                             <p
                               style={{
                                 color: 'light',
@@ -211,7 +211,7 @@ const ListeUtilisateurs = () => {
                               Date de creation
                             </p>
                           </th>
-                          <th className="text-center ">
+                          <th className="text-center " style={{ width: '200px' }}>
                             <p
                               style={{
                                 color: 'light',
@@ -223,7 +223,7 @@ const ListeUtilisateurs = () => {
                               derniere connexion
                             </p>
                           </th>
-                          <th className="text-center ">
+                          <th className="text-center " style={{ width: '200px' }}>
                             <p
                               style={{
                                 color: 'light',
@@ -232,7 +232,7 @@ const ListeUtilisateurs = () => {
                               }}
                             >
                               {' '}
-                              Type
+                              Organisme conventioné
                             </p>
                           </th>{' '}
                           <th className="text-center ">
@@ -269,8 +269,8 @@ const ListeUtilisateurs = () => {
                               onClick={(index) => userProfil(item)}
                             >
                               <span
-                                className="badge badge-sm"
-                                style={{ color: 'black', 'font-size': '12px' }}
+                                className="align-middle text-center"
+                                style={{ 'font-size': '14px', color: '#3B3737' }}
                               >
                                 {item.id}
                               </span>
@@ -279,23 +279,33 @@ const ListeUtilisateurs = () => {
                               className="align-middle text-center"
                               onClick={(index) => userProfil(item)}
                             >
-                              <span className="text-secondary text-xs font-weight-bold">
+                              <span
+                                className="text-secondary text-xs "
+                                style={{ 'font-size': '14px', color: '#3B3737' }}
+                              >
                                 {item.nom} {item.prenom}
                               </span>
                             </td>
                             <td
                               className="align-middle text-center"
                               onClick={(index) => userProfil(item)}
+                              style={{ width: '200px' }}
                             >
-                              <span className="text-secondary text-xs font-weight-bold">
-                                {item.email}
+                              <span
+                                className="text-secondary text-xs "
+                                style={{ 'font-size': '14px', color: '#3B3737', width: '100px' }}
+                              >
+                                {item.etat_civil}
                               </span>
                             </td>
                             <td
                               className="align-middle text-center"
                               onClick={(index) => userProfil(item)}
                             >
-                              <span className="text-secondary text-xs font-weight-bold">
+                              <span
+                                className="text-secondary text-xs "
+                                style={{ 'font-size': '14px', color: '#3B3737' }}
+                              >
                                 {item.numero_de_telephone}
                               </span>
                             </td>
@@ -303,7 +313,10 @@ const ListeUtilisateurs = () => {
                               className="align-middle text-center"
                               onClick={(index) => userProfil(item)}
                             >
-                              <span className="text-secondary text-xs font-weight-bold">
+                              <span
+                                className="text-secondary text-xs "
+                                style={{ 'font-size': '14px', color: '#3B3737' }}
+                              >
                                 {item.createdAt}
                               </span>
                             </td>
@@ -311,7 +324,10 @@ const ListeUtilisateurs = () => {
                               className="align-middle text-center"
                               onClick={(index) => userProfil(item)}
                             >
-                              <span className="text-secondary text-xs font-weight-bold">
+                              <span
+                                className="text-secondary text-xs "
+                                style={{ 'font-size': '14px', color: '#3B3737' }}
+                              >
                                 {item.lastLogin}
                               </span>
                             </td>{' '}
@@ -319,8 +335,22 @@ const ListeUtilisateurs = () => {
                               className="align-middle text-center"
                               onClick={(index) => userProfil(item)}
                             >
-                              <span className="text-secondary text-xs font-weight-bold">
-                                {item.createdAt}
+                              <span
+                                className="text-secondary text-xs "
+                                style={{ 'font-size': '14px', color: '#3B3737' }}
+                              >
+                                {item.organisme_conventionne === null ? (
+                                  <span></span>
+                                ) : (
+                                  <button
+                                    className="btn btn-info active"
+                                    type="button"
+                                    aria-pressed="true"
+                                    style={{ width: '120px', marginTop: '10px' }}
+                                  >
+                                    {item.organisme_conventionne.nom}
+                                  </button>
+                                )}
                               </span>
                             </td>
                             <td className="align-middle text-center">
@@ -328,6 +358,7 @@ const ListeUtilisateurs = () => {
                                 style={{
                                   border: 0,
                                   backgroundColor: 'transparent',
+                                  marginBottom: '5px',
                                 }}
                                 onClick={(index) => Deleteuser(item.id)}
                               >
@@ -336,26 +367,9 @@ const ListeUtilisateurs = () => {
                                   customClassName="nav-icon"
                                   style={{
                                     marginTop: 5,
-                                    width: 30,
-                                    height: 30,
+                                    width: 25,
+                                    height: 25,
                                     color: 'red',
-                                  }}
-                                />
-                              </button>
-                              <button
-                                style={{
-                                  border: 0,
-                                  backgroundColor: 'transparent',
-                                }}
-                              >
-                                <CIcon
-                                  icon={cilDataTransferDown}
-                                  customClassName="nav-icon"
-                                  style={{
-                                    marginTop: 5,
-                                    width: 30,
-                                    height: 30,
-                                    color: 'blue',
                                   }}
                                 />
                               </button>

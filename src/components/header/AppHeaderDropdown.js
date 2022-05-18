@@ -19,6 +19,9 @@ import {
   cilSettings,
   cilTask,
   cilUser,
+  cilSpeedometer,
+  cilFolderOpen,
+  cilSchool,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { useEffect, useState } from 'react'
@@ -26,87 +29,101 @@ import { uploadfile, getfile } from 'src/services/fileService'
 import { userLogin, fetchUserData } from 'src/services/UserService'
 
 import avatar8 from './../../assets/images/profile_homme.png'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 const AppHeaderDropdown = () => {
   const [profileimg, setProfileimg] = useState(avatar8)
+  const [role, setRole] = useState()
+  let navigate = useNavigate()
 
+  function FDeconnecter() {
+    navigate('/')
+  }
+  function GestionDemandes() {
+    navigate('./views/gestion_demandes/demandes_inscription_formation')
+  }
+  const dispatch = useDispatch()
+  let image = useSelector((state) => state.image)
   useEffect(() => {
     fetchUserData().then((response) => {
-      console.log('idimage', response.data.idimage)
+      setRole(response.data.roles[0].authority)
       if (response.data.idimage !== 0) {
         getfile(response.data.idimage)
           .then((response) => {
             setProfileimg(URL.createObjectURL(response.data))
+            dispatch({ type: 'set', image: URL.createObjectURL(response.data) })
           })
           .catch((e) => {})
       } else {
+        dispatch({ type: 'set', image: avatar8 })
       }
     })
   }, [])
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar src={profileimg} size="md" />
+        <CAvatar src={image} size="md" />
       </CDropdownToggle>
-      <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownHeader className="bg-light fw-semibold py-2">Account</CDropdownHeader>
-        <CDropdownItem href="#">
-          <CIcon icon={cilBell} className="me-2" />
-          Updates
-          <CBadge color="info" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilEnvelopeOpen} className="me-2" />
-          Messages
-          <CBadge color="success" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilTask} className="me-2" />
-          Tasks
-          <CBadge color="danger" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilCommentSquare} className="me-2" />
-          Comments
-          <CBadge color="warning" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
-        <CDropdownHeader className="bg-light fw-semibold py-2">Settings</CDropdownHeader>
-        <CDropdownItem href="#">
-          <CIcon icon={cilUser} className="me-2" />
-          Profile
-        </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilSettings} className="me-2" />
-          Settings
-        </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilCreditCard} className="me-2" />
-          Payments
-          <CBadge color="secondary" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilFile} className="me-2" />
-          Projects
-          <CBadge color="primary" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
-        <CDropdownDivider />
-        <CDropdownItem href="#">
-          <CIcon icon={cilLockLocked} className="me-2" />
-          Lock Account
-        </CDropdownItem>
-      </CDropdownMenu>
+      {role === 'Admin' ? (
+        <CDropdownMenu className="pt-0" placement="bottom-end">
+          <CDropdownHeader className="bg-light fw-semibold py-2">Mon compte</CDropdownHeader>
+
+          <CDropdownItem onClick={() => GestionDemandes()}>
+            <CIcon icon={cilSettings} className="me-2" />
+            Demandes
+          </CDropdownItem>
+          <CDropdownItem href="#">
+            <CIcon icon={cilEnvelopeOpen} className="me-2" />
+            reclamations
+            <CBadge color="success" className="ms-2">
+              42
+            </CBadge>
+          </CDropdownItem>
+          <CDropdownItem href="#">
+            <CIcon icon={cilCreditCard} className="me-2" />
+            Actualités
+            <CBadge color="secondary" className="ms-2">
+              42
+            </CBadge>
+          </CDropdownItem>
+          <CDropdownItem href="#">
+            <CIcon icon={cilSpeedometer} className="me-2" />
+            tableau du bord
+            <CBadge color="primary" className="ms-2">
+              42
+            </CBadge>
+          </CDropdownItem>
+          <CDropdownDivider />
+          <CDropdownItem onClick={() => FDeconnecter()}>
+            <CIcon icon={cilLockLocked} className="me-2" />
+            Deconnecter
+          </CDropdownItem>
+        </CDropdownMenu>
+      ) : (
+        <div>
+          {role === 'User_Candidat' ? (
+            <CDropdownMenu className="pt-0" placement="bottom-end">
+              <CDropdownHeader className="bg-light fw-semibold py-2">Mon compte</CDropdownHeader>
+
+              <CDropdownDivider />
+              <CDropdownItem onClick={() => FDeconnecter()}>
+                <CIcon icon={cilLockLocked} className="me-2" />
+                Deconnecter
+              </CDropdownItem>
+            </CDropdownMenu>
+          ) : (
+            <CDropdownMenu className="pt-0" placement="bottom-end">
+              <CDropdownHeader className="bg-light fw-semibold py-2">Mon compte</CDropdownHeader>
+
+              <CDropdownItem onClick={() => FDeconnecter()}>
+                <CIcon icon={cilLockLocked} className="me-2" />
+                Deconnecter
+              </CDropdownItem>
+            </CDropdownMenu>
+          )}
+        </div>
+      )}
     </CDropdown>
   )
 }

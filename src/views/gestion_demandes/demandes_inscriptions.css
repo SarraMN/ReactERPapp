@@ -68,6 +68,11 @@
   height: 1.5rem;
   padding: 0.3rem 0.3rem;
 }
+.btn-outline-primary:hover:not(.active) {
+  background-color: #213f77;
+  color: 'red';
+  box-shadow: 0 3px 5px -1px #213f77, 0 2px 3px -1px #213f77;
+}
 .btn.btn-sm i,
 .btn-group-sm > .btn i {
   font-size: 0.5rem;
@@ -126,7 +131,6 @@
 .btn.bg-gradient-primary {
   box-shadow: 0 3px 3px 0 #213f77, 0 3px 1px -2px #213f77, 0 1px 5px 0 #213f77;
 }
-.btn-primary:hover,
 .btn.bg-gradient-primary:hover {
   background-color: #213f77;
   border-color: #213f77;
@@ -150,18 +154,6 @@
 .btn.bg-gradient-primary.focus,
 .btn.bg-gradient-primary:focus {
   color: #fff;
-}
-
-.btn-outline-primary {
-  box-shadow: none;
-  color: #213f77;
-  box-shadow: 0 3px 5px -1px #213f77, 0 2px 3px -1px #213f77;
-}
-.btn-outline-primary:hover:not(.active) {
-  background-color: transparent;
-  opacity: 0.75;
-  box-shadow: none;
-  color: #213f77;
 }
 
 .btn-secondary,
@@ -1800,11 +1792,6 @@
   color: #fff;
 }
 
-.btn-outline-primary {
-  box-shadow: none;
-  color: #213f77;
-  box-shadow: 0 3px 5px -1px #213f77, 0 2px 3px -1px #213f77;
-}
 .btn-primary,
 .btn.bg-gradient-primary {
   color: #fff;
@@ -1819,4 +1806,17 @@
 a {
   letter-spacing: 0rem;
   color: #344767;
+}
+.btnAdd:hover {
+  background-color: #140788;
+  color: white;
+  border: 2px solid #140788;
+}
+
+.btnAdd {
+  font-size: 18px;
+  border-radius: 10px;
+  border-color: #213f77;
+  border: 2px solid;
+  color: #213f77;
 }
