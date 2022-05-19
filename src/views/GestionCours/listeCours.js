@@ -36,11 +36,13 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom'
 import CoursInfo from './CoursInfo'
 import { getfile, downloadContract } from 'src/services/fileService'
+import axios from 'axios'
 
 const ListeCours = () => {
   let location = useLocation()
   let nomFormation = ''
   let idcours = null
+  console.log('sousous', location)
   if (location.state === null) {
     idcours = localStorage.getItem('liste_cours')
     nomFormation = localStorage.getItem('nomFormation')
@@ -50,7 +52,6 @@ const ListeCours = () => {
     localStorage.setItem('liste_cours', location.state.state.id)
     localStorage.setItem('nomFormation', nomFormation)
   }
-
   const [posts, setPosts] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage, setpostsPerPage] = useState(6)
@@ -61,6 +62,7 @@ const ListeCours = () => {
   const [bool, setBool] = useState(false)
   const [boolarchive, setBoolarchive] = useState(false)
   const [etat, setEtat] = useState('Non archivé')
+  const [etat2, setEtat2] = useState('Non archivé')
   //bool si il a supprimer
   // Formulaire d'ajout
   const [validated, setValidated] = useState(false)
@@ -69,8 +71,14 @@ const ListeCours = () => {
   const [description, setDescription] = useState('')
   const [objectif, setObjectif] = useState('')
   const [file, setFile] = useState('')
-  const [document, setdocument] = useState('')
-  //coursInfo
+  const [titre2, setTitre2] = useState('')
+  const [description2, setDescription2] = useState('')
+  const [objectif2, setObjectif2] = useState('')
+  const [file2, setFile2] = useState('')
+  const [nom_doc, setnom_doc] = useState('')
+  const [boolAjoutDoc, setboolAjoutDoc] = useState(false)
+  /*   const [document, setdocument] = useState('')
+   */ //coursInfo
   const [selectCoursId, setselectCoursId] = useState('')
   const [values, setValues] = useState({
     id: '',
@@ -80,6 +88,7 @@ const ListeCours = () => {
     objectif: '',
     formation: { id: '' },
     etat: ',',
+    document: { id: '' },
   })
 
   function Notification_taille() {
@@ -87,6 +96,13 @@ const ListeCours = () => {
       icon: 'error',
       title: 'Taille minimum',
       text: 'La taille de la description et du chams objectif doivent être au minimum 50 caractères',
+    })
+  }
+  function Notification_Pas_changement() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Pas de changement',
+      text: 'Il faut changer des données pour effectuer une modification',
     })
   }
   function Notification_NonVide() {
@@ -109,20 +125,34 @@ const ListeCours = () => {
   }
   //modification
   function CoursById(id) {
+    console.log('ena njib fi cours')
     setId(id)
+    setboolAjoutDoc(false)
     getCoursById(id)
       .then((response) => {
         //setData to the form
+        console.log(response.data)
         setTitre(response.data.titre)
         setDescription(response.data.description)
         setObjectif(response.data.objectif)
         setEtat(response.data.etat)
+        setTitre2(response.data.titre)
+        setDescription2(response.data.description)
+        setObjectif2(response.data.objectif)
+        setEtat2(response.data.etat)
         //set les valeurs dans lobjet de l'update pour qu'il ne soient pas null
         values.dateCreation = response.data.dateCreation
         values.formation.id = idcours
+        values.document.id = response.data.document.id
+
+        setnom_doc(response.data.document.name)
         getfile(8)
           .then((response) => {
-            setdocument(URL.createObjectURL(response.data))
+            /*             setdocument(URL.createObjectURL(response.data))
+             */
+            /*                         document.getElementById('formFileSm').value = URL.createObjectURL(response.data)
+             */ setFile(URL.createObjectURL(response.data))
+            setFile2(URL.createObjectURL(response.data))
           })
           .catch((e) => {})
       })
@@ -135,6 +165,13 @@ const ListeCours = () => {
       state: { pdf: id },
     })
   }
+  function taillefichiertroplarge() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Taille du fichier',
+      text: 'Le fichier est trop volumineux!',
+    })
+  }
   function handleSubmitMdf(event) {
     const form = event.currentTarget
     if (titre === '' || description === '' || objectif === '' || etat === '' || file === '') {
@@ -142,6 +179,14 @@ const ListeCours = () => {
       event.preventDefault()
       event.stopPropagation()
       setValidated(true)
+    } else if (
+      titre === titre2 &&
+      description === description2 &&
+      objectif === objectif2 &&
+      etat === etat2 &&
+      boolAjoutDoc === false
+    ) {
+      Notification_Pas_changement()
     } else if (description.length < 50 || objectif.length < 50) {
       Notification_taille()
       event.preventDefault()
@@ -154,12 +199,40 @@ const ListeCours = () => {
       values.description = description
       values.objectif = objectif
       values.etat = etat
-      editCours(id, values).then((response) => {
-        if (response.status === 200) {
-          setValidated(false)
-          Notification_Succees()
-        } else Notification_failure()
-      })
+      if (boolAjoutDoc === true) {
+        const formData = new FormData()
+        formData.append('file', file)
+        axios({
+          method: 'post',
+          url: 'http://localhost:8080/file/upload',
+          data: formData,
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }).then(function (response) {
+          console.log('filleee', response)
+          if (response.data === 0) {
+            taillefichiertroplarge()
+          } else {
+            console.log('ena  im', values)
+            values.document.id = response.data
+            editCours(id, values).then((response) => {
+              if (response.status === 200) {
+                setValidated(false)
+                Notification_Succees()
+                CoursById(values.id)
+              } else Notification_failure()
+            })
+          }
+        })
+      } else {
+        console.log('ena blach im', values)
+        editCours(id, values).then((response) => {
+          if (response.status === 200) {
+            setValidated(false)
+            Notification_Succees()
+            CoursById(values.id)
+          } else Notification_failure()
+        })
+      }
     }
   }
   //popup
@@ -235,7 +308,11 @@ const ListeCours = () => {
       .catch((e) => {})
   }, [showAjt, showMdf, bool, boolarchive])
   const [logo, setlogo] = useState('')
-
+  function imageHandler(e) {
+    setnom_doc(e.target.files[0].name)
+    setFile(e.target.files[0])
+    setboolAjoutDoc(true)
+  }
   /*s'il ya aucun cours*/
   if (posts.length === 0)
     return (
@@ -316,7 +393,7 @@ const ListeCours = () => {
               <span className="icon">
                 <i className="mdi mdi-account-circle"></i>
               </span>
-              Les cours
+              Les cours du {nomFormation}
             </p>
             <button
               href="tutorial-single.html"
@@ -619,19 +696,68 @@ const ListeCours = () => {
                                 <p style={{ color: 'dimgray' }}> {objectif.length} caractères </p>
                               </CCol>
                               <CCol md={6}>
-                                <CFormLabel htmlFor="formFileSm" style={{ fontWeight: 'bold' }}>
+                                <CFormLabel style={{ fontWeight: 'bold' }}>
                                   Ajouter le cours en format pdf
                                 </CFormLabel>
-                                <CFormInput
+                                {/* <CFormInput
                                   required
                                   type="file"
                                   size="sm"
                                   id="formFileSm"
-                                  value={file}
-                                  onChange={(e) => {
-                                    setFile(e.target.value)
-                                  }}
-                                />
+                                  name="sou"
+                                  onChange={(value) => imageHandler(value)}
+
+                                                                   value={file}
+                                   
+                                                                    onChange={(e) => {setFile(e.target.value) }}
+                                   
+                                /> */}
+                                <div className="field-body mx-auto">
+                                  <div className="field file mx-auto">
+                                    <label
+                                      className="upload control mx-auto"
+                                      style={{
+                                        border: 'solid',
+                                        'border-width': '0.5px',
+                                        padding: '5px',
+                                      }}
+                                    >
+                                      <a
+                                        className="button blue"
+                                        style={{
+                                          color: '#213f77',
+                                          'background-color': 'white',
+                                        }}
+                                      >
+                                        Choisir le document
+                                      </a>
+                                      {/*  <Field
+                                        type="file"
+                                        accept="image/png, image/jpeg, image/jpg"
+                                        onChange={(value) => imageHandler(value)}
+                                        name="image"
+                                        className={
+                                          errors.image && touched.image ? ' is-invalid' : ''
+                                        }
+                                      /> */}
+                                      <CFormInput
+                                        required
+                                        type="file"
+                                        size="sm"
+                                        id="formFileSm"
+                                        name="sou"
+                                        onChange={(value) => imageHandler(value)}
+
+                                        /*                                   value={file}
+                                         */
+                                        /*     onChange={(e) => {
+                                          setFile(e.target.value)
+                                        }} */
+                                      />
+                                    </label>
+                                  </div>
+                                  <p>{nom_doc}</p>
+                                </div>
                                 <CFormFeedback invalid>Champs requis</CFormFeedback>
                               </CCol>
                               <CCol xs={12}>

@@ -89,7 +89,11 @@ const Reinitialiser_mdp = () => {
               <Form className="form-detail" action="#" method="post" id="myform">
                 <div
                   className="form-right"
-                  style={{ 'border-top-left-radius': 10, 'border-bottom-left-radius': 10 }}
+                  style={{
+                    'border-top-left-radius': 10,
+                    'border-bottom-left-radius': 10,
+                    backgroundColor: '#213f77',
+                  }}
                 >
                   <div
                     className="card-header p-0 position-relative mt-n4 mx-3 z-index-2"

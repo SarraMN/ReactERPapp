@@ -11,11 +11,9 @@ function App() {
   let pdf = useLocation()
   const [idpdf, setidpdf] = useState(pdf.state.pdf)
   const [logo, setlogo] = useState('')
-  console.log('iddd', idpdf)
   useEffect(() => {
     getfile(idpdf)
       .then((response) => {
-        console.log('taswira111', response)
         setlogo(URL.createObjectURL(response.data))
       })
       .catch((e) => {})

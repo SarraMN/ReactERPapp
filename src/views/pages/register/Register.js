@@ -162,7 +162,7 @@ const Register = (props) => {
           .min(8, 'Numero de telephone de 8 chifres')
           .integer('Un numéro de téléphone ne peut pas inclure de point décimal'),
         adresse: Yup.string()
-          .required('Adresse est requis')
+          .required('Adresse est requise')
           .min(6, 'Adresse doit contenir au moins 6 caractères'),
         etat_civil: Yup.string().required('Etat civil est requis'),
         UserName: Yup.string().required('Identifiant est requis'),

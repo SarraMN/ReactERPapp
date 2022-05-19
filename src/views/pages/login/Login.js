@@ -221,7 +221,7 @@ const Login = (props) => {
                                   'border-radius': '30px',
                                   color: 'white',
                                   borderColor: 'white',
-                                  'background-color': '#321fdb',
+                                  'background-color': '#213f77',
                                   height: '50px',
                                 }}
                                 className="btn btn-lg btn-block"
@@ -245,8 +245,13 @@ const Login = (props) => {
                       </CCardBody>
                     </CCard>
                     <CCard
-                      className="text-white bg-primary py-5"
-                      style={{ width: '80%', paddingTop: 100, margintop: 50 }}
+                      className="text-white  py-5"
+                      style={{
+                        width: '80%',
+                        paddingTop: 100,
+                        margintop: 50,
+                        backgroundColor: '#213f77',
+                      }}
                     >
                       <CCardBody className="text-center">
                         <div>

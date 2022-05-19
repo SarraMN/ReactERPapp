@@ -40,6 +40,7 @@ const AjouterCours = (props) => {
     setDescription('')
     setValidated(false)
     setObjectif('')
+    document.getElementById('formFileSm').value = ''
   }
   function Notification_taille() {
     Swal.fire({
@@ -128,8 +129,6 @@ const AjouterCours = (props) => {
     }
   }
   function imageHandler(e) {
-    console.log('coucou', e)
-    console.log('coucou', e.target.files[0])
     setFile(e.target.files[0])
   }
   return (

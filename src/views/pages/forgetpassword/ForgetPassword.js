@@ -127,6 +127,7 @@ const ForgetPassword = (props) => {
                     style={{
                       'border-top-left-radius': 10,
                       'border-bottom-left-radius': 10,
+                      backgroundColor: '#213f77',
                     }}
                   >
                     <div

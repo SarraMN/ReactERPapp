@@ -310,9 +310,9 @@ const ListeFormation = () => {
     })
   }
   let navigate = useNavigate()
-  function Voircours(id) {
+  function Voircours(id, titre) {
     navigate('/GestionFormation/listeFormation/listeCours', {
-      state: { state: id },
+      state: { state: id, titre: titre },
     })
   }
 
@@ -557,7 +557,7 @@ const ListeFormation = () => {
 
                   <button
                     onClick={() => {
-                      Voircours(item)
+                      Voircours(item, item.titre)
                     }}
                     className="btn-plus"
                   >

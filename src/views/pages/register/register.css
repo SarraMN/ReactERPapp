@@ -128,11 +128,11 @@
   width: 100%;
 }
 .register .form-v10-content .form-detail .form-left h2 {
-  color: #2271dd;
+  color: #213f77;
 }
 .register .form-v10-content .form-detail .form-right {
   width: 100%;
-  background: #4835d4;
+  background: #213f77;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -288,7 +288,7 @@
   border-bottom: 1px solid #ccc;
 }
 .register .form-v10-content .form-detail .form-right select option {
-  background: #4835d4;
+  background: #213f77;
 }
 .register .form-v10-content .form-detail .form-checkbox {
   margin-top: 37px;
@@ -1046,7 +1046,7 @@ html {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background: #2271dd;
+  background: #213f77;
 }
 
 .register .checkmark {

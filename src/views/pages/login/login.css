@@ -54,14 +54,14 @@ body {
 
 .btn-primary {
   color: #fff;
-  background-color: #321fdb;
-  border-color: #007bff;
+  background-color: #213f77;
+  border-color: #213f77;
   height: 50px;
 }
 .btn-primary:hover {
-  color: #321fdb;
+  color: #213f77;
   background-color: #fff;
-  border-color: #321fdb;
+  border-color: #213f77;
   font-weight: bold;
 }
 .btn-primary:focus,
