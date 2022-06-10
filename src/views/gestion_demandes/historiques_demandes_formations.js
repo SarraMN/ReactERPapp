@@ -44,43 +44,19 @@ const Demandes_inscriptions = () => {
   useEffect(() => {
     gethistorique()
       .then((response) => {
-        setimages([])
-        console.log('data', response.data)
         response.data.map((item, index) => {
-          let values = {
-            id: '',
-            image: '',
-            candidat: '',
-            emailcandidat: '',
-            formation: '',
-            categorie: '',
-            dateE: '',
-            dateT: '',
-            etat: '',
-          }
-          values.id = item.id
-          values.candidat = item.candidat.nom + ' ' + item.candidat.prenom
-          values.emailcandidat = item.candidat.email
-          values.formation = item.formation.titre
-          values.categorie = item.formation.categorie
-          values.dateE = item.dateCreation
-          values.dateT = item.datetraitement
-          values.etat = item.etat
           if (item.candidat.image == null) {
-            values.image = avatar8
-            images.push(avatar8)
+            images[item.candidat.id] = avatar8
           } else {
             getfile(item.candidat.image.id)
               .then((response) => {
-                values.image = URL.createObjectURL(response.data)
-                images.push(URL.createObjectURL(response.data))
+                setbool(true)
+                images[item.candidat.id] = URL.createObjectURL(response.data)
               })
               .catch((e) => {})
           }
-          posts2.push(values)
         })
-        setPosts(posts2)
-        setPosts2([])
+        setPosts(response.data)
       })
       .catch((e) => {})
   }, [bool])
@@ -100,9 +76,7 @@ const Demandes_inscriptions = () => {
     pageNumbers.push(i)
   }
   return (
-    <div>
-      <CAvatar src={images[1]} size="md" />
-
+    <div className="demandeINS">
       <div className="container-fluid py-4">
         <div className="row">
           <div className="col-12">
@@ -114,7 +88,6 @@ const Demandes_inscriptions = () => {
                     style={{ 'font-weight': 'bold', 'font-size': '22px' }}
                   >
                     Historique des demandes
-                    <CAvatar src={images[1]} size="md" />
                   </h6>
                 </div>
               </div>
@@ -212,30 +185,35 @@ const Demandes_inscriptions = () => {
                           <td>
                             <div className="d-flex px-2 py-1">
                               <div>
-                                <CAvatar src={item.image} size="md" />
+                                <CAvatar src={images[item.candidat.id]} size="md" />
                               </div>
                               <div className="d-flex flex-column justify-content-center">
                                 <>
-                                  <h6 className="mb-0 text-sm">{item.candidat}</h6>
+                                  <h6 className="mb-0 text-sm">
+                                    {item.candidat.nom} {item.candidat.prenom}
+                                  </h6>
                                   <p className="text-xs text-secondary mb-0">
-                                    {item.emailcandidat}
+                                    {item.candidat.email}
                                   </p>
                                 </>
                               </div>
                             </div>
                           </td>
                           <td>
-                            <p className="text-xs font-weight-bold mb-0"> {item.formation}</p>
-                            <p className="text-xs text-secondary mb-0"> {item.categorie}</p>
+                            <p className="text-xs font-weight-bold mb-0"> {item.formation.titre}</p>
+                            <p className="text-xs text-secondary mb-0">
+                              {' '}
+                              {item.formation.categorie}
+                            </p>
                           </td>
                           <td className="align-middle text-center">
                             <span className="text-secondary text-xs font-weight-bold">
-                              {item.dateE}
+                              {item.dateCreation}
                             </span>
                           </td>{' '}
                           <td className="align-middle text-center">
                             <span className="text-secondary text-xs font-weight-bold">
-                              {item.dateT}
+                              {item.datetraitement}
                             </span>
                           </td>
                           <td className="align-middle text-center">
@@ -267,6 +245,20 @@ const Demandes_inscriptions = () => {
                   </table>
                   <div style={{ 'text-align': ' center' }}>
                     <br></br>
+                    <div
+                      className="row pagination_row"
+                      style={{ marginRight: 15, marginBottom: 15 }}
+                    >
+                      <div className="col">
+                        <div className="pagination_container d-flex flex-row align-items-center justify-content-start">
+                          <div className="courses_show_container ml-auto clearfix">
+                            <div className="courses_show_text">
+                              <span>1-{postsPerPage}</span> de <span>{posts.length}</span> resultats
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <CPagination
                       className="justify-content-end"
                       aria-label="Page navigation example"

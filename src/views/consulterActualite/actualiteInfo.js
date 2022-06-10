@@ -1,76 +1,75 @@
 import React, { useEffect, useState } from 'react'
-import images from 'src/assets/images/Software-development.jpg'
 import { CCard, CPagination, CPaginationItem } from '@coreui/react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { uploadfile, getfile } from 'src/services/fileService'
-import { getAllActualitesForCandidat } from 'src/services/actualiteService'
-import CIcon from '@coreui/icons-react'
-import { cilFeaturedPlaylist } from '@coreui/icons'
 
 const ActualiteInfo = () => {
   let Actualite = useLocation()
-  console.log('khraya', Actualite.state)
+  console.log('actualité', Actualite.state)
   return (
     <CCard>
-      <div style={{ marginTop: '60px', marginLeft: '50px', marginRight: '50px' }}>
+      <div style={{ marginTop: '40px', marginLeft: '40px', marginRight: '50px' }}>
         <section className="section-sm">
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h2 className="section-title">{Actualite.state.actualite.titre}</h2>
+                <h2 className="section-title tilte-act" style={{ color: '#3399ff' }}>
+                  {Actualite.state.actualite.titre}
+                </h2>
               </div>
-              <div className="col-12 mb-4">
+              <div className="col-8 mb-4" style={{ marginTop: '10px' }}>
                 <img
                   src={Actualite.state.actualite.image}
-                  alt="event thumb"
                   className="img-fluid w-100"
-                  style={{ width: '200px', height: '370px' }}
+                  style={{ width: '50px', height: '250px' }}
                 />
               </div>
-            </div>
-            <div className="row align-items-center mb-5">
-              <div className="col-lg-9">
-                <ul className="list-inline">
-                  <li className="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
-                    <div className="d-flex align-items-center">
-                      <i className="ti-location-pin text-primary icon-md mr-2"></i>
-                      <div className="text-left">
-                        <h6 className="mb-0">
-                          {' '}
-                          <i className="fa fa-calendar" aria-hidden="true">
-                            {' '}
-                            Date de publication
-                          </i>
-                        </h6>{' '}
-                        <p className="mb-0">{Actualite.state.actualite.datecreation}</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
-                    <div className="d-flex align-items-center">
-                      <i className="ti-calendar text-primary icon-md mr-2"></i>
-                      <div className="text-left">
-                        <h6>
-                          {' '}
-                          <i className="fa fa-calendar" aria-hidden="true">
-                            {' '}
-                            Date d{"'"}expiration
-                          </i>
-                        </h6>
-                        <p className="mb-0">{Actualite.state.actualite.dateExpiration}</p>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+              <div className="col-4 mb-4">
+                <div className="text-left" style={{ marginTop: '60px', marginLeft: '5px' }}>
+                  {' '}
+                  <i
+                    className="fa fa-calendar-o"
+                    style={{ fontSize: 30, color: '#3399ff' }}
+                    aria-hidden="true"
+                  ></i>
+                  <span style={{ fontSize: 25, marginLeft: 11, fontFamily: 'serif' }}>
+                    Date de publication
+                  </span>
+                  <p className="mb-0">{Actualite.state.actualite.datecreation}</p>
+                </div>
+                <div className="text-left" style={{ marginTop: '30px', marginLeft: '5px' }}>
+                  {' '}
+                  <i
+                    className="fa fa-calendar-o"
+                    aria-hidden="true"
+                    style={{ fontSize: 30, color: '#3399ff' }}
+                  ></i>{' '}
+                  <span style={{ fontSize: 25, marginLeft: 11, fontFamily: 'serif' }}>
+                    {' '}
+                    Date d{"'"}éxpiration
+                  </span>
+                  <p className="mb-0">{Actualite.state.actualite.dateExpiration}</p>
+                </div>
               </div>
+            </div>
+            <div className="row align-items-center mb-5" style={{ marginTop: 15 }}>
               <div className="col-12 mt-4 order-4">
-                <div className="border-bottom border-primary"></div>
+                <div
+                  className="border-bottom border-primary"
+                  style={{ fontSize: 30, color: '#3399ff' }}
+                ></div>
               </div>
             </div>
             <div className="row">
               <div className="col-12 mb-50">
-                <h3>Article:{Actualite.state.actualite.titre}</h3>
-                <p style={{ 'word-wrap': 'break-word' }}>{Actualite.state.actualite.description}</p>
+                <p
+                  style={{
+                    'word-wrap': 'break-word',
+                    marginBottom: 50,
+                    fontSize: 20,
+                  }}
+                >
+                  {Actualite.state.actualite.description}
+                </p>
               </div>
             </div>
           </div>

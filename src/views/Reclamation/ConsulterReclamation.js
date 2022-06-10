@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import 'src/views/GestionFormation/listeFormation.css'
 import 'src/views/Reclamation/Reclamation.css'
-import 'src/views/GestionReclamation/gestionReclamation.css'
+import 'src/views/Reclamation/ConsulterReclamation.css'
 import { Modal } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import { DeleteReclamation, ReclamationByIdCandidat } from 'src/services/ReclamationService'
@@ -125,7 +124,7 @@ const ConsulterReclamation = () => {
   }, [Bool, idDocuemnt])
 
   return (
-    <>
+    <div className="SuivreReclamation">
       {itemReclamation.traitee === true ? (
         <CCard className="the_card" style={{ marginTop: '50px' }}>
           <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -240,7 +239,7 @@ const ConsulterReclamation = () => {
                 className="text-white ps-3"
                 style={{ 'font-weight': 'bold', 'font-size': '22px' }}
               >
-                Référence du reclamation: {itemReclamation.id}
+                Référence de la reclamation: {itemReclamation.id}
                 <span style={{ align: 'right', float: 'right' }}>
                   <img
                     src={iconePdf}
@@ -274,7 +273,7 @@ const ConsulterReclamation = () => {
                   marginRight: 15,
                 }}
               />
-              Référence du réclamation : {itemReclamation.id}{' '}
+              Référence de la réclamation : {itemReclamation.id}{' '}
             </Modal.Header>
             <Modal.Body>
               <ReclamationPdf reclamation={itemReclamation} />
@@ -339,7 +338,7 @@ const ConsulterReclamation = () => {
           </div>
         </CCard>
       )}
-    </>
+    </div>
   )
 }
 export default ConsulterReclamation

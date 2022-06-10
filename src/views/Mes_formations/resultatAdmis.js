@@ -12,10 +12,9 @@ import { cilDataTransferDown } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CCard } from '@coreui/react'
 
-const Certificat = () => {
-  const location = useLocation()
-  const [formation, setformation] = useState(location.state.titre)
-  const [candidat, setcandidat] = useState('')
+const Certificat = (props) => {
+  const [formation, setformation] = useState(props.formation)
+  const [candidat, setcandidat] = useState(props.candidat)
   useEffect(() => {
     fetchUserData().then((response) => {
       setcandidat(
@@ -54,34 +53,39 @@ const Certificat = () => {
 
   return (
     <div className="container">
-      <a id="download-btn" style={{ float: 'right', align: 'right' }}>
-        <button
-          className="btn btn-outline-primary btn-sm mb-0"
-          style={{
-            'font-size': '18px',
-            'border-color': '#213f77',
-            marginRight: 10,
-          }}
-        >
-          <CIcon
-            icon={cilDataTransferDown}
-            customClassName="nav-icon"
-            style={{
-              width: 20,
-              height: 20,
-              'margin-right': 5,
-            }}
-          />
-          Telecharger
-        </button>
-      </a>
-
       <br></br>
       <br></br>
       <div style={{ 'text-align': 'center' }}>
         <canvas id="canvas" height="700" width="900"></canvas>
+
+        <a id="download-btn">
+          <button
+            className="btn btn-outline-primary btn-sm mb-0"
+            style={{
+              'font-size': '18px',
+              'border-color': '#213f77',
+              marginRight: 10,
+              marginTop: '5px',
+            }}
+          >
+            <CIcon
+              icon={cilDataTransferDown}
+              customClassName="nav-icon"
+              style={{
+                width: 20,
+                height: 20,
+                'margin-right': 5,
+              }}
+            />
+            Telecharger
+          </button>
+        </a>
       </div>
     </div>
   )
+}
+Certificat.propTypes = {
+  formation: propTypes.string,
+  candidat: propTypes.string,
 }
 export default Certificat

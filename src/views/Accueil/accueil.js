@@ -60,7 +60,7 @@ const Accueil = () => {
     })
   }
   return (
-    <div>
+    <div className="Accueil">
       <CCard>
         <div
           className=""
@@ -335,7 +335,6 @@ const Accueil = () => {
                     <div className="col-md-3 col-lg-2">
                       <div>
                         <a
-                          href="#"
                           className="course-category img d-flex align-items-center justify-content-center"
                           style={{ backgroundImage: `url(${t11})` }}
                         >
@@ -353,7 +352,6 @@ const Accueil = () => {
                     </div>
                     <div className="col-md-3 col-lg-2">
                       <a
-                        href="#"
                         className="course-category img d-flex align-items-center justify-content-center"
                         style={{ backgroundImage: `url(${t22})` }}
                       >
@@ -369,7 +367,6 @@ const Accueil = () => {
                     </div>
                     <div className="col-md-3 col-lg-2">
                       <a
-                        href="#"
                         className="course-category img d-flex align-items-center justify-content-center"
                         style={{ backgroundImage: `url(${t33})` }}
                       >
@@ -385,7 +382,6 @@ const Accueil = () => {
                     </div>
                     <div className="col-md-3 col-lg-2">
                       <a
-                        href="#"
                         className="course-category img d-flex align-items-center justify-content-center"
                         style={{ backgroundImage: `url(${t44})` }}
                       >
@@ -402,7 +398,6 @@ const Accueil = () => {
                     </div>
                     <div className="col-md-3 col-lg-2">
                       <a
-                        href="#"
                         className="course-category img d-flex align-items-center justify-content-center"
                         style={{ backgroundImage: `url(${t55})` }}
                       >
@@ -418,7 +413,6 @@ const Accueil = () => {
                     </div>
                     <div className="col-md-3 col-lg-2">
                       <a
-                        href="#"
                         className="course-category img d-flex align-items-center justify-content-center"
                         style={{ backgroundImage: `url(${t66})` }}
                       >
@@ -468,7 +462,6 @@ const Accueil = () => {
             }}
             navigation={true}
             modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper"
           >
             <SwiperSlide>
               <div className="accueil container">
@@ -588,6 +581,89 @@ const Accueil = () => {
             </SwiperSlide>
           </Swiper>
         </div>
+        <footer className="footer" style={{ marginTop: '20px' }}>
+          <div className="footer_background"></div>
+          <div className="container">
+            <div className="row footer_row">
+              <div className="col">
+                <div className="footer_content">
+                  <div className="row">
+                    <div className="col-lg-5 footer_col" style={{ marginRight: '20px' }}>
+                      <div className="footer_section footer_about">
+                        <div className="footer_logo_container">
+                          <a href="#">
+                            <div className="footer_logo_text">
+                              Tac<span>-Tic</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div className="footer_about_text">
+                          <p>
+                            Un groupe de sociétés, spécialisé dans le domaine de l’ingénierie
+                            logicielle, réseaux informatique et télécommunication. TAC-TIC est
+                            devenue aujourd’hui une filiale du Groupe New Ways, un groupe de
+                            sociétés, chacune est spécialisée dans un domaine spécifique.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="col-lg-5 footer_col">
+                      <div className="footer_section footer_contact">
+                        <div className="footer_title">Contacter nous</div>
+                        <div className="footer_contact_info">
+                          <ul>
+                            <li>Email: contact@tac-tic.net</li>
+                            <li>Phone: +216 36 365 558 | Fax : +216 70 201 269</li>
+                            <li>
+                              BP 129, Technoparc El ghazela Bâtiment I3 1ère étage 2088 Ariana
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="footer_social" style={{ 'text-align': 'center' }}>
+                      <ul>
+                        <li>
+                          <a href="https://www.facebook.com/TacTicNet">
+                            <i className="fa fa-facebook" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.linkedin.com/company/tac-tic?originalSubdomain=fr">
+                            <i className="fa fa-linkedin-square" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.instagram.com/tac_tic_tunisie/?igshid=1n1atkj3fe118">
+                            <i className="fa fa-instagram" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://twitter.com/tacticnet">
+                            <i className="fa fa-twitter" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="row copyright_row">
+              <div className="col">
+                <div className="copyright d-flex flex-lg-row flex-column align-items-center justify-content-start">
+                  <div className="cr_text">
+                    <script>document.write(new Date().getFullYear());</script>
+                    All rights reserved
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
       </CCard>
     </div>
   )

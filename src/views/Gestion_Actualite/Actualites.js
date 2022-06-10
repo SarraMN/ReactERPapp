@@ -1,7 +1,6 @@
 import { cilNewspaper, cilPencil } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import Swal from 'sweetalert2'
-import { editFormation, nombre_candidatsParFormation } from 'src/services/FormationService'
 import {
   CCard,
   CPagination,
@@ -19,14 +18,11 @@ import {
 import { uploadfile, getfile } from 'src/services/fileService'
 
 import React, { useEffect, useState } from 'react'
-import photo1 from 'src/assets/images/Software-development.jpg'
+import 'src/views/Gestion_Actualite/actualite.css'
 import 'src/views/GestionFormation/listeFormation.css'
-import { getFormations } from 'src/services/FormationService'
 import { Modal, Button } from 'react-bootstrap'
 import AjoutForm from 'src/views/Gestion_Actualite/Ajouter_Actualite'
-import { DeleteFormation } from 'src/services/FormationService'
-import { getFormation, ChangerEtatFormation } from 'src/services/FormationService'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {
   ChangerEtatActualite,
@@ -77,19 +73,24 @@ const Actualites = () => {
       id: '',
     },
   })
-  function initialiser() {
-    setTitre('')
-    setarchivee(false)
-    setDescription('')
-    setdateExpiration('')
-    setValidated(false)
-    setimage('')
+  var today = new Date()
+  var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+
+  var dateExp = new Date(dateExpiration)
+  var aujourdhui = new Date(date)
+
+  function ErrDateRxpiration() {
+    Swal.fire({
+      icon: 'error',
+      title: `Date d'éxpiration `,
+      text: `La date d'éxpiration doit être supérieur à la date d'aujourd'hui  `,
+    })
   }
   function Notification_tailleDescription() {
     Swal.fire({
       icon: 'error',
       title: 'Taille description',
-      text: 'La taille de la description doit être au minimum 50 caractères',
+      text: 'La taille de la description doit être au minimum 100 caractères',
     })
   }
   function Notification_Succees() {
@@ -144,43 +145,23 @@ const Actualites = () => {
       })
       .catch((e) => {})
   }
-  function Notification_photo() {
-    Swal.fire({
-      icon: 'error',
-      title: 'Photo',
-      text: 'Il faut choisir une photo',
-    })
-  }
-  function aucune_modification() {
-    Swal.fire({
-      icon: 'error',
-      title: 'Photo',
-      text: 'y a aucune modification',
-    })
-  }
   function handleSubmitMdf(event) {
-    /*     if (
-      titre === titre2 &&
-      categorie === categorie2 &&
-      image === image2 &&
-      prix === prix2 &&
-      etat === etat2
-    ) {
-      aucune_modification()
-    } */
     if (titre === '' || dateExpiration === '' || description === '') {
       Notification_NonVide()
       event.preventDefault()
       event.stopPropagation()
       setValidated(true)
-    } else if (description.length < 50) {
+    } else if (description.length < 100) {
       Notification_tailleDescription()
       event.preventDefault()
       event.stopPropagation()
       setValidated(true)
-    } /* else if (image != image2) {
-      Notification_photo()
-    } */ else {
+    } else if (aujourdhui > dateExp) {
+      ErrDateRxpiration()
+      event.preventDefault()
+      event.stopPropagation()
+      setValidated(false)
+    } else {
       setValidated(true)
       values.id = id
       values.titre = titre
@@ -215,6 +196,22 @@ const Actualites = () => {
                 if (response.status === 200) {
                   setValidated(false)
                   Notification_Succees()
+                  getAllActualitesForAdmin()
+                    .then((response) => {
+                      console.log('hal sbeh2', response)
+                      response.data.map((item, index) => {
+                        getfile(item.image.id)
+                          .then((response2) => {
+                            settest(true)
+                            images[item.id] = URL.createObjectURL(response2.data)
+                            item.image = URL.createObjectURL(response2.data)
+                          })
+                          .catch((e) => {})
+                      })
+
+                      setPosts(response.data)
+                    })
+                    .catch((e) => {})
                 } else Notification_failure()
               })
             } else {
@@ -262,6 +259,20 @@ const Actualites = () => {
             Swal.fire('Modification avec succes!', '', 'success')
             setBoolarchive(true)
             setBoolarchive(false)
+            getAllActualitesForAdmin().then((response) => {
+              console.log('hal sbeh2', response)
+              response.data.map((item, index) => {
+                getfile(item.image.id)
+                  .then((response2) => {
+                    settest(true)
+                    images[item.id] = URL.createObjectURL(response2.data)
+                    item.image = URL.createObjectURL(response2.data)
+                  })
+                  .catch((e) => {})
+              })
+
+              setPosts(response.data)
+            })
           })
           .catch((e) => {})
       } else if (result.isDenied) {
@@ -291,15 +302,31 @@ const Actualites = () => {
           .catch((e) => {})
 
         Swal.fire('cette actualité a été supprimé avec succes!', '', 'success')
+        getAllActualitesForAdmin()
+          .then((response) => {
+            console.log('hal sbeh2', response)
+            response.data.map((item, index) => {
+              getfile(item.image.id)
+                .then((response2) => {
+                  settest(true)
+                  images[item.id] = URL.createObjectURL(response2.data)
+                  item.image = URL.createObjectURL(response2.data)
+                })
+                .catch((e) => {})
+            })
+
+            setPosts(response.data)
+          })
+          .catch((e) => {})
       } else if (result.isDenied) {
         Swal.fire('Aucune modification ', '', 'info')
       }
     })
   }
   let navigate = useNavigate()
-  function Voircours(id) {
-    navigate('/GestionFormation/listeFormation/listeCours', {
-      state: { state: id },
+  function ActualiteInfo2(a) {
+    navigate('/Gestion_Actualite/Actualites/actualiteInfo', {
+      state: { actualite: a },
     })
   }
 
@@ -324,6 +351,7 @@ const Actualites = () => {
             .then((response2) => {
               settest(true)
               images[item.id] = URL.createObjectURL(response2.data)
+              item.image = URL.createObjectURL(response2.data)
             })
             .catch((e) => {})
         })
@@ -335,14 +363,14 @@ const Actualites = () => {
   console.log('hal sbeh', posts)
   if (posts.length == 0)
     return (
-      <>
+      <div className="actualite listeFormation">
         <CCard>
           <header className="card-heade">
             <p className="card-header-title">
               <span className="icon">
                 <i className="mdi mdi-account-circle"></i>
               </span>
-              Les Actualités
+              Les actualités
             </p>
             <button href="tutorial-single.html" className="btn-Aj" onClick={handleShowAjt}>
               <i
@@ -376,11 +404,11 @@ const Actualites = () => {
           </Modal>
           <div>
             <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>
-              Aucune formation n{"'"}est diponible!
+              Aucune actualité n{"'"}est diponible!
             </div>
           </div>
         </CCard>
-      </>
+      </div>
     )
   else {
     // Get current posts
@@ -407,7 +435,7 @@ const Actualites = () => {
     }
 
     return (
-      <>
+      <div className="listeFormation">
         <CCard>
           <header className="card-heade">
             <p className="card-header-title">
@@ -468,28 +496,29 @@ const Actualites = () => {
                   </div>
                 </CCol>
                 <CCol md={8}>
-                  <div className="it-cont" style={{ 'word-wrap': 'break-word' }}>
+                  <div className="it-cont" style={{ 'word-wrap': 'break-word', marginBottom: 12 }}>
                     <h3>
                       <a href="#">{item.titre}</a>
                     </h3>
                     {/* <p>{item.description.substr(1, 60)}...</p> */}
-                    <div style={{ 'word-wrap': 'break-word' }}>
-                      <p>{item.description}</p>
+                    <div style={{ 'word-wrap': 'break-word', marginBottom: 12 }}>
+                      <p>{item.description.substr(0, 190)}...</p>
                     </div>
-                    <div className="meta">
+                    <div className="meta" style={{ color: '#6F6C6C', marginBottom: 30 }}>
                       <div>
                         <span className="mr-2 mb-2">Date de publication: {item.datecreation}</span>
                         <p className="mr-2 mb-2">
-                          Date d{"'"}expedition : {item.dateExpiration}
+                          Date d{"'"}expiration : {item.dateExpiration}
                         </p>
                       </div>
                     </div>
 
                     <button
-                      onClick={() => {
-                        Voircours(item)
+                      onClick={(index) => {
+                        ActualiteInfo2(item)
                       }}
                       className="btn-plus"
+                      style={{ paddingLeft: 15 }}
                     >
                       Voir plus
                     </button>
@@ -522,10 +551,9 @@ const Actualites = () => {
                         marginRight: 15,
                       }}
                     />
-                    Modifier Actualité
+                    Modifier actualité
                   </Modal.Header>
                   <Modal.Body>
-                    {/* <AjoutForm formation={formation} /> */}
                     <CCard>
                       <CForm
                         className="row g-3 needs-validation"
@@ -570,7 +598,7 @@ const Actualites = () => {
                             }}
                           />
                           <CFormFeedback invalid>
-                            Vous devez ajouter une date d{"'"}expiration.
+                            Vous devez ajouter une date d{"'"}éxpiration.
                           </CFormFeedback>
                         </CCol>
                         <CCol md={6}>
@@ -637,18 +665,18 @@ const Actualites = () => {
                             style={{ fontWeight: 'bold' }}
                             htmlFor="exampleFormControlTextarea1"
                           >
-                            Déscription (min 50 caractères)
+                            Contenu (minimum 100 caractères)
                           </CFormLabel>
                           <CFormTextarea
                             id="exampleFormControlTextarea1"
-                            rows="3"
+                            rows="8"
                             required
                             style={{ width: '100%', 'max-width': '100%' }}
                             value={description}
                             onChange={(e) => {
                               setDescription(e.target.value)
                             }}
-                            minLength="50"
+                            minLength="100"
                           ></CFormTextarea>
                           <CFormFeedback invalid>Déscription est requise</CFormFeedback>
                           <p style={{ color: 'dimgray' }}> {description.length} caractères </p>
@@ -817,7 +845,7 @@ const Actualites = () => {
             </div>
           </div>
         </CCard>
-      </>
+      </div>
     )
   }
 }

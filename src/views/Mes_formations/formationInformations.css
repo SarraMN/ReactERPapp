@@ -1,17 +1,17 @@
-/*********************************
+.formationInformation /*********************************
 7. formation
 *********************************/
 
-.formationInfo .formation {
+.formationInformation .formation {
   width: 100%;
   padding-top: 57px;
   padding-bottom: 100px;
   background: #ffffff;
 }
-.formationInfo .formation_container {
+.formationInformation .formation_container {
   width: 100%;
 }
-.formationInfo .formation_title {
+.formationInformation .formation_title {
   font-family: 'Roboto Slab', serif;
   font-size: 36px;
   font-weight: 700;
@@ -19,17 +19,17 @@
   margin-bottom: 50px;
   margin-top: 0px;
 }
-.formationInfo .formation_info {
+.formationInformation .formation_info {
   width: 100%;
   height: 92px;
   margin-top: 68px;
   background: #f2f4f5;
 }
-.formationInfo .formation_info_item {
+.formationInformation .formation_info_item {
   width: 33.33333333%;
   padding-left: 30px;
 }
-.formationInfo .formation_info_item:not(:last-child)::after {
+.formationInformation .formation_info_item:not(:last-child)::after {
   display: block;
   position: absolute;
   top: 0;
@@ -39,16 +39,16 @@
   background: #d9dbdc;
   content: '';
 }
-.formationInfo .formation_info_title {
+.formationInformation .formation_info_title {
   font-family: 'Roboto Slab', serif;
   font-size: 18px;
   font-weight: 700;
   color: #384158;
 }
-.formationInfo .formation_info_text {
+.formationInformation .formation_info_text {
   margin-top: 8px;
 }
-.formationInfo .formation_info_text a {
+.formationInformation .formation_info_text a {
   font-size: 14px;
   color: #384158;
   -webkit-transition: all 200ms ease;
@@ -57,13 +57,13 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.formationInfo .formation_info_text a:hover {
+.formationInformation .formation_info_text a:hover {
   color: #14bdee;
 }
-.formationInfo .rating_r {
+.formationInformation .rating_r {
   margin-top: 7px;
 }
-.formationInfo .rating_r i::before {
+.formationInformation .rating_r i::before {
   font-family: 'FontAwesome';
   content: '\f006';
   font-style: normal;
@@ -71,63 +71,63 @@
   margin-right: 4px;
   color: #14bdee;
 }
-.formationInfo .rating_r_1 i:first-child::before {
+.formationInformation .rating_r_1 i:first-child::before {
   content: '\f005';
 }
-.formationInfo .rating_r_2 i:first-child::before {
+.formationInformation .rating_r_2 i:first-child::before {
   content: '\f005';
 }
-.formationInfo .rating_r_2 i:nth-child(2)::before {
+.formationInformation .rating_r_2 i:nth-child(2)::before {
   content: '\f005';
 }
-.formationInfo .rating_r_3 i:first-child::before {
+.formationInformation .rating_r_3 i:first-child::before {
   content: '\f005';
 }
-.formationInfo .rating_r_3 i:nth-child(2)::before {
+.formationInformation .rating_r_3 i:nth-child(2)::before {
   content: '\f005';
 }
-.formationInfo .rating_r_3 i:nth-child(3)::before {
+.formationInformation .rating_r_3 i:nth-child(3)::before {
   content: '\f005';
 }
-.formationInfo .rating_r_4 i:first-child::before {
+.formationInformation .rating_r_4 i:first-child::before {
   content: '\f005';
 }
-.formationInfo .rating_r_4 i:nth-child(2)::before {
+.formationInformation .rating_r_4 i:nth-child(2)::before {
   content: '\f005';
 }
-.formationInfo .rating_r_4 i:nth-child(3)::before {
+.formationInformation .rating_r_4 i:nth-child(3)::before {
   content: '\f005';
 }
-.formationInfo .rating_r_4 i:nth-child(4)::before {
+.formationInformation .rating_r_4 i:nth-child(4)::before {
   content: '\f005';
 }
-.formationInfo .rating_r_5 i:first-child::before {
+.formationInformation .rating_r_5 i:first-child::before {
   content: '\f005';
 }
-.formationInfo .rating_r_5 i:nth-child(2)::before {
+.formationInformation .rating_r_5 i:nth-child(2)::before {
   content: '\f005';
 }
-.formationInfo .rating_r_5 i:nth-child(3)::before {
+.formationInformation .rating_r_5 i:nth-child(3)::before {
   content: '\f005';
 }
-.formationInfo .rating_r_5 i:nth-child(4)::before {
+.formationInformation .rating_r_5 i:nth-child(4)::before {
   content: '\f005';
 }
-.formationInfo .rating_r_5 i:nth-child(5)::before {
+.formationInformation .rating_r_5 i:nth-child(5)::before {
   content: '\f005';
 }
-.formationInfo .formation_image {
+.formationInformation .formation_image {
   margin-top: 21px;
   width: 100%;
 }
-.formationInfo .formation_image img {
+.formationInformation .formation_image img {
   max-width: 100%;
 }
-.formationInfo .formation_tabs_container {
+.formationInformation .formation_tabs_container {
   width: 100%;
   margin-top: 30px;
 }
-.formationInfo .tab {
+.formationInformation .tab {
   height: 40px;
   background: #f2f4f5;
   font-size: 16px;
@@ -146,13 +146,13 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.formationInfo .tab.active,
-.formationInfo .tab:hover {
+.formationInformation .tab.active,
+.formationInformation .tab:hover {
   background: #14bdee;
   color: #ffffff;
 }
 
-.formationInfo .tab_panel {
+.formationInformation .tab_panel {
   display: none !important;
   width: 100%;
   height: 100%;
@@ -182,36 +182,36 @@
     opacity: 1;
   }
 }
-.formationInfo .tab_panel.active {
+.formationInformation .tab_panel.active {
   display: block !important;
 }
-.formationInfo .tab_panel_title {
+.formationInformation .tab_panel_title {
   font-family: 'Roboto Slab', serif;
   font-size: 20px;
   font-weight: 700;
   color: #384158;
 }
-.formationInfo .tab_panel_text {
+.formationInformation .tab_panel_text {
   margin-top: 10px;
 }
-.formationInfo .tab_panel_text p {
+.formationInformation .tab_panel_text p {
   font-size: 16px;
   font-weight: 400;
   color: #76777a;
   line-height: 1.75;
 }
-.formationInfo .tab_panel_section {
+.formationInformation .tab_panel_section {
   margin-top: 17px;
 }
-.formationInfo .tab_panel_subtitle {
+.formationInformation .tab_panel_subtitle {
   font-size: 18px;
   font-weight: 400;
   color: #384158;
 }
-.formationInfo .tab_panel_bullets {
+.formationInformation .tab_panel_bullets {
   margin-top: 9px;
 }
-.formationInfo .tab_panel_bullets li {
+.formationInformation .tab_panel_bullets li {
   position: relative;
   padding-left: 27px;
   font-size: 16px;
@@ -219,10 +219,10 @@
   line-height: 1.75;
   color: #76777a;
 }
-.formationInfo .tab_panel_bullets li:not(:last-child) {
+.formationInformation .tab_panel_bullets li:not(:last-child) {
   margin-bottom: 2px;
 }
-.formationInfo .tab_panel_bullets li::before {
+.formationInformation .tab_panel_bullets li::before {
   display: block;
   position: absolute;
   top: 9px;
@@ -233,20 +233,20 @@
   content: '';
   border-radius: 50%;
 }
-.formationInfo .tab_panel_faq {
+.formationInformation .tab_panel_faq {
   margin-top: 51px;
 }
-.formationInfo .elements_accordions {
+.formationInformation .elements_accordions {
   margin-top: 34px;
 }
 
-.formationInfo .tab_panel_2 {
+.formationInformation .tab_panel_2 {
   padding-bottom: 10px;
 }
-.formationInfo .dropdowns {
+.formationInformation .dropdowns {
   margin-top: 17px;
 }
-.formationInfo .dropdowns li ul {
+.formationInformation .dropdowns li ul {
   max-height: 0;
   padding-left: 30px;
   overflow: hidden;
@@ -256,30 +256,30 @@
   -o-transition: all 500ms ease;
   transition: all 500ms ease;
 }
-.formationInfo .dropdowns li {
+.formationInformation .dropdowns li {
   position: relative;
 }
-.formationInfo .dropdowns li.has_children > .dropdown_item {
+.formationInformation .dropdowns li.has_children > .dropdown_item {
   cursor: pointer;
 }
-.formationInfo .dropdown_item {
+.formationInformation .dropdown_item {
   padding-top: 26px;
   padding-bottom: 25px;
 }
-.formationInfo .dropdowns li:not(:last-child) .dropdown_item {
+.formationInformation .dropdowns li:not(:last-child) .dropdown_item {
   border-bottom: solid 1px #e5e5e5;
 }
-.formationInfo .dropdown_item_title {
+.formationInformation .dropdown_item_title {
   font-family: 'Roboto Slab', serif;
   font-size: 16px;
   font-weight: 700;
   color: #384158;
   padding-left: 24px;
 }
-.formationInfo .dropdown_item_title span {
+.formationInformation .dropdown_item_title span {
   font-size: 18px;
 }
-.formationInfo .dropdown_item_title::before {
+.formationInformation .dropdown_item_title::before {
   position: absolute;
   top: 1px;
   left: 0;
@@ -289,11 +289,11 @@
   color: #384158;
   opacity: 0.65;
 }
-.formationInfo
+.formationInformation
   .has_children
-  > .formationInfo
+  > .formationInformation
   .dropdown_item
-  > .formationInfo
+  > .formationInformation
   .dropdown_item_title::after {
   position: absolute;
   top: -10px;
@@ -304,69 +304,69 @@
   font-weight: 400;
   color: #384158;
 }
-.formationInfo
+.formationInformation
   .has_children.active
-  > .formationInfo
+  > .formationInformation
   .dropdown_item
-  > .formationInfo
+  > .formationInformation
   .dropdown_item_title::after {
   content: '\f107';
 }
-.formationInfo .dropdown_item_text {
+.formationInformation .dropdown_item_text {
   margin-top: 10px;
 }
-.formationInfo .dropdown_item_text p {
+.formationInformation .dropdown_item_text p {
   font-size: 16px;
   font-weight: 400;
   color: #76777a;
   line-height: 1.75;
 }
-.formationInfo .tab_panel_3 {
+.formationInformation .tab_panel_3 {
   padding-bottom: 42px;
 }
-.formationInfo .review_rating_container {
+.formationInformation .review_rating_container {
   margin-top: 43px;
 }
-.formationInfo .review_rating {
+.formationInformation .review_rating {
   display: inline-block;
   text-align: center;
   padding-left: 35px;
   padding-top: 28px;
   vertical-align: top;
 }
-.formationInfo .review_rating_num {
+.formationInformation .review_rating_num {
   font-size: 72px;
   line-height: 0.75;
   font-weight: 900;
   color: #384158;
 }
-.formationInfo .review_rating_stars {
+.formationInformation .review_rating_stars {
   margin-top: 27px;
   margin-left: 3px;
 }
-.formationInfo .review_rating_stars .rating_r i::before {
+.formationInformation .review_rating_stars .rating_r i::before {
   color: #ffc80a;
   font-size: 18px;
 }
-.formationInfo .review_rating_text {
+.formationInformation .review_rating_text {
   font-size: 16px;
   color: #b5b8be;
   margin-top: 12px;
 }
-.formationInfo .review_rating_bars {
+.formationInformation .review_rating_bars {
   display: inline-block;
   padding-left: 134px;
 }
-.formationInfo .review_rating_bars ul li:not(:last-child) {
+.formationInformation .review_rating_bars ul li:not(:last-child) {
   margin-bottom: 10px;
 }
-.formationInfo .review_rating_bars ul li span {
+.formationInformation .review_rating_bars ul li span {
   font-size: 16px;
   font-weight: 400;
   color: #384158;
   vertical-align: middle;
 }
-.formationInfo .review_rating_bar {
+.formationInformation .review_rating_bar {
   display: inline-block;
   vertical-align: middle;
   width: 300px;
@@ -374,38 +374,38 @@
   background: #efefef;
   margin-left: 22px;
 }
-.formationInfo .review_rating_bar > div {
+.formationInformation .review_rating_bar > div {
   height: 100%;
   background: #14bdee;
 }
-.formationInfo .comments_container {
+.formationInformation .comments_container {
   margin-top: 80px;
 }
-.formationInfo .comment_item {
+.formationInformation .comment_item {
   border-bottom: solid 1px #e5e5e5;
   padding-top: 31px;
   padding-bottom: 16px;
 }
-.formationInfo .comment_image div {
+.formationInformation .comment_image div {
   width: 80px;
   height: 80px;
   border-radius: 50%;
   overflow: hidden;
 }
-.formationInfo .comment_image div img {
+.formationInformation .comment_image div img {
   max-width: 100%;
 }
-.formationInfo .comment_content {
+.formationInformation .comment_content {
   width: 100%;
   padding-left: 20px;
   margin-top: -7px;
 }
-.formationInfo .comment_author::after {
+.formationInformation .comment_author::after {
   display: inline-block;
   content: '-';
   margin-left: 6px;
 }
-.formationInfo .comment_author a {
+.formationInformation .comment_author a {
   font-family: 'Roboto Slab', serif;
   font-size: 18px;
   font-weight: 700;
@@ -416,26 +416,26 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.formationInfo .comment_author a:hover {
+.formationInformation .comment_author a:hover {
   color: #14bdee;
 }
-.formationInfo .comments_container .rating_r {
+.formationInformation .comments_container .rating_r {
   margin-top: 3px;
   margin-left: 5px;
 }
-.formationInfo .comments_container .rating_r i::before {
+.formationInformation .comments_container .rating_r i::before {
   color: #ffc80a;
 }
-.formationInfo .comment_text {
+.formationInformation .comment_text {
   margin-top: 12px;
 }
-.formationInfo .comment_extras {
+.formationInformation .comment_extras {
   margin-top: 13px;
 }
-.formationInfo .comment_reply {
+.formationInformation .comment_reply {
   margin-left: 35px;
 }
-.formationInfo .comment_extra a {
+.formationInformation .comment_extra a {
   font-size: 14px;
   font-weight: 400;
   color: #76777a;
@@ -445,31 +445,31 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.formationInfo .comment_extra a:hover {
+.formationInformation .comment_extra a:hover {
   color: #14bdee;
 }
-.formationInfo .comment_extra a span {
+.formationInformation .comment_extra a span {
   margin-left: 3px;
 }
-.formationInfo .comment_reply a i {
+.formationInformation .comment_reply a i {
   color: #14bdee;
 }
-.formationInfo .comments_list li ul {
+.formationInformation .comments_list li ul {
   padding-left: 99px;
 }
-.formationInfo .add_comment_container {
+.formationInformation .add_comment_container {
   margin-top: 24px;
 }
-.formationInfo .add_comment_title {
+.formationInformation .add_comment_title {
   font-family: 'Roboto Slab', serif;
   font-size: 20px;
   font-weight: 700;
   color: #384158;
 }
-.formationInfo .add_comment_text {
+.formationInformation .add_comment_text {
   margin-top: 14px;
 }
-.formationInfo .add_comment_text a {
+.formationInformation .add_comment_text a {
   color: #14bdee;
   text-decoration: underline;
 }
@@ -478,44 +478,44 @@
   8. sidebarFormation
   *********************************/
 
-.formationInfo .sidebarFormation {
+.formationInformation .sidebarFormation {
   width: 100%;
   padding-left: 40px;
   padding-top: 100px;
 }
-.formationInfo .sidebarFormation2 {
+.formationInformation .sidebarFormation2 {
   width: 100%;
   padding-left: 40px;
   padding-top: 40px;
 }
-.formationInfo .sidebarFormation_section:not(:last-child) {
+.formationInformation .sidebarFormation_section:not(:last-child) {
   margin-bottom: 60px;
 }
-.formationInfo .sidebarFormation_section_title {
+.formationInformation .sidebarFormation_section_title {
   font-family: 'Roboto Slab', serif;
   font-size: 24px;
   font-weight: 700;
   color: #384158;
   line-height: 0.75;
 }
-.formationInfo .formation_price {
+.formationInformation .formation_price {
   font-family: 'Roboto Slab', serif;
   font-size: 24px;
   font-weight: 400;
   color: #14bdee;
   margin-top: 30px;
 }
-.formationInfo .feature_list {
+.formationInformation .feature_list {
   margin-top: 16px;
 }
-.formationInfo .feature:not(:last-child) {
+.formationInformation .feature:not(:last-child) {
   margin-bottom: 12px;
 }
-.formationInfo .feature_title {
+.formationInformation .feature_title {
   padding-left: 36px;
   margin-top: 50px;
 }
-.formationInfo .feature_title i {
+.formationInformation .feature_title i {
   position: absolute;
   top: calc(50% - 1px);
   -webkit-transform: translateY(-50%);
@@ -527,7 +527,7 @@
   font-size: 18px;
   color: #14bdee;
 }
-.formationInfo .feature_text {
+.formationInformation .feature_text {
   font-size: 15px;
   padding-top: 15px;
 }
@@ -536,53 +536,53 @@
   7. Features
   *********************************/
 
-.formationInfo .features {
+.formationInformation .features {
   width: 100%;
   background: #ffffff;
   padding-top: 93px;
   padding-bottom: 103px;
 }
-.formationInfo .features_row {
+.formationInformation .features_row {
   margin-top: 50px;
 }
-.formationInfo .feature {
+.formationInformation .feature {
   width: 100%;
   padding-left: 15px;
   padding-right: 15px;
   background: #ffffff;
 }
-.formationInfo .feature_icon {
+.formationInformation .feature_icon {
   height: 55px;
 }
-.formationInfo .feature_icon img {
+.formationInformation .feature_icon img {
   max-width: 100%;
 }
-.formationInfo .feature_title {
+.formationInformation .feature_title {
   position: relative;
   font-size: 15px;
   margin-top: 15px;
 }
 
 /*********************************/
-.formationInfo .sidebarFormation_teacher {
+.formationInformation .sidebarFormation_teacher {
   margin-top: 40px;
 }
-.formationInfo .teacher_image {
+.formationInformation .teacher_image {
   width: 102px;
   height: 102px;
 }
-.formationInfo .teacher_image img {
+.formationInformation .teacher_image img {
   max-width: 100%;
 }
-.formationInfo .teacher_title {
+.formationInformation .teacher_title {
   padding-left: 35px;
 }
-.formationInfo .teacher_position {
+.formationInformation .teacher_position {
   font-size: 14px;
   color: #76777a;
   margin-top: 4px;
 }
-.formationInfo .teacher_name a {
+.formationInformation .teacher_name a {
   font-family: 'Roboto Slab', serif;
   font-size: 24px;
   font-weight: 700;
@@ -593,53 +593,53 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.formationInfo .teacher_name a:hover {
+.formationInformation .teacher_name a:hover {
   color: #14bdee;
 }
-.formationInfo .teacher_meta_container {
+.formationInformation .teacher_meta_container {
   margin-top: 27px;
 }
-.formationInfo .teacher_meta:not(:last-child) {
+.formationInformation .teacher_meta:not(:last-child) {
   margin-bottom: 9px;
 }
-.formationInfo .teacher_meta_title,
-.formationInfo .teacher_meta_text span {
+.formationInformation .teacher_meta_title,
+.formationInformation .teacher_meta_text span {
   font-size: 14px;
   font-weight: 400;
   color: #76777a;
 }
-.formationInfo .teacher_meta_text span {
+.formationInformation .teacher_meta_text span {
   margin-right: 4px;
 }
-.formationInfo .teacher_meta_text i {
+.formationInformation .teacher_meta_text i {
   color: #14bdee;
 }
-.formationInfo .teacher_info {
+.formationInformation .teacher_info {
   margin-top: 17px;
 }
-.formationInfo .teacher_info p {
+.formationInformation .teacher_info p {
   line-height: 2;
 }
-.formationInfo .sidebarFormation_latest {
+.formationInformation .sidebarFormation_latest {
   margin-top: 31px;
 }
-.formationInfo .latest:not(:last-child) {
+.formationInformation .latest:not(:last-child) {
   margin-bottom: 20px;
 }
-.formationInfo .latest_image div {
+.formationInformation .latest_image div {
   width: 90px;
   height: 74px;
   border-radius: 3px;
   overflow: hidden;
 }
-.formationInfo .latest_image div img {
+.formationInformation .latest_image div img {
   max-width: 100%;
 }
-.formationInfo .latest_content {
+.formationInformation .latest_content {
   padding-left: 21px;
   margin-top: -4px;
 }
-.formationInfo .latest_title a {
+.formationInformation .latest_title a {
   font-family: 'Roboto Slab', serif;
   font-size: 16px;
   font-weight: 700;
@@ -651,10 +651,10 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.formationInfo .latest_title a:hover {
+.formationInformation .latest_title a:hover {
   color: #14bdee;
 }
-.formationInfo .latest_price {
+.formationInformation .latest_price {
   font-family: 'Roboto Slab', serif;
   font-size: 14px;
   font-weight: 700;
@@ -697,16 +697,16 @@
   ************/
 
 @media only screen and (max-width: 1199px) {
-  .formationInfo .sidebarFormation {
+  .formationInformation .sidebarFormation {
     padding-left: 20px;
   }
-  .formationInfo .sidebarFormation2 {
+  .formationInformation .sidebarFormation2 {
     padding-left: 20px;
   }
-  .formationInfo .review_rating {
+  .formationInformation .review_rating {
     padding-left: 0;
   }
-  .formationInfo .review_rating_bars {
+  .formationInformation .review_rating_bars {
     padding-left: 64px;
   }
 }
@@ -730,82 +730,82 @@
   ************/
 
 @media only screen and (max-width: 991px) {
-  .formationInfo .main_nav,
-  .formationInfo .search_button {
+  .formationInformation .main_nav,
+  .formationInformation .search_button {
     display: none;
   }
-  .formationInfo .top_bar_contact_list li i,
-  .formationInfo .top_bar_contact_list li > div,
-  .formationInfo .login_button a {
+  .formationInformation .top_bar_contact_list li i,
+  .formationInformation .top_bar_contact_list li > div,
+  .formationInformation .login_button a {
     font-size: 12px;
   }
-  .formationInfo .login_button {
+  .formationInformation .login_button {
     width: 140px;
   }
-  .formationInfo .hamburger {
+  .formationInformation .hamburger {
     display: inline-block;
     margin-left: 33px;
   }
-  .formationInfo .formation_col:not(:last-child) {
+  .formationInformation .formation_col:not(:last-child) {
     margin-bottom: 40px;
   }
-  .formationInfo .formation_info {
+  .formationInformation .formation_info {
     height: auto;
     padding-top: 30px;
     padding-bottom: 30px;
   }
-  .formationInfo .formation_info_item:not(:last-child) {
+  .formationInformation .formation_info_item:not(:last-child) {
     margin-bottom: 25px;
   }
-  .formationInfo .formation_info_item:not(:last-child)::after {
+  .formationInformation .formation_info_item:not(:last-child)::after {
     display: none;
   }
-  .formationInfo .review_rating_bars {
+  .formationInformation .review_rating_bars {
     padding-left: 134px;
   }
-  .formationInfo .sidebarFormation {
+  .formationInformation .sidebarFormation {
     padding-left: 0;
     padding-top: 0;
   }
-  .formationInfo .newsletter_container {
+  .formationInformation .newsletter_container {
     height: auto;
     padding-top: 40px;
     padding-bottom: 40px;
   }
-  .formationInfo .newsletter_form_container {
+  .formationInformation .newsletter_form_container {
     margin-top: 19px;
   }
-  .formationInfo .footer_col:not(:last-child) {
+  .formationInformation .footer_col:not(:last-child) {
     margin-bottom: 60px;
   }
-  .formationInfo .footer_contact,
-  .formationInfo .footer_links {
+  .formationInformation .footer_contact,
+  .formationInformation .footer_links {
     padding-left: 0;
   }
-  .formationInfo .footer_links ul {
+  .formationInformation .footer_links ul {
     columns: 1;
     -webkit-columns: 1;
     -moz-columns: 1;
   }
-  .formationInfo .footer_mobile {
+  .formationInformation .footer_mobile {
     float: none;
   }
-  .formationInfo .footer_logo_container {
+  .formationInformation .footer_logo_container {
     margin-top: 0;
   }
-  .formationInfo .copyright {
+  .formationInformation .copyright {
     height: auto;
     padding-top: 30px;
     padding-bottom: 30px;
   }
-  .formationInfo .cr_list {
+  .formationInformation .cr_list {
     margin-top: 30px;
   }
-  .formationInfo .cr_list li:not(:last-child) {
+  .formationInformation .cr_list li:not(:last-child) {
     margin-right: 20px;
   }
-  .formationInfo .copyright div,
-  .formationInfo .cr_list li a {
+  .formationInformation .copyright div,
+  .formationInformation .cr_list li a {
     font-size: 13px;
   }
 }
@@ -836,20 +836,20 @@
   ************/
 
 @media only screen and (max-width: 767px) {
-  .formationInfo .top_bar {
+  .formationInformation .top_bar {
     display: none;
   }
-  .formationInfo .home {
+  .formationInformation .home {
     height: 140px;
   }
-  .formationInfo .header.scrolled {
+  .formationInformation .header.scrolled {
     top: 0px;
   }
-  .formationInfo .review_rating {
+  .formationInformation .review_rating {
     padding-top: 0;
     text-align: left;
   }
-  .formationInfo .review_rating_bars {
+  .formationInformation .review_rating_bars {
     padding-left: 0;
     margin-top: 40px;
   }
@@ -860,67 +860,67 @@
   ************/
 
 @media only screen and (max-width: 575px) {
-  .formationInfo h2 {
+  .formationInformation h2 {
     font-size: 24px;
   }
-  .formationInfo p {
+  .formationInformation p {
     font-size: 13px;
   }
-  .formationInfo .menu {
+  .formationInformation .menu {
     width: 100%;
     right: -100%;
   }
-  .formationInfo .dropdown_item_select,
-  .formationInfo .home_search_button {
+  .formationInformation .dropdown_item_select,
+  .formationInformation .home_search_button {
     font-size: 12px;
   }
-  .formationInfo .tab_panel_text p,
-  .formationInfo .tab_panel_bullets li,
-  .formationInfo .accordion_panel p {
+  .formationInformation .tab_panel_text p,
+  .formationInformation .tab_panel_bullets li,
+  .formationInformation .accordion_panel p {
     font-size: 13px;
   }
-  .formationInfo .accordion div {
+  .formationInformation .accordion div {
     font-size: 16px;
   }
-  .formationInfo .tab {
+  .formationInformation .tab {
     font-size: 12px;
   }
-  .formationInfo .dropdown_item_title {
+  .formationInformation .dropdown_item_title {
     font-size: 14px;
   }
-  .formationInfo .dropdown_item_title span,
-  .formationInfo .dropdown_item_title::before {
+  .formationInformation .dropdown_item_title span,
+  .formationInformation .dropdown_item_title::before {
     font-size: 16px;
   }
-  .formationInfo .dropdown_item_title::before {
+  .formationInformation .dropdown_item_title::before {
     top: 0;
   }
-  .formationInfo
+  .formationInformation
     .has_children
-    > .formationInfo
+    > .formationInformation
     .dropdown_item
-    > .formationInfo
+    > .formationInformation
     .dropdown_item_title::after {
     font-size: 26px;
     top: -7px;
   }
-  .formationInfo .dropdown_item_text p {
+  .formationInformation .dropdown_item_text p {
     font-size: 13px;
   }
-  .formationInfo .review_rating_num {
+  .formationInformation .review_rating_num {
     font-size: 56px;
   }
-  .formationInfo .review_rating_stars {
+  .formationInformation .review_rating_stars {
     margin-top: 14px;
   }
-  .formationInfo .review_rating_text {
+  .formationInformation .review_rating_text {
     font-size: 14px;
     margin-top: 6px;
   }
-  .formationInfo .comments_list li ul {
+  .formationInformation .comments_list li ul {
     padding-left: 30px;
   }
-  .formationInfo .newsletter_form_container {
+  .formationInformation .newsletter_form_container {
     width: 100%;
     padding-left: 0;
   }
@@ -959,18 +959,18 @@
 /*********************************
   8. sidebarFormation
   *********************************/
-.formationInfo .sidebarFormation {
+.formationInformation .sidebarFormation {
   width: 100%;
   padding-left: 40px;
 }
-.formationInfo .sidebarFormation2 {
+.formationInformation .sidebarFormation2 {
   width: 100%;
   padding-left: 40px;
 }
-.formationInfo .sidebarFormation_section:not(:last-child) {
+.formationInformation .sidebarFormation_section:not(:last-child) {
   margin-bottom: 60px;
 }
-.formationInfo .sidebarFormation_section_title {
+.formationInformation .sidebarFormation_section_title {
   font-family: 'Roboto Slab', serif;
   font-size: 24px;
   font-weight: 700;
@@ -980,25 +980,25 @@
 
 /******************CSS TABS SIRINE***********/
 
-.formationInfo .add-experience:hover {
+.formationInformation .add-experience:hover {
   background: #ba68c8;
   color: #fff;
   cursor: pointer;
   border: solid 1px #ba68c8;
 }
 
-.formationInfo .btton_nav :focus {
+.formationInformation .btton_nav :focus {
   border: solid;
   color: #213f77;
   border-top: none;
   border-left: none;
   border-right: none;
 }
-.formationInfo .btton_nav {
+.formationInformation .btton_nav {
   border: none;
 }
 
-.formationInfo .btton_nav :active {
+.formationInformation .btton_nav :active {
   border: solid;
   color: #213f77;
   border-top: none;
@@ -1006,7 +1006,7 @@
   border-right: none;
 }
 
-.formationInfo .home_search_button {
+.formationInformation .home_search_button {
   width: 180px;
   height: 36px;
   background: #14bdee;
@@ -1019,7 +1019,7 @@
   cursor: pointer;
   margin-left: 50px;
 }
-.formationInfo .home_search_button2 {
+.formationInformation .home_search_button2 {
   width: 180px;
   height: 36px;
   background: #ef93ff;
@@ -1032,7 +1032,7 @@
   cursor: pointer;
   margin-left: 50px;
 }
-.formationInfo .home_search_button3 {
+.formationInformation .home_search_button3 {
   width: 180px;
   height: 36px;
   background: #61a86b;

@@ -11,6 +11,7 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
+import avatar8 from './../../assets/images/profile_homme2.png'
 import React, { useEffect, useState } from 'react'
 import { deleteuser, getcandidats, getformateurs } from 'src/services/gestionutilisateurs'
 import { uploadfile, getfile } from 'src/services/fileService'
@@ -37,7 +38,6 @@ import { useNavigate } from 'react-router-dom'
 
 const Demandes_inscriptions = () => {
   let navigate = useNavigate()
-  const [profileimg, setProfileimg] = useState(ReactImg)
   function Deleteuser(id) {
     notification_deValidation(id)
   }
@@ -60,14 +60,17 @@ const Demandes_inscriptions = () => {
         getformateurs()
           .then((response) => {
             console.log(response.data)
-            response.data.map((item, index) =>
-              getfile(item.image.id)
-                .then((response) => {
-                  images.push(URL.createObjectURL(response.data))
-                  setProfileimg(URL.createObjectURL(response.data))
-                })
-                .catch((e) => {}),
-            )
+            response.data.map((item, index) => {
+              if (item.image == null) {
+                images[item.id] = avatar8
+              } else {
+                getfile(item.image.id)
+                  .then((response) => {
+                    images[item.id] = URL.createObjectURL(response.data)
+                  })
+                  .catch((e) => {})
+              }
+            })
             setPosts(response.data)
           })
           .catch((e) => {})
@@ -85,6 +88,7 @@ const Demandes_inscriptions = () => {
     navigate('/GestionUtilisateurs/Responsables/Ajoutresponsable')
   }
   let [images, setimages] = useState([])
+  let [test, settest] = useState(false)
   const [posts, setPosts] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage] = useState(6)
@@ -95,18 +99,22 @@ const Demandes_inscriptions = () => {
     getformateurs()
       .then((response) => {
         console.log(response.data)
-        response.data.map((item, index) =>
-          getfile(item.image.id)
-            .then((response) => {
-              images.push(URL.createObjectURL(response.data))
-              setProfileimg(URL.createObjectURL(response.data))
-            })
-            .catch((e) => {}),
-        )
+        response.data.map((item, index) => {
+          if (item.image == null) {
+            images[item.id] = avatar8
+          } else {
+            getfile(item.image.id)
+              .then((response) => {
+                settest(true)
+                images[item.id] = URL.createObjectURL(response.data)
+              })
+              .catch((e) => {})
+          }
+        })
         setPosts(response.data)
       })
       .catch((e) => {})
-  }, [])
+  }, [test])
   console.log('hello', posts[0])
 
   if (posts) {
@@ -126,7 +134,7 @@ const Demandes_inscriptions = () => {
       pageNumbers.push(i)
     }
     return (
-      <div>
+      <div className="demandeINS userProfil">
         <div>
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
             <button className="btnAdd btn-sm mb-0" onClick={Ajoutresponsable}>
@@ -172,16 +180,13 @@ const Demandes_inscriptions = () => {
                                     onClick={(index) => ResponsebleProfil(item)}
                                     className="img align-self-stretch"
                                     style={{
-                                      backgroundImage: `url(${images[index]})`,
+                                      backgroundImage: `url(${images[item.id]})`,
                                     }}
                                   ></div>
                                 </div>
                                 <div className="text pt-3">
                                   <h3>
-                                    <a
-                                      href="instructor-details.html"
-                                      onClick={(index) => ResponsebleProfil(item)}
-                                    >
+                                    <a onClick={(index) => ResponsebleProfil(item)}>
                                       {item.nom} {item.prenom}
                                     </a>
                                   </h3>
@@ -189,7 +194,7 @@ const Demandes_inscriptions = () => {
                                     Date de naissance: {item.date_de_naissance}
                                   </span>{' '}
                                   <div className="faded">
-                                    <p style={{ 'font-size': '14px', 'margin-top': '5px' }}>
+                                    <p style={{ 'font-size': '12px', 'margin-top': '5px' }}>
                                       <CIcon
                                         icon={cilEnvelopeClosed}
                                         customClassName="nav-icon"
@@ -242,6 +247,21 @@ const Demandes_inscriptions = () => {
                     </section>
                     <div style={{ 'text-align': ' center' }}>
                       <br></br>
+                      <div
+                        className="row pagination_row"
+                        style={{ marginRight: 15, marginBottom: 15 }}
+                      >
+                        <div className="col">
+                          <div className="pagination_container d-flex flex-row align-items-center justify-content-start">
+                            <div className="courses_show_container ml-auto clearfix">
+                              <div className="courses_show_text">
+                                <span>1-{postsPerPage}</span> de <span>{posts.length}</span>{' '}
+                                resultats
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <CPagination
                         className="justify-content-end"
                         aria-label="Page navigation example"

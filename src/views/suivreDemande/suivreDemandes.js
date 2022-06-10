@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import 'src/views/Reclamation/Reclamation.css'
+
 import Swal from 'sweetalert2'
 import { DeleteReclamation, ReclamationByIdCandidat } from 'src/services/ReclamationService'
 import AjouterReclamation from 'src/views/Reclamation/AjoutReclamation'
@@ -17,13 +17,17 @@ import {
   CTableDataCell,
   CTableBody,
 } from '@coreui/react'
-import 'src/views/Reclamation/ConsulterReclamation.css'
+import 'src/views/suivreDemande/suivreFormation.css'
 
 import { Modal, Button } from 'react-bootstrap'
 import { cilFeaturedPlaylist, cilList, cilPencil, cilPlus } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import {
+  deleteDemande,
+  getDemandes_inscriptionsByCandidat,
+} from 'src/services/demandes_inscriptionService'
 
-const SuiviReclamations = () => {
+const SuivreDemande = () => {
   const [posts, setPosts] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage, setpostsPerPage] = useState(5)
@@ -43,22 +47,10 @@ const SuiviReclamations = () => {
   })
   let navigate = useNavigate()
   //popup
-  const [showAjt, setShowAjt] = useState(false)
-  const [showMdf, setShowMdf] = useState(false)
-  const handleShowAjt = () => setShowAjt(true)
-  const handleCloseAjt = () => {
-    setShowAjt(false)
-  }
 
-  function consulterReclamation(item) {
-    navigate('/Reclamations/SuiviReclamations/ConsulterReclamation', {
-      state: { state: item },
-    })
-  }
-
-  function supprimerReclamation(id) {
+  function supprimerDemande(id) {
     Swal.fire({
-      title: 'Souhaitez-vous supprimer cette reclamation ?',
+      title: 'Souhaitez-vous supprimer cette demande ?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'supprimer',
@@ -66,14 +58,14 @@ const SuiviReclamations = () => {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        DeleteReclamation(id)
+        deleteDemande(id)
           .then((response) => {
             setBool(true)
             setBool(false)
           })
           .catch((e) => {})
 
-        Swal.fire('La reclamation a été supprimé avec succes!', '', 'success')
+        Swal.fire('La demande a été supprimé avec succes!', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('Les modifications ne sont pas enregistrées', '', 'info')
       }
@@ -84,77 +76,35 @@ const SuiviReclamations = () => {
   useEffect(() => {
     fetchUserData()
       .then((response) => {
-        console.log(response.data.id)
-        ReclamationByIdCandidat(response.data.id).then((response2) => {
+        getDemandes_inscriptionsByCandidat(response.data.id).then((response2) => {
           setPosts(response2.data)
-          console.log(response2.data)
+          console.log('khra', response2.data)
         })
       })
       .catch((e) => {})
-  }, [showAjt, bool])
+  }, [bool])
 
   if (posts.length == 0)
     return (
-      <div className="SuivreReclamation">
-        <div style={{ marginBottom: '70px' }}>
-          <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
-            <button
-              className="btnAdd btn-sm mb-0"
-              style={{ 'font-size': '18px' }}
-              onClick={handleShowAjt}
-            >
-              <CIcon
-                icon={cilFeaturedPlaylist}
-                customClassName="nav-icon"
-                style={{
-                  width: 20,
-                  height: 20,
-                  'margin-right': 5,
-                }}
-              />
-              Nouvelle reclamation
-            </button>
-          </div>
-        </div>
-        <CCard>
+      <div className="Suivreformation">
+        <CCard style={{ marginTop: '70px' }}>
           <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div className="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
               <h6
                 className="text-white ps-3"
                 style={{ 'font-weight': 'bold', 'font-size': '22px' }}
               >
-                Mes reclamations
+                Mes demandes
               </h6>
             </div>
           </div>
 
           <div>
             <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>
-              Vous n{"'"}avez créer aucune reclamation!
+              Vous n{"'"}avez créer aucun demande!
             </div>
           </div>
         </CCard>
-        <Modal
-          size="lg"
-          show={showAjt}
-          onHide={handleCloseAjt}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
-            {' '}
-            <CIcon
-              icon={cilPencil}
-              style={{
-                marginRight: 15,
-              }}
-            />
-            Ajouter reclamation
-          </Modal.Header>
-          <Modal.Body>
-            <AjouterReclamation />
-          </Modal.Body>
-        </Modal>
       </div>
     )
   else {
@@ -182,72 +132,34 @@ const SuiviReclamations = () => {
     }
  */
     return (
-      <div className="SuivreReclamation">
-        <div style={{ marginBottom: '70px' }}>
-          <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
-            <button className="btnAdd btn-sm mb-0" onClick={handleShowAjt}>
-              <CIcon
-                icon={cilFeaturedPlaylist}
-                customClassName="nav-icon"
-                style={{
-                  width: 20,
-                  height: 20,
-                  'margin-right': 5,
-                }}
-              />
-              Nouvelle reclamation
-            </button>
-          </div>
-        </div>
-        <CCard>
+      <div className="Suivreformation">
+        <CCard style={{ marginTop: '70px', paddingBottom: '10px' }}>
           <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div className="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
               <h6
                 className="text-white ps-3"
                 style={{ 'font-weight': 'bold', 'font-size': '22px' }}
               >
-                Mes reclamations
+                Mes demandes
               </h6>
             </div>
           </div>
-          <Modal
-            size="lg"
-            show={showAjt}
-            onHide={handleCloseAjt}
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
-            <Modal.Header
-              closeButton
-              style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}
-            >
-              <CIcon
-                icon={cilPencil}
-                style={{
-                  marginRight: 15,
-                }}
-              />
-              Ajouter reclamation
-            </Modal.Header>
-            <Modal.Body>
-              <AjouterReclamation />
-            </Modal.Body>
-          </Modal>
+
           <CTable align="middle" className="mb-0 border" hover responsive>
             <CTableHead color="light">
               <CTableRow>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Etat
+                  Formation
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Référence
+                  Date d{"'"}envoi
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Date de l{"'"}envoi
+                  Date de traitement
                 </CTableHeaderCell>
 
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Objet
+                  Etat
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
                   Action
@@ -259,13 +171,28 @@ const SuiviReclamations = () => {
                 <CTableRow v-for="item in tableItems" key={index}>
                   {/* Etat*/}
                   <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={(id) => {
-                        //  handleShowInfo(item.id)
-                      }}
-                    >
-                      {item.traitee && (
+                    <div className="meduim">
+                      {item.formation.titre}
+                      <p style={{ color: '#213f77' }}>{item.formation.categorie}</p>
+                    </div>
+                  </CTableDataCell>
+                  {/* Référence*/}
+                  <CTableDataCell className="text-center">
+                    <div className="meduim ">{item.dateCreation}</div>
+                  </CTableDataCell>
+                  {/* Date création*/}
+                  <CTableDataCell className="text-center">
+                    {item.datetraitement === null ? (
+                      <div className="meduim ">non traité</div>
+                    ) : (
+                      <div className="meduim ">{item.datetraitement}</div>
+                    )}
+                  </CTableDataCell>
+                  {/* Objet*/}
+
+                  <CTableDataCell className="text-center">
+                    <div className="meduim ">
+                      {item.etat == 'traitée' && (
                         <i
                           className="fa fa-check"
                           aria-hidden="true"
@@ -276,63 +203,53 @@ const SuiviReclamations = () => {
                           }}
                         ></i>
                       )}
-                      {console.log(item.traitee)}
-                    </div>
-                  </CTableDataCell>
-                  {/* Référence*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={() => {
-                        consulterReclamation(item)
-                      }}
-                    >
-                      {item.id}
-                    </div>
-                  </CTableDataCell>
-                  {/* Date création*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={(id) => {
-                        consulterReclamation(item)
-                      }}
-                    >
-                      {item.dateenvoie}
-                    </div>
-                  </CTableDataCell>
-                  {/* Objet*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim"
-                      onClick={(id) => {
-                        consulterReclamation(item)
-                      }}
-                    >
-                      {item.objet}
+                      {item.etat == 'acceptée' ? (
+                        <button
+                          className="btn btn-success active"
+                          type="button"
+                          aria-pressed="true"
+                          style={{ width: '120px' }}
+                        >
+                          acceptée
+                        </button>
+                      ) : (
+                        <span>
+                          {item.etat == 'refusée' ? (
+                            <button
+                              className="btn btn-danger active"
+                              type="button"
+                              aria-pressed="true"
+                              style={{ width: '120px' }}
+                            >
+                              refusée
+                            </button>
+                          ) : (
+                            <button
+                              className="btn btn-info active"
+                              type="button"
+                              aria-pressed="true"
+                              style={{ width: '120px' }}
+                            >
+                              non traité
+                            </button>
+                          )}
+                        </span>
+                      )}
                     </div>
                   </CTableDataCell>
                   {/* Action*/}
                   <CTableDataCell className="text-center">
                     <div>
-                      {item.traitee != true && (
-                        <span onClick={() => supprimerReclamation(item.id)}>
+                      {item.etat === 'non traitée' && (
+                        <span onClick={() => supprimerDemande(item.id)}>
                           <i
                             className="fa fa-trash-o"
                             aria-hidden="true"
-                            style={{ marginRight: 12, fontSize: 22, color: 'red' }}
+                            style={{ marginRight: 12, fontSize: 25, color: 'red' }}
                             title="Supprimer"
                           ></i>
                         </span>
                       )}
-                      <span onClick={() => consulterReclamation(item)}>
-                        <i
-                          className="fa fa-external-link-square"
-                          aria-hidden="true"
-                          style={{ marginRight: 12, fontSize: 25, color: '#140788' }}
-                          title="Consulter"
-                        ></i>
-                      </span>
                     </div>
                   </CTableDataCell>
                 </CTableRow>
@@ -389,29 +306,8 @@ const SuiviReclamations = () => {
             </a>
           </CPagination>
         </CCard>
-        <Modal
-          size="lg"
-          show={showAjt}
-          onHide={handleCloseAjt}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
-            {' '}
-            <CIcon
-              icon={cilPencil}
-              style={{
-                marginRight: 15,
-              }}
-            />
-            Ajouter reclamation
-          </Modal.Header>
-          <Modal.Body>
-            <AjouterReclamation />
-          </Modal.Body>
-        </Modal>
       </div>
     )
   }
 }
-export default SuiviReclamations
+export default SuivreDemande

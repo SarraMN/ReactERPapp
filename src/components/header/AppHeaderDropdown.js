@@ -68,33 +68,6 @@ const AppHeaderDropdown = () => {
       {role === 'Admin' ? (
         <CDropdownMenu className="pt-0" placement="bottom-end">
           <CDropdownHeader className="bg-light fw-semibold py-2">Mon compte</CDropdownHeader>
-
-          <CDropdownItem onClick={() => GestionDemandes()}>
-            <CIcon icon={cilSettings} className="me-2" />
-            Demandes
-          </CDropdownItem>
-          <CDropdownItem href="#">
-            <CIcon icon={cilEnvelopeOpen} className="me-2" />
-            reclamations
-            <CBadge color="success" className="ms-2">
-              42
-            </CBadge>
-          </CDropdownItem>
-          <CDropdownItem href="#">
-            <CIcon icon={cilCreditCard} className="me-2" />
-            Actualités
-            <CBadge color="secondary" className="ms-2">
-              42
-            </CBadge>
-          </CDropdownItem>
-          <CDropdownItem href="#">
-            <CIcon icon={cilSpeedometer} className="me-2" />
-            tableau du bord
-            <CBadge color="primary" className="ms-2">
-              42
-            </CBadge>
-          </CDropdownItem>
-          <CDropdownDivider />
           <CDropdownItem onClick={() => FDeconnecter()}>
             <CIcon icon={cilLockLocked} className="me-2" />
             Deconnecter

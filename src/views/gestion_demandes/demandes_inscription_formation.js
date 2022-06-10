@@ -120,11 +120,11 @@ const Demandes_inscriptions = () => {
           if (item.candidat == null) {
           } else {
             if (item.candidat.image == null) {
-              images.push(avatar8)
+              images[item.candidat.id] = avatar8
             } else {
               getfile(item.candidat.image.id)
                 .then((response) => {
-                  images.push(URL.createObjectURL(response.data))
+                  images[item.candidat.id] = URL.createObjectURL(response.data)
                 })
                 .catch((e) => {})
             }
@@ -152,7 +152,7 @@ const Demandes_inscriptions = () => {
       pageNumbers.push(i)
     }
     return (
-      <div>
+      <div className="demandeINS">
         <div>
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
             <button className="btnAdd btn-sm mb-0" onClick={voirhistorique}>
@@ -266,16 +266,7 @@ const Demandes_inscriptions = () => {
                             <td>
                               <div className="d-flex px-2 py-1">
                                 <div>
-                                  {' '}
-                                  {item.candidat != null ? (
-                                    item.candidat.image != null ? (
-                                      <CAvatar src={images[index]} size="md" />
-                                    ) : (
-                                      <CAvatar src={avatar8} size="md" />
-                                    )
-                                  ) : (
-                                    <CAvatar src={avatar8} size="md" />
-                                  )}
+                                  <CAvatar src={images[item.candidat.id]} size="md" />
                                 </div>
                                 <div className="d-flex flex-column justify-content-center">
                                   {item.candidat != null ? (
@@ -356,6 +347,21 @@ const Demandes_inscriptions = () => {
                     </table>
                     <div style={{ 'text-align': ' center' }}>
                       <br></br>
+                      <div
+                        className="row pagination_row"
+                        style={{ marginRight: 15, marginBottom: 15 }}
+                      >
+                        <div className="col">
+                          <div className="pagination_container d-flex flex-row align-items-center justify-content-start">
+                            <div className="courses_show_container ml-auto clearfix">
+                              <div className="courses_show_text">
+                                <span>1-{postsPerPage}</span> de <span>{posts.length}</span>{' '}
+                                resultats
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <CPagination
                         className="justify-content-end"
                         aria-label="Page navigation example"

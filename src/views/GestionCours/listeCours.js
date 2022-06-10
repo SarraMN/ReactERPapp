@@ -19,11 +19,12 @@ import {
   CTableHeaderCell,
   CTableRow,
   CFormCheck,
+  CAlert,
 } from '@coreui/react'
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 import 'src/App.css'
 import React, { useEffect, useState } from 'react'
-import 'src/views/GestionFormation/listeFormation.css'
+import 'src/views/GestionCours/cours.css'
 import { Modal, Button } from 'react-bootstrap'
 import AjoutForm from 'src/views/GestionCours/AjouterCours'
 import {
@@ -316,51 +317,59 @@ const ListeCours = () => {
   /*s'il ya aucun cours*/
   if (posts.length === 0)
     return (
-      <>
-        <CCard>
-          <header className="card-heade">
-            <p className="card-header-title">
-              <span className="icon">
-                <i className="mdi mdi-account-circle"></i>
-              </span>
-              Les cours du formation {nomFormation}
-            </p>
-            <button href="tutorial-single.html" className="btn-Aj" onClick={handleShowAjt}>
-              <i
-                className="flex fa fa-plus-circle"
-                aria-hidden="true"
-                style={{ marginRight: 10, paddingTop: 5 }}
-              ></i>
-              Ajouter cours
-            </button>
-          </header>
-          <Modal
-            size="lg"
-            show={showAjt}
-            onHide={handleCloseAjt}
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
-            <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
-              <CIcon
-                icon={cilPlus}
-                style={{
-                  marginRight: 15,
-                }}
-              />
-              Ajouter Cours
-            </Modal.Header>
-            <Modal.Body>
-              <AjoutForm id={idcours} />
-            </Modal.Body>
-          </Modal>
-          <div>
-            <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>
-              Aucun cours n{"'"}est créer pour cette formation!
+      <div className="cours">
+        <div className="listeFormation">
+          <CCard>
+            <header className="card-heade">
+              <p className="card-header-title">
+                <span className="icon">
+                  <i className="mdi mdi-account-circle"></i>
+                </span>
+                Les cours du formation {nomFormation}
+              </p>
+              <button href="tutorial-single.html" className="btn-Aj" onClick={handleShowAjt}>
+                <i
+                  className="flex fa fa-plus-circle"
+                  aria-hidden="true"
+                  style={{ marginRight: 10, paddingTop: 5 }}
+                ></i>
+                Ajouter cours
+              </button>
+            </header>
+            <Modal
+              size="lg"
+              show={showAjt}
+              onHide={handleCloseAjt}
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+            >
+              <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
+                <CIcon
+                  icon={cilPlus}
+                  style={{
+                    marginRight: 15,
+                  }}
+                />
+                Ajouter Cours
+              </Modal.Header>
+              <Modal.Body>
+                <AjoutForm id={idcours} />
+              </Modal.Body>
+            </Modal>
+            <div>
+              <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>
+                Aucun cours n{"'"}est créer pour cette formation!
+              </div>
             </div>
-          </div>
-        </CCard>
-      </>
+          </CCard>
+          <br></br>
+          <CAlert color="danger" dismissible onClose={() => {}}>
+            <strong> Remarque :</strong> une formation ne peut pas etre envoyer a un candidat que
+            lorsqu
+            {"'"}il presente au minimum cinque cours.
+          </CAlert>
+        </div>
+      </div>
     )
   else {
     // Get current posts
@@ -386,320 +395,324 @@ const ListeCours = () => {
     }
 
     return (
-      <>
-        <CCard>
-          <header className="card-heade">
-            <p className="card-header-title">
-              <span className="icon">
-                <i className="mdi mdi-account-circle"></i>
-              </span>
-              Les cours du {nomFormation}
-            </p>
-            <button
-              href="tutorial-single.html"
-              className="btn-Aj"
-              onClick={handleShowAjt}
-              type="submit"
+      <div className="cours">
+        <div className="listeFormation">
+          <CCard>
+            <header className="card-heade">
+              <p className="card-header-title">
+                <span className="icon">
+                  <i className="mdi mdi-account-circle"></i>
+                </span>
+                Les cours du {nomFormation}
+              </p>
+              <button
+                href="tutorial-single.html"
+                className="btn-Aj"
+                onClick={handleShowAjt}
+                type="submit"
+              >
+                <i
+                  className="flex fa fa-plus-circle"
+                  aria-hidden="true"
+                  style={{ marginRight: 10, paddingTop: 5 }}
+                ></i>
+                Ajouter Cours
+              </button>
+            </header>
+            <Modal
+              size="lg"
+              show={showAjt}
+              onHide={handleCloseAjt}
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
             >
-              <i
-                className="flex fa fa-plus-circle"
-                aria-hidden="true"
-                style={{ marginRight: 10, paddingTop: 5 }}
-              ></i>
-              Ajouter Cours
-            </button>
-          </header>
-          <Modal
-            size="lg"
-            show={showAjt}
-            onHide={handleCloseAjt}
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
-            <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
-              <CIcon
-                icon={cilPlus}
-                style={{
-                  marginRight: 15,
-                  color: '#213f77',
-                  fontWeight: 'bold',
-                }}
-              />
-              Ajouter cours
-            </Modal.Header>{' '}
-            <Modal.Body>
-              <AjoutForm id={idcours} />
-            </Modal.Body>
-          </Modal>
+              <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
+                <CIcon
+                  icon={cilPlus}
+                  style={{
+                    marginRight: 15,
+                    color: '#213f77',
+                    fontWeight: 'bold',
+                  }}
+                />
+                Ajouter cours
+              </Modal.Header>{' '}
+              <Modal.Body>
+                <AjoutForm id={idcours} />
+              </Modal.Body>
+            </Modal>
 
-          <CTable align="middle" className="mb-0 border" hover responsive>
-            <CTableHead color="light">
-              <CTableRow>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Ressources
-                </CTableHeaderCell>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Titre
-                </CTableHeaderCell>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Etat
-                </CTableHeaderCell>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Date création
-                </CTableHeaderCell>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Dernière modification
-                </CTableHeaderCell>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Action
-                </CTableHeaderCell>
-              </CTableRow>
-            </CTableHead>
-            <CTableBody>
-              {currentPosts.map((item, index) => (
-                <CTableRow v-for="item in tableItems" key={index}>
-                  {/* Ressources*/}
-                  <CTableDataCell className="text-center">
-                    <div className="small text-medium-emphasis">
-                      <span
-                        onClick={() => {
-                          pdfbyid(item.document.id)
+            <CTable align="middle" className="mb-0 border" hover responsive>
+              <CTableHead color="light">
+                <CTableRow>
+                  <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+                    Ressources
+                  </CTableHeaderCell>
+                  <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+                    Titre
+                  </CTableHeaderCell>
+                  <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+                    Etat
+                  </CTableHeaderCell>
+                  <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+                    Date création
+                  </CTableHeaderCell>
+                  <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+                    Dernière modification
+                  </CTableHeaderCell>
+                  <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+                    Action
+                  </CTableHeaderCell>
+                </CTableRow>
+              </CTableHead>
+              <CTableBody>
+                {currentPosts.map((item, index) => (
+                  <CTableRow v-for="item in tableItems" key={index}>
+                    {/* Ressources*/}
+                    <CTableDataCell className="text-center">
+                      <div className="small text-medium-emphasis">
+                        <span
+                          onClick={() => {
+                            pdfbyid(item.document.id)
+                          }}
+                        >
+                          <i
+                            className="fa fa-file-pdf-o"
+                            aria-hidden="true"
+                            style={{ marginRight: 10, fontSize: 20, color: '#3399ff' }}
+                            title="consulter"
+                          ></i>
+                        </span>
+                      </div>
+                    </CTableDataCell>
+                    {/* Titre*/}
+                    <CTableDataCell className="text-center">
+                      <div
+                        className="meduim "
+                        onClick={(id) => {
+                          handleShowInfo(item.id)
                         }}
                       >
-                        <i
-                          className="fa fa-file-pdf-o"
-                          aria-hidden="true"
-                          style={{ marginRight: 10, fontSize: 20, color: '#3399ff' }}
-                          title="consulter"
-                        ></i>
-                      </span>
-                    </div>
-                  </CTableDataCell>
-                  {/* Titre*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={(id) => {
-                        handleShowInfo(item.id)
-                      }}
-                    >
-                      {' '}
-                      {item.titre}
-                    </div>
-                  </CTableDataCell>
-                  {/* Etat*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={(id) => {
-                        handleShowInfo(item.id)
-                      }}
-                    >
-                      {item.etat}
-                    </div>
-                  </CTableDataCell>
-                  {/* Date création*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={(id) => {
-                        handleShowInfo(item.id)
-                      }}
-                    >
-                      {item.dateCreation}
-                    </div>
-                  </CTableDataCell>
-                  {/* Date modification*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim"
-                      onClick={(id) => {
-                        handleShowInfo(item.id)
-                      }}
-                    >
-                      {item.dateMdf}
-                    </div>
-                  </CTableDataCell>
-                  {/* Action*/}
-                  <CTableDataCell className="text-center">
-                    <div>
-                      <span
-                        onClick={() => {
-                          CoursById(item.id)
-                          handleShowMdf()
+                        {' '}
+                        {item.titre}
+                      </div>
+                    </CTableDataCell>
+                    {/* Etat*/}
+                    <CTableDataCell className="text-center">
+                      <div
+                        className="meduim "
+                        onClick={(id) => {
+                          handleShowInfo(item.id)
                         }}
                       >
-                        <i
-                          className="fa fa-pencil-square-o"
-                          aria-hidden="true"
-                          style={{ marginRight: 12, fontSize: 22, color: 'green' }}
-                          title="Modifier"
-                        ></i>
-                      </span>
-
-                      <Modal
-                        size="lg"
-                        show={showMdf}
-                        onHide={handleCloseMdf}
-                        aria-labelledby="contained-modal-title-vcenter"
-                        centered
+                        {item.etat}
+                      </div>
+                    </CTableDataCell>
+                    {/* Date création*/}
+                    <CTableDataCell className="text-center">
+                      <div
+                        className="meduim "
+                        onClick={(id) => {
+                          handleShowInfo(item.id)
+                        }}
                       >
-                        <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
-                          <CIcon
-                            icon={cilPencil}
-                            style={{
-                              marginRight: 15,
-                              color: '#213f77',
-                              fontWeight: 'bold',
-                            }}
-                          />
-                          Modifier Cours
-                        </Modal.Header>{' '}
-                        <Modal.Body>
-                          {/* <AjoutForm formation={formation} /> */}
-                          <CCard>
-                            <CForm
-                              className="row g-3 needs-validation"
-                              noValidate
-                              validated={validated}
+                        {item.dateCreation}
+                      </div>
+                    </CTableDataCell>
+                    {/* Date modification*/}
+                    <CTableDataCell className="text-center">
+                      <div
+                        className="meduim"
+                        onClick={(id) => {
+                          handleShowInfo(item.id)
+                        }}
+                      >
+                        {item.dateMdf}
+                      </div>
+                    </CTableDataCell>
+                    {/* Action*/}
+                    <CTableDataCell className="text-center">
+                      <div>
+                        <span
+                          onClick={() => {
+                            CoursById(item.id)
+                            handleShowMdf()
+                          }}
+                        >
+                          <i
+                            className="fa fa-pencil-square-o"
+                            aria-hidden="true"
+                            style={{ marginRight: 12, fontSize: 22, color: 'green' }}
+                            title="Modifier"
+                          ></i>
+                        </span>
+
+                        <Modal
+                          size="lg"
+                          show={showMdf}
+                          onHide={handleCloseMdf}
+                          aria-labelledby="contained-modal-title-vcenter"
+                          centered
+                        >
+                          <Modal.Header
+                            closeButton
+                            style={{ color: '#213f77', fontWeight: 'bold' }}
+                          >
+                            <CIcon
+                              icon={cilPencil}
                               style={{
-                                paddingLeft: 15,
-                                paddingRight: 20,
-                                paddingTop: 15,
-                                paddingBottom: 15,
+                                marginRight: 15,
+                                color: '#213f77',
+                                fontWeight: 'bold',
                               }}
-                            >
-                              <CCol md={6}>
-                                <CFormLabel
-                                  htmlFor="validationCustom01"
-                                  style={{ fontWeight: 'bold' }}
-                                >
-                                  Titre
-                                </CFormLabel>
-                                <CFormInput
-                                  type="text"
-                                  id="validationCustom01"
-                                  defaultValue=""
-                                  required
-                                  value={titre}
-                                  onChange={(e) => {
-                                    setTitre(e.target.value)
-                                  }}
-                                />
-                                <CFormFeedback invalid>Titre est requis</CFormFeedback>
-                              </CCol>
-                              {etat === 'Non archivé' ? (
+                            />
+                            Modifier Cours
+                          </Modal.Header>{' '}
+                          <Modal.Body>
+                            {/* <AjoutForm formation={formation} /> */}
+                            <CCard>
+                              <CForm
+                                className="row g-3 needs-validation"
+                                noValidate
+                                validated={validated}
+                                style={{
+                                  paddingLeft: 15,
+                                  paddingRight: 20,
+                                  paddingTop: 15,
+                                  paddingBottom: 15,
+                                }}
+                              >
                                 <CCol md={6}>
                                   <CFormLabel
                                     htmlFor="validationCustom01"
                                     style={{ fontWeight: 'bold' }}
                                   >
-                                    Spécifier l{"'"}etat:
+                                    Titre
                                   </CFormLabel>
-
-                                  <CFormCheck
-                                    type="radio"
-                                    name="exampleRadios"
-                                    id="exampleRadios1"
-                                    value="Non archivé"
-                                    label="Non archivé"
+                                  <CFormInput
+                                    type="text"
+                                    id="validationCustom01"
+                                    defaultValue=""
+                                    required
+                                    value={titre}
                                     onChange={(e) => {
-                                      setEtat(e.target.value)
-                                    }}
-                                    defaultChecked
-                                  />
-                                  <CFormCheck
-                                    type="radio"
-                                    name="exampleRadios"
-                                    id="exampleRadios2"
-                                    value="Archivé"
-                                    label="Archivé"
-                                    onChange={(e) => {
-                                      setEtat(e.target.value)
+                                      setTitre(e.target.value)
                                     }}
                                   />
+                                  <CFormFeedback invalid>Titre est requis</CFormFeedback>
                                 </CCol>
-                              ) : (
+                                {etat === 'Non archivé' ? (
+                                  <CCol md={6}>
+                                    <CFormLabel
+                                      htmlFor="validationCustom01"
+                                      style={{ fontWeight: 'bold' }}
+                                    >
+                                      Spécifier l{"'"}etat:
+                                    </CFormLabel>
+
+                                    <CFormCheck
+                                      type="radio"
+                                      name="exampleRadios"
+                                      id="exampleRadios1"
+                                      value="Non archivé"
+                                      label="Non archivé"
+                                      onChange={(e) => {
+                                        setEtat(e.target.value)
+                                      }}
+                                      defaultChecked
+                                    />
+                                    <CFormCheck
+                                      type="radio"
+                                      name="exampleRadios"
+                                      id="exampleRadios2"
+                                      value="Archivé"
+                                      label="Archivé"
+                                      onChange={(e) => {
+                                        setEtat(e.target.value)
+                                      }}
+                                    />
+                                  </CCol>
+                                ) : (
+                                  <CCol md={6}>
+                                    <CFormLabel
+                                      htmlFor="validationCustom01"
+                                      style={{ fontWeight: 'bold' }}
+                                    >
+                                      Spécifier l{"'"}etat:
+                                    </CFormLabel>
+
+                                    <CFormCheck
+                                      type="radio"
+                                      name="exampleRadios"
+                                      id="exampleRadios1"
+                                      value="Non archivé"
+                                      label="Non archivé"
+                                      onChange={(e) => {
+                                        setEtat(e.target.value)
+                                      }}
+                                    />
+                                    <CFormCheck
+                                      type="radio"
+                                      name="exampleRadios"
+                                      id="exampleRadios2"
+                                      value="Archivé"
+                                      label="Archivé"
+                                      onChange={(e) => {
+                                        setEtat(e.target.value)
+                                      }}
+                                      defaultChecked
+                                    />
+                                  </CCol>
+                                )}
+
                                 <CCol md={6}>
                                   <CFormLabel
-                                    htmlFor="validationCustom01"
+                                    htmlFor="exampleFormControlTextarea1"
                                     style={{ fontWeight: 'bold' }}
                                   >
-                                    Spécifier l{"'"}etat:
+                                    Déscription (min 50 caractères)
                                   </CFormLabel>
-
-                                  <CFormCheck
-                                    type="radio"
-                                    name="exampleRadios"
-                                    id="exampleRadios1"
-                                    value="Non archivé"
-                                    label="Non archivé"
+                                  <CFormTextarea
+                                    id="exampleFormControlTextarea1"
+                                    rows="3"
+                                    required
+                                    value={description}
                                     onChange={(e) => {
-                                      setEtat(e.target.value)
+                                      setDescription(e.target.value)
                                     }}
-                                  />
-                                  <CFormCheck
-                                    type="radio"
-                                    name="exampleRadios"
-                                    id="exampleRadios2"
-                                    value="Archivé"
-                                    label="Archivé"
-                                    onChange={(e) => {
-                                      setEtat(e.target.value)
-                                    }}
-                                    defaultChecked
-                                  />
+                                    minLength="50"
+                                  ></CFormTextarea>
+                                  <CFormFeedback invalid>Déscription est requise</CFormFeedback>
+                                  <p style={{ color: 'dimgray' }}>
+                                    {' '}
+                                    {description.length} caractères{' '}
+                                  </p>
                                 </CCol>
-                              )}
-
-                              <CCol md={6}>
-                                <CFormLabel
-                                  htmlFor="exampleFormControlTextarea1"
-                                  style={{ fontWeight: 'bold' }}
-                                >
-                                  Déscription (min 50 caractères)
-                                </CFormLabel>
-                                <CFormTextarea
-                                  id="exampleFormControlTextarea1"
-                                  rows="3"
-                                  required
-                                  value={description}
-                                  onChange={(e) => {
-                                    setDescription(e.target.value)
-                                  }}
-                                  minLength="50"
-                                ></CFormTextarea>
-                                <CFormFeedback invalid>Déscription est requise</CFormFeedback>
-                                <p style={{ color: 'dimgray' }}>
-                                  {' '}
-                                  {description.length} caractères{' '}
-                                </p>
-                              </CCol>
-                              <CCol md={6}>
-                                <CFormLabel
-                                  htmlFor="exampleFormControlTextarea1"
-                                  style={{ fontWeight: 'bold' }}
-                                >
-                                  Objectifs (min 50 caractères)
-                                </CFormLabel>
-                                <CFormTextarea
-                                  id="exampleFormControlTextarea1"
-                                  rows="3"
-                                  required
-                                  value={objectif}
-                                  onChange={(e) => {
-                                    setObjectif(e.target.value)
-                                  }}
-                                  minLength="50"
-                                ></CFormTextarea>
-                                <CFormFeedback invalid>Champs requis</CFormFeedback>
-                                <p style={{ color: 'dimgray' }}> {objectif.length} caractères </p>
-                              </CCol>
-                              <CCol md={6}>
-                                <CFormLabel style={{ fontWeight: 'bold' }}>
-                                  Ajouter le cours en format pdf
-                                </CFormLabel>
-                                {/* <CFormInput
+                                <CCol md={6}>
+                                  <CFormLabel
+                                    htmlFor="exampleFormControlTextarea1"
+                                    style={{ fontWeight: 'bold' }}
+                                  >
+                                    Objectifs (min 50 caractères)
+                                  </CFormLabel>
+                                  <CFormTextarea
+                                    id="exampleFormControlTextarea1"
+                                    rows="3"
+                                    required
+                                    value={objectif}
+                                    onChange={(e) => {
+                                      setObjectif(e.target.value)
+                                    }}
+                                    minLength="50"
+                                  ></CFormTextarea>
+                                  <CFormFeedback invalid>Champs requis</CFormFeedback>
+                                  <p style={{ color: 'dimgray' }}> {objectif.length} caractères </p>
+                                </CCol>
+                                <CCol md={6}>
+                                  <CFormLabel style={{ fontWeight: 'bold' }}>
+                                    Ajouter le cours en format pdf
+                                  </CFormLabel>
+                                  {/* <CFormInput
                                   required
                                   type="file"
                                   size="sm"
@@ -708,30 +721,30 @@ const ListeCours = () => {
                                   onChange={(value) => imageHandler(value)}
 
                                                                    value={file}
-                                   
+
                                                                     onChange={(e) => {setFile(e.target.value) }}
-                                   
+
                                 /> */}
-                                <div className="field-body mx-auto">
-                                  <div className="field file mx-auto">
-                                    <label
-                                      className="upload control mx-auto"
-                                      style={{
-                                        border: 'solid',
-                                        'border-width': '0.5px',
-                                        padding: '5px',
-                                      }}
-                                    >
-                                      <a
-                                        className="button blue"
+                                  <div className="field-body mx-auto">
+                                    <div className="field file mx-auto">
+                                      <label
+                                        className="upload control mx-auto"
                                         style={{
-                                          color: '#213f77',
-                                          'background-color': 'white',
+                                          border: 'solid',
+                                          'border-width': '0.5px',
+                                          padding: '5px',
                                         }}
                                       >
-                                        Choisir le document
-                                      </a>
-                                      {/*  <Field
+                                        <a
+                                          className="button blue"
+                                          style={{
+                                            color: '#213f77',
+                                            'background-color': 'white',
+                                          }}
+                                        >
+                                          Choisir le document
+                                        </a>
+                                        {/*  <Field
                                         type="file"
                                         accept="image/png, image/jpeg, image/jpg"
                                         onChange={(value) => imageHandler(value)}
@@ -740,156 +753,164 @@ const ListeCours = () => {
                                           errors.image && touched.image ? ' is-invalid' : ''
                                         }
                                       /> */}
-                                      <CFormInput
-                                        required
-                                        type="file"
-                                        size="sm"
-                                        id="formFileSm"
-                                        name="sou"
-                                        onChange={(value) => imageHandler(value)}
+                                        <CFormInput
+                                          required
+                                          type="file"
+                                          size="sm"
+                                          id="formFileSm"
+                                          name="sou"
+                                          accept="application/pdf"
+                                          onChange={(value) => imageHandler(value)}
 
-                                        /*                                   value={file}
-                                         */
-                                        /*     onChange={(e) => {
+                                          /*                                   value={file}
+                                           */
+                                          /*     onChange={(e) => {
                                           setFile(e.target.value)
                                         }} */
-                                      />
-                                    </label>
+                                        />
+                                      </label>
+                                    </div>
+                                    <p>{nom_doc}</p>
                                   </div>
-                                  <p>{nom_doc}</p>
-                                </div>
-                                <CFormFeedback invalid>Champs requis</CFormFeedback>
-                              </CCol>
-                              <CCol xs={12}>
-                                <Button
-                                  className="btn-Aj"
-                                  style={{
-                                    backgroundColor: 'white',
-                                    color: '#140788',
-                                    width: 100,
-                                    marginTop: 20,
-                                    marginRight: 20,
-                                    position: 'absolute',
-                                    bottom: 0,
-                                    right: 0,
-                                  }}
-                                  onClick={handleSubmitMdf}
-                                >
-                                  Modifier
-                                </Button>
-                              </CCol>
-                            </CForm>
-                          </CCard>
-                        </Modal.Body>
-                      </Modal>
+                                  <CFormFeedback invalid>Champs requis</CFormFeedback>
+                                </CCol>
+                                <CCol xs={12}>
+                                  <Button
+                                    className="btn-Aj"
+                                    style={{
+                                      backgroundColor: 'white',
+                                      color: '#140788',
+                                      width: 100,
+                                      marginTop: 20,
+                                      marginRight: 20,
+                                      position: 'absolute',
+                                      bottom: 0,
+                                      right: 0,
+                                    }}
+                                    onClick={handleSubmitMdf}
+                                  >
+                                    Modifier
+                                  </Button>
+                                </CCol>
+                              </CForm>
+                            </CCard>
+                          </Modal.Body>
+                        </Modal>
 
-                      <span onClick={() => supprimerCours(item.id)}>
-                        <i
-                          className="fa fa-trash-o"
-                          aria-hidden="true"
-                          style={{ marginRight: 12, fontSize: 22, color: 'red' }}
-                          title="Supprimer"
-                        ></i>
-                      </span>
-                      {item.etat === 'Non archivé' ? (
-                        <span onClick={() => ArchiverCours(item.id, item)}>
+                        <span onClick={() => supprimerCours(item.id)}>
                           <i
-                            className="fa fa-eye"
+                            className="fa fa-trash-o"
                             aria-hidden="true"
-                            style={{ fontSize: 19, color: '#140788' }}
-                            title="Non archivé"
+                            style={{ marginRight: 12, fontSize: 22, color: 'red' }}
+                            title="Supprimer"
                           ></i>
                         </span>
-                      ) : (
-                        <span onClick={() => ArchiverCours(item.id, item)}>
-                          <i
-                            className="fa fa-eye-slash"
-                            aria-hidden="true"
-                            style={{ fontSize: 19, color: '#140788' }}
-                            title="Archiver"
-                          ></i>
-                        </span>
-                      )}
-                    </div>
-                  </CTableDataCell>
-                </CTableRow>
-              ))}
-              {/* modal de l'afichage des inoformations */}
-              <Modal
-                show={showInfo}
-                onHide={handleCloseInfo}
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
+                        {item.etat === 'Non archivé' ? (
+                          <span onClick={() => ArchiverCours(item.id, item)}>
+                            <i
+                              className="fa fa-eye"
+                              aria-hidden="true"
+                              style={{ fontSize: 19, color: '#140788' }}
+                              title="Non archivé"
+                            ></i>
+                          </span>
+                        ) : (
+                          <span onClick={() => ArchiverCours(item.id, item)}>
+                            <i
+                              className="fa fa-eye-slash"
+                              aria-hidden="true"
+                              style={{ fontSize: 19, color: '#140788' }}
+                              title="Archiver"
+                            ></i>
+                          </span>
+                        )}
+                      </div>
+                    </CTableDataCell>
+                  </CTableRow>
+                ))}
+                {/* modal de l'afichage des inoformations */}
+                <Modal
+                  show={showInfo}
+                  onHide={handleCloseInfo}
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                >
+                  <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
+                    <CIcon
+                      icon={cilPencil}
+                      style={{
+                        marginRight: 15,
+                      }}
+                    />
+                    Détails Cours
+                  </Modal.Header>
+                  <Modal.Body>
+                    <CCard>
+                      <CoursInfo id={selectCoursId}></CoursInfo>
+                    </CCard>
+                  </Modal.Body>
+                </Modal>
+              </CTableBody>
+            </CTable>
+            <br></br>
+            <CPagination
+              className="justify-content-end"
+              aria-label="Page navigation example"
+              style={{ marginRight: 20 }}
+            >
+              <a
+                onClick={() => {
+                  if (PreviewsPage != 0) {
+                    setCurrentPage(PreviewsPage)
+                    paginate(PreviewsPage)
+                    setactiveNumber(PreviewsPage)
+                  }
+                }}
               >
-                <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
-                  <CIcon
-                    icon={cilPencil}
-                    style={{
-                      marginRight: 15,
-                    }}
-                  />
-                  Détails Cours
-                </Modal.Header>
-                <Modal.Body>
-                  <CCard>
-                    <CoursInfo id={selectCoursId}></CoursInfo>
-                  </CCard>
-                </Modal.Body>
-              </Modal>
-            </CTableBody>
-          </CTable>
-          <br></br>
-          <CPagination
-            className="justify-content-end"
-            aria-label="Page navigation example"
-            style={{ marginRight: 20 }}
-          >
-            <a
-              onClick={() => {
-                if (PreviewsPage != 0) {
-                  setCurrentPage(PreviewsPage)
-                  paginate(PreviewsPage)
-                  setactiveNumber(PreviewsPage)
-                }
-              }}
-            >
-              <CPaginationItem aria-label="Previous" disabled>
-                <span aria-hidden="true">&laquo;</span>
-              </CPaginationItem>
-            </a>
-            <a>
-              <CPaginationItem style={{ background: '#140788', color: 'white' }}>
-                {activeNumber}
-              </CPaginationItem>
-            </a>
-            <a
-              onClick={() => {
-                if (currentPage < posts.length / postsPerPage) {
-                  setCurrentPage(NextPage)
-                  paginate(NextPage)
-                  setactiveNumber(NextPage)
-                }
-              }}
-            >
-              <CPaginationItem aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </CPaginationItem>
-            </a>
-          </CPagination>
+                <CPaginationItem aria-label="Previous" disabled>
+                  <span aria-hidden="true">&laquo;</span>
+                </CPaginationItem>
+              </a>
+              <a>
+                <CPaginationItem style={{ background: '#140788', color: 'white' }}>
+                  {activeNumber}
+                </CPaginationItem>
+              </a>
+              <a
+                onClick={() => {
+                  if (currentPage < posts.length / postsPerPage) {
+                    setCurrentPage(NextPage)
+                    paginate(NextPage)
+                    setactiveNumber(NextPage)
+                  }
+                }}
+              >
+                <CPaginationItem aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </CPaginationItem>
+              </a>
+            </CPagination>
 
-          <div className="row pagination_row" style={{ marginRight: 15, marginBottom: 15 }}>
-            <div className="col">
-              <div className="pagination_container d-flex flex-row align-items-center justify-content-start">
-                <div className="courses_show_container ml-auto clearfix">
-                  <div className="courses_show_text">
-                    <span>1-{postsPerPage}</span> de <span>{posts.length}</span> resultats
+            <div className="row pagination_row" style={{ marginRight: 15, marginBottom: 15 }}>
+              <div className="col">
+                <div className="pagination_container d-flex flex-row align-items-center justify-content-start">
+                  <div className="courses_show_container ml-auto clearfix">
+                    <div className="courses_show_text">
+                      <span>1-{postsPerPage}</span> de <span>{posts.length}</span> resultats
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </CCard>
-      </>
+          </CCard>
+          <br></br>
+          <CAlert color="danger" dismissible onClose={() => {}}>
+            <strong> Remarque :</strong> une formation ne peut pas etre envoyer a un candidat que
+            lorsqu
+            {"'"}il presente au minimum cinque cours.
+          </CAlert>
+        </div>
+      </div>
     )
   }
 }

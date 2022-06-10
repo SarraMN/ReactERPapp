@@ -15,7 +15,7 @@ import {
   CFormTextarea,
 } from '@coreui/react'
 import ReactImg from 'src/assets/images/image.jpg'
-
+import 'src/views/GestionFormation/listeFormation.css'
 import { AjoutFormation, archiverformation } from 'src/services/FormationService'
 import { fetchUserData, getUserById } from 'src/services/UserService'
 import React, { useEffect, useState } from 'react'
@@ -75,6 +75,13 @@ const AjouterFormation = () => {
       text: 'Il faut choisir une photo',
     })
   }
+  function Notification_Prix() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Prix',
+      text: 'Il faut mettre des prix positives',
+    })
+  }
   function Notification_NonVide() {
     Swal.fire({
       icon: 'error',
@@ -90,7 +97,7 @@ const AjouterFormation = () => {
     })
   }
   function Notification_Succees() {
-    Swal.fire('Succès!', 'La formation a été ajouter avec succès', 'success')
+    Swal.fire('Succès!', 'La formation a été ajouté avec succès', 'success')
   }
   function Notification_problemedeimage() {
     Swal.fire({
@@ -114,7 +121,6 @@ const AjouterFormation = () => {
       .catch((e) => {})
   }, [])
   function imageHandler(e) {
-    console.log('coucou', e.target.files[0])
     setImage(e.target.files[0])
     const reader = new FileReader()
     reader.onload = () => {
@@ -148,6 +154,13 @@ const AjouterFormation = () => {
       event.preventDefault()
       event.stopPropagation()
       setValidated(true)
+    } else if (
+      Math.sign(prix_organismes_conventiones) === -1 ||
+      Math.sign(prix_organismes_conventiones) === 0 ||
+      Math.sign(prix) === 0 ||
+      Math.sign(prix) === -1
+    ) {
+      Notification_Prix()
     } else {
       setValidated(true)
       console.log('waah', values.auteur)
@@ -175,8 +188,17 @@ const AjouterFormation = () => {
               if (response3.status === 200) {
                 console.log('avec succée')
                 Notification_Succees()
+                setTitre('')
+                setCategorie('Data Analyst')
+                setDescription('')
+                setPrix('')
+                setprix_organismes_conventiones('')
+                setValidated(false)
+                setEtat('Non archivé')
+                setImage(ReactImg)
+                setImage2(ReactImg)
+                setProfileimg(ReactImg)
               } else if (response3.status === 500) {
-                console.log('failure')
                 Notification_failure()
               }
             })
@@ -190,7 +212,7 @@ const AjouterFormation = () => {
   }
 
   return (
-    <>
+    <div className="listeFormation">
       <CCard>
         <CForm
           className="row g-3 needs-validation"
@@ -428,7 +450,7 @@ const AjouterFormation = () => {
           </CCol>
         </CForm>
       </CCard>
-    </>
+    </div>
   )
 }
 /* AjouterFormation.propTypes = {

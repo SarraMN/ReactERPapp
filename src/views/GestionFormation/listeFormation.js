@@ -94,7 +94,7 @@ const ListeFormation = () => {
     })
   }
   function Notification_Succees() {
-    Swal.fire('Succès!', 'La formation a été modifier avec succès', 'success')
+    Swal.fire('Succès!', 'La formation a été modifié avec succès', 'success')
   }
   function Notification_NonVide() {
     Swal.fire({
@@ -275,7 +275,7 @@ const ListeFormation = () => {
       if (result.isConfirmed) {
         ChangerEtatFormation(id)
           .then(() => {
-            Swal.fire('Modification avec succes!', '', 'success')
+            Swal.fire('Modification avec succès!', '', 'success')
             setBoolarchive(true)
             setBoolarchive(false)
           })
@@ -287,7 +287,7 @@ const ListeFormation = () => {
   }
   function supprimerFormation(id) {
     Swal.fire({
-      title: 'Souhaitez-vous supprimer cet utilisateur ?',
+      title: 'Souhaitez-vous supprimer cette formation ?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'supprimer',
@@ -303,7 +303,7 @@ const ListeFormation = () => {
           })
           .catch((e) => {})
 
-        Swal.fire('cette formation a été supprimé avec succes!', '', 'success')
+        Swal.fire('cette formation a été supprimé avec succès!', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('Aucune modification ', '', 'info')
       }
@@ -351,7 +351,7 @@ const ListeFormation = () => {
   }, [showAjt, showMdf, bool, test, boolarchive])
   if (posts.length == 0)
     return (
-      <>
+      <div className="listeFormation">
         <CCard>
           <header className="card-heade">
             <p className="card-header-title">
@@ -398,7 +398,7 @@ const ListeFormation = () => {
             </div>
           </div>
         </CCard>
-      </>
+      </div>
     )
   else {
     // Get current posts
@@ -425,7 +425,7 @@ const ListeFormation = () => {
     }
 
     return (
-      <>
+      <div className="listeFormation">
         <CCard>
           <header className="card-heade">
             <p className="card-header-title">
@@ -516,15 +516,21 @@ const ListeFormation = () => {
                   </div>
                   <div className="meta">
                     <div style={{ marginBottom: 12 }}>
-                      <i
-                        className="fa fa-user-circle"
-                        style={{ color: '#3399ff', marginRight: 14 }}
-                        aria-hidden="true"
-                      ></i>
-                      <span className="info-det">Créer par:</span>
-                      <span className="info-det" style={{ marginLeft: 135 }}>
-                        {item.auteur.nom} {item.auteur.prenom}
-                      </span>
+                      {item.auteur === null ? (
+                        <span></span>
+                      ) : (
+                        <span>
+                          <i
+                            className="fa fa-user-circle"
+                            style={{ color: '#3399ff', marginRight: 14 }}
+                            aria-hidden="true"
+                          ></i>
+                          <span className="info-det">Créer par:</span>
+                          <span className="info-det" style={{ marginLeft: 135 }}>
+                            {item.auteur.nom} {item.auteur.prenom}
+                          </span>
+                        </span>
+                      )}
                     </div>
                     <div style={{ marginBottom: 12 }}>
                       <i
@@ -926,7 +932,7 @@ const ListeFormation = () => {
             </div>
           </div>
         </CCard>
-      </>
+      </div>
     )
   }
 }

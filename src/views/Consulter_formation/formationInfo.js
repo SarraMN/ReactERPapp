@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import photo1 from 'src/assets/images/Software-development.jpg'
 import 'src/views/Consulter_formation/formationInfos.css'
 import { Accordion, Modal, Button, Nav } from 'react-bootstrap'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { CoursByIdFormation } from 'src/services/CoursService'
 import {
   GetformationsCandidat,
@@ -11,7 +11,17 @@ import {
 } from 'src/services/UserService'
 import { fetchUserData, getUserById } from 'src/services/UserService'
 import Swal from 'sweetalert2'
-import { CAccordion, CAccordionBody, CAccordionHeader, CAccordionItem } from '@coreui/react'
+import {
+  CAccordion,
+  CAccordionBody,
+  CAccordionHeader,
+  CAccordionItem,
+  CCard,
+  CCol,
+} from '@coreui/react'
+import Temoignageauth from './temoignageAuth'
+import Temoignage from './temoignage'
+
 import {
   addDemandeFormation,
   getdemandes_ins_formations,
@@ -19,7 +29,8 @@ import {
 } from 'src/services/demandes_inscriptionService'
 import { getfile } from 'src/services/fileService'
 import CIcon from '@coreui/icons-react'
-import { cilExternalLink, cilPhone } from '@coreui/icons'
+import { cilExternalLink, cilPhone, cilSchool } from '@coreui/icons'
+import { nombre_candidatsParFormation } from 'src/services/FormationService'
 const FormationInfo = () => {
   const [typeCandidat, setTypeCandidat] = useState('candidatSimple')
   const [bool, setbool] = useState(false)
@@ -51,6 +62,7 @@ const FormationInfo = () => {
     image: '',
   })
   const [candidatinscrit, setCandidatinscrit] = useState('inscription')
+  const [nbrcandidats, setnbrcandidats] = useState('')
 
   values.titre = location.state.titre
   values.id = location.state.id
@@ -59,6 +71,11 @@ const FormationInfo = () => {
   values.prix_organismes_conventiones = location.state.prix_organismes_conventiones
   values.nbrCours = location.state.nbrCours
   values.description = location.state.description
+  let navigate = useNavigate()
+
+  function voirFormation() {
+    navigate('/Mes_formations/Mes_formations/ExamenInfo')
+  }
   useEffect(() => {
     CoursByIdFormation(location.state.id)
       .then((response) => {
@@ -69,6 +86,11 @@ const FormationInfo = () => {
     getfile(location.state.image.id)
       .then((response) => {
         values.image = URL.createObjectURL(response.data)
+      })
+      .catch((e) => {})
+    nombre_candidatsParFormation(location.state.id)
+      .then((response3) => {
+        setnbrcandidats(response3.data)
       })
       .catch((e) => {})
     fetchUserData()
@@ -183,6 +205,7 @@ const FormationInfo = () => {
           if (response3.status === 200) {
             console.log('avec succée')
             Notification_succes()
+            setCandidatinscrit('demandeEnvoyée')
           } else if (response3.status === 500) {
             Notification_failure()
           }
@@ -194,237 +217,344 @@ const FormationInfo = () => {
   }
 
   return (
-    <div>
-      <div style={{ marginTop: '10px', marginRight: '10px' }}>
-        <button
-          onClick={() => handleShowphone()}
-          className="btn btn-outline-primary btn-sm mb-0"
-          style={{
-            float: 'right',
-            align: 'right',
-            'font-size': '20px',
-            'border-color': '#213f77',
-            marginLeft: '10',
-            marginRight: '20',
-            paddingRight: '20px',
-            paddingLeft: '20px',
-            paddingTop: '20px',
-            paddingBottom: '20px',
-            marginTop: '20px',
-          }}
-        >
-          <CIcon
-            icon={cilPhone}
-            customClassName="nav-icon"
-            style={{
-              width: 20,
-              height: 20,
-              'margin-right': 5,
-            }}
-          />
-          Nous Appeler
-        </button>
-      </div>
-      <div className="formation">
+    <div className="formationInfo">
+      <div>
         <div className="container">
-          <div className="row">
-            <div className="col-lg-6">
-              <div className="formation_container">
-                <div className="formation_title"> Formation :{values.titre}</div>
-                <div className="formation_image">
-                  <img src={values.image} alt="" style={{ width: 500, height: 350 }} />
-                </div>
-              </div>
-            </div>
-
-            <div className="col-lg-6">
-              <div className="sidebarFormation">
-                <div className="sidebarFormation_section">
-                  <div className="sidebarFormation_section_title" style={{ 'font-size': '2em' }}>
-                    Détails formation
-                  </div>
-                  <div className="sidebarFormation_feature">
-                    <div className="formation_price">
-                      {typeCandidat === 'candidatSimple' ? (
-                        <p>{values.prix} Dt</p>
-                      ) : (
-                        <p> {values.prix_organismes_conventiones} Dt</p>
-                      )}{' '}
-                    </div>
-
-                    <div className="feature_list">
-                      <div className="feature d-flex flex-row align-items-center justify-content-start">
-                        <div className="feature_title">
-                          <i className="fa fa-file-text-o" aria-hidden="true"></i>
-                          <span>Nombre des cours: {values.nbrCours}</span>
-                        </div>
-                      </div>
-
-                      <div className="feature d-flex flex-row align-items-center justify-content-start">
-                        <div className="feature_title">
-                          <i className="fa fa-list-alt" aria-hidden="true"></i>
-                          <span style={{ marginRight: 50 }}>Catégorie: {values.categorie}</span>
-                        </div>
-                      </div>
-
-                      <div className="feature d-flex flex-row align-items-center justify-content-start">
-                        <div className="feature_title">
-                          <i className="fa fa-users" aria-hidden="true"></i>
-                          <span>Candidats inscrits: 35</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {candidatinscrit === 'inscription' ? (
-                  <button
-                    type="submit"
-                    className="home_search_button"
-                    onClick={handleShow}
-                    style={{ 'font-size': '1em', height: '50px', width: '220px' }}
-                  >
-                    {' '}
-                    <i
-                      className="fa fa-plus"
-                      aria-hidden="true"
-                      style={{ paddingRight: '10', marginRight: '5px' }}
-                    ></i>
-                    S{"'"}inscrire au cours
-                  </button>
-                ) : (
-                  <span>
-                    {candidatinscrit === 'dejaInscrit' ? (
-                      <button
-                        type="submit"
-                        className="home_search_button"
-                        style={{ 'font-size': '1em', height: '50px', backgroundColor: 'green' }}
+          <div>
+            <CCard>
+              <div
+                className="row"
+                style={{
+                  marginTop: '20px',
+                  marginRight: '5px',
+                  marginLeft: '5px',
+                  marginBottom: '20px',
+                }}
+              >
+                <div>
+                  <CCard style={{ backgroundColor: '#213f77' }}>
+                    <div>
+                      <div
+                        style={{
+                          marginTop: '30px',
+                          marginRight: '20px',
+                        }}
                       >
-                        <i
-                          className="fa fa-check"
-                          aria-hidden="true"
-                          style={{ paddingRight: '10', marginRight: '5px' }}
-                        ></i>
-                        Deja inscrit
-                      </button>
-                    ) : (
-                      <span>
-                        {candidatinscrit === 'demandeEnvoyée' ? (
-                          <button
-                            type="submit"
-                            className="home_search_button"
-                            style={{ 'font-size': '1em', height: '50px', backgroundColor: 'green' }}
-                          >
-                            <i
-                              className="fa fa-check"
-                              aria-hidden="true"
-                              style={{ paddingRight: '10', marginRight: '5px' }}
-                            ></i>
-                            demande Envoyée
-                          </button>
-                        ) : (
-                          <button
-                            type="submit"
-                            className="home_search_button"
+                        <button
+                          onClick={() => handleShowphone()}
+                          className="btn btn-outline-primary btn-sm mb-0"
+                          style={{
+                            float: 'right',
+                            align: 'right',
+                            'font-size': '20px',
+                            'border-color': '#213f77',
+                            paddingRight: '20px',
+                            paddingLeft: '20px',
+                            paddingTop: '15px',
+                            paddingBottom: '20px',
+                            marginTop: '20px',
+                            backgroundColor: '#14bdee',
+                            'border-radius': '15px',
+                            height: '60px',
+                          }}
+                        >
+                          <CIcon
+                            icon={cilPhone}
+                            customClassName="nav-icon"
                             style={{
-                              'font-size': '1em',
-                              height: '50px',
-                              backgroundColor: '#AD0303',
-                              width: '220px',
+                              width: 20,
+                              height: 20,
+                              'margin-right': 5,
+                            }}
+                          />
+                          Nous Appeler
+                        </button>
+                        {candidatinscrit === 'inscription' ? (
+                          <button
+                            onClick={() => handleShow()}
+                            className="btn btn-outline-primary btn-sm mb-0"
+                            style={{
+                              float: 'right',
+                              align: 'right',
+                              'font-size': '20px',
+                              'border-color': '#213f77',
+                              marginLeft: '30',
+                              marginRight: '20',
+                              paddingRight: '20px',
+                              paddingLeft: '20px',
+                              paddingTop: '15px',
+                              paddingBottom: '20px',
+                              marginTop: '20px',
+                              backgroundColor: '#CAD7F9',
+                              'border-radius': '15px',
+                              height: '60px',
                             }}
                           >
+                            {' '}
                             <i
-                              className="fa fa-times"
+                              className="fa fa-plus"
                               aria-hidden="true"
                               style={{ paddingRight: '10', marginRight: '5px' }}
                             ></i>
-                            demande Refusée
+                            S{"'"}inscrire au cours
                           </button>
+                        ) : (
+                          <span>
+                            {candidatinscrit === 'dejaInscrit' ? (
+                              <Link
+                                to="/Mes_formations/Mes_formations/FormationInfo"
+                                state={location.state}
+                              >
+                                <button
+                                  onClick={() => voirFormation()}
+                                  className="btn btn-outline-primary btn-sm mb-0"
+                                  style={{
+                                    float: 'right',
+                                    align: 'right',
+                                    'font-size': '20px',
+                                    'border-color': '#213f77',
+                                    marginLeft: '10',
+                                    marginRight: '20',
+                                    paddingRight: '20px',
+                                    paddingLeft: '20px',
+                                    paddingTop: '15px',
+                                    paddingBottom: '20px',
+                                    marginTop: '20px',
+                                    backgroundColor: '#2EC938',
+                                    'border-radius': '15px',
+                                    height: '60px',
+                                  }}
+                                >
+                                  <i
+                                    className="fa fa-check"
+                                    aria-hidden="true"
+                                    style={{ paddingRight: '10', marginRight: '5px' }}
+                                  ></i>
+                                  Deja inscrit
+                                </button>
+                              </Link>
+                            ) : (
+                              <span>
+                                {candidatinscrit === 'demandeEnvoyée' ? (
+                                  <button
+                                    className="btn btn-outline-primary btn-sm mb-0"
+                                    style={{
+                                      float: 'right',
+                                      align: 'right',
+                                      'font-size': '20px',
+                                      'border-color': '#213f77',
+                                      marginLeft: '10',
+                                      marginRight: '20',
+                                      paddingRight: '20px',
+                                      paddingLeft: '20px',
+                                      paddingTop: '15px',
+                                      paddingBottom: '20px',
+                                      marginTop: '20px',
+                                      backgroundColor: '#2EC938',
+                                      'border-radius': '15px',
+                                      height: '60px',
+                                    }}
+                                  >
+                                    <i
+                                      className="fa fa-check"
+                                      aria-hidden="true"
+                                      style={{ paddingRight: '10', marginRight: '5px' }}
+                                    ></i>
+                                    demande Envoyée
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="btn btn-outline-primary btn-sm mb-0"
+                                    style={{
+                                      float: 'right',
+                                      align: 'right',
+                                      'font-size': '20px',
+                                      'border-color': '#213f77',
+                                      marginLeft: '10',
+                                      marginRight: '20',
+                                      paddingRight: '20px',
+                                      paddingLeft: '20px',
+                                      paddingTop: '20px',
+                                      paddingBottom: '20px',
+                                      marginTop: '20px',
+                                      backgroundColor: '#AD0303',
+                                    }}
+                                  >
+                                    <i
+                                      className="fa fa-times"
+                                      aria-hidden="true"
+                                      style={{ paddingRight: '10', marginRight: '5px' }}
+                                    ></i>
+                                    demande Refusée
+                                  </button>
+                                )}
+                              </span>
+                            )}
+                          </span>
                         )}
-                      </span>
-                    )}
-                  </span>
-                )}
+                      </div>
+                      <div
+                        className="formation_title"
+                        style={{ marginLeft: '30px', color: 'white' }}
+                      >
+                        {' '}
+                        Formation :{values.titre}
+                        <p style={{ marginLeft: '30px', 'font-size': '20px', color: '#C5CACD' }}>
+                          {' '}
+                          Categorie :{values.categorie}
+                        </p>
+                      </div>
+                    </div>
+                  </CCard>
+                </div>
+                <div className="col-lg-6">
+                  <div className="formation_container">
+                    {/*               <CCard>
+                  <div className="formation_title"> Formation :{values.titre}</div>
+                </CCard>
+                  */}
+                    <div className="formation_image">
+                      <img src={values.image} alt="" style={{ width: 400, height: 250 }} />
+                    </div>
+                  </div>
+                </div>
 
-                <Modal
-                  show={show}
-                  onHide={handleClose}
-                  aria-labelledby="contained-modal-title-vcenter"
-                  centered
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Demande d{"'"}inscription</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    Cette formation coûte{' '}
-                    {typeCandidat === 'candidatSimple' ? (
-                      <span> {values.prix} Dt</span>
-                    ) : (
-                      <span> {values.prix_organismes_conventiones} Dt</span>
-                    )}{' '}
-                    si vous êtes sur de s{"'"}inscrire cliquer sur envoyer et un agent va bientôt
-                    vous contacter pour fixer un rendez-vous pour venir chez nous et payer le
-                    montant demandé.
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Fermer
-                    </Button>
-                    <Button style={{ height: 39 }} variant="primary" onClick={envoyermail}>
-                      Envoyer
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+                <div className="col-lg-6">
+                  <div className="sidebarFormation2">
+                    <div className="sidebarFormation_section">
+                      <div
+                        className="sidebarFormation_section_title"
+                        style={{ 'font-size': '2em' }}
+                      >
+                        Détails formation
+                      </div>
+                      <div className="sidebarFormation_feature">
+                        <div className="formation_price">
+                          {typeCandidat === 'candidatSimple' ? (
+                            <p>{values.prix} Dt</p>
+                          ) : (
+                            <p> {values.prix_organismes_conventiones} Dt</p>
+                          )}{' '}
+                        </div>
+
+                        <div className="feature_list">
+                          <div className="feature d-flex flex-row align-items-center justify-content-start">
+                            <div className="feature_title">
+                              <i className="fa fa-file-text-o" aria-hidden="true"></i>
+                              <span>Nombre des cours: {values.nbrCours}</span>
+                            </div>
+                          </div>
+
+                          <div className="feature d-flex flex-row align-items-center justify-content-start">
+                            <div className="feature_title">
+                              <i className="fa fa-list-alt" aria-hidden="true"></i>
+                              <span style={{ marginRight: 50 }}>Catégorie: {values.categorie}</span>
+                            </div>
+                          </div>
+
+                          <div className="feature d-flex flex-row align-items-center justify-content-start">
+                            <div className="feature_title">
+                              <i className="fa fa-users" aria-hidden="true"></i>
+                              <span>Candidats inscrits: {nbrcandidats}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Modal
+                      show={show}
+                      onHide={handleClose}
+                      aria-labelledby="contained-modal-title-vcenter"
+                      centered
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title>Demande d{"'"}inscription</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        Cette formation coûte{' '}
+                        {typeCandidat === 'candidatSimple' ? (
+                          <span> {values.prix} Dt</span>
+                        ) : (
+                          <span> {values.prix_organismes_conventiones} Dt</span>
+                        )}{' '}
+                        si vous êtes sur de s{"'"}inscrire cliquer sur envoyer et un agent va
+                        bientôt vous contacter pour fixer un rendez-vous pour venir chez nous et
+                        payer le montant demandé.
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                          Fermer
+                        </Button>
+                        <Button style={{ height: 39 }} variant="primary" onClick={envoyermail}>
+                          Envoyer
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="tab-content" id="pills-tabContent" style={{ marginTop: '20px' }}>
-              <div
-                className="tab-pane fade show active"
-                id="pills-home"
-                role="tabpanel"
-                aria-labelledby="pills-home-tab"
-              >
-                <div className="tab_panels">
-                  <div className="tab_panel active">
-                    <div className="tab_panel_title">{values.titre}</div>
-                    <div>
-                      <div className="tab_panel_text">
-                        <p>{values.description}</p>
+            </CCard>
+            <CCard style={{ marginTop: '10px' }}>
+              <div>
+                <div
+                  className="tab-pane fade show active"
+                  id="pills-home"
+                  role="tabpanel"
+                  aria-labelledby="pills-home-tab"
+                >
+                  <div className="tab_panels">
+                    <div className="tab_panel active">
+                      <div className="tab_panel_title">Description du {values.titre}</div>
+                      <div>
+                        <div className="tab_panel_text">
+                          <p>{values.description}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div
+                  className="tab-pane fade"
+                  id="pills-contact"
+                  role="tabpanel"
+                  aria-labelledby="pills-contact-tab"
+                ></div>
               </div>
-              <div
-                className="tab-pane fade"
-                id="pills-contact"
-                role="tabpanel"
-                aria-labelledby="pills-contact-tab"
-              ></div>
-            </div>
-            {cours != null && (
-              <div
-                className="tab_panel_title"
-                style={{ marginBottom: 20, marginTop: 15, marginLeft: 28 }}
-              >
-                Cours
-              </div>
-            )}
-            {cours.length !== 0 && (
-              <CAccordion activeItemKey={2} style={{ width: '800%' }}>
-                {cours.map((item, index) => (
-                  <CAccordionItem Key={index} itemKey={index}>
-                    <CAccordionHeader>
-                      Cours N° {index + 1} : {item.titre}
-                    </CAccordionHeader>
-                    <CAccordionBody>
-                      <strong>Description</strong>
-                      <p style={{ 'word-wrap': 'break-word' }}>{item.description}</p>
-                      <strong>Objectif</strong>
-                      <p style={{ 'word-wrap': 'break-word' }}>{item.objectif}</p>
-                    </CAccordionBody>
-                  </CAccordionItem>
-                ))}
-              </CAccordion>
+            </CCard>
+            <CCard style={{ marginTop: '30px', paddingBottom: '30px' }}>
+              <CCol>
+                {cours != null && (
+                  <div
+                    className="tab_panel_title"
+                    style={{ marginBottom: 20, marginTop: 15, marginLeft: 28 }}
+                  >
+                    Contenu du cours
+                  </div>
+                )}
+                {cours.length !== 0 && (
+                  <CAccordion activeItemKey={2}>
+                    {cours.map((item, index) => (
+                      <CAccordionItem Key={index} itemKey={index}>
+                        <CAccordionHeader>
+                          Cours N° {index + 1} : {item.titre}
+                        </CAccordionHeader>
+                        <CAccordionBody>
+                          <strong>Description</strong>
+                          <p style={{ 'word-wrap': 'break-word' }}>{item.description}</p>
+                          <strong>Objectif</strong>
+                          <p style={{ 'word-wrap': 'break-word' }}>{item.objectif}</p>
+                        </CAccordionBody>
+                      </CAccordionItem>
+                    ))}
+                  </CAccordion>
+                )}
+              </CCol>
+            </CCard>
+            {candidatinscrit === 'dejaInscrit' ? (
+              <Temoignageauth formation={location.state.id}></Temoignageauth>
+            ) : (
+              <Temoignage formation={location.state.id}></Temoignage>
             )}
           </div>
         </div>

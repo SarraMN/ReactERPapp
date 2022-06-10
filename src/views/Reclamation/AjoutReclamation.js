@@ -40,7 +40,7 @@ const AjouterReclamation = () => {
 
   function initialiser() {
     setObjet('')
-    setFile('')
+    setFile('vide')
     setValidated(false)
     setContenu('')
   }
@@ -227,6 +227,7 @@ const AjouterReclamation = () => {
               style={{ borderRadius: 40 }}
               type="file"
               size="sm"
+              accept="application/pdf"
               id="formFileSm"
               onChange={(value) => imageHandler(value)}
               minLength="50"

@@ -44,6 +44,7 @@ import CIcon from '@coreui/icons-react'
 import { cilPencil, cilTrash } from '@coreui/icons'
 
 import Questions from 'src/views/gestion_examen/questions'
+import { useSelector } from 'react-redux'
 
 const Ajoutxamen = () => {
   const [idexamen, setIdexamen] = useState(0)
@@ -112,14 +113,12 @@ const Ajoutxamen = () => {
     console.log('alooo', values)
     addExamen(values).then((response3) => {
       if (response3.status === 200) {
-        console.log('avec succée')
         setIdexamen(response3.data.id)
         document.getElementById('pillsprofiletab2').disabled = false
         document.getElementById('pillsprofiletab1').disabled = true
         document.getElementById('pillsprofiletab2').click()
         document.getElementById('pillsprofiletab1').ariaSelected = 'false'
         document.getElementById('pillsprofiletab2').ariaSelected = 'true'
-        console.log('sabaaa7', document.getElementById('pillsprofiletab2').ariaSelected)
       } else if (response3.status === 500) {
         console.log('failure')
         Notification_failure()

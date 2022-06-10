@@ -46,6 +46,7 @@ import Swal from 'sweetalert2'
 import CIcon from '@coreui/icons-react'
 import { cilCheck, cilCheckAlt, cilPencil, cilTrash } from '@coreui/icons'
 import { propTypes } from 'react-bootstrap/esm/Image'
+import { useDispatch, useSelector } from 'react-redux'
 function Updatequestion(props) {
   const [idQuestion, setidQuestion] = useState(props.idquestion)
   const [Listereponses, setListereponses] = useState([])
@@ -58,7 +59,6 @@ function Updatequestion(props) {
   useEffect(() => {
     getQuestions(props.idquestion)
       .then((response) => {
-        console.log('ha 7anena0', response.data)
         question1.examen.id = response.data.examen.id
         question1.id = response.data.id
         setQuestion(response.data.question)
@@ -74,7 +74,6 @@ function Updatequestion(props) {
         setreponse1(Listereponses[0])
         setreponse2(Listereponses[1])
         setreponse3(Listereponses[2])
-        console.log('haa mzamra', Listereponses)
         if (Listereponses[0].correcte === true) {
           setcheck('res1')
           setreponse1(Listereponses[0])
@@ -113,6 +112,7 @@ function Updatequestion(props) {
       text: 'Quelque chose ne va pas ! Veuillez réessayer',
     })
   }
+
   const [question1, setQuestion1] = useState({
     question: '',
     examen: { id: '' },

@@ -23,7 +23,7 @@ import {
 
 const Demandes_inscriptions_examen = () => {
   return (
-    <div className="container-fluid py-4">
+    <div className="demandeINS container-fluid py-4">
       <div className="row">
         <div className="col-12">
           <div className="card my-4">

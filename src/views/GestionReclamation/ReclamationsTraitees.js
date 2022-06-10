@@ -3,6 +3,7 @@ import 'src/views/GestionFormation/listeFormation.css'
 import Swal from 'sweetalert2'
 import { DeleteReclamation, ReclamationsTraitees } from 'src/services/ReclamationService'
 import { Link, useNavigate } from 'react-router-dom'
+import 'src/views/GestionReclamation/gestionReclamation.css'
 
 import 'src/views/Reclamation/Reclamation.css'
 import {
@@ -58,7 +59,7 @@ const ReclamationTraitees = () => {
 
   if (posts.length == 0)
     return (
-      <>
+      <div className="listeFormation reclamation">
         <CCard style={{ marginTop: '90px' }}>
           <div
             className="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
@@ -77,7 +78,7 @@ const ReclamationTraitees = () => {
             <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>Aucune réclamation!</div>
           </div>
         </CCard>
-      </>
+      </div>
     )
   else {
     // Get current posts
@@ -96,7 +97,7 @@ const ReclamationTraitees = () => {
       pageNumbers.push(i)
     }
     return (
-      <>
+      <div className="listeFormation reclamation">
         <CCard style={{ marginTop: '90px' }}>
           <div
             className="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
@@ -261,7 +262,7 @@ const ReclamationTraitees = () => {
             </a>
           </CPagination>
         </CCard>
-      </>
+      </div>
     )
   }
 }

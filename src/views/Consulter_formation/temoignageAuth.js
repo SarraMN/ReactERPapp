@@ -36,7 +36,7 @@ import { cilPencil, cilPin } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { getfile } from 'src/services/fileService'
 import ReactImg from 'src/assets/images/profile_homme.png'
-const Temoignage = (props) => {
+const TemoignageAuth = (props) => {
   let values2 = {
     candidat: 0,
     formation: {
@@ -991,4 +991,4 @@ const Temoignage = (props) => {
     </>
   )
 }
-export default Temoignage
+export default TemoignageAuth

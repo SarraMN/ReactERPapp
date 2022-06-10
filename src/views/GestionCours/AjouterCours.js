@@ -89,7 +89,6 @@ const AjouterCours = (props) => {
       event.stopPropagation()
       setValidated(true)
     } else {
-      console.log('fifiii', file)
       const formData = new FormData()
       formData.append('file', file)
       axios({
@@ -99,19 +98,16 @@ const AjouterCours = (props) => {
         headers: { 'Content-Type': 'multipart/form-data' },
       }).then(
         function (response) {
-          console.log('filleee', response)
           if (response.data === 0) {
             taillefichiertroplarge()
           } else {
             values.document.id = response.data
             setValidated(true)
-            console.log('etat', etat)
             values.titre = titre
             values.description = description
             values.objectif = objectif
             values.formation.id = props.id
             values.etat = etat
-            console.log('values', values)
             AjoutCours(values).then((response) => {
               if (response.status === 200) {
                 console.log('avec succée')
@@ -227,6 +223,7 @@ const AjouterCours = (props) => {
               required
               type="file"
               size="sm"
+              accept="application/pdf"
               id="formFileSm"
               /*               value={file}
                */ /* onChange={(e) => {

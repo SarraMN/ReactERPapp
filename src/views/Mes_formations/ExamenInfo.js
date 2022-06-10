@@ -71,7 +71,7 @@ const ExamenInfo = () => {
   }
 
   return (
-    <div>
+    <div className="userProfil">
       <CCard>
         <section className="ftco-section services-section" style={{ marginRight: '10px' }}>
           <div className="container">
@@ -106,7 +106,7 @@ const ExamenInfo = () => {
                       size="lg"
                       style={{ width: '100%', float: 'right', align: 'right', marginLeft: '20px' }}
                     >
-                      Commenser l{"'"}examen
+                      Commencer l{"'"}examen
                     </Button>
                   </div>
                 </div>

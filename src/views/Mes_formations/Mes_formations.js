@@ -17,6 +17,7 @@ import 'swiper/css'
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
 import { fetchUserData, GetformationsCandidat } from 'src/services/UserService'
+import { useDispatch } from 'react-redux'
 const Mes_formations = (props) => {
   const [categorie, setCategorie] = useState(props)
   const [id, setId] = useState()
@@ -32,6 +33,9 @@ const Mes_formations = (props) => {
   let [images, setimages] = useState([])
   let [images2, setimages2] = useState([])
   let [bool, setbool] = useState(false)
+  const dispatch = useDispatch()
+
+  dispatch({ type: 'set', EtatExamen: 0 })
 
   useEffect(() => {
     test()
@@ -111,7 +115,7 @@ const Mes_formations = (props) => {
                 {posts.map((item, index) => (
                   <SwiperSlide key={index}>
                     <div>
-                      <div className="course">
+                      <div className="course" style={{ margin: '10px' }}>
                         <div className="project-wrap">
                           <a
                             href="#"
@@ -203,7 +207,6 @@ const Mes_formations = (props) => {
           >
             <div className="ml-auto clearfix">
               <div className="courses_show_text">
-                <span className="courses_showing">1-{postsPerPage}</span> de{' '}
                 <span className="courses_total">{posts.length}</span> resultats
               </div>
             </div>

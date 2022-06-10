@@ -18,7 +18,7 @@ import ReactImg2 from 'src/images/work-3.jpg'
 import ReactImg3 from 'src/images/work-5.jpg'
 import ReactImg4 from 'src/images/work-8.jpg'
 import ReactImg5 from 'src/images/work-6.jpg'
-import 'src/views/GestionCompte/gestioncompte.css'
+import 'src/views/gestion_organismes_conventionnes/AjoutOrganisme.css'
 import { uploadfile, getfile } from 'src/services/fileService'
 import {
   VerifPassword,
@@ -160,7 +160,7 @@ const Ajout_organisme_conventionne = () => {
 
   return (
     <div>
-      <section className="moncompte">
+      <section className="ajoutOrganisme">
         <Formik
           initialValues={initialValues2}
           validationSchema={Yup.object().shape({

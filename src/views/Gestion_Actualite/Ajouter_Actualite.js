@@ -46,6 +46,12 @@ const AjouterFormation = () => {
       name: '',
     },
   })
+  //datttteee
+  var today = new Date()
+  var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+
+  var dateExp = new Date(dateExpiration)
+  var aujourdhui = new Date(date)
 
   function initialiser() {
     setTitre('')
@@ -57,6 +63,13 @@ const AjouterFormation = () => {
     setImage(ReactImg)
     setProfileimg(ReactImg)
     setImage2(ReactImg)
+  }
+  function ErrDateRxpiration() {
+    Swal.fire({
+      icon: 'error',
+      title: `Date d'éxpiration `,
+      text: `La date d'éxpiration doit être supérieur à la date d'aujourd'hui  `,
+    })
   }
   function Notification_tailleDescription() {
     Swal.fire({
@@ -118,11 +131,16 @@ const AjouterFormation = () => {
       event.preventDefault()
       event.stopPropagation()
       setValidated(true)
-    } else if (description.length < 50) {
+    } else if (description.length < 100) {
       Notification_tailleDescription()
       event.preventDefault()
       event.stopPropagation()
       setValidated(true)
+    } else if (aujourdhui > dateExp || aujourdhui === dateExp) {
+      ErrDateRxpiration()
+      event.preventDefault()
+      event.stopPropagation()
+      setValidated(false)
     } else if (image == ReactImg) {
       Notification_photo()
       event.preventDefault()
@@ -167,158 +185,166 @@ const AjouterFormation = () => {
 
   return (
     <>
-      <CCard>
-        <CForm
-          className="row g-3 needs-validation"
-          noValidate
-          validated={validated}
-          style={{ paddingLeft: 15, paddingRight: 20, paddingTop: 15, paddingBottom: 15 }}
-        >
-          <CCol md={6}>
-            <CFormLabel style={{ fontWeight: 'bold' }} htmlFor="validationCustom01">
-              Titre
-            </CFormLabel>
-            <CFormInput
-              type="text"
-              id="validationCustom01"
-              defaultValue=""
-              required
-              value={titre}
-              onChange={(e) => {
-                setTitre(e.target.value)
-              }}
-            />
-            <CFormFeedback invalid>Titre est requis</CFormFeedback>
-          </CCol>
-          <CCol md={6}>
-            <CFormLabel style={{ fontWeight: 'bold' }} htmlFor="DateE">
-              Date d{"'"}expiration
-            </CFormLabel>
-            <CFormInput
-              type="date"
-              id="DateE"
-              defaultValue=""
-              required
-              value={dateExpiration}
-              onChange={(e) => {
-                setdateExpiration(e.target.value)
-              }}
-            />
-            <CFormFeedback invalid>Vous devez ajouter une date d{"'"}expiration.</CFormFeedback>
-          </CCol>
-          <CCol md={6}>
-            <div /* className="image w-48 h-48 mx-auto" */ style={{ 'text-align': 'center' }}>
-              <img src={profileimg} alt="Nature" className="responsive" width="500" height="300" />
-            </div>
-            <div className="field-body mx-auto" style={{ 'margin-top': '15px' }}>
-              <div
-                className="field file mx-auto"
-                style={{
-                  'border-radius': '30px',
-                  color: 'white',
-                  borderColor: 'white',
-                  width: '150px',
+      <div className="actualite">
+        <CCard>
+          <CForm
+            className="row g-3 needs-validation"
+            noValidate
+            validated={validated}
+            style={{ paddingLeft: 15, paddingRight: 20, paddingTop: 15, paddingBottom: 15 }}
+          >
+            <CCol md={6}>
+              <CFormLabel style={{ fontWeight: 'bold' }} htmlFor="validationCustom01">
+                Titre
+              </CFormLabel>
+              <CFormInput
+                type="text"
+                id="validationCustom01"
+                defaultValue=""
+                required
+                value={titre}
+                onChange={(e) => {
+                  setTitre(e.target.value)
                 }}
-              >
-                <label
-                  className="upload control mx-auto"
+              />
+              <CFormFeedback invalid>Titre est requis</CFormFeedback>
+            </CCol>
+            <CCol md={6}>
+              <CFormLabel style={{ fontWeight: 'bold' }} htmlFor="DateE">
+                Date d{"'"}expiration
+              </CFormLabel>
+              <CFormInput
+                type="date"
+                id="DateE"
+                defaultValue=""
+                required
+                value={dateExpiration}
+                onChange={(e) => {
+                  setdateExpiration(e.target.value)
+                }}
+              />
+              <CFormFeedback invalid>Vous devez ajouter une date d{"'"}expiration.</CFormFeedback>
+            </CCol>
+            <CCol md={6}>
+              <div /* className="image w-48 h-48 mx-auto" */ style={{ 'text-align': 'center' }}>
+                <img
+                  src={profileimg}
+                  alt="Nature"
+                  className="responsive"
+                  width="500"
+                  height="300"
+                />
+              </div>
+              <div className="field-body mx-auto" style={{ 'margin-top': '15px' }}>
+                <div
+                  className="field file mx-auto"
                   style={{
-                    Float: 'center',
-                    align: 'center',
                     'border-radius': '30px',
                     color: 'white',
                     borderColor: 'white',
                     width: '150px',
                   }}
                 >
-                  <a
-                    className="button blue"
+                  <label
+                    className="upload control mx-auto"
                     style={{
-                      color: '#213f77',
-                      'background-color': 'white',
-                      borderColor: '#213f77',
+                      Float: 'center',
+                      align: 'center',
+                      'border-radius': '30px',
+                      color: 'white',
+                      borderColor: 'white',
                       width: '150px',
-                      border: '2.5px solid #213f77',
-                      paddingLeft: 5,
                     }}
                   >
-                    Choisir une photo
-                  </a>
-                  <CFormInput
-                    type="file"
-                    accept="image/png, image/jpeg, image/jpg"
-                    onChange={(value) => imageHandler(value)}
-                    name="image"
-                  />
-                </label>
+                    <a
+                      className="button blue"
+                      style={{
+                        color: '#213f77',
+                        'background-color': 'white',
+                        borderColor: '#213f77',
+                        width: '150px',
+                        border: '2.5px solid #213f77',
+                        paddingLeft: 5,
+                      }}
+                    >
+                      Choisir une photo
+                    </a>
+                    <CFormInput
+                      type="file"
+                      accept="image/png, image/jpeg, image/jpg"
+                      onChange={(value) => imageHandler(value)}
+                      name="image"
+                    />
+                  </label>
+                </div>
               </div>
-            </div>
-          </CCol>
-          <CCol md={6}>
-            {' '}
-            <CFormLabel style={{ fontWeight: 'bold' }} htmlFor="exampleFormControlTextarea1">
-              Déscription (min 50 caractères)
-            </CFormLabel>
-            <CFormTextarea
-              id="exampleFormControlTextarea1"
-              rows="3"
-              required
-              style={{ width: '100%', 'max-width': '100%' }}
-              value={description}
-              onChange={(e) => {
-                setDescription(e.target.value)
-              }}
-              minLength="50"
-            ></CFormTextarea>
-            <CFormFeedback invalid>Déscription est requise</CFormFeedback>
-            <p style={{ color: 'dimgray' }}> {description.length} caractères </p>
-            <CFormLabel htmlFor="validationCustom01" style={{ fontWeight: 'bold' }}>
-              Spécifier l{"'"}etat:
-            </CFormLabel>
-            <CFormCheck
-              type="radio"
-              name="exampleRadios"
-              id="exampleRadios1"
-              value="false"
-              label="Non archivé"
-              onChange={(e) => {
-                setarchivee(false)
-              }}
-              defaultChecked
-            />
-            <CFormCheck
-              type="radio"
-              name="exampleRadios"
-              id="exampleRadios2"
-              value="Archivé"
-              label="Archivé"
-              onChange={(e) => {
-                setarchivee(true)
-              }}
-            />
-          </CCol>
+            </CCol>
+            <CCol md={6}>
+              {' '}
+              <CFormLabel style={{ fontWeight: 'bold' }} htmlFor="exampleFormControlTextarea1">
+                Contenu (minimum 100 caractères)
+              </CFormLabel>
+              <CFormTextarea
+                id="exampleFormControlTextarea1"
+                rows="8"
+                required
+                style={{ width: '100%', 'max-width': '100%' }}
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value)
+                }}
+                minLength="100"
+              ></CFormTextarea>
+              <CFormFeedback invalid>Contenu est requise</CFormFeedback>
+              <p style={{ color: 'dimgray' }}> {description.length} caractères </p>
+              <CFormLabel htmlFor="validationCustom01" style={{ fontWeight: 'bold' }}>
+                Spécifier l{"'"}etat:
+              </CFormLabel>
+              <CFormCheck
+                type="radio"
+                name="exampleRadios"
+                id="exampleRadios1"
+                value="false"
+                label="Non archivé"
+                onChange={(e) => {
+                  setarchivee(false)
+                }}
+                defaultChecked
+              />
+              <CFormCheck
+                type="radio"
+                name="exampleRadios"
+                id="exampleRadios2"
+                value="Archivé"
+                label="Archivé"
+                onChange={(e) => {
+                  setarchivee(true)
+                }}
+              />
+            </CCol>
 
-          <CCol xs={12} style={{ marginTop: '50px' }}>
-            <button
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                right: 0,
-                'border-radius': '30px',
-                color: '#213f77',
-                borderColor: '#213f77',
-                width: '120px',
-                height: '40px',
-                'font-weight': 'bold',
-              }}
-              type="button"
-              onClick={handleSubmit}
-            >
-              Ajouter
-            </button>
-          </CCol>
-        </CForm>
-      </CCard>
+            <CCol xs={12} style={{ marginTop: '50px' }}>
+              <button
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  right: 0,
+                  'border-radius': '30px',
+                  color: '#213f77',
+                  borderColor: '#213f77',
+                  width: '120px',
+                  height: '40px',
+                  'font-weight': 'bold',
+                }}
+                type="button"
+                onClick={handleSubmit}
+              >
+                Ajouter
+              </button>
+            </CCol>
+          </CForm>
+        </CCard>
+      </div>
     </>
   )
 }

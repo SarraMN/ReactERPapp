@@ -46,12 +46,6 @@ function NbrReclamations() {
 const _nav_admin = [
   {
     component: CNavItem,
-    name: 'Tableau du bord',
-    to: '/dashboard',
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
     name: 'Les organisation',
     to: '/gestion_organismes_conventionnes/organismes_conventionnes',
     icon: <CIcon icon={cilBank} customClassName="nav-icon" />,

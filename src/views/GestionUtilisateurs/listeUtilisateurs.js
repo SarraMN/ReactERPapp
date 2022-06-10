@@ -51,8 +51,19 @@ const ListeUtilisateurs = () => {
         Swal.fire('La suppression de ce compte a réussi!', '', 'success')
         getcandidats()
           .then((response) => {
+            response.data.map((item, index) => {
+              if (item.image == null) {
+                images[item.id] = avatar8
+              } else {
+                getfile(item.image.id)
+                  .then((response) => {
+                    settest(true)
+                    images[item.id] = URL.createObjectURL(response.data)
+                  })
+                  .catch((e) => {})
+              }
+            })
             setPosts(response.data)
-            console.log('data', response.data)
           })
           .catch((e) => {})
       } else if (result.isDenied) {
@@ -80,32 +91,27 @@ const ListeUtilisateurs = () => {
   const [PreviewsPage, setPreviewsPage] = useState(1)
   const [activeNumber, setactiveNumber] = useState(1)
   let [images, setimages] = useState([])
-  let [images3, setimages3] = useState([])
+  let [test, settest] = useState(false)
 
   useEffect(() => {
     getcandidats()
       .then((response) => {
-        console.log('data', response)
         response.data.map((item, index) => {
           if (item.image == null) {
-            images.push(avatar8)
+            images[item.id] = avatar8
           } else {
             getfile(item.image.id)
               .then((response) => {
-                images.push(URL.createObjectURL(response.data))
-                setProfileimg(URL.createObjectURL(response.data))
-                console.log('hello', response.data)
+                settest(true)
+                images[item.id] = URL.createObjectURL(response.data)
               })
               .catch((e) => {})
           }
         })
         setPosts(response.data)
-        setimages3(images.reverse())
-        console.log('data11', images)
-        console.log('data22', images3)
       })
       .catch((e) => {})
-  }, [])
+  }, [test, images])
   if (posts) {
     // Get current posts
     const indexOfLastPost = currentPage * postsPerPage //3
@@ -123,7 +129,7 @@ const ListeUtilisateurs = () => {
       pageNumbers.push(i)
     }
     return (
-      <div>
+      <div className="demandeINS">
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
@@ -261,7 +267,7 @@ const ListeUtilisateurs = () => {
                                 className="badge badge-sm"
                                 style={{ color: 'black', 'font-size': '12px' }}
                               >
-                                <CAvatar src={images3[index]} size="md" />
+                                <CAvatar src={images[item.id]} size="md" />
                               </span>
                             </td>
                             <td
@@ -380,6 +386,21 @@ const ListeUtilisateurs = () => {
                     </table>
                     <div style={{ 'text-align': ' center' }}>
                       <br></br>
+                      <div
+                        className="row pagination_row"
+                        style={{ marginRight: 15, marginBottom: 15 }}
+                      >
+                        <div className="col">
+                          <div className="pagination_container d-flex flex-row align-items-center justify-content-start">
+                            <div className="courses_show_container ml-auto clearfix">
+                              <div className="courses_show_text">
+                                <span>1-{postsPerPage}</span> de <span>{posts.length}</span>{' '}
+                                resultats
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <CPagination
                         className="justify-content-end"
                         aria-label="Page navigation example"

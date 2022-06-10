@@ -17,6 +17,7 @@ import { propTypes } from 'react-bootstrap/esm/Image'
 import Updatequestion from 'src/views/gestion_examen/Updatequestion'
 import 'src/views/gestion_examen/question.css'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Questions = (props) => {
   console.log('id formation', props.examen)
@@ -147,13 +148,10 @@ const Questions = (props) => {
   }
   function getListReponse(res) {
     setreponses([])
-    console.log('ena howni')
-    console.log('ha mo7sen wkhay', res)
+
     res.map((item, index) => {
-      console.log('ena howni2', item)
       getReponseByQuestion(item.id)
         .then((response) => {
-          console.log('chnawa jani ml reposne2', response)
           /*           Listereponses2.push(response.data)
            */ Listereponses.push(response.data)
         })
@@ -202,6 +200,10 @@ const Questions = (props) => {
                     getListQuestions()
                     setnumerodequestion(numerodequestion + 1)
                     setcheck('res1')
+                    e.question = ''
+                    e.reponse1 = ''
+                    e.reponse2 = ''
+                    e.reponse3 = ''
                   } else if (response3.status === 500) {
                     Notification_failure()
                   }
@@ -486,10 +488,7 @@ const Questions = (props) => {
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          <Modal.Header
-            closeButton
-            style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}
-          >
+          <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
             <CIcon
               icon={cilPencil}
               style={{
@@ -891,10 +890,7 @@ const Questions = (props) => {
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          <Modal.Header
-            closeButton
-            style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}
-          >
+          <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
             <CIcon
               icon={cilPencil}
               style={{
@@ -914,10 +910,7 @@ const Questions = (props) => {
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          <Modal.Header
-            closeButton
-            style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}
-          >
+          <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
             <CIcon
               icon={cilPencil}
               style={{

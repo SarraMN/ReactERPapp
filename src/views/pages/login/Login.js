@@ -76,13 +76,21 @@ const Login = (props) => {
           fetchUserData()
             .then((response) => {
               localStorage.setItem('Role', response.data.roles[0].authority)
+              if (response.data.roles[0].authority === 'Admin') {
+                navigate('/gestion_organismes_conventionnes/organismes_conventionnes')
+              }
+              if (response.data.roles[0].authority === 'User_Candidat') {
+                navigate('/accueil')
+              }
+              if (response.data.roles[0].authority === 'User_Professer') {
+                navigate('/GestionFormation/listeFormation')
+              }
             })
             .catch((e) => {
               // localStorage.clear()
             })
-
-          console.log(response.data)
-          navigate('/*')
+          /*           navigate('/*')
+           */
         } else {
           Notification_userinvalide()
         }

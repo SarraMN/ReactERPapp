@@ -12,6 +12,18 @@ export const getdemandes_ins_formations = (authRequest) => {
     },
   })
 }
+export const getDemandes_inscriptionsByCandidat = (authRequest) => {
+  return axios({
+    method: 'GET',
+    url:
+      `${
+        process.env.hostUrl || 'http://localhost:8080'
+      }/api/demandes_inscription/getDemandes_inscriptionsByCandidat/` + authRequest,
+    headers: {
+      Authorization: 'Bearer ' + getToken(),
+    },
+  })
+}
 export const gethistorique = (authRequest) => {
   return axios({
     method: 'GET',
@@ -61,6 +73,17 @@ export const addDemandeFormation = (authRequest) => {
     method: 'POST',
     url: `${process.env.hostUrl || 'http://localhost:8080'}/api/demandes_inscription/addDemande`,
     data: authRequest,
+    headers: {
+      Authorization: 'Bearer ' + getToken(),
+    },
+  })
+}
+export const deleteDemande = (authRequest) => {
+  return axios({
+    method: 'Delete',
+    url:
+      `${process.env.hostUrl || 'http://localhost:8080'}/api/demandes_inscription/deleteDemande/` +
+      authRequest,
     headers: {
       Authorization: 'Bearer ' + getToken(),
     },

@@ -3,7 +3,7 @@ import photo1 from 'src/assets/images/Software-development.jpg'
 import photo2 from 'src/assets/images/logopasexamen.png'
 import photo5 from 'src/images/bg_2.jpg'
 import photo3 from 'src/assets/images/logoF2.png'
-import 'src/views/Consulter_formation/formationInfos.css'
+import 'src/views/Mes_formations/formationInformations.css'
 import 'src/App.css'
 import { Accordion, Modal, Button, Nav } from 'react-bootstrap'
 import { Link, useLocation } from 'react-router-dom'
@@ -40,6 +40,7 @@ import {
 import { getfile } from 'src/services/fileService'
 import { getExamenAleatoire } from 'src/services/examenService'
 import { getByCandidatFormation, nbrHeuresApresExamen } from 'src/services/ResultatService'
+import { nombre_candidatsParFormation } from 'src/services/FormationService'
 const FormationInfo = () => {
   const [examen, setExamen] = useState({})
   const [resultatExamen, setresultatExamen] = useState(0)
@@ -120,6 +121,7 @@ const FormationInfo = () => {
     image: '',
   })
   const [candidatinscrit, setCandidatinscrit] = useState('inscription')
+  const [nbrcandidats, setnbrcandidats] = useState('')
 
   values.titre = location.state.titre
   values.id = location.state.id
@@ -138,6 +140,11 @@ const FormationInfo = () => {
     getfile(location.state.image.id)
       .then((response) => {
         values.image = URL.createObjectURL(response.data)
+      })
+      .catch((e) => {})
+    nombre_candidatsParFormation(location.state.id)
+      .then((response3) => {
+        setnbrcandidats(response3.data)
       })
       .catch((e) => {})
     fetchUserData()
@@ -260,21 +267,221 @@ const FormationInfo = () => {
   }
 
   return (
-    <div>
-      <div className="formation">
-        <div className="container">
-          <div className="row">
+    <div className="formationInformation">
+      <CCard>
+        <div className="formation">
+          <div className="container">
             <div
+              className="row"
               style={{
-                paddingLeft: '20px',
-                marginRight: '20px',
+                marginTop: '20px',
+                marginRight: '5px',
+                marginLeft: '5px',
+                marginBottom: '20px',
               }}
             >
-              <CCard>
+              <div>
+                <CCard style={{ backgroundColor: '#213f77' }}>
+                  <div>
+                    <div
+                      style={{
+                        marginTop: '30px',
+                        marginRight: '30px',
+                        backgoundColor: 'red',
+                      }}
+                    >
+                      {resultatExamen === 0 ? (
+                        <div>
+                          {examen === null ? (
+                            <button
+                              type="submit"
+                              className="home_search_button2"
+                              onClick={() => pasExamens()}
+                              style={{
+                                height: '50px',
+                                width: '180px',
+                                align: 'right',
+                                float: 'right',
+                              }}
+                            >
+                              <i
+                                className="fa fa-pencil-square-o"
+                                aria-hidden="true"
+                                style={{ paddingRight: '10', marginRight: '5px' }}
+                              ></i>
+                              Passer Examen
+                            </button>
+                          ) : (
+                            <Link
+                              to="/Mes_formations/Mes_formations/FormationInfo/ExamenInfo"
+                              state={location.state.id}
+                            >
+                              <button
+                                type="submit"
+                                className="home_search_button2"
+                                onClick={handleShow}
+                                style={{
+                                  height: '50px',
+                                  width: '180px',
+                                  align: 'right',
+                                  float: 'right',
+                                }}
+                              >
+                                <i
+                                  className="fa fa-pencil-square-o"
+                                  aria-hidden="true"
+                                  style={{ paddingRight: '10', marginRight: '5px' }}
+                                ></i>
+                                Passer Examen
+                              </button>{' '}
+                            </Link>
+                          )}
+                        </div>
+                      ) : (
+                        <div>
+                          {resultatExamen === 1 ? (
+                            <div>
+                              <Link
+                                to="/Mes_formations/Mes_formations/FormationInfo/certificat"
+                                state={location.state}
+                              >
+                                <button
+                                  type="submit"
+                                  className="home_search_button3"
+                                  style={{
+                                    'font-size': '1em',
+                                    height: '50px',
+                                    width: '180px',
+                                    align: 'right',
+                                    float: 'right',
+                                  }}
+                                >
+                                  <i
+                                    className="fa fa-certificate"
+                                    aria-hidden="true"
+                                    style={{ paddingRight: '10', marginRight: '5px' }}
+                                  ></i>
+                                  Ma Certificat
+                                </button>{' '}
+                              </Link>
+                            </div>
+                          ) : (
+                            <div>
+                              {resultatExamen === 2 ? (
+                                <div>
+                                  {examen === null ? (
+                                    <button
+                                      type="submit"
+                                      className="home_search_button2"
+                                      onClick={() => pasExamens()}
+                                      style={{
+                                        height: '50px',
+                                        width: '180px',
+                                        align: 'right',
+                                        float: 'right',
+                                      }}
+                                    >
+                                      <i
+                                        className="fa fa-pencil-square-o"
+                                        aria-hidden="true"
+                                        style={{ paddingRight: '10', marginRight: '5px' }}
+                                      ></i>
+                                      Passer Examen
+                                    </button>
+                                  ) : (
+                                    <Link
+                                      to="/Mes_formations/Mes_formations/FormationInfo/ExamenInfo"
+                                      state={location.state.id}
+                                    >
+                                      <button
+                                        type="submit"
+                                        className="home_search_button2"
+                                        onClick={handleShow}
+                                        style={{
+                                          height: '50px',
+                                          width: '180px',
+                                          align: 'right',
+                                          float: 'right',
+                                        }}
+                                      >
+                                        <i
+                                          className="fa fa-pencil-square-o"
+                                          aria-hidden="true"
+                                          style={{ paddingRight: '10', marginRight: '5px' }}
+                                        ></i>
+                                        Passer Examen
+                                      </button>{' '}
+                                    </Link>
+                                  )}
+                                </div>
+                              ) : (
+                                <div>
+                                  {' '}
+                                  <button
+                                    type="submit"
+                                    className="home_search_button2"
+                                    onClick={() => NeDeppasePas24H()}
+                                    style={{
+                                      height: '50px',
+                                      width: '180px',
+                                      align: 'right',
+                                      float: 'right',
+                                    }}
+                                  >
+                                    <i
+                                      className="fa fa-pencil-square-o"
+                                      aria-hidden="true"
+                                      style={{ paddingRight: '10', marginRight: '5px' }}
+                                    ></i>
+                                    Passer Examen
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      <Link
+                        to="/Mes_formations/Mes_formations/FormationInfo/voirCours"
+                        state={location.state.id}
+                      >
+                        <button
+                          type="submit"
+                          className="home_search_button"
+                          onClick={handleShow}
+                          style={{
+                            height: '50px',
+                            width: '180px',
+                            align: 'right',
+                            float: 'right',
+                          }}
+                        >
+                          <i
+                            className="fa fa-server"
+                            aria-hidden="true"
+                            style={{ paddingRight: '10', marginRight: '5px' }}
+                          ></i>
+                          Voir Cours
+                        </button>{' '}
+                      </Link>
+                    </div>
+                    <div className="formation_title" style={{ marginLeft: '30px', color: 'white' }}>
+                      {' '}
+                      Formation :{values.titre}
+                      <p style={{ marginLeft: '30px', 'font-size': '20px', color: '#C5CACD' }}>
+                        {' '}
+                        Categorie :{values.categorie}
+                      </p>
+                    </div>
+                  </div>
+                </CCard>
+                {/*     <CCard style={{ backgoundColor: 'red' }}>
                 <div
                   style={{
                     marginTop: '30px',
                     marginRight: '30px',
+                    backgoundColor: 'red',
                   }}
                 >
                   {resultatExamen === 0 ? (
@@ -459,7 +666,7 @@ const FormationInfo = () => {
                     </button>{' '}
                   </Link>
                 </div>
-                <div className="formation_title" style={{ marginLeft: '30px' }}>
+                <div className="formation_title" style={{ marginLeft: '30px', color: 'red' }}>
                   {' '}
                   Formation :{values.titre}
                   <p style={{ marginLeft: '30px', 'font-size': '20px' }}>
@@ -467,55 +674,55 @@ const FormationInfo = () => {
                     Categorie :{values.categorie}
                   </p>
                 </div>
-              </CCard>
-            </div>
-            <div className="col-lg-6">
-              <div className="formation_container">
-                <div className="formation_image">
-                  <img src={values.image} alt="" style={{ width: 500, height: 350 }} />
+              </CCard> */}
+              </div>
+              <div className="col-lg-6">
+                <div className="formation_container">
+                  <div className="formation_image">
+                    <img src={values.image} alt="" style={{ width: 400, height: 250 }} />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-6" style={{}}>
-              <div className="sidebarFormation">
-                <div className="sidebarFormation_section">
-                  <div className="sidebarFormation_section_title" style={{ 'font-size': '2em' }}>
-                    Détails formation
-                  </div>
-                  <div className="sidebarFormation_feature">
-                    <div className="formation_price">
-                      {typeCandidat === 'candidatSimple' ? (
-                        <p>{values.prix} Dt</p>
-                      ) : (
-                        <p> {values.prix_organismes_conventiones} Dt</p>
-                      )}{' '}
+              <div className="col-lg-6" style={{}}>
+                <div className="sidebarFormation2">
+                  <div className="sidebarFormation_section">
+                    <div className="sidebarFormation_section_title" style={{ 'font-size': '2em' }}>
+                      Détails formation
                     </div>
-
-                    <div className="feature_list">
-                      <div className="feature d-flex flex-row align-items-center justify-content-start">
-                        <div className="feature_title">
-                          <i className="fa fa-file-text-o" aria-hidden="true"></i>
-                          <span>Nombre des cours: {values.nbrCours}</span>
-                        </div>
+                    <div className="sidebarFormation_feature">
+                      <div className="formation_price">
+                        {typeCandidat === 'candidatSimple' ? (
+                          <p>{values.prix} Dt</p>
+                        ) : (
+                          <p> {values.prix_organismes_conventiones} Dt</p>
+                        )}{' '}
                       </div>
 
-                      <div className="feature d-flex flex-row align-items-center justify-content-start">
-                        <div className="feature_title">
-                          <i className="fa fa-list-alt" aria-hidden="true"></i>
-                          <span style={{ marginRight: 50 }}>Catégorie: {values.categorie}</span>
+                      <div className="feature_list">
+                        <div className="feature d-flex flex-row align-items-center justify-content-start">
+                          <div className="feature_title">
+                            <i className="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>Nombre des cours: {values.nbrCours}</span>
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="feature d-flex flex-row align-items-center justify-content-start">
-                        <div className="feature_title">
-                          <i className="fa fa-users" aria-hidden="true"></i>
-                          <span>Candidats inscrits: 35</span>
+                        <div className="feature d-flex flex-row align-items-center justify-content-start">
+                          <div className="feature_title">
+                            <i className="fa fa-list-alt" aria-hidden="true"></i>
+                            <span style={{ marginRight: 50 }}>Catégorie: {values.categorie}</span>
+                          </div>
+                        </div>
+
+                        <div className="feature d-flex flex-row align-items-center justify-content-start">
+                          <div className="feature_title">
+                            <i className="fa fa-users" aria-hidden="true"></i>
+                            <span>Candidats inscrits: {nbrcandidats}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                {/*  {candidatinscrit === 'inscription' ? (
+                  {/*  {candidatinscrit === 'inscription' ? (
                 <button
                   type="submit"
                   className="home_search_button"
@@ -584,41 +791,42 @@ const FormationInfo = () => {
                 </span>
               )} */}
 
-                <Modal
-                  show={show}
-                  onHide={handleClose}
-                  aria-labelledby="contained-modal-title-vcenter"
-                  centered
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Demande d{"'"}inscription</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    Cette formation coûte{' '}
-                    {typeCandidat === 'candidatSimple' ? (
-                      <span> {values.prix} Dt</span>
-                    ) : (
-                      <span> {values.prix_organismes_conventiones} Dt</span>
-                    )}{' '}
-                    si vous êtes sur de s{"'"}inscrire cliquer sur envoyer et un agent va bientôt
-                    vous contacter pour fixer un rendez-vous pour venir chez nous et payer le
-                    montant demandé.
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Fermer
-                    </Button>
-                    <Button style={{ height: 39 }} variant="primary" onClick={envoyermail}>
-                      Envoyer
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+                  <Modal
+                    show={show}
+                    onHide={handleClose}
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Demande d{"'"}inscription</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      Cette formation coûte{' '}
+                      {typeCandidat === 'candidatSimple' ? (
+                        <span> {values.prix} Dt</span>
+                      ) : (
+                        <span> {values.prix_organismes_conventiones} Dt</span>
+                      )}{' '}
+                      si vous êtes sur de s{"'"}inscrire cliquer sur envoyer et un agent va bientôt
+                      vous contacter pour fixer un rendez-vous pour venir chez nous et payer le
+                      montant demandé.
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Fermer
+                      </Button>
+                      <Button style={{ height: 39 }} variant="primary" onClick={envoyermail}>
+                        Envoyer
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <CCard style={{ marginTop: '30px' }}>
+      </CCard>
+      <CCard style={{ marginTop: '10px' }}>
         <div className="tab-content" id="pills-tabContent">
           <div
             className="tab-pane fade show active"
@@ -645,7 +853,7 @@ const FormationInfo = () => {
           ></div>
         </div>
       </CCard>
-      <CCard style={{ marginTop: '30px', paddingBottom: '30px' }}>
+      <CCard style={{ marginTop: '10px', paddingBottom: '10px' }}>
         <CCol>
           {cours != null && (
             <div
@@ -674,7 +882,7 @@ const FormationInfo = () => {
           )}
         </CCol>
       </CCard>
-      <div style={{ marginTop: '30px' }}>
+      <div style={{ marginTop: '10px' }}>
         <Temoignage formation={location.state.id}></Temoignage>
       </div>
     </div>

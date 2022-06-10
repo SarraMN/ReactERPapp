@@ -1,15 +1,15 @@
-.sidebar_categories {
+.Voircours .sidebar_categories {
   margin-top: 16px;
 }
-.sidebar_categories ul li {
+.Voircours .sidebar_categories ul li {
   position: relative;
   width: 100%;
   height: 51px;
 }
-.sidebar_categories ul li:not(:last-of-type) {
+.Voircours .sidebar_categories ul li:not(:last-of-type) {
   border-bottom: solid 1px #e5e5e5;
 }
-.sidebar_categories ul li a {
+.Voircours .sidebar_categories ul li a {
   display: block;
   position: relative;
   font-size: 14px;
@@ -21,7 +21,7 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.sidebar_categories ul li a::before {
+.Voircours .sidebar_categories ul li a::before {
   display: inline-block;
   position: relative;
   font-family: 'FontAwesome';
@@ -33,32 +33,32 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.sidebar_categories ul li:hover a,
-.sidebar_categories ul li:hover a::before {
+.Voircours .sidebar_categories ul li:hover a,
+.Voircours .sidebar_categories ul li:hover a::before {
   color: #14bdee;
 }
-.sidebar_latest {
+.Voircours .sidebar_latest {
   margin-top: 31px;
 }
-.sidebar_section_title {
+.Voircours .sidebar_section_title {
   font-family: 'Roboto Slab', serif;
   font-size: 24px;
   font-weight: 700;
   color: #384158;
   line-height: 0.75;
 }
-.sidebar_categories {
+.Voircours .sidebar_categories {
   margin-top: 16px;
 }
-.sidebar_categories ul li {
+.Voircours .sidebar_categories ul li {
   position: relative;
   width: 100%;
   height: 51px;
 }
-.sidebar_categories ul li:not(:last-of-type) {
+.Voircours .sidebar_categories ul li:not(:last-of-type) {
   border-bottom: solid 1px #e5e5e5;
 }
-.sidebar_categories ul li a {
+.Voircours .sidebar_categories ul li a {
   display: block;
   position: relative;
   font-size: 14px;
@@ -70,7 +70,7 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.sidebar_categories ul li a::before {
+.Voircours .sidebar_categories ul li a::before {
   display: inline-block;
   position: relative;
   font-family: 'FontAwesome';
@@ -82,30 +82,30 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.sidebar_categories ul li:hover a,
-.sidebar_categories ul li:hover a::before {
+.Voircours .sidebar_categories ul li:hover a,
+.Voircours .sidebar_categories ul li:hover a::before {
   color: #14bdee;
 }
-.sidebar_categories ul li {
+.Voircours .sidebar_categories ul li {
   position: relative;
   width: 100%;
   height: 51px;
 }
-.sidebar_section:not(:last-child) {
+.Voircours .sidebar_section:not(:last-child) {
   margin-bottom: 60px;
 }
-.sidebar_section_title {
+.Voircours .sidebar_section_title {
   font-family: 'Roboto Slab', serif;
   font-size: 24px;
   font-weight: 700;
   color: #384158;
   line-height: 0.75;
 }
-ul {
+.Voircours ul {
   list-style: none;
   margin-bottom: 0px;
 }
-p {
+.Voircours p {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   line-height: 1.85;
@@ -115,7 +115,7 @@ p {
   -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
 }
-p a {
+.Voircours p a {
   display: inline;
   position: relative;
   color: inherit;
@@ -126,36 +126,36 @@ p a {
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-p:last-of-type {
+.Voircours p:last-of-type {
   margin-bottom: 0;
 }
-a,
-a:hover,
-a:visited,
-a:active,
-a:link {
+.Voircours a,
+.Voircours a:hover,
+.Voircours a:visited,
+.Voircours a:active,
+.Voircours a:link {
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
   -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
 }
-p a:active {
+.Voircours p a:active {
   position: relative;
   color: #ff6347;
 }
-p a:hover {
+.Voircours p a:hover {
   color: #ffffff;
   background: #ffa07f;
 }
-p a:hover::after {
+.Voircours p a:hover::after {
   opacity: 0.2;
 }
-.sidebar_banner_overlay {
+.Voircours .sidebar_banner_overlay {
   background: #14bdee;
   opacity: 0.7;
 }
 
-.banner_button {
+.Voircours .banner_button {
   width: 200px;
   height: 46px;
   background: #ffffff;
@@ -166,7 +166,7 @@ p a:hover::after {
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.banner_button a {
+.Voircours .banner_button a {
   display: block;
   color: #14bdee;
   font-size: 14px;
@@ -183,16 +183,16 @@ p a:hover::after {
   transition: all 200ms ease;
 }
 
-.product__details__tab {
+.Voircours .product__details__tab {
   padding-top: 85px;
 }
 
-.product__details__tab .nav-tabs {
+.Voircours .product__details__tab .nav-tabs {
   border-bottom: none;
   justify-content: center;
   position: relative;
 }
 
-.product__details__tab .nav-tabs li {
+.Voircours .product__details__tab .nav-tabs li {
   margin-right: 65px;
 }

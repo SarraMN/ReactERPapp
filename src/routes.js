@@ -60,6 +60,7 @@ const Accueil = React.lazy(() => import('./views/Accueil/accueil'))
 const reclamations = React.lazy(() => import('./views/Reclamation/SuiviReclamations'))
 const AjoutReclamation = React.lazy(() => import('./views/Reclamation/AjoutReclamation'))
 const ConsulterReclamation = React.lazy(() => import('./views/Reclamation/ConsulterReclamation'))
+const suivreDemande = React.lazy(() => import('./views/suivreDemande/suivreDemandes'))
 const ReclamationsAttentes = React.lazy(() =>
   import('./views/GestionReclamation/ReclamationsAttentes'),
 )
@@ -73,7 +74,7 @@ const ConsulterReclamationTraitee = React.lazy(() =>
   import('./views/GestionReclamation/ConsulterReclamationTraitee'),
 )
 const routes = [
-  { path: '/', exact: true, name: 'Accueil' },
+  { path: '/', exact: true, name: 'Dashboard' },
   { path: '/dashboard', name: 'tableau du bord', element: Dashboard },
   { path: '/accueil', name: 'Accueil', element: Accueil },
 
@@ -251,12 +252,12 @@ const routes = [
   },
   {
     path: '/consulterActualite/consulterActualite',
-    name: 'Les actualite',
+    name: 'Les actualités',
     element: consulterActualite,
   },
   {
     path: '/consulterActualite/consulterActualite/actualiteInfo',
-    name: 'Actualite Info',
+    name: 'Actualite',
     element: actualiteInfo,
   },
   {
@@ -293,6 +294,16 @@ const routes = [
     path: '/GestionReclamation/ReclamationAttentes/ReclamationsTraitees/ConsulterReclamationTraitee',
     name: 'Reclamation',
     element: ConsulterReclamationTraitee,
+  },
+  {
+    path: '/Gestion_Actualite/Actualites/actualiteInfo',
+    name: 'Actualite information',
+    element: actualiteInfo,
+  },
+  {
+    path: '/suivreDemande/suivreDemandes',
+    name: 'Suivre demandes',
+    element: suivreDemande,
   },
 ]
 

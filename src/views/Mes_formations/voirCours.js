@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import 'src/views/Consulter_formation/formation.css'
 import photo1 from 'src/assets/images/Software-development.jpg'
 import { getFormations, getformationbycategorie } from 'src/services/FormationService'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -109,6 +108,7 @@ const VoirCours = (props) => {
     setDescription(item.description)
     setObjectif(item.objectif)
     setIDcours(item.id)
+    closeAlerte()
   }
   const [numPages, setNumPages] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)
@@ -182,7 +182,13 @@ const VoirCours = (props) => {
       text: 'Le commentaire ne peut pas etre vide doivent être remplis',
     })
   }
+  function miseEnAttente() {
+    setTimeout(function () {
+      document.getElementById('alerte').style.display = 'none'
+    }, 5000)
+  }
   const handleSubmit2 = (event) => {
+    closeAlerte()
     if (commentaire === '') {
       Notification_NonVide()
       event.preventDefault()
@@ -199,13 +205,14 @@ const VoirCours = (props) => {
             values.cours.id = IDcours
             ajouterCommentaire(values).then((response3) => {
               if (response3.status === 200) {
-                console.log('avec succée')
                 setcommentaire('')
                 setValidated(false)
                 setIDcours2(IDcours)
                 setIDcours(IDcours2)
-                setTest(true)
+                if (test === true) setTest(false)
+                else setTest(true)
                 document.getElementById('alerte').style.display = 'block'
+                miseEnAttente()
               } else if (response3.status === 500) {
                 console.log('failure')
               }
@@ -221,7 +228,7 @@ const VoirCours = (props) => {
   const [bool5, setbool5] = useState(true)
 
   return (
-    <div>
+    <div className="Voircours">
       <CCard>
         <div style={{ marginTop: '50px', marginLeft: '20px' }}>
           <div>

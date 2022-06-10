@@ -68,134 +68,136 @@ const Reinitialiser_mdp = () => {
       })
   }
   return (
-    <Formik
-      initialValues={{
-        password: '',
-        confirmPassword: '',
-      }}
-      validationSchema={Yup.object().shape({
-        password: Yup.string()
-          .min(6, 'Le mot de passe doit être au moins de 6 caractères')
-          .required('Le mot de passe est requis'),
-        confirmPassword: Yup.string()
-          .oneOf([Yup.ref('password'), null], 'les mots de passe doivent correspondre')
-          .required('La confirmation du mot de passe est requis'),
-      })}
-      onSubmit={(values) => handleSubmit(values)}
-      render={({ errors, status, touched }) => (
-        <div className="page-content3">
-          <div className="page-content4">
-            <div className="form-v10-content">
-              <Form className="form-detail" action="#" method="post" id="myform">
-                <div
-                  className="form-right"
-                  style={{
-                    'border-top-left-radius': 10,
-                    'border-bottom-left-radius': 10,
-                    backgroundColor: '#213f77',
-                  }}
-                >
+    <div className="Initialiser">
+      <Formik
+        initialValues={{
+          password: '',
+          confirmPassword: '',
+        }}
+        validationSchema={Yup.object().shape({
+          password: Yup.string()
+            .min(6, 'Le mot de passe doit être au moins de 6 caractères')
+            .required('Le mot de passe est requis'),
+          confirmPassword: Yup.string()
+            .oneOf([Yup.ref('password'), null], 'les mots de passe doivent correspondre')
+            .required('La confirmation du mot de passe est requis'),
+        })}
+        onSubmit={(values) => handleSubmit(values)}
+        render={({ errors, status, touched }) => (
+          <div className="page-content3">
+            <div className="page-content4">
+              <div className="form-v10-content">
+                <Form className="form-detail" action="#" method="post" id="myform">
                   <div
-                    className="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
-                    style={{ 'background-color': '#92acce', 'border-radius': 5 }}
-                  >
-                    <div className="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                      <h6
-                        className="text-white ps-3"
-                        style={{
-                          'font-weight': 'bold',
-                          'font-size': '30px',
-                          'text-align': 'center',
-                        }}
-                      >
-                        Réinitialiser le mot de passe
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="label5">
-                    {' '}
-                    Saisissez un nouveau mot de passe pour votre compte.
-                  </div>
-
-                  <div className="form-row-last">
-                    <div classNameName="form-row3" style={{ paddingRight: 50 }}>
-                      <Field
-                        type="password"
-                        id="password"
-                        style={{ 'border-radius': 0 }}
-                        name="password"
-                        classNameName={
-                          ' form-control' +
-                          (errors.password && touched.password ? ' is-invalid' : '')
-                        }
-                        placeholder="mot de passe"
-                      />
-                      <ErrorMessage
-                        style={{ fontSize: 15, color: '#FF3030' }}
-                        name="password"
-                        component="div"
-                        classNameName="invalid-feedback"
-                      />
-                      {/*              <input type="password"   required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Mot de passe"/>
-                       */}{' '}
-                      <br></br>
-                      <br></br>
-                      <Field
-                        type="password"
-                        id="confirmPassword"
-                        style={{ 'border-radius': 0 }}
-                        name="confirmPassword"
-                        classNameName={
-                          ' form-control' +
-                          (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')
-                        }
-                        placeholder="Confirmer le mot de passe"
-                      />
-                      <ErrorMessage
-                        name="confirmPassword"
-                        style={{ fontSize: 15, color: '#FF3030' }}
-                        component="div"
-                        classNameName="invalid-feedback"
-                      />
-                    </div>
-                  </div>
-                  <div className="form-row-last" style={{ 'text-align': 'center' }}>
-                    <button
-                      type="submit"
-                      style={{
-                        'border-radius': '30px',
-                        color: 'white',
-                        borderColor: 'white',
-                        width: '150px',
-                      }}
-                      className="btn btn-outline-primary "
-                    >
-                      Réinitialiser
-                    </button>
-                  </div>
-                  <br></br>
-                  <p
-                    className="btn"
+                    className="form-right"
                     style={{
-                      color: 'white',
-                      'font-size': '15px',
+                      'border-top-left-radius': 10,
+                      'border-bottom-left-radius': 10,
+                      backgroundColor: '#213f77',
                     }}
-                    onClick={() => retour()}
                   >
-                    <i
-                      className="fa fa-backward"
-                      aria-hidden="true"
-                      style={{ marginRight: '5px' }}
-                    ></i>
-                    Retour
-                  </p>
-                </div>
-              </Form>
+                    <div
+                      className="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
+                      style={{ 'background-color': '#92acce', 'border-radius': 5 }}
+                    >
+                      <div className="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6
+                          className="text-white ps-3"
+                          style={{
+                            'font-weight': 'bold',
+                            'font-size': '30px',
+                            'text-align': 'center',
+                          }}
+                        >
+                          Réinitialiser le mot de passe
+                        </h6>
+                      </div>
+                    </div>
+                    <div className="label5">
+                      {' '}
+                      Saisissez un nouveau mot de passe pour votre compte.
+                    </div>
+
+                    <div className="form-row-last">
+                      <div classNameName="form-row3" style={{ paddingRight: 50 }}>
+                        <Field
+                          type="password"
+                          id="password"
+                          style={{ 'border-radius': 0 }}
+                          name="password"
+                          classNameName={
+                            ' form-control' +
+                            (errors.password && touched.password ? ' is-invalid' : '')
+                          }
+                          placeholder="mot de passe"
+                        />
+                        <ErrorMessage
+                          style={{ fontSize: 15, color: '#FF3030' }}
+                          name="password"
+                          component="div"
+                          classNameName="invalid-feedback"
+                        />
+                        {/*              <input type="password"   required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Mot de passe"/>
+                         */}{' '}
+                        <br></br>
+                        <br></br>
+                        <Field
+                          type="password"
+                          id="confirmPassword"
+                          style={{ 'border-radius': 0 }}
+                          name="confirmPassword"
+                          classNameName={
+                            ' form-control' +
+                            (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')
+                          }
+                          placeholder="Confirmer le mot de passe"
+                        />
+                        <ErrorMessage
+                          name="confirmPassword"
+                          style={{ fontSize: 15, color: '#FF3030' }}
+                          component="div"
+                          classNameName="invalid-feedback"
+                        />
+                      </div>
+                    </div>
+                    <div className="form-row-last" style={{ 'text-align': 'center' }}>
+                      <button
+                        type="submit"
+                        style={{
+                          'border-radius': '30px',
+                          color: 'white',
+                          borderColor: 'white',
+                          width: '150px',
+                        }}
+                        className="btn btn-outline-primary "
+                      >
+                        Réinitialiser
+                      </button>
+                    </div>
+                    <br></br>
+                    <p
+                      className="btn"
+                      style={{
+                        color: 'white',
+                        'font-size': '15px',
+                      }}
+                      onClick={() => retour()}
+                    >
+                      <i
+                        className="fa fa-backward"
+                        aria-hidden="true"
+                        style={{ marginRight: '5px' }}
+                      ></i>
+                      Retour
+                    </p>
+                  </div>
+                </Form>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    />
+        )}
+      />
+    </div>
   )
 }
 export default Reinitialiser_mdp

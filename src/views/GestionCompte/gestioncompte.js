@@ -100,13 +100,13 @@ const Gestioncompte = () => {
     Swal.fire({
       icon: 'error',
       title: 'Probleme !',
-      text: 'y a pas des changement',
+      text: 'y a pas des changements',
     })
   }
   function Notification_BadPassword() {
     Swal.fire({
       icon: 'error',
-      title: 'erreur !',
+      title: 'Erreur !',
       text: 'Le ancien mot de passe est incorrect',
     })
   }
@@ -740,7 +740,7 @@ const Gestioncompte = () => {
                   .required('Le mot de passe est requis'),
                 confirmPassword: Yup.string()
                   .oneOf([Yup.ref('password'), null], 'les mots de passe doivent correspondre')
-                  .required('Confirmer le mot de passe est requis'),
+                  .required('La confirmation du mot de passe est requise'),
                 old_password: Yup.string().required('Le mot de passe est requis'),
               })}
               onSubmit={(values) => changerpassword(values)}
@@ -791,15 +791,6 @@ const Gestioncompte = () => {
                   <div className="field">
                     <label className="label">Confirmez le mot de passe</label>
                     <div className="control">
-                      {/*       <input
-                        type="password"
-                        name="password_confirmation"
-                        className="input"
-                        required
-                      />
-
-        */}
-
                       <Field
                         type="password"
                         id="confirmPassword"

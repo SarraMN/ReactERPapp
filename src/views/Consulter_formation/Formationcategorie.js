@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react'
 import 'src/views/Consulter_formation/formation.css'
 import photo1 from 'src/assets/images/Software-development.jpg'
 import { CCard, CPagination, CPaginationItem } from '@coreui/react'
-import { getFormations, getformationbycategorie } from 'src/services/FormationService'
+import {
+  getFormations,
+  getformationbycategorie,
+  nombre_candidatsParFormation,
+} from 'src/services/FormationService'
 import { Link, useNavigate } from 'react-router-dom'
 import { uploadfile, getfile } from 'src/services/fileService'
 import ReactImg from 'src/images/work-1.jpg'
@@ -31,6 +35,7 @@ const Formationcategorie = (props) => {
   const [bool, setbool] = useState(false)
   let navigate = useNavigate()
   let [images, setimages] = useState([])
+  const [nbrcandidats, setNbrcandidats] = useState([])
 
   useEffect(() => {
     getformationbycategorie(categorie.categorie)
@@ -42,6 +47,11 @@ const Formationcategorie = (props) => {
               .then((response2) => {
                 setbool(true)
                 images[item.id] = URL.createObjectURL(response2.data)
+              })
+              .catch((e) => {})
+            nombre_candidatsParFormation(item.id)
+              .then((response3) => {
+                nbrcandidats[item.id] = response3.data
               })
               .catch((e) => {})
           })
@@ -92,7 +102,7 @@ const Formationcategorie = (props) => {
 
     return (
       <div>
-        <CCard>
+        <CCard style={{ paddingLeft: '10px' }}>
           <div className="container">
             <div className="row">
               <h3 style={{ marginTop: '15px', 'text-shadow': '2px 4px 3px rgba(0,0,0,0.3)' }}>
@@ -117,7 +127,7 @@ const Formationcategorie = (props) => {
                 {currentPosts.map((item, index) => (
                   <SwiperSlide key={index}>
                     <div>
-                      <div className="course">
+                      <div className="course" style={{ margin: '10px' }}>
                         <div className="project-wrap">
                           <a
                             href="#"
@@ -149,11 +159,11 @@ const Formationcategorie = (props) => {
                           <div className="course_footer_content d-flex flex-row align-items-center justify-content-start">
                             <div className="course_info">
                               <i className="fa fa-graduation-cap" aria-hidden="true"></i>
-                              <span>20 Student</span>
+                              <span>{nbrcandidats[item.id]} candidats</span>
                             </div>
                             <div className="course_info">
                               <i className="fa fa-star" aria-hidden="true" />
-                              <span>5 Ratings</span>
+                              <span>4 etoiles</span>
                             </div>
                             <div className="course_price ml-auto">
                               {typeCandidat === 'candidatSimple' ? (
@@ -173,41 +183,6 @@ const Formationcategorie = (props) => {
           </div>
 
           <br></br>
-          <CPagination
-            className="justify-content-center"
-            aria-label="Page navigation example"
-            style={{ marginRight: 20 }}
-          >
-            <a
-              onClick={() => {
-                if (PreviewsPage != 0) {
-                  setCurrentPage(PreviewsPage)
-                  paginate(PreviewsPage)
-                  setactiveNumber(PreviewsPage)
-                }
-              }}
-            >
-              <CPaginationItem aria-label="Previous" disabled>
-                <span aria-hidden="true">&laquo;</span>
-              </CPaginationItem>
-            </a>
-            <a>
-              <CPaginationItem active>{activeNumber}</CPaginationItem>
-            </a>
-            <a
-              onClick={() => {
-                if (currentPage < posts.length / postsPerPage) {
-                  setCurrentPage(NextPage)
-                  paginate(NextPage)
-                  setactiveNumber(NextPage)
-                }
-              }}
-            >
-              <CPaginationItem aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </CPaginationItem>
-            </a>
-          </CPagination>
 
           <div
             style={{ marginRight: 15, marginBottom: 15 }}
@@ -215,8 +190,7 @@ const Formationcategorie = (props) => {
           >
             <div className="ml-auto clearfix">
               <div className="courses_show_text">
-                <span className="courses_showing">1-{postsPerPage}</span> de{' '}
-                <span className="courses_total">{posts.length}</span> resultats:
+                <span className="courses_total">{posts.length}</span> resultats
               </div>
             </div>
           </div>

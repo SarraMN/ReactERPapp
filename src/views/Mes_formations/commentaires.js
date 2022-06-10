@@ -34,7 +34,6 @@ const Commentaires = (props) => {
   const [ListeCommentaires3, setListeCommentaires3] = useState([])
   const [ListeCommentaires4, setListeCommentaires4] = useState([])
   const [photopropreitaire, setphotopropreitaire] = useState([])
-  const [photopropreitaire2, setphotopropreitaire2] = useState([])
   const [bool, setbool] = useState(false)
   const [voirplus1, setvoirplus1] = useState(false)
   const [idcandidat, setidcandidat] = useState(0)
@@ -51,38 +50,30 @@ const Commentaires = (props) => {
       .then((response) => {
         setListeCommentaires(response.data)
         if (response.data.length > 4) {
-          console.log('true')
           setvoirplus1(true)
         }
-
         response.data.map((item, index) => {
           if (index < 4) {
-            console.log('ena jiyyt')
             ListeCommentaires4.push(item)
           }
           if (item.proprietaire.image === null) {
-            photopropreitaire2.push(avatar8)
+            photopropreitaire[item.proprietaire.id] = avatar8
           } else {
             getfile(item.proprietaire.image.id)
               .then((response) => {
                 setbool(true)
-                photopropreitaire2.push(URL.createObjectURL(response.data))
+                photopropreitaire[item.proprietaire.id] = URL.createObjectURL(response.data)
               })
               .catch((e) => {})
           }
         })
         setListeCommentaires2(ListeCommentaires4)
         setListeCommentaires3(ListeCommentaires4)
-        setphotopropreitaire(photopropreitaire2.reverse())
-        console.log('kifssh al tsawer', photopropreitaire2)
+
         setListeCommentaires4([])
-        setphotopropreitaire2([])
       })
       .catch((e) => {})
   }, [props.idcours, bool, props.test])
-  console.log('true', voirplus1)
-  console.log('images', photopropreitaire)
-
   const voirplus = () => {
     setListeCommentaires2(ListeCommentaires)
     document.getElementById('voirmoins').style.display = 'block'
@@ -93,7 +84,6 @@ const Commentaires = (props) => {
     document.getElementById('voirmoins').style.display = 'none'
     document.getElementById('voirplus').style.display = 'block'
   }
-  console.log(' ach andi ', ListeCommentaires2)
   function supprimercommentaire(e) {
     Swal.fire({
       title: 'Souhaitez-vous supprimer cet commentaire ?',
@@ -110,34 +100,31 @@ const Commentaires = (props) => {
         Swal.fire('cet commentaire a été supprimé avec succes!', '', 'success')
         getAllcommentaire(props.idcours)
           .then((response) => {
-            console.log('zoookkkk', response.data)
             setListeCommentaires(response.data)
             if (response.data.length > 4) {
-              console.log('true')
               setvoirplus1(true)
+              voirmoins()
+            } else {
+              setvoirplus1(false)
             }
 
             response.data.map((item, index) => {
               if (index < 4) {
-                console.log('ena jiyyt')
                 ListeCommentaires4.push(item)
               }
               if (item.proprietaire.image === null) {
-                photopropreitaire2.push(avatar8)
+                photopropreitaire[item.proprietaire.id] = avatar8
               } else {
                 getfile(item.proprietaire.image.id)
                   .then((response) => {
-                    photopropreitaire2.push(URL.createObjectURL(response.data))
+                    photopropreitaire[item.proprietaire.id] = URL.createObjectURL(response.data)
                   })
                   .catch((e) => {})
               }
             })
             setListeCommentaires2(ListeCommentaires4)
             setListeCommentaires3(ListeCommentaires4)
-            setphotopropreitaire(photopropreitaire2.reverse())
-            console.log('kifssh al tsawer', photopropreitaire2)
             setListeCommentaires4([])
-            setphotopropreitaire2([])
           })
           .catch((e) => {})
       } else if (result.isDenied) {
@@ -215,20 +202,18 @@ const Commentaires = (props) => {
                   ListeCommentaires4.push(item)
                 }
                 if (item.proprietaire.image === null) {
-                  photopropreitaire2.push(avatar8)
+                  photopropreitaire[item.proprietaire.id] = avatar8
                 } else {
                   getfile(item.proprietaire.image.id)
                     .then((response) => {
-                      photopropreitaire2.push(URL.createObjectURL(response.data))
+                      photopropreitaire[item.proprietaire.id] = URL.createObjectURL(response.data)
                     })
                     .catch((e) => {})
                 }
               })
               setListeCommentaires2(ListeCommentaires4)
               setListeCommentaires3(ListeCommentaires4)
-              setphotopropreitaire(photopropreitaire2.reverse())
               setListeCommentaires4([])
-              setphotopropreitaire2([])
             })
             .catch((e) => {})
         } else Notification_failure()
@@ -236,7 +221,7 @@ const Commentaires = (props) => {
     }
   }
   return (
-    <div>
+    <div className="userProfil">
       <CCard>
         <header className="card-header">
           <p className="card-header-title">
@@ -259,7 +244,7 @@ const Commentaires = (props) => {
             <div className="d-flex px-2 py-1" key={index} style={{ paddingLeft: '25px' }}>
               <CCol md={0}>
                 <div style={{ marginRight: '10px', float: 'right', align: 'right' }}>
-                  <CAvatar src={photopropreitaire[index]} size="md" />
+                  <CAvatar src={photopropreitaire[item.proprietaire.id]} size="md" />
                 </div>
               </CCol>
               <CCol>
@@ -412,7 +397,7 @@ const Commentaires = (props) => {
             Fermer
           </Button>
           <Button style={{ height: 39 }} variant="primary" onClick={Modifier}>
-            Envoyer
+            Modifier
           </Button>
         </Modal.Footer>
       </Modal>

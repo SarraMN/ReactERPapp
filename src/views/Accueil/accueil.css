@@ -1,30 +1,30 @@
 @charset "utf-8";
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto:400,500,700');
-.gauche {
+.Accueil .gauche {
   float: left;
   width: 25%;
 }
-.milieu {
+.Accueil .milieu {
   display: inline-block;
   width: 50%;
 }
-.droite {
+.Accueil .droite {
   float: right;
   width: 25%;
 }
-.accueil div {
+.Accueil .accueil div {
   display: block;
   position: relative;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.accueil ul {
+.Accueil .accueil ul {
   list-style: none;
   margin-bottom: 0px;
 }
-.accueil p {
+.Accueil .accueil p {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   line-height: 2.29;
@@ -34,7 +34,7 @@
   -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
 }
-.accueil p a {
+.Accueil .accueil p a {
   display: inline;
   position: relative;
   color: inherit;
@@ -46,119 +46,119 @@
   transition: all 200ms ease;
 }
 
-.accueil h1,
-.accueil h2,
-.accueil h3,
-.accueil h4,
-.accueil h5,
-.accueil h6 {
+.Accueil .accueil h1,
+.Accueil .accueil h2,
+.Accueil .accueil h3,
+.Accueil .accueil h4,
+.Accueil .accueil h5,
+.Accueil .accueil h6 {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
 }
-.accueil h1::selection,
-.accueil h2::selection,
-.accueil h3::selection,
-.accueil h4::selection,
-.accueil h5::selection,
-.accueil h6::selection {
+.Accueil .accueil h1::selection,
+.Accueil .accueil h2::selection,
+.Accueil .accueil h3::selection,
+.Accueil .accueil h4::selection,
+.Accueil .accueil h5::selection,
+.Accueil .accueil h6::selection {
 }
-.accueil ::-webkit-input-placeholder {
+.Accueil .accueil ::-webkit-input-placeholder {
   font-size: 14px !important;
   font-weight: 500 !important;
   color: #a5a5a5 !important;
 }
-.accueil :-moz-placeholder /* older Firefox*/ {
+.Accueil .accueil :-moz-placeholder /* older Firefox*/ {
   font-size: 14px !important;
   font-weight: 500 !important;
   color: #a5a5a5 !important;
 }
-.accueil ::-moz-placeholder /* Firefox 19+ */ {
+.Accueil .accueil ::-moz-placeholder /* Firefox 19+ */ {
   font-size: 14px !important;
   font-weight: 500 !important;
   color: #a5a5a5 !important;
 }
-.accueil :-ms-input-placeholder {
+.Accueil .accueil :-ms-input-placeholder {
   font-size: 14px !important;
   font-weight: 500 !important;
   color: #a5a5a5 !important;
 }
-.accueil ::input-placeholder {
+.Accueil .accueil ::input-placeholder {
   font-size: 14px !important;
   font-weight: 500 !important;
   color: #a5a5a5 !important;
 }
-.accueil .form-control {
+.Accueil .accueil .form-control {
   color: #db5246;
 }
-.accueil section {
+.Accueil .accueil section {
   display: block;
   position: relative;
   box-sizing: border-box;
 }
-.accueil .clear {
+.Accueil .accueil .clear {
   clear: both;
 }
-.accueil .clearfix::before,
-.accueil .clearfix::after {
+.Accueil .accueil .clearfix::before,
+.Accueil .accueil .clearfix::after {
   content: '';
   display: table;
 }
-.accueil .clearfix::after {
+.Accueil .accueil .clearfix::after {
   clear: both;
 }
-.accueil .clearfix {
+.Accueil .accueil .clearfix {
   zoom: 1;
 }
-.accueil .float_left {
+.Accueil .accueil .float_left {
   float: left;
 }
-.accueil .float_right {
+.Accueil .accueil .float_right {
   float: right;
 }
-.accueil .trans_200 {
+.Accueil .accueil .trans_200 {
   -webkit-transition: all 200ms ease;
   -moz-transition: all 200ms ease;
   -ms-transition: all 200ms ease;
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.accueil .trans_300 {
+.Accueil .accueil .trans_300 {
   -webkit-transition: all 300ms ease;
   -moz-transition: all 300ms ease;
   -ms-transition: all 300ms ease;
   -o-transition: all 300ms ease;
   transition: all 300ms ease;
 }
-.accueil .trans_400 {
+.Accueil .accueil .trans_400 {
   -webkit-transition: all 400ms ease;
   -moz-transition: all 400ms ease;
   -ms-transition: all 400ms ease;
   -o-transition: all 400ms ease;
   transition: all 400ms ease;
 }
-.accueil .trans_500 {
+.Accueil .accueil .trans_500 {
   -webkit-transition: all 500ms ease;
   -moz-transition: all 500ms ease;
   -ms-transition: all 500ms ease;
   -o-transition: all 500ms ease;
   transition: all 500ms ease;
 }
-.accueil .fill_height {
+.Accueil .accueil .fill_height {
   height: 100%;
 }
-.accueil .super_container {
+.Accueil .accueil .super_container {
   width: 100%;
   overflow: hidden;
 }
-.accueil .prlx_parent {
+.Accueil .accueil .prlx_parent {
   overflow: hidden;
 }
-.accueil .prlx {
+.Accueil .accueil .prlx {
   height: 130% !important;
 }
-.accueil .nopadding {
+.Accueil .accueil .nopadding {
   padding: 0px !important;
 }
 
@@ -166,7 +166,7 @@
 3. Header
 *********************************/
 
-.accueil .header {
+.Accueil .accueil .header {
   position: fixed;
   top: 45px;
   left: 50%;
@@ -185,17 +185,17 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.accueil .header.scrolled {
+.Accueil .accueil .header.scrolled {
   top: 15px;
 }
-.accueil .header.scrolled .header_content::before {
+.Accueil .accueil .header.scrolled .header_content::before {
   box-shadow: 0px 20px 49px rgba(0, 0, 0, 0.17);
 }
-.accueil .header_content {
+.Accueil .accueil .header_content {
   width: calc(100% - 279px);
   height: 100%;
 }
-.accueil .header_content::before {
+.Accueil .accueil .header_content::before {
   display: block;
   position: absolute;
   top: 0;
@@ -211,11 +211,11 @@
 3.1 Logo
 *********************************/
 
-.accueil .logo_container {
+.Accueil .accueil .logo_container {
   display: inline-block;
   padding-left: 76px;
 }
-.accueil .logo span {
+.Accueil .accueil .logo span {
   font-family: 'Open Sans', sans-serif;
   font-size: 30px;
   font-weight: 900;
@@ -229,22 +229,22 @@
 3.2 Main Nav
 *********************************/
 
-.accueil .main_nav_container {
+.Accueil .accueil .main_nav_container {
   display: inline-block;
   margin-left: auto;
   padding-right: 93px;
 }
-.accueil .main_nav {
+.Accueil .accueil .main_nav {
   margin-top: 7px;
 }
-.accueil .main_nav_item {
+.Accueil .accueil .main_nav_item {
   display: inline-block;
   margin-right: 40px;
 }
-.accueil .main_nav_item:last-child {
+.Accueil .accueil .main_nav_item:last-child {
   margin-right: 0px;
 }
-.accueil .main_nav_item a {
+.Accueil .accueil .main_nav_item a {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   text-transform: uppercase;
@@ -256,7 +256,7 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.accueil .main_nav_item a:hover {
+.Accueil .accueil .main_nav_item a:hover {
   color: #ffb606;
 }
 
@@ -264,16 +264,16 @@
 3.3 Header Side
 *********************************/
 
-.accueil .header_side {
+.Accueil .accueil .header_side {
   width: 279px;
   height: 100%;
   background: #ffb606;
 }
-.accueil .header_side img {
+.Accueil .accueil .header_side img {
   width: 29px;
   height: 29px;
 }
-.accueil .header_side span {
+.Accueil .accueil .header_side span {
   display: block;
   position: relative;
   font-size: 18px;
@@ -286,7 +286,7 @@
 3.4 Hamburger
 *********************************/
 
-.accueil .hamburger_container {
+.Accueil .accueil .hamburger_container {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -298,12 +298,12 @@
   display: none;
   cursor: pointer;
 }
-.accueil .hamburger_container i {
+.Accueil .accueil .hamburger_container i {
   font-size: 24px;
   padding: 10px;
   color: #3a3a3a;
 }
-.accueil .hamburger_container:hover i {
+.Accueil .accueil .hamburger_container:hover i {
   color: #ffb606;
 }
 
@@ -311,7 +311,7 @@
 4. Menu
 *********************************/
 
-.accueil .menu_container {
+.Accueil .accueil .menu_container {
   position: fixed;
   top: 0;
   right: -50vw;
@@ -327,18 +327,18 @@
   visibility: hidden;
   opacity: 0;
 }
-.accueil .menu_container.active {
+.Accueil .accueil .menu_container.active {
   visibility: visible;
   opacity: 1;
   right: 0;
 }
-.accueil .menu {
+.Accueil .accueil .menu {
   position: absolute;
   top: 150px;
   left: 0;
   padding-left: 15%;
 }
-.accueil .menu_list {
+.Accueil .accueil .menu_list {
   -webkit-transform: translateY(3.5rem);
   -moz-transform: translateY(3.5rem);
   -ms-transform: translateY(3.5rem);
@@ -351,7 +351,7 @@
   transition: all 1000ms 600ms ease;
   opacity: 0;
 }
-.accueil .menu_container.active .menu_list {
+.Accueil .accueil .menu_container.active .menu_list {
   -webkit-transform: translateY(0px);
   -moz-transform: translateY(0px);
   -ms-transform: translateY(0px);
@@ -359,10 +359,10 @@
   transform: translateY(0px);
   opacity: 1;
 }
-.accueil .menu_item {
+.Accueil .accueil .menu_item {
   margin-bottom: 9px;
 }
-.accueil .menu_item a {
+.Accueil .accueil .menu_item a {
   font-family: 'Open Sans', sans-serif;
   font-size: 36px;
   font-weight: 700;
@@ -373,10 +373,10 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.accueil .menu_item a:hover {
+.Accueil .accueil .menu_item a:hover {
   color: #ffb606;
 }
-.accueil .menu_close_container {
+.Accueil .accueil .menu_close_container {
   position: absolute;
   top: 86px;
   right: 79px;
@@ -389,7 +389,7 @@
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.accueil .menu_close {
+.Accueil .accueil .menu_close {
   top: 9px;
   width: 21px;
   height: 3px;
@@ -400,7 +400,7 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.accueil .menu_close::after {
+.Accueil .accueil .menu_close::after {
   display: block;
   position: absolute;
   top: -9px;
@@ -415,8 +415,8 @@
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
-.accueil .menu_close_container:hover .menu_close,
-.accueil .menu_close_container:hover .menu_close::after {
+.Accueil .accueil .menu_close_container:hover .menu_close,
+.Accueil .accueil .menu_close_container:hover .menu_close::after {
   background: #ffb606;
 }
 
@@ -424,7 +424,7 @@
 4.1 Menu Social
 *********************************/
 
-.accueil .menu_social_container {
+.Accueil .accueil .menu_social_container {
   margin-top: 100px;
   -webkit-transform: translateY(3.5rem);
   -moz-transform: translateY(3.5rem);
@@ -439,17 +439,17 @@
   opacity: 0;
   padding-left: 4px;
 }
-.accueil .menu_social_item {
+.Accueil .accueil .menu_social_item {
   display: inline-block;
   margin-right: 30px;
 }
-.accueil .menu_social_item a i {
+.Accueil .accueil .menu_social_item a i {
   color: #3a3a3a;
 }
-.accueil .menu_social_item a i:hover {
+.Accueil .accueil .menu_social_item a i:hover {
   color: #ffb606;
 }
-.accueil .menu_container.active .menu_social_container {
+.Accueil .accueil .menu_container.active .menu_social_container {
   -webkit-transform: translateY(0px);
   -moz-transform: translateY(0px);
   -ms-transform: translateY(0px);
@@ -462,7 +462,7 @@
 4.2 Menu copyright
 *********************************/
 
-.accueil .menu_copyright {
+.Accueil .accueil .menu_copyright {
   margin-top: 60px;
   -webkit-transform: translateY(3.5rem);
   -moz-transform: translateY(3.5rem);
@@ -477,7 +477,7 @@
   opacity: 0;
   padding-left: 3px;
 }
-.accueil .menu_container.active .menu_copyright {
+.Accueil .accueil .menu_container.active .menu_copyright {
   -webkit-transform: translateY(0px);
   -moz-transform: translateY(0px);
   -ms-transform: translateY(0px);
@@ -490,7 +490,7 @@
 5. Home
 *********************************/
 
-.accueil .home {
+.Accueil .accueil .home {
   width: 100%;
   height: 100vh;
 }
@@ -499,15 +499,15 @@
 5.1 Hero Slider
 *********************************/
 
-.accueil .hero_slider_container {
+.Accueil .accueil .hero_slider_container {
   width: 100%;
   height: 100%;
 }
-.accueil .hero_slide {
+.Accueil .accueil .hero_slide {
   width: 100%;
   height: 100%;
 }
-.accueil .hero_slide_background {
+.Accueil .accueil .hero_slide_background {
   position: absolute;
   top: 0;
   left: 0;
@@ -517,11 +517,11 @@
   background-size: cover;
   background-position: center center;
 }
-.accueil .hero_slide_container {
+.Accueil .accueil .hero_slide_container {
   width: 100%;
   height: 100vh;
 }
-.accueil .hero_slide_content {
+.Accueil .accueil .hero_slide_content {
   max-width: 80%;
   -webkit-transform: translateY(30px);
   -moz-transform: translateY(30px);
@@ -529,25 +529,25 @@
   -o-transform: translateY(30px);
   transform: translateY(30px);
 }
-.accueil .hero_slide_content h1 {
+.Accueil .accueil .hero_slide_content h1 {
   font-size: 72px;
   font-weight: 400;
   color: #ffffff;
 }
-.accueil .hero_slide_content h1 span {
+.Accueil .accueil .hero_slide_content h1 span {
   background: #ffb606;
   padding-left: 13px;
   padding-right: 13px;
   margin-left: -12px;
   margin-right: -12px;
 }
-.accueil .animated {
+.Accueil .accueil .animated {
   -webkit-animation-duration: 1s !important;
   animation-duration: 1s !important;
   -webkit-animation-delay: 500ms;
   animation-delay: 500ms;
 }
-.accueil .animate-out {
+.Accueil .accueil .animate-out {
   -webkit-animation-delay: 0ms;
   animation-delay: 0ms;
 }
@@ -556,7 +556,7 @@
 5.2 Hero Slider Navigation
 *********************************/
 
-.accueil .hero_slider_nav {
+.Accueil .accueil .hero_slider_nav {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -578,13 +578,13 @@
   z-index: 9;
   cursor: pointer;
 }
-.accueil .hero_slider_nav:hover {
+.Accueil .accueil .hero_slider_nav:hover {
   background: #ffb606;
 }
-.accueil .hero_slider_nav:hover span {
+.Accueil .accueil .hero_slider_nav:hover span {
   color: #ffffff;
 }
-.accueil .hero_slider_nav span {
+.Accueil .accueil .hero_slider_nav span {
   display: block;
   text-transform: uppercase;
   font-size: 12px;
@@ -592,10 +592,10 @@
   color: #121212;
   line-height: 1;
 }
-.accueil .hero_slider_left {
+.Accueil .accueil .hero_slider_left {
   left: 4.32%;
 }
-.accueil .hero_slider_right {
+.Accueil .accueil .hero_slider_right {
   right: 4.32%;
 }
 
@@ -603,62 +603,62 @@
 6. Hero Boxes
 *********************************/
 
-.hero_boxes {
+.Accueil .hero_boxes {
   width: 100%;
   height: 0px;
   z-index: 9;
   padding-top: 0px;
 }
-.hero_boxes_inner {
+.Accueil .hero_boxes_inner {
   position: absolute;
   top: -212px;
   left: 0;
   width: 100%;
 }
-.hero_box {
+.Accueil .hero_box {
   width: 100%;
   height: 161px;
   background: #1a1a1a;
   padding-left: 50px;
   cursor: pointer;
 }
-.hero_box:hover {
+.Accueil .hero_box:hover {
   background: #ffb606;
 }
-.hero_box img {
+.Accueil .hero_box img {
   width: 62px;
   height: auto;
   margin-top: -6px;
 }
-.accueil .svg path {
+.Accueil .accueil .svg path {
   fill: #ffb606;
 }
-.hero_box svg {
+.Accueil .hero_box svg {
   width: 62px;
   height: auto;
 }
-.hero_box:hover svg path {
+.Accueil .hero_box:hover svg path {
   fill: #ffffff;
 }
-.hero_box_content {
+.Accueil .hero_box_content {
   padding-left: 13px;
   padding-top: 11px;
   margin-top: -6px;
 }
-.hero_box_title {
+.Accueil .hero_box_title {
   font-size: 24px;
   font-weight: 500;
   color: #ffffff;
   margin-bottom: 7px;
 }
-.hero_box_link {
+.Accueil .hero_box_link {
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
   color: #ffffff;
   padding-left: 3px;
 }
-.hero_box_link:hover {
+.Accueil .hero_box_link:hover {
   color: #1a1a1a;
 }
 
@@ -666,19 +666,19 @@
 7. Page Section
 *********************************/
 
-.accueil .page_section {
+.Accueil .accueil .page_section {
   padding-top: 117px;
   padding-bottom: 117px;
 }
-.accueil .section_title {
+.Accueil .accueil .section_title {
 }
-.accueil .section_title h1 {
+.Accueil .accueil .section_title h1 {
   display: block;
   color: #1a1a1a;
   font-weight: 500;
   padding-top: 24px;
 }
-.accueil .section_title h1::before {
+.Accueil .accueil .section_title h1::before {
   display: block;
   position: absolute;
   top: 0;
@@ -698,19 +698,19 @@
 8. Buttons
 *********************************/
 
-.accueil .button {
+.Accueil .accueil .button {
   cursor: pointer;
 }
-.accueil .button:hover {
+.Accueil .accueil .button:hover {
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
-.accueil .button a {
+.Accueil .accueil .button a {
   font-size: 14px;
   line-height: 48px;
   font-weight: 700;
   text-transform: uppercase;
 }
-.accueil .button_1 {
+.Accueil .accueil .button_1 {
   width: 202px;
   height: 48px;
 }
@@ -719,74 +719,74 @@
 9. Popular
 *********************************/
 
-.accueil .popular {
+.Accueil .accueil .popular {
 }
-.accueil .course_boxes {
+.Accueil .accueil .course_boxes {
   margin-top: 68px;
 }
-.accueil .card {
+.Accueil .accueil .card {
   display: block;
   background: #f8f9fb;
   border: none;
 }
-.accueil .card-img-top {
+.Accueil .accueil .card-img-top {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
 }
-.accueil .card-body {
+.Accueil .accueil .card-body {
   padding-top: 0px;
   padding-bottom: 0px;
   padding-left: 15px;
   padding-right: 15px;
 }
-.accueil .card-title {
+.Accueil .accueil .card-title {
   margin-top: 55px;
 }
-.accueil .card-title a {
+.Accueil .accueil .card-title a {
   font-size: 22px;
   font-weight: 500;
   color: #1a1a1a;
   line-height: 1.2;
 }
-.accueil .card-title a:hover {
+.Accueil .accueil .card-title a:hover {
   color: #a5a5a5;
 }
-.accueil .card-text {
+.Accueil .accueil .card-text {
   font-size: 14px;
   font-weight: 500;
   color: #a5a5a5;
   margin-top: -12px;
 }
-.accueil .price_box {
+.Accueil .accueil .price_box {
   width: 100%;
   height: 67px;
   background: #eaebec;
   margin-top: 41px;
   padding-left: 35px;
 }
-.accueil .course_author_image {
+.Accueil .accueil .course_author_image {
   width: 46px;
   height: 46px;
   border-radius: 50%;
   overflow: hidden;
 }
-.accueil .course_author_name {
+.Accueil .accueil .course_author_name {
   font-size: 14px;
   font-weight: 500;
   color: #1a1a1a;
   padding-left: 20px;
   margin-top: 7px;
 }
-.accueil .course_author_name span {
+.Accueil .accueil .course_author_name span {
   color: #a5a5a5;
 }
-.accueil .course_price {
+.Accueil .accueil .course_price {
   width: 67px;
   height: 67px;
   background: #ffb606;
   margin-left: auto;
 }
-.accueil .course_price span {
+.Accueil .accueil .course_price span {
   color: #ffffff;
   font-size: 18px;
   font-weight: 500;
@@ -797,30 +797,30 @@
 10. Register
 *********************************/
 
-.accueil .register {
+.Accueil .accueil .register {
   width: 100%;
 }
-.accueil .register_section {
+.Accueil .accueil .register_section {
   width: 100%;
   background: #ffb606;
   padding-top: 156px;
   padding-bottom: 161px;
 }
-.accueil .register_content {
+.Accueil .accueil .register_content {
   width: 522px;
 }
-.accueil .register_title {
+.Accueil .accueil .register_title {
   color: #ffffff;
   margin-bottom: 16px;
   line-height: 1.63;
 }
-.accueil .register_title:last-child {
+.Accueil .accueil .register_title:last-child {
   margin-bottom: 0px;
 }
-.accueil .register_title span {
+.Accueil .accueil .register_title span {
   color: #1a1a1a;
 }
-.accueil .register_text {
+.Accueil .accueil .register_text {
   color: #ffffff;
   font-weight: 500;
   margin-top: 32px;
@@ -828,11 +828,11 @@
   padding-right: 25px;
   margin-bottom: 0px;
 }
-.accueil .register_button {
+.Accueil .accueil .register_button {
   background: #1a1a1a;
   margin-top: 65px;
 }
-.accueil .register_button a {
+.Accueil .accueil .register_button a {
   color: #ffffff;
 }
 
@@ -840,15 +840,15 @@
 11. Search
 *********************************/
 
-.accueil .search_section {
+.Accueil .accueil .search_section {
   width: 100%;
   height: 100%;
   background: #ececec;
 }
-.accueil .search_content {
+.Accueil .accueil .search_content {
   width: 522px;
 }
-.accueil .search_background {
+.Accueil .accueil .search_background {
   position: absolute;
   top: 0;
   left: 0;
@@ -859,21 +859,21 @@
   background-size: cover;
   opacity: 0.23;
 }
-.accueil .search_title {
+.Accueil .accueil .search_title {
   color: #1a1a1a;
 }
-.accueil .testimonials {
+.Accueil .accueil .testimonials {
   width: 100%;
   background: #1a1a1a;
 }
-.accueil .testimonials_background_container {
+.Accueil .accueil .testimonials_background_container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
 }
-.accueil .testimonials_background {
+.Accueil .accueil .testimonials_background {
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
@@ -881,53 +881,53 @@
   background-position: center center;
   opacity: 0.27;
 }
-.accueil .testimonials .section_title h1 {
+.Accueil .accueil .testimonials .section_title h1 {
   color: #ffffff;
 }
-.accueil .testimonials_slider_container {
+.Accueil .accueil .testimonials_slider_container {
   padding-left: 30px;
   padding-right: 30px;
   margin-top: 56px;
 }
-.accueil .testimonials_item {
+.Accueil .accueil .testimonials_item {
   width: 100%;
   padding-bottom: 75px;
 }
-.accueil .quote {
+.Accueil .accueil .quote {
   font-size: 36px;
   color: #ffb606;
 }
-.accueil .testimonials_text {
+.Accueil .accueil .testimonials_text {
   color: #ffffff;
   margin-bottom: 0px;
 }
-.accueil .testimonial_user {
+.Accueil .accueil .testimonial_user {
   margin-top: 43px;
 }
-.accueil .testimonial_image {
+.Accueil .accueil .testimonial_image {
   width: 98px;
   height: 98px;
   border-radius: 50%;
   overflow: hidden;
 }
-.accueil .testimonial_image img {
+.Accueil .accueil .testimonial_image img {
   width: 100%;
   height: auto;
 }
-.accueil .testimonial_name {
+.Accueil .accueil .testimonial_name {
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
   color: #f6af03;
   margin-top: 21px;
 }
-.accueil .testimonial_title {
+.Accueil .accueil .testimonial_title {
   font-size: 14px;
   font-weight: 500;
   color: #ffffff;
   margin-top: 6px;
 }
-.accueil .testimonials_slider .owl-dots {
+.Accueil .accueil .testimonials_slider .owl-dots {
   display: -webkit-box !important;
   display: -moz-box !important;
   display: -ms-flexbox !important;
@@ -937,25 +937,25 @@
   justify-content: center;
   align-items: center;
 }
-.accueil .testimonials_slider .owl-dot span {
+.Accueil .accueil .testimonials_slider .owl-dot span {
   width: 8px !important;
   height: 8px !important;
   border: solid 2px #ffffff;
   background: transparent !important;
 }
-.accueil .testimonials_slider .owl-dot.active span {
+.Accueil .accueil .testimonials_slider .owl-dot.active span {
   width: 16px !important;
   height: 16px !important;
   border: none;
   background: #ffb606 !important;
 }
 
-.swiper {
+.Accueil.swiper {
   width: 100%;
   height: 100%;
 }
 
-.swiper-slide {
+.Accueil .swiper-slide {
   text-align: center;
   font-size: 18px;
 
@@ -974,17 +974,17 @@
   align-items: center;
 }
 
-.accueil .milestones {
+.Accueil .accueil .milestones {
   width: 100%;
   margin-top: 102px;
 }
-.accueil .milestones_container {
+.Accueil .accueil .milestones_container {
   width: 100%;
   padding-top: 118px;
   padding-bottom: 107px;
   margin-top: 108px;
 }
-.accueil .milestones_background {
+.Accueil .accueil .milestones_background {
   position: absolute;
   top: 0;
   left: 0;
@@ -995,27 +995,196 @@
   background-position: center center;
   background-attachment: fixed;
 }
-.accueil .milestone {
+.Accueil .accueil .milestone {
   width: 100%;
 }
-.accueil .milestone_icon {
+.Accueil .accueil .milestone_icon {
   display: inline-block;
   width: 70px;
   height: 70px;
 }
-.milestone_icon img {
+.Accueil .milestone_icon img {
   width: 100%;
 }
-.accueil .milestone_counter {
+.Accueil .accueil .milestone_counter {
   font-size: 36px;
   font-weight: 500;
   color: #ffb606;
   line-height: 1;
   margin-top: 41px;
 }
-.accueil .milestone_text {
+.Accueil .accueil .milestone_text {
   font-size: 22px;
   font-weight: 500;
   color: #ffffff;
   margin-top: 3px;
+}
+
+.Accueil .footer {
+  display: block;
+  position: relative;
+  width: 100%;
+  background: #1e2434;
+  padding-top: 94px;
+}
+.Accueil .footer_background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+.Accueil .footer_content {
+  padding-bottom: 53px;
+}
+.Accueil .footer_logo_text {
+  font-family: 'Roboto Slab', serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 0.75;
+  color: #ffffff;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+.Accueil .footer_logo_text span {
+  color: #14bdee;
+}
+.Accueil .footer_title {
+  font-family: 'Roboto Slab', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 0.75;
+}
+.Accueil .footer_logo_container {
+  margin-top: -14px;
+}
+.Accueil .footer_about_text {
+  margin-top: 31px;
+}
+.Accueil .footer_about_text p {
+  color: #ffffff;
+}
+.Accueil .footer_social {
+  margin-top: 23px;
+}
+.Accueil .footer_social ul li {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  background: #4b505d;
+  border-radius: 50%;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+.Accueil .footer_social ul li:not(:last-child) {
+  margin-right: 6px;
+}
+.Accueil .footer_social ul li a {
+  display: block;
+  position: relative;
+  text-align: center;
+}
+.Accueil .footer_social ul li a i {
+  color: #ffffff;
+  line-height: 45px;
+}
+.Accueil .footer_social ul li:hover {
+  background: #14bdee;
+}
+.Accueil .footer_contact {
+  padding-left: 36px;
+}
+.Accueil .footer_contact_info {
+  margin-top: 33px;
+}
+.Accueil .footer_contact_info ul li {
+  font-size: 14px;
+  font-weight: 400;
+  color: #b5b8be;
+}
+.Accueil .footer_contact_info ul li:not(:last-child) {
+  margin-bottom: 15px;
+}
+.Accueil .footer_links {
+  padding-left: 80px;
+}
+.Accueil .footer_links_container ul {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+.Accueil .footer_links_container {
+  margin-top: 33px;
+}
+.Accueil .footer_links_container ul li a {
+  font-size: 14px;
+  color: #b5b8be;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+.Accueil .footer_links_container ul li:not(:last-child) {
+  margin-bottom: 15px;
+}
+.Accueil .footer_links_container ul li a:hover {
+  color: #14bdee;
+}
+.Accueil .footer_mobile {
+  display: inline-block;
+  float: right;
+}
+.Accueil .footer_mobile_content {
+  padding-top: 35px;
+}
+.Accueil .footer_image:not(:last-child) {
+  margin-bottom: 10px;
+}
+.Accueil .copyright {
+  height: 54px;
+  border-top: solid 1px #353a49;
+}
+.Accueil .cr_list li {
+  display: inline-block;
+}
+.Accueil .copyright div {
+  font-size: 14px;
+  color: #b5b8be;
+}
+.Accueil .cr_text a {
+  color: #ffffff;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+.Accueil .cr_text a:hover {
+  color: #14bdee;
+}
+.Accueil .cr_list li:not(:last-child) {
+  margin-right: 50px;
+}
+.Accueil .cr_list li a {
+  font-size: 14px;
+  color: #b5b8be;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  -ms-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+.Accueil .cr_list li a:hover {
+  color: #14bdee;
 }

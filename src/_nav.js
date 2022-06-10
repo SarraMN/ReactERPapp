@@ -15,6 +15,8 @@ import {
   cilNewspaper,
   cilWarning,
   cilAccountLogout,
+  cilEnvelopeopen,
+  cilClone,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -42,10 +44,6 @@ const _nav = [
     name: 'Accueil',
     to: '/accueil',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
   },
 
   {
@@ -81,6 +79,12 @@ const _nav = [
     name: 'Reclamation',
     to: '/Reclamations/SuiviReclamations',
     icon: <CIcon icon={cilWarning} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Suivre demandes',
+    to: '/suivreDemande/suivreDemandes',
+    icon: <CIcon icon={cilClone} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,

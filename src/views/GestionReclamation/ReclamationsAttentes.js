@@ -67,7 +67,7 @@ const ReclamationsAttentes = () => {
   }
   if (posts.length === 0)
     return (
-      <>
+      <div className="listeFormation reclamation">
         <div style={{ marginBottom: '70px' }}>
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
             <button className="btnAdd btn-sm mb-0" onClick={voirhistorique}>
@@ -99,7 +99,7 @@ const ReclamationsAttentes = () => {
             <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>Aucune réclamation!</div>
           </div>
         </CCard>
-      </>
+      </div>
     )
   else {
     // Get current posts
@@ -118,7 +118,7 @@ const ReclamationsAttentes = () => {
       pageNumbers.push(i)
     }
     return (
-      <>
+      <div className="listeFormation reclamation">
         <div style={{ marginBottom: '70px' }}>
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
             <button className="btnAdd btn-sm mb-0" onClick={voirhistorique}>
@@ -280,7 +280,7 @@ const ReclamationsAttentes = () => {
             </a>
           </CPagination>
         </CCard>
-      </>
+      </div>
     )
   }
 }

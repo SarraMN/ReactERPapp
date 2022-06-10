@@ -244,7 +244,7 @@ const RepondreReclamation = () => {
     oReq.send()
   }
   return (
-    <>
+    <div className="listeFormation">
       <CCard className="the_card">
         <header className="flex space space-between card-heade">
           <p className="card-header-title">
@@ -380,7 +380,7 @@ const RepondreReclamation = () => {
           </MDBTabsPane>
         </MDBTabsContent>
       </CCard>
-    </>
+    </div>
   )
 }
 export default RepondreReclamation

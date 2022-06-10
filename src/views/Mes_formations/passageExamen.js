@@ -123,6 +123,7 @@ function App() {
   }, [])
   const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0 })
   const [interv, setInterv] = useState()
+  const [validershow, setvalidershow] = useState(false)
   const [status, setStatus] = useState(0)
   // Not started = 0
   // started = 1
@@ -141,7 +142,6 @@ function App() {
 
   const run = () => {
     if (time.s === 5) {
-      console.log('jiyyt ll wa9t')
       stop()
     } else {
       if (updatedM === 60) {
@@ -195,9 +195,10 @@ function App() {
   }
   function verifier2() {
     if (document.getElementById('scales').checked === true) {
-      document.getElementById('buttonvalider').disabled = false
+      console.log('97baaaa')
+      setvalidershow(true)
     } else {
-      document.getElementById('buttonvalider').disabled = true
+      setvalidershow(false)
     }
   }
 
@@ -321,25 +322,30 @@ function App() {
                   <label> Je suis sûr(e) de vouloir envoyer ces réponses.</label>
                 </div>
               </CAlert>
-              <div style={{ 'text-align': 'center', marginBottom: '100px' }}>
-                <button
-                  onClick={() => stop()}
-                  id="buttonvalider"
-                  style={{
-                    'border-radius': '10px',
-                    background: 'linear-gradient(to bottom right, #78BACF, #59D0F4)',
-                    'font-size': '20px',
-                    paddingRight: '20px',
-                    paddingLeft: '20px',
-                    paddingTop: '5px',
-                    paddingBottom: '5px',
-                    border: 'none',
-                    'box-shadow': '0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)',
-                  }}
-                >
-                  Valider
-                </button>
-              </div>
+              {validershow ? (
+                <div style={{ 'text-align': 'center', marginBottom: '100px' }}>
+                  <button
+                    onClick={() => stop()}
+                    id="buttonvalider"
+                    style={{
+                      display: 'inline-block',
+                      'border-radius': '10px',
+                      background: 'linear-gradient(to bottom right, #78BACF, #59D0F4)',
+                      'font-size': '20px',
+                      paddingRight: '20px',
+                      paddingLeft: '20px',
+                      paddingTop: '5px',
+                      paddingBottom: '5px',
+                      border: 'none',
+                      'box-shadow': '0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)',
+                    }}
+                  >
+                    Valider
+                  </button>
+                </div>
+              ) : (
+                <span></span>
+              )}
             </div>
           ) : (
             <div style={{ marginTop: '20px' }}>

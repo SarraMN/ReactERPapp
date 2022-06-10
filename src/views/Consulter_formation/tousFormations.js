@@ -45,7 +45,6 @@ const TousFormations = () => {
   return (
     <div>
       <Formationcategorie categorie="Data Analyst"></Formationcategorie>
-
       <Formationcategorie categorie="Graphic Designer"></Formationcategorie>
       <Formationcategorie categorie="Marketing"></Formationcategorie>
       <Formationcategorie categorie="UX Designer"></Formationcategorie>

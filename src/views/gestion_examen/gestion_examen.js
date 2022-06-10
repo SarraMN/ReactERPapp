@@ -233,7 +233,7 @@ const Gestion_examen = () => {
       pageNumbers.push(i)
     }
     return (
-      <div>
+      <div className="demandeINS">
         <div>
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
             <button className="btnAdd btn-sm mb-0" onClick={AjouterExamen}>

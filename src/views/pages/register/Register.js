@@ -146,12 +146,14 @@ const Register = (props) => {
         genre: 'Homme',
       }}
       validationSchema={Yup.object().shape({
-        date_de_naissance: Yup.string().required('Date de naissance est requise'),
+        date_de_naissance: Yup.string()
+          .required('Date de naissance est requise')
+          .max(new Date(), 'La date de naissance ne peut pas etre au passé'),
         nom: Yup.string().required('Nom est requis'),
         prenom: Yup.string().required('Prenom est requis'),
         email: Yup.string().required('E-mail est requis').email('E-mail est invalide'),
         password: Yup.string()
-          .min(6, 'Le mot de passe doit être au moins de 6 caractères')
+          .min(6, 'Le mot de passe doit contenir au minimum 6 caractères')
           .required('Le mot de passe est requis'),
         confirmPassword: Yup.string()
           .oneOf([Yup.ref('password'), null], 'les mots de passe doivent correspondre')
@@ -159,11 +161,11 @@ const Register = (props) => {
         numero_de_telephone: Yup.number()
           .required('Numero de telephone est requis')
           .typeError('Numero de telephone invalide')
-          .min(8, 'Numero de telephone de 8 chifres')
-          .integer('Un numéro de téléphone ne peut pas inclure de point décimal'),
+          .min(8, 'Numero de telephone doit contenir au minimum 8 chiffres')
+          .integer('Un numéro de téléphone ne peut pas inclure des caractères spéciaux'),
         adresse: Yup.string()
           .required('Adresse est requise')
-          .min(6, 'Adresse doit contenir au moins 6 caractères'),
+          .min(6, 'Adresse doit contenir au minimum 6 caractères'),
         etat_civil: Yup.string().required('Etat civil est requis'),
         UserName: Yup.string().required('Identifiant est requis'),
       })}

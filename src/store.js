@@ -11,6 +11,7 @@ const initialState = {
   image: 0,
   nom: 0,
   prenom: 0,
+  modificationQuestion: 0,
 }
 const changeState = (state = initialState, { type, ...rest }) => {
   switch (type) {
