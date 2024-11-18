@@ -6,7 +6,6 @@ import Swal from 'sweetalert2'
 import { DeleteReclamation, ReclamationByIdCandidat } from 'src/services/ReclamationService'
 import { MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent, MDBTabsPane } from 'mdb-react-ui-kit'
 import { uploadfile, getfile } from 'src/services/fileService'
-import ReclamationPdf from 'src/views/Reclamation/ReclamationPdf'
 import { CCard } from '@coreui/react'
 import iconePdf from 'src/images/pdf1.png'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -275,9 +274,6 @@ const ConsulterReclamation = () => {
               />
               Référence de la réclamation : {itemReclamation.id}{' '}
             </Modal.Header>
-            <Modal.Body>
-              <ReclamationPdf reclamation={itemReclamation} />
-            </Modal.Body>
           </Modal>
           <div>
             <div className="objet_recl">Objet: {itemReclamation.objet}</div>

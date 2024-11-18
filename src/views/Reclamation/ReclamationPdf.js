@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { CCard, CCol } from '@coreui/react'
-import Pdf from 'react-to-pdf'
 import 'src/views/GestionReclamation/gestionReclamation.css'
 
 const ReclamationPdf = (props) => {
-  const [bool, setBool] = useState(false)
+  /* const [bool, setBool] = useState(false)
   const ref = React.createRef()
   const options = {
     unit: 'in',
@@ -92,9 +91,6 @@ const ReclamationPdf = (props) => {
         )}
       </Pdf>
     </>
-  )
-}
-ReclamationPdf.propTypes = {
-  reclamation: PropTypes.any,
+  ) */
 }
 export default ReclamationPdf
