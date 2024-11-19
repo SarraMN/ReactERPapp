@@ -119,13 +119,13 @@ const Reinitialiser_mdp = () => {
                     </div>
 
                     <div className="form-row-last">
-                      <div classNameName="form-row3" style={{ paddingRight: 50 }}>
+                      <div className="form-row3" style={{ paddingRight: 50 }}>
                         <Field
                           type="password"
                           id="password"
                           style={{ 'border-radius': 0 }}
                           name="password"
-                          classNameName={
+                          className={
                             ' form-control' +
                             (errors.password && touched.password ? ' is-invalid' : '')
                           }
@@ -135,7 +135,7 @@ const Reinitialiser_mdp = () => {
                           style={{ fontSize: 15, color: '#FF3030' }}
                           name="password"
                           component="div"
-                          classNameName="invalid-feedback"
+                          className="invalid-feedback"
                         />
                         {/*              <input type="password"   required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Mot de passe"/>
                          */}{' '}
@@ -146,7 +146,7 @@ const Reinitialiser_mdp = () => {
                           id="confirmPassword"
                           style={{ 'border-radius': 0 }}
                           name="confirmPassword"
-                          classNameName={
+                          className={
                             ' form-control' +
                             (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')
                           }
@@ -156,7 +156,7 @@ const Reinitialiser_mdp = () => {
                           name="confirmPassword"
                           style={{ fontSize: 15, color: '#FF3030' }}
                           component="div"
-                          classNameName="invalid-feedback"
+                          className="invalid-feedback"
                         />
                       </div>
                     </div>

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import 'src/views/GestionUtilisateurs/userProfile.css'
 import { useLocation } from 'react-router-dom'
-import { GetformationsCandidat, getUserById } from 'src/services/UserService'
 import { getfile } from 'src/services/fileService'
 import avatar8 from './../../assets/images/profile_homme.png'
+import { GetListConges } from 'src/services/congesService'
 
 const UserProfile = () => {
-  let [formations, setFormations] = useState([])
-
+  let [conges, setConges] = useState([])
   let userId = useLocation()
-  console.log('amaaan', userId)
+  const [logo, setLogo] = useState(avatar8) 
   const [values] = useState({
     userName: userId.state.utilisateur.userName,
     password: userId.state.utilisateur.password,
@@ -26,32 +25,32 @@ const UserProfile = () => {
     date_creation: userId.state.utilisateur.createdAt,
     date_derniere_conn: userId.state.utilisateur.lastLogin,
     image: userId.state.utilisateur.image,
-    organisme_conventionne: userId.state.utilisateur.organisme_conventionne,
     logo: avatar8,
   })
 
   useEffect(() => {
-    GetformationsCandidat(values.id)
-      .then((response) => {
-        console.log('hiiii', response.data)
-        setFormations(response.data)
-      })
-      .catch((e) => {})
+    GetListConges(values.id)
+    .then((response) => {
+      console.log('hiiii', response.data)
+      setConges(response.data)
+    })
+    .catch((e) => {})
+
     if (values.image !== null) {
       getfile(values.image.id)
         .then((response) => {
           console.log('taswira', response)
-          values.logo = URL.createObjectURL(response.data)
+          setLogo(URL.createObjectURL(response.data))
         })
         .catch((e) => {})
     }
-  }, [])
+  }, [values.image])
   return (
     <div className="userProfil container rounded bg-white mt-5 mb-5">
       <div className="row">
         <div className="col-md-3 border-right">
           <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-            <img className="rounded-circle mt-5" width="150px" src={values.logo} alt="user" />
+            <img className="rounded-circle mt-5" width="150px" src={logo} alt="user" />
             <span className="font-weight-bold">{values.userName}</span>
             <span className="text-black-50">{values.email}</span>
             <span> </span>
@@ -98,7 +97,7 @@ const UserProfile = () => {
                       'font-weight': 'bold',
                     }}
                   >
-                    formations
+                    Les congés
                   </button>
                 </li>
               </ul>
@@ -231,21 +230,6 @@ const UserProfile = () => {
                        */}{' '}
                     </div>
                   </div>
-                  {values.organisme_conventionne === null ? (
-                    <span></span>
-                  ) : (
-                    <div className="row mt-2">
-                      <div className="col-md-6" style={{ paddingtop: 50 }}>
-                        <label
-                          className="labels"
-                          style={{ 'font-size': '17px', 'font-weight': 'bold' }}
-                        >
-                          Organisme conventioné :
-                        </label>
-                        <span> {values.organisme_conventionne.nom}</span>
-                      </div>
-                    </div>
-                  )}
                 </div>
                 <div
                   className="tab-pane fade"
@@ -257,22 +241,22 @@ const UserProfile = () => {
                     <thead>
                       <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">titre</th>
-                        <th scope="col">categorie</th>
-                        <th scope="col">prix</th>
-                        <th scope="col">Nombre de cours</th>
-                        <th scope="col">Date de creation</th>
+                        <th scope="col">type</th>
+                        <th scope="col">startDate</th>
+                        <th scope="col">endDate</th>
+                        <th scope="col">description</th>
+                        <th scope="col">status</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {formations.map((item, index) => (
+                    {conges.map((item, index) => (
                         <tr key={index}>
                           <th scope="row">{item.id}</th>
-                          <td>{item.titre}</td>
-                          <td>{item.categorie}</td>
-                          <td>{item.prix}</td>
-                          <td>{item.nbrCours}</td>
-                          <td>{item.dateCreation}</td>
+                          <td>{item.type}</td>
+                          <td>{item.startDate}</td>
+                          <td>{item.endDate}</td>
+                          <td>{item.description}</td>
+                          <td>{item.status}</td>
                         </tr>
                       ))}
                     </tbody>

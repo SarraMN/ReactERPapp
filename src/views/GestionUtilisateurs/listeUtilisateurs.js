@@ -20,18 +20,17 @@ import { cilBan, cilCheckCircle, cilList, cilDataTransferDown, cilTrash } from '
 import avatar8 from './../../assets/images/profile_homme.png'
 import { uploadfile, getfile } from 'src/services/fileService'
 
-import {
-  getdemandes_ins_formations,
-  accepterdemande,
-  refuserdemande,
-} from 'src/services/demandes_inscriptionService'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
-import { getcandidats, deleteuser } from 'src/services/gestionutilisateurs'
+import { getEmployeeList, deleteuser } from 'src/services/gestionutilisateurs'
 
 const ListeUtilisateurs = () => {
   let navigate = useNavigate()
   const [profileimg, setProfileimg] = useState(avatar8)
+ 
+  function AjoutEmploye() {
+    navigate('/GestionUtilisateurs/Responsables/AjoutEmploye')
+  }
 
   function notification_deValidation(id) {
     Swal.fire({
@@ -49,7 +48,7 @@ const ListeUtilisateurs = () => {
           .catch((e) => {})
 
         Swal.fire('La suppression de ce compte a réussi!', '', 'success')
-        getcandidats()
+        getEmployeeList()
           .then((response) => {
             response.data.map((item, index) => {
               if (item.image == null) {
@@ -94,7 +93,8 @@ const ListeUtilisateurs = () => {
   let [test, settest] = useState(false)
 
   useEffect(() => {
-    getcandidats()
+
+    getEmployeeList()
       .then((response) => {
         response.data.map((item, index) => {
           if (item.image == null) {
@@ -130,6 +130,18 @@ const ListeUtilisateurs = () => {
     }
     return (
       <div className="demandeINS">
+        <div>
+          <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
+            <button className="btnAdd btn-sm mb-0" onClick={AjoutEmploye}>
+              <i
+                className="flex fa fa-user-plus"
+                aria-hidden="true"
+                style={{ marginRight: 10 }}
+              ></i>
+              Ajouter employé
+            </button>
+          </div>
+        </div>
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
@@ -229,18 +241,6 @@ const ListeUtilisateurs = () => {
                               derniere connexion
                             </p>
                           </th>
-                          <th className="text-center " style={{ width: '200px' }}>
-                            <p
-                              style={{
-                                color: 'light',
-                                'font-size': '15px',
-                                'font-weight': 'bold',
-                              }}
-                            >
-                              {' '}
-                              Organisme conventioné
-                            </p>
-                          </th>{' '}
                           <th className="text-center ">
                             <p
                               style={{
@@ -335,28 +335,6 @@ const ListeUtilisateurs = () => {
                                 style={{ 'font-size': '14px', color: '#3B3737' }}
                               >
                                 {item.lastLogin}
-                              </span>
-                            </td>{' '}
-                            <td
-                              className="align-middle text-center"
-                              onClick={(index) => userProfil(item)}
-                            >
-                              <span
-                                className="text-secondary text-xs "
-                                style={{ 'font-size': '14px', color: '#3B3737' }}
-                              >
-                                {item.organisme_conventionne === null ? (
-                                  <span></span>
-                                ) : (
-                                  <button
-                                    className="btn btn-info active"
-                                    type="button"
-                                    aria-pressed="true"
-                                    style={{ width: '120px', marginTop: '10px' }}
-                                  >
-                                    {item.organisme_conventionne.nom}
-                                  </button>
-                                )}
                               </span>
                             </td>
                             <td className="align-middle text-center">

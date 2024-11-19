@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import 'src/views/GestionUtilisateurs/userProfile.css'
-import { useLocation } from 'react-router-dom'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import 'src/views/GestionUtilisateurs/Ajoutresponsable.css'
+import 'src/views/GestionUtilisateurs/AjoutUser.css'
 import Swal from 'sweetalert2'
-import { addResponsable, UserIns } from 'src/services/UserService'
-import { uploadfile } from 'src/services/fileService'
+import { addUser, UserIns } from 'src/services/UserService'
 import { sendMail } from 'src/services/UserService'
 import axios from 'axios'
 import ReactImg from 'src/assets/images/profile_homme.png'
 
-const Ajoutresponsable = () => {
+const AjoutEmploye = () => {
   const [image, setImage] = useState(ReactImg)
 
   const [profileimg, setProfileimg] = useState(ReactImg)
@@ -36,7 +34,7 @@ const Ajoutresponsable = () => {
 
   function Notification_succes() {
     Swal.fire(
-      'La ajout de cet responsable a été effectuée avec succès.',
+      'La ajout de cet employé a été effectuée avec succès.',
       'Il va etre informé par un Mail',
       'success',
     )
@@ -100,7 +98,7 @@ const Ajoutresponsable = () => {
     email: '',
     genre: 'Femme',
     idimage: 0,
-    roles: 'User_Professer',
+    roles: 'User_Employee',
   })
   const handleSubmit = (evt) => {
     values.adressse = evt.adresse
@@ -129,7 +127,7 @@ const Ajoutresponsable = () => {
           if (response.data !== 0) {
             values.idimage = response.data
             console.log('values', values)
-            addResponsable(values)
+            addUser(values)
               .then((response) => {
                 if (response.status === 200) {
                   evt.nom = ''
@@ -260,7 +258,7 @@ const Ajoutresponsable = () => {
                         <span className="icon">
                           <i className="mdi mdi-account"></i>
                         </span>
-                        Ajouter responsable
+                        Ajouter Employé
                       </p>
                     </header>
 
@@ -391,7 +389,7 @@ const Ajoutresponsable = () => {
                             Genre
                           </label>
                         </div>
-                        <div clsassName="form-row form-row-6">
+                        <div className="form-row form-row-6">
                           <div className="p-t-10">
                             <label
                               className="radio-container m-r-45"
@@ -519,10 +517,7 @@ const Ajoutresponsable = () => {
                                 type="text"
                                 name="adresse"
                                 style={{ 'border-radius': 0 }}
-                                className="input"
-                                classNameName={
-                                  errors.adresse && touched.adresse ? ' is-invalid' : ''
-                                }
+                                className={`input ${errors.adresse && touched.adresse ? 'is-invalid' : ''}`}
                                 placeholder="Adresse"
                               />
 
@@ -605,4 +600,4 @@ const Ajoutresponsable = () => {
     </div>
   )
 }
-export default Ajoutresponsable
+export default AjoutEmploye

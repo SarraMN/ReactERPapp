@@ -1,13 +1,16 @@
 import React from 'react'
 
-const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 
 //utilisateurs
 const listeUtilisateurs = React.lazy(() => import('./views/GestionUtilisateurs/listeUtilisateurs'))
 const userProfile = React.lazy(() => import('./views/GestionUtilisateurs/userProfile'))
-const responsables = React.lazy(() => import('./views/GestionUtilisateurs/Responsables'))
-const responsable = React.lazy(() => import('./views/GestionUtilisateurs/responsable'))
-const ajoutresponsable = React.lazy(() => import('./views/GestionUtilisateurs/Ajoutresponsable'))
+const listeRH = React.lazy(() => import('./views/GestionUtilisateurs/listeRH'))
+const RH = React.lazy(() => import('./views/GestionUtilisateurs/responsable'))
+const ajoutRH = React.lazy(() => import('./views/GestionUtilisateurs/AjoutRH'))
+const ajoutConge = React.lazy(() => import('./views/Gestion_conges/AddConge'))
+const consulterConge = React.lazy(() => import('./views/Gestion_conges/consulterConge'))
+const listeConges = React.lazy(() => import('./views/Gestion_conges/ListeConges'))
+const ajoutEmploye = React.lazy(() => import('./views/GestionUtilisateurs/AjoutEmploye'))
 const compte = React.lazy(() => import('./views/GestionCompte/gestioncompte'))
 const formations = React.lazy(() => import('./views/Consulter_formation/formations'))
 const tousFormations = React.lazy(() => import('./views/Consulter_formation/tousFormations'))
@@ -74,8 +77,7 @@ const ConsulterReclamationTraitee = React.lazy(() =>
   import('./views/GestionReclamation/ConsulterReclamationTraitee'),
 )
 const routes = [
-  { path: '/', exact: true, name: 'Dashboard' },
-  { path: '/dashboard', name: 'tableau du bord', element: Dashboard },
+  { path: '/', exact: true, name: 'Utilisateurs' },
   { path: '/accueil', name: 'Accueil', element: Accueil },
 
   {
@@ -90,19 +92,39 @@ const routes = [
     element: userProfile,
   },
   {
-    path: '/GestionUtilisateurs/Responsables/ajoutresponsable',
-    name: 'Ajout de un responsable',
-    element: ajoutresponsable,
+    path: '/GestionUtilisateurs/Responsables/AjoutRH',
+    name: 'Ajout de un RH',
+    element: ajoutRH,
   },
   {
-    path: '/GestionUtilisateurs/Responsables',
-    name: 'responsables',
-    element: responsables,
+    path: '/GestionUtilisateurs/Responsables/AjoutEmploye',
+    name: 'Ajout de un employé',
+    element: ajoutEmploye,
   },
   {
-    path: '/GestionUtilisateurs/Responsables/responsable',
-    name: 'responsable',
-    element: responsable,
+    path: '/GestionUtilisateurs/RH',
+    name: 'listeRH',
+    element: listeRH,
+  },
+  {
+    path: '/GestionUtilisateurs/Responsables/RH',
+    name: 'RH',
+    element: RH,
+  },
+  {
+    path: '/Gestion_conges/consulterConge',
+    name: 'consulter Conge',
+    element: consulterConge,
+  },
+  {
+    path: '/Gestion_conges/AddConge',
+    name: 'Add Conge',
+    element: ajoutConge,
+  },
+  {
+    path: '/Gestion_conges/ListeConges',
+    name: 'Liste Conges',
+    element: listeConges,
   },
   {
     path: '/GestionCompte/gestioncompte',

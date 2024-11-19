@@ -14,19 +14,19 @@ export const getusers = (authRequest) => {
   })
 }
 
-export const getcandidats = (authRequest) => {
+export const getEmployeeList = (authRequest) => {
   return axios({
     method: 'GET',
-    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/users/candidats`,
+    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/users/employees`,
     headers: {
       Authorization: 'Bearer ' + getToken(),
     },
   })
 }
-export const getformateurs = (authRequest) => {
+export const getListeRhs = (authRequest) => {
   return axios({
     method: 'GET',
-    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/users/formateurs`,
+    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/users/listRhs`,
     headers: {
       Authorization: 'Bearer ' + getToken(),
     },

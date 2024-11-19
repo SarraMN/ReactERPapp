@@ -12,7 +12,7 @@ import {
 import React from 'react'
 import { userLogin, fetchUserData, updatepassword } from 'src/services/UserService'
 import { useEffect, useState } from 'react'
-import { getformateurs, getusers, deleteuser } from 'src/services/gestionutilisateurs'
+import { getListeRhs, getusers, deleteuser } from 'src/services/gestionutilisateurs'
 import ReactImg1 from 'src/images/work-9.jpg'
 import ReactImg2 from 'src/images/work-3.jpg'
 import ReactImg3 from 'src/images/work-5.jpg'

@@ -54,19 +54,9 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Les Formations',
-    to: '/Consulter_formation/formations',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'Mes Formations',
-    to: '/Mes_formations/Mes_formations',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: <NbrFormationCandidat />,
-    },
+    name: 'Mes congés',
+    to: '/Gestion_conges/ListeConges',
+    icon: <CIcon icon={cilNewspaper} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,

@@ -13,7 +13,7 @@ import {
 } from '@coreui/react'
 import avatar8 from './../../assets/images/profile_homme2.png'
 import React, { useEffect, useState } from 'react'
-import { deleteuser, getcandidats, getformateurs } from 'src/services/gestionutilisateurs'
+import { deleteuser, getEmployeeList, getListeRhs } from 'src/services/gestionutilisateurs'
 import { uploadfile, getfile } from 'src/services/fileService'
 
 import 'src/views/gestion_demandes/demandes_inscriptions.css'
@@ -36,14 +36,14 @@ import {
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 
-const Demandes_inscriptions = () => {
+const ListeRH = () => {
   let navigate = useNavigate()
   function Deleteuser(id) {
     notification_deValidation(id)
   }
   function notification_deValidation(id) {
     Swal.fire({
-      title: 'Souhaitez-vous supprimer cet responsable ?',
+      title: 'Souhaitez-vous supprimer cet RH ?',
       showDenyButton: true,
       confirmButtonText: 'valider',
       denyButtonText: `annuler`,
@@ -57,7 +57,7 @@ const Demandes_inscriptions = () => {
           .catch((e) => {})
 
         Swal.fire('La suppression de ce compte a réussi!', '', 'success')
-        getformateurs()
+        getListeRhs()
           .then((response) => {
             console.log(response.data)
             response.data.map((item, index) => {
@@ -80,12 +80,12 @@ const Demandes_inscriptions = () => {
     })
   }
   function ResponsebleProfil(user) {
-    navigate('/GestionUtilisateurs/Responsables/responsable', {
+    navigate('/GestionUtilisateurs/Responsables/RH', {
       state: { utilisateur: user },
     })
   }
-  function Ajoutresponsable() {
-    navigate('/GestionUtilisateurs/Responsables/Ajoutresponsable')
+  function AjoutRH() {
+    navigate('/GestionUtilisateurs/Responsables/AjoutRH')
   }
   let [images, setimages] = useState([])
   let [test, settest] = useState(false)
@@ -96,7 +96,7 @@ const Demandes_inscriptions = () => {
   const [PreviewsPage, setPreviewsPage] = useState(1)
   const [activeNumber, setactiveNumber] = useState(1)
   useEffect(() => {
-    getformateurs()
+    getListeRhs()
       .then((response) => {
         console.log(response.data)
         response.data.map((item, index) => {
@@ -137,13 +137,13 @@ const Demandes_inscriptions = () => {
       <div className="demandeINS userProfil">
         <div>
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
-            <button className="btnAdd btn-sm mb-0" onClick={Ajoutresponsable}>
+            <button className="btnAdd btn-sm mb-0" onClick={AjoutRH}>
               <i
                 className="flex fa fa-user-plus"
                 aria-hidden="true"
                 style={{ marginRight: 10 }}
               ></i>
-              Ajouter Responsable
+              Ajouter RH
             </button>
           </div>
         </div>
@@ -160,7 +160,7 @@ const Demandes_inscriptions = () => {
                       className="text-white ps-3"
                       style={{ 'font-weight': 'bold', 'font-size': '22px' }}
                     >
-                      Les responsables
+                      les ressources humaines
                     </h6>
                   </div>
                 </div>
@@ -308,4 +308,4 @@ const Demandes_inscriptions = () => {
     )
   } else return <div>un probleme de connexion avec le serveur </div>
 }
-export default Demandes_inscriptions
+export default ListeRH

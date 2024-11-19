@@ -12,7 +12,7 @@ import { Button } from 'react-bootstrap'
 import React from 'react'
 import { userLogin, fetchUserData, updatepassword } from 'src/services/UserService'
 import { useEffect, useState } from 'react'
-import { getformateurs, getusers, deleteuser } from 'src/services/gestionutilisateurs'
+import { getListeRhs, getusers, deleteuser } from 'src/services/gestionutilisateurs'
 import ReactImg1 from 'src/images/work-9.jpg'
 import ReactImg2 from 'src/images/work-3.jpg'
 import ReactImg3 from 'src/images/work-5.jpg'
@@ -451,11 +451,11 @@ const Gestioncompte = () => {
                         <Field
                           type="text"
                           name="nom"
-                          /*     value={nom}
+                               value={nom}
                           onChange={(e) => {
                             setNom(e.target.value)
                           }}
-                     */ className={'input' + (errors.nom && touched.nom ? ' is-invalid' : '')}
+                      className={'input' + (errors.nom && touched.nom ? ' is-invalid' : '')}
                         />
                         <ErrorMessage
                           style={{ fontSize: 12, color: 'red' }}
@@ -472,11 +472,11 @@ const Gestioncompte = () => {
                         <Field
                           type="text"
                           name="prenom"
-                          /*      value={prenom}
+                               value={prenom}
                           onChange={(e) => {
                             setPrenom(e.target.value)
                           }}
-                  */ className={'input' + (errors.prenom && touched.prenom ? ' is-invalid' : '')}
+                  className={'input' + (errors.prenom && touched.prenom ? ' is-invalid' : '')}
                         />
                         <ErrorMessage
                           style={{ fontSize: 12, color: 'red' }}
@@ -538,15 +538,15 @@ const Gestioncompte = () => {
                               Genre
                             </label>
                           </div>
-                          <div clsassName="form-row form-row-6">
+                          <div className="form-row form-row-6">
                             <div className="p-t-10">
                               <label
                                 className="radio-container m-r-45"
                                 style={{ 'margin-right': '30px', fontSize: ' medium' }}
                               >
                                 <span>Homme </span>
-                                {/*                                 <input type="radio" checked={Genre === 'Homme'} name="genre" />
-                                 */}{' '}
+                                {                                <input type="radio" checked={Genre === 'Homme'} name="genre" />
+                                 }{' '}
                                 <input
                                   checked={Genre === 'Homme'}
                                   type="radio"
@@ -560,8 +560,8 @@ const Gestioncompte = () => {
                               </label>
                               <label className="radio-container">
                                 <span>Femme </span>
-                                {/*                                 <input type="radio" checked={Genre === 'Femme'} name="genre" />
-                                 */}{' '}
+                                {                                 <input type="radio" checked={Genre === 'Femme'} name="genre" />
+                                 }{' '}
                                 <input
                                   checked={Genre === 'Femme'}
                                   value={(values.genre = 'Femme')}
@@ -620,11 +620,11 @@ const Gestioncompte = () => {
                               id="numero_de_telephone"
                               style={{ 'border-radius': 0, '::placeholder color': 'blue' }}
                               name="numero_de_telephone"
-                              /*     value={numero_de_telephone}
+                                   value={numero_de_telephone}
                               onChange={(e) => {
                                 setNumero_de_telephone(e.target.value)
                               }}
-                        */ className="input"
+                         className="input"
                               classNameName={
                                 errors.numero_de_telephone && touched.numero_de_telephone
                                   ? ' is-invalid'
@@ -650,11 +650,11 @@ const Gestioncompte = () => {
                             <Field
                               type="text"
                               name="email"
-                              /*   value={email}
+                                 value={email}
                               onChange={(e) => {
                                 setEmail(e.target.value)
                               }}
-                          */ className={
+                           className={
                                 'input is-static' +
                                 (errors.email && touched.email ? ' is-invalid' : '')
                               }
@@ -680,13 +680,12 @@ const Gestioncompte = () => {
                               type="text"
                               name="adresse"
                               style={{ 'border-radius': 0 }}
-                              className="input"
-                              classNameName={errors.adresse && touched.adresse ? ' is-invalid' : ''}
-                              /*   value={adressse}
+                              className={`input ${errors.adresse && touched.adresse ? 'is-invalid' : ''}`}
+                                 value={adressse}
                               onChange={(e) => {
                                 setAdressse(e.target.value)
                               }}
-                       */
+                       
                             />
 
                             <ErrorMessage

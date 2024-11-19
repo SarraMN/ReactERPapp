@@ -159,7 +159,7 @@ const ForgetPassword = (props) => {
                           id="Email"
                           style={{ width: 'Auto' }}
                           name="Email"
-                          classNameName={
+                          className={
                             ' form-control' + (errors.Email && touched.Email ? ' is-invalid' : '')
                           }
                           placeholder="Email"
@@ -168,7 +168,7 @@ const ForgetPassword = (props) => {
                           style={{ fontSize: 15, color: '#F21C1C' }}
                           name="Email"
                           component="div"
-                          classNameName="invalid-feedback"
+                          className="invalid-feedback"
                         />
                       </div>
 

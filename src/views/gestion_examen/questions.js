@@ -259,13 +259,13 @@ const Questions = (props) => {
                           style={{ fontSize: 12, color: 'red' }}
                           name="question"
                           component="div"
-                          classNameName="invalid-feedback"
+                          className="invalid-feedback"
                         />
                       </div>
                     </div>
                     <div className="field">
                       <label className="label">Reponses :</label>
-                      <div classsName="field-body">
+                      <div className="field-body">
                         <CFormCheck
                           type="radio"
                           name="etat"
@@ -293,7 +293,7 @@ const Questions = (props) => {
                           style={{ fontSize: 12, color: 'red' }}
                           name="reponse1"
                           component="div"
-                          classNameName="invalid-feedback"
+                          className="invalid-feedback"
                         />
                         <br></br>
                         <CFormCheck
@@ -320,7 +320,7 @@ const Questions = (props) => {
                           style={{ fontSize: 12, color: 'red' }}
                           name="reponse2"
                           component="div"
-                          classNameName="invalid-feedback"
+                          className="invalid-feedback"
                         />
                         <br></br>
                         <CFormCheck
@@ -344,7 +344,7 @@ const Questions = (props) => {
                           style={{ fontSize: 12, color: 'red' }}
                           name="reponse3"
                           component="div"
-                          classNameName="invalid-feedback"
+                          className="invalid-feedback"
                         />
                       </div>
                     </div>
@@ -532,13 +532,13 @@ const Questions = (props) => {
                               style={{ fontSize: 12, color: 'red' }}
                               name="question"
                               component="div"
-                              classNameName="invalid-feedback"
+                              className="invalid-feedback"
                             />
                           </div>
                         </div>
                         <div className="field">
                           <label className="label">Reponses :</label>
-                          <div classsName="field-body">
+                          <div className="field-body">
                             <CFormCheck
                               type="radio"
                               name="etat"
@@ -566,7 +566,7 @@ const Questions = (props) => {
                               style={{ fontSize: 12, color: 'red' }}
                               name="reponse1"
                               component="div"
-                              classNameName="invalid-feedback"
+                              className="invalid-feedback"
                             />
                             <br></br>
                             <CFormCheck
@@ -593,7 +593,7 @@ const Questions = (props) => {
                               style={{ fontSize: 12, color: 'red' }}
                               name="reponse2"
                               component="div"
-                              classNameName="invalid-feedback"
+                              className="invalid-feedback"
                             />
                             <br></br>
                             <CFormCheck
@@ -617,7 +617,7 @@ const Questions = (props) => {
                               style={{ fontSize: 12, color: 'red' }}
                               name="reponse3"
                               component="div"
-                              classNameName="invalid-feedback"
+                              className="invalid-feedback"
                             />
                           </div>
                         </div>
@@ -954,13 +954,13 @@ const Questions = (props) => {
                               style={{ fontSize: 12, color: 'red' }}
                               name="question"
                               component="div"
-                              classNameName="invalid-feedback"
+                              className="invalid-feedback"
                             />
                           </div>
                         </div>
                         <div className="field">
                           <label className="label">Reponses :</label>
-                          <div classsName="field-body">
+                          <div className="field-body">
                             <CFormCheck
                               type="radio"
                               name="etat"
@@ -988,7 +988,7 @@ const Questions = (props) => {
                               style={{ fontSize: 12, color: 'red' }}
                               name="reponse1"
                               component="div"
-                              classNameName="invalid-feedback"
+                              className="invalid-feedback"
                             />
                             <br></br>
                             <CFormCheck
@@ -1015,7 +1015,7 @@ const Questions = (props) => {
                               style={{ fontSize: 12, color: 'red' }}
                               name="reponse2"
                               component="div"
-                              classNameName="invalid-feedback"
+                              className="invalid-feedback"
                             />
                             <br></br>
                             <CFormCheck
@@ -1039,7 +1039,7 @@ const Questions = (props) => {
                               style={{ fontSize: 12, color: 'red' }}
                               name="reponse3"
                               component="div"
-                              classNameName="invalid-feedback"
+                              className="invalid-feedback"
                             />
                           </div>
                         </div>

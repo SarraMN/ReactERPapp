@@ -45,12 +45,6 @@ function NbrReclamations() {
 }
 const _nav_admin = [
   {
-    component: CNavItem,
-    name: 'Les organisation',
-    to: '/gestion_organismes_conventionnes/organismes_conventionnes',
-    icon: <CIcon icon={cilBank} customClassName="nav-icon" />,
-  },
-  {
     component: CNavGroup,
     name: 'Gestion Utilisateurs',
     to: '/GestionUtilisateurs',
@@ -58,25 +52,15 @@ const _nav_admin = [
     items: [
       {
         component: CNavItem,
-        name: 'Les responsables',
-        to: '/GestionUtilisateurs/responsables',
+        name: 'les ressources humaines',
+        to: '/GestionUtilisateurs/RH',
       },
       {
         component: CNavItem,
-        name: 'liste Candidats',
+        name: 'les employés',
         to: '/GestionUtilisateurs/listeUtilisateurs',
       },
     ],
-  },
-  {
-    component: CNavItem,
-    name: 'Demandes',
-    to: '/gestion_demandes/demandes_inscription_formation',
-    icon: <CIcon icon={cilEnvelopeClosed} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: <NbrDemandes />,
-    },
   },
   {
     component: CNavItem,

@@ -17,7 +17,7 @@ import ReactImg from 'src/assets/images/logo3.png'
 import navigation from '../_nav'
 import _nav_admin from '../_nav_admin'
 import { cilSpeedometer, cilMenu } from '@coreui/icons'
-import _nav_formateur from 'src/_nav_formateur'
+import _nav_User_RH from 'src/_nav_User_RH'
 import _nav from '../_nav'
 import { fetchUserData } from 'src/services/UserService'
 
@@ -36,11 +36,11 @@ const AppSidebar = () => {
       if (response.data.roles[0].authority === 'Admin') {
         dispatch({ type: 'set', app: _nav_admin })
       }
-      if (response.data.roles[0].authority === 'User_Candidat') {
+      if (response.data.roles[0].authority === 'User_Employee') {
         dispatch({ type: 'set', app: _nav })
       }
-      if (response.data.roles[0].authority === 'User_Professer') {
-        dispatch({ type: 'set', app: _nav_formateur })
+      if (response.data.roles[0].authority === 'User_RH') {
+        dispatch({ type: 'set', app: _nav_User_RH })
       }
     })
   }, [])

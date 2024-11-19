@@ -77,12 +77,12 @@ const Login = (props) => {
             .then((response) => {
               localStorage.setItem('Role', response.data.roles[0].authority)
               if (response.data.roles[0].authority === 'Admin') {
-                navigate('/gestion_organismes_conventionnes/organismes_conventionnes')
+                navigate('/GestionUtilisateurs/RH')
               }
-              if (response.data.roles[0].authority === 'User_Candidat') {
+              if (response.data.roles[0].authority === 'User_Employee') {
                 navigate('/accueil')
               }
-              if (response.data.roles[0].authority === 'User_Professer') {
+              if (response.data.roles[0].authority === 'User_RH') {
                 navigate('/GestionFormation/listeFormation')
               }
             })
@@ -281,41 +281,17 @@ const Login = (props) => {
                               style={{
                                 color: 'white',
                                 'margin-top': '300',
-                                fontWeight: '500',
-                                fontSize: '17px',
+                                fontWeight: '300',
+                                fontSize: '12px',
                               }}
                             >
-                              {' '}
-                              Vous n{"'"}avez pas un compte
+                              Si vous avez un compte valide, 
+                              vous pouvez demander un compte ici. 
+                              Si ce n&apos;est pas le cas, veuillez contacter 
+                              support@ERP.com et vous munir 
+                              de votre numéro de contrat d&apos;assistance valide.
                             </p>
                           </div>
-                          <Link to="/register">
-                            {/*   <CButton
-                              className="mt-3 btn btn-white btn-outline-white"
-                            active
-                            tabIndex={-1}
-                            style={{
-                              'border-radius': 30,
-                              width: 200,
-                              'background-color': 'Transparent',
-                            }}
-                          >
-                            {' '}
-                            Inscription
-                          </CButton> */}
-                            <button
-                              style={{
-                                'border-radius': '30px',
-                                color: 'white',
-                                borderColor: 'white',
-                                width: '150px',
-                              }}
-                              type="button"
-                              className="btn btn-outline-primary"
-                            >
-                              Inscription
-                            </button>
-                          </Link>
                         </div>
                       </CCardBody>
                     </CCard>

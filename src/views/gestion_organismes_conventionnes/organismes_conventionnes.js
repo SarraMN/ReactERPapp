@@ -37,7 +37,7 @@ import {
 } from 'src/services/demandes_inscriptionService'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
-import { getcandidats, deleteuser } from 'src/services/gestionutilisateurs'
+import { getEmployeeList , deleteuser } from 'src/services/gestionutilisateurs'
 import {
   deleteorganisme,
   getAllorganismes,

@@ -1,7 +1,7 @@
 import { CCard, CCardImage } from '@coreui/react'
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { getformateurs, getusers, deleteuser } from 'src/services/gestionutilisateurs'
+import { getListeRhs, getusers, deleteuser } from 'src/services/gestionutilisateurs'
 import ReactImg from 'src/images/work-1.jpg'
 import ReactImg1 from 'src/images/mobile_dev.jpg'
 import ReactImg2 from 'src/images/work-3.jpg'

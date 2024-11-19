@@ -12,7 +12,7 @@ import {
 import React from 'react'
 import { userLogin, fetchUserData, updatepassword } from 'src/services/UserService'
 import { useEffect, useState } from 'react'
-import { getformateurs, getusers, deleteuser } from 'src/services/gestionutilisateurs'
+import { getListeRhs, getusers, deleteuser } from 'src/services/gestionutilisateurs'
 import ReactImg1 from 'src/images/work-9.jpg'
 import ReactImg2 from 'src/images/work-3.jpg'
 import ReactImg3 from 'src/images/work-5.jpg'
@@ -273,7 +273,7 @@ const UpdateExamen = () => {
                                       style={{ fontSize: 12, color: 'red' }}
                                       name="intitule"
                                       component="div"
-                                      classNameName="invalid-feedback"
+                                      className="invalid-feedback"
                                     />
                                   </div>
                                 </div>
@@ -284,7 +284,7 @@ const UpdateExamen = () => {
                                 {' '}
                                 <p>Durée(en minutes)</p>
                               </label>
-                              <div classsName="field-body">
+                              <div className="field-body">
                                 <div className="field">
                                   <div className="control">
                                     <Field
@@ -299,7 +299,7 @@ const UpdateExamen = () => {
                                       style={{ fontSize: 12, color: 'red' }}
                                       name="duree"
                                       component="div"
-                                      classNameName="invalid-feedback"
+                                      className="invalid-feedback"
                                     />
                                   </div>
                                 </div>
@@ -309,7 +309,7 @@ const UpdateExamen = () => {
                           <div styleName={{ float: 'left', align: 'left' }}>
                             <div className="field">
                               <label className="label">Formation</label>
-                              <div classsName="field-body">
+                              <div className="field-body">
                                 <div className="field">
                                   <div className="control">
                                     <Field
@@ -335,7 +335,7 @@ const UpdateExamen = () => {
                                       style={{ fontSize: 15, color: '#F21C1C' }}
                                       name="formation"
                                       component="div"
-                                      classNameName="invalid-feedback"
+                                      className="invalid-feedback"
                                     />
                                   </div>
                                 </div>
@@ -343,7 +343,7 @@ const UpdateExamen = () => {
                             </div>
                             <div className="field">
                               <label className="label">Etat</label>
-                              <div classsName="field-body">
+                              <div className="field-body">
                                 <CFormCheck
                                   type="radio"
                                   name="etat"

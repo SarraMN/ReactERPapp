@@ -14,25 +14,20 @@ const AppContent = () => {
 
       if (response.data.roles[0].authority === 'Admin') {
         role = 'Admin'
-        return <Route path="/*" element={<Navigate to="Dashboard" replace />} />
+        return <Route path="/*" element={<Navigate to="Utilisateurs" replace />} />
       }
-      if (response.data.roles[0].authority === 'User_Candidat') {
+      if (response.data.roles[0].authority === 'User_RH') {
         role = 'User_Candidat'
         return <Route path="/accueil" element={<Navigate to="Accueil" replace />} />
       }
-      if (response.data.roles[0].authority === 'User_Professer') {
+      if (response.data.roles[0].authority === 'User_Employee') {
         role = 'User_Professer'
-        return <Route path="/*" element={<Navigate to="Dashboard" replace />} />
+        return <Route path="/*" element={<Navigate to="Utilisateurs" replace />} />
       }
     })
     console.log('al role', role)
   }
-  /*     console.log('ach ja', role)
-    if (role.role === 'Admin')
-      return <Route path="/dashboard" element={<Navigate to="Dashboard" replace />} />
-    else if (role.role === 'User_Candidat')
-      return <Route path="/accueil" element={<Navigate to="Accueil" replace />} />
-    else return <Route path="/*" element={<Navigate to="Accueil" replace />} /> */
+
   return (
     <CContainer lg>
       <Suspense fallback={<CSpinner color="primary" />}>
@@ -50,11 +45,7 @@ const AppContent = () => {
               )
             )
           })}
-          {/*           {test()}
-           */}{' '}
-          {/*           <Route path="/*" element={<Navigate to="Dashboard" replace />} />{' '}
-           */}{' '}
-          <Route path="/*" element={<Navigate to="Dashboard" replace />} />
+          <Route path="/*" element={<Navigate to="Utilisateurs" replace />} />
         </Routes>
       </Suspense>
     </CContainer>

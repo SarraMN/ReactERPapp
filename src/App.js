@@ -17,7 +17,6 @@ const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 // Pages
 //lazy==>improve the performance
 //const Login = React.lazy(() => import('./views/pages/login/Login'))
-const Register = React.lazy(() => import('./views/pages/register/Register'))
 const ForgetPassword = React.lazy(() => import('./views/pages/forgetpassword/ForgetPassword'))
 const Reinitialiser_mdp = React.lazy(() =>
   import('./views/pages/Reinitialiser_mdp/Reinitialiser_mdp'),
@@ -30,7 +29,6 @@ class App extends Component {
         <Suspense fallback={loading}>
           <Routes>
             <Route exact path="/" name="Login Page" element={<Login />} />
-            <Route exact path="/register" name="Register Page" element={<Register />} />
             <Route exact path="/ForgetPassword" name="Page 500" element={<ForgetPassword />} />
             <Route
               exact
