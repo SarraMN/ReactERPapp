@@ -110,8 +110,7 @@ const AjoutEmploye = () => {
     values.date_de_naissance = evt.date_de_naissance
     values.userName = evt.UserName
     values.password = evt.password
-    console.log('haw data', values)
-    console.log('hello', image)
+
     if (image === ReactImg) {
       ChoixPhoto()
     } else {

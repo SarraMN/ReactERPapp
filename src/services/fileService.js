@@ -40,9 +40,7 @@ const [logo, setlogo] = ''
 export const downloadContract = (response) => {
   getfile(response.document.id)
     .then((response) => {
-      console.log('taswira111', response)
       setlogo(URL.createObjectURL(response.data))
-      console.log('taswira', logo)
     })
     .catch((e) => {})
   let httpClient = new XMLHttpRequest()

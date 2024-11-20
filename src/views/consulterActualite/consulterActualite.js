@@ -10,7 +10,6 @@ const ConsulterActualite = () => {
   let navigate = useNavigate()
 
   function ActualiteInfo2(a) {
-    console.log('alooo', a)
     navigate('/consulterActualite/consulterActualite/actualiteInfo', {
       state: { actualite: a },
     })
@@ -31,7 +30,6 @@ const ConsulterActualite = () => {
   useEffect(() => {
     getAllActualitesForCandidat()
       .then((response) => {
-        console.log('al 3asba', response.data)
         response.data.reverse().map((item, index) => {
           let values = {
             titre: '',
@@ -42,7 +40,6 @@ const ConsulterActualite = () => {
             image: '',
             id: '',
           }
-          console.log('al 3asba2', item)
 
           values.titre = item.titre
           values.id = item.id

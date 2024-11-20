@@ -168,12 +168,9 @@ const Actualites = () => {
       values.description = description
       values.dateExpiration = dateExpiration
       values.archivee = archivee
-      console.log('values', values)
       const formData = new FormData()
       formData.append('file', image2)
-      console.log('values', formData)
       if (image2 === image3) {
-        console.log('tbdletch')
         updateActualite(values).then((response) => {
           if (response.status === 200) {
             setValidated(false)
@@ -181,7 +178,6 @@ const Actualites = () => {
           } else Notification_failure()
         })
       } else {
-        console.log('tbdlt')
         axios({
           method: 'post',
           url: 'http://localhost:8080/file/upload',
@@ -191,14 +187,12 @@ const Actualites = () => {
           function (response) {
             if (response.data !== 0) {
               values.image.id = response.data
-              console.log('values', values)
               updateActualite(values).then((response) => {
                 if (response.status === 200) {
                   setValidated(false)
                   Notification_Succees()
                   getAllActualitesForAdmin()
                     .then((response) => {
-                      console.log('hal sbeh2', response)
                       response.data.map((item, index) => {
                         getfile(item.image.id)
                           .then((response2) => {
@@ -260,7 +254,6 @@ const Actualites = () => {
             setBoolarchive(true)
             setBoolarchive(false)
             getAllActualitesForAdmin().then((response) => {
-              console.log('hal sbeh2', response)
               response.data.map((item, index) => {
                 getfile(item.image.id)
                   .then((response2) => {
@@ -304,7 +297,6 @@ const Actualites = () => {
         Swal.fire('cette actualité a été supprimé avec succes!', '', 'success')
         getAllActualitesForAdmin()
           .then((response) => {
-            console.log('hal sbeh2', response)
             response.data.map((item, index) => {
               getfile(item.image.id)
                 .then((response2) => {
@@ -360,7 +352,6 @@ const Actualites = () => {
       })
       .catch((e) => {})
   }, [showAjt, showMdf, bool, test, boolarchive])
-  console.log('hal sbeh', posts)
   if (posts.length == 0)
     return (
       <div className="actualite listeFormation">

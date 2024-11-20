@@ -78,7 +78,6 @@ const SuivreDemande = () => {
       .then((response) => {
         getDemandes_inscriptionsByCandidat(response.data.id).then((response2) => {
           setPosts(response2.data)
-          console.log('khra', response2.data)
         })
       })
       .catch((e) => {})

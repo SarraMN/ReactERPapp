@@ -317,7 +317,6 @@ const Gestioncompte = () => {
   }
   useEffect(() => {
     fetchUserData().then((response) => {
-      console.log('haw al create at', response)
       setUserName(response.data.userName)
       setId(response.data.id)
       setNom(response.data.nom)

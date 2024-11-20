@@ -121,7 +121,6 @@ const AjoutEvaluation = () => {
         authority: selectedEmployee.authority,
       };
       values2.employee = selectedEmployeePayload    
-      console.log('*9baaal',values2)
       add(values2).then((response) => {
         if (response.status === 200) {
           console.log('avec succée')

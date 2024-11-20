@@ -128,7 +128,6 @@ const RepondreReclamation = () => {
         setValidated(true)
         setFile('')
       } else {
-        console.log('fifiii', file)
         const formData = new FormData()
         formData.append('file', file)
         axios({

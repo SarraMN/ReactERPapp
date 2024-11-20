@@ -55,7 +55,6 @@ const ConsulterReclamationTraitee = () => {
     setItemReclamation(reclamation.state.state)
     if (reclamation.state.state.piececand != null) {
       setidDocuemnt(reclamation.state.state.piececand.id)
-      console.log('helloo', reclamation.state.state)
       console.log('itemReclamation', itemReclamation)
       getfile(reclamation.state.state.piececand.id).then((response) => {
         setbool(false)

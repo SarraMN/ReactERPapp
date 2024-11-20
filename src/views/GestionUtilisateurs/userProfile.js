@@ -31,7 +31,6 @@ const UserProfile = () => {
   useEffect(() => {
     GetListConges(values.id)
     .then((response) => {
-      console.log('hiiii', response.data)
       setConges(response.data)
     })
     .catch((e) => {})
@@ -39,7 +38,6 @@ const UserProfile = () => {
     if (values.image !== null) {
       getfile(values.image.id)
         .then((response) => {
-          console.log('taswira', response)
           setLogo(URL.createObjectURL(response.data))
         })
         .catch((e) => {})
