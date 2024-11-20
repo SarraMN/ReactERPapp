@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import 'src/views/Gestion_conges/Leave.css'
+import 'src/views/GestionFormation/listeFormation.css'
 import Swal from 'sweetalert2'
-
-import { deleteLeave, GetListConges } from 'src/services/congesService'
-
-import AjouterConge from 'src/views/Gestion_conges/AddConge'
-
-import { fetchUserData, getUserById } from 'src/services/UserService'
+import { DeleteReclamation, ReclamationsNonTraitees } from 'src/services/ReclamationService'
 import { Link, useNavigate } from 'react-router-dom'
+
+import 'src/views/Reclamation/Reclamation.css'
 import {
   CCard,
   CPagination,
@@ -19,86 +16,63 @@ import {
   CTableDataCell,
   CTableBody,
 } from '@coreui/react'
-import 'src/views/Gestion_conges/ListeConges.css'
-
-import { Modal, Button } from 'react-bootstrap'
-import { cilFeaturedPlaylist, cilList, cilPencil, cilPlus } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import { cilEnvelopeLetter, cilList } from '@coreui/icons'
+import 'src/views/GestionReclamation/gestionReclamation.css'
 
-const ListeConges = () => {
+const ReclamationsAttentes = () => {
   const [posts, setPosts] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage, setpostsPerPage] = useState(5)
   const [NextPage, setNextPage] = useState(currentPage + 1)
   const [PreviewsPage, setPreviewsPage] = useState(1)
   const [activeNumber, setactiveNumber] = useState(1)
-  const [soldeLeaves, setSoldeLeaves] = useState('')
   const [bool, setBool] = useState(false)
-
+  const [id, setId] = useState('')
+  const [values, setValues] = useState({
+    id: '',
+    reference: '',
+    objet: '',
+    contenu: '',
+    reponse: '',
+    traitee: '',
+    candidat: { id: '', authority: {} },
+  })
   let navigate = useNavigate()
   //popup
   const [showAjt, setShowAjt] = useState(false)
+  const [showMdf, setShowMdf] = useState(false)
   const handleShowAjt = () => setShowAjt(true)
   const handleCloseAjt = () => {
     setShowAjt(false)
   }
 
-  function consulterConge(item) {
-    navigate('/Gestion_conges/consulterConge', {
+  function consulterReclamation(item) {
+    navigate('/GestionReclamation/ReclamationAttentes/RepondreReclamation', {
       state: { state: item },
     })
   }
 
-  function supprimerConge(id) {
-    Swal.fire({
-      title: 'Souhaitez-vous supprimer ce congé ?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'supprimer',
-      denyButtonText: 'non',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        deleteLeave(id)
-          .then((response) => {
-            setBool(true)
-            setBool(false)
-          })
-          .catch((e) => {})
-
-        Swal.fire('Le congé a été supprimé avec succes!', '', 'success')
-      } else if (result.isDenied) {
-        Swal.fire('Les modifications ne sont pas enregistrées', '', 'info')
-      }
-    })
-  }
-
-  /*get leave list related to a certain employee */
+  /*getReclamations */
   useEffect(() => {
-    fetchUserData()
+    ReclamationsNonTraitees()
       .then((response) => {
-        console.log(response.data.id)
-        setSoldeLeaves(response.data.soldeLeaves)
-        GetListConges(response.data.id).then((response2) => {
-          setPosts(response2.data)
-          console.log(response2.data)
-        })
+        console.log(response.data)
+        setPosts(response.data)
       })
       .catch((e) => {})
   }, [showAjt, bool])
-
-  if (posts.length == 0)
+  function voirhistorique() {
+    navigate('/GestionReclamation/ReclamationAttentes/ReclamationsTraitees')
+  }
+  if (posts.length === 0)
     return (
-      <div className="SuivreReclamation">
+      <div className="listeFormation reclamation">
         <div style={{ marginBottom: '70px' }}>
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
-            <button
-              className="btnAdd btn-sm mb-0"
-              style={{ 'font-size': '18px' }}
-              onClick={handleShowAjt}
-            >
+            <button className="btnAdd btn-sm mb-0" onClick={voirhistorique}>
               <CIcon
-                icon={cilFeaturedPlaylist}
+                icon={cilEnvelopeLetter}
                 customClassName="nav-icon"
                 style={{
                   width: 20,
@@ -106,7 +80,7 @@ const ListeConges = () => {
                   'margin-right': 5,
                 }}
               />
-              Nouvel congé
+              Reclamations traitées
             </button>
           </div>
         </div>
@@ -117,38 +91,14 @@ const ListeConges = () => {
                 className="text-white ps-3"
                 style={{ 'font-weight': 'bold', 'font-size': '22px' }}
               >
-                Mes Congés
+                Reclamations non traitées
               </h6>
             </div>
           </div>
-
           <div>
-            <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>
-              Vous n{"'"}avez passer aucun congé!
-            </div>
+            <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>Aucune réclamation!</div>
           </div>
         </CCard>
-        <Modal
-          size="lg"
-          show={showAjt}
-          onHide={handleCloseAjt}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
-            {' '}
-            <CIcon
-              icon={cilPencil}
-              style={{
-                marginRight: 15,
-              }}
-            />
-            Ajouter Congé
-          </Modal.Header>
-          <Modal.Body>
-            <AjouterConge />
-          </Modal.Body>
-        </Modal>
       </div>
     )
   else {
@@ -167,23 +117,13 @@ const ListeConges = () => {
     for (let i = 1; i <= Math.ceil(posts.length / postsPerPage); i++) {
       pageNumbers.push(i)
     }
-
-    //selcetionner nombre de posts per page
-    /* const handleChange = (event) => {
-      console.log(event.target.value)
-      setselectValue(event.target.value)
-      setpostsPerPage(selectValue)
-    }
- */
     return (
-      <div className="SuivreReclamation">
-        <div> <strong>Votre Solde est : {soldeLeaves}</strong></div> 
+      <div className="listeFormation reclamation">
         <div style={{ marginBottom: '70px' }}>
-
           <div className="col-12 text-end" style={{ height: '15px', marginBottom: '19px' }}>
-            <button className="btnAdd btn-sm mb-0" onClick={handleShowAjt}>
+            <button className="btnAdd btn-sm mb-0" onClick={voirhistorique}>
               <CIcon
-                icon={cilFeaturedPlaylist}
+                icon={cilList}
                 customClassName="nav-icon"
                 style={{
                   width: 20,
@@ -191,7 +131,7 @@ const ListeConges = () => {
                   'margin-right': 5,
                 }}
               />
-              Nouvel congé
+              Reclamations traitées
             </button>
           </div>
         </div>
@@ -202,48 +142,26 @@ const ListeConges = () => {
                 className="text-white ps-3"
                 style={{ 'font-weight': 'bold', 'font-size': '22px' }}
               >
-                Mes congés
+                Reclamations non traitées
               </h6>
             </div>
           </div>
-          <Modal
-            size="lg"
-            show={showAjt}
-            onHide={handleCloseAjt}
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
-            <Modal.Header
-              closeButton
-              style={{ backgroundColor: '#213f77', color: 'white', fontWeight: 'bold' }}
-            >
-              <CIcon
-                icon={cilPencil}
-                style={{
-                  marginRight: 15,
-                }}
-              />
-              Ajouter congé
-            </Modal.Header>
-            <Modal.Body>
-              <AjouterConge />
-            </Modal.Body>
-          </Modal>
+
           <CTable align="middle" className="mb-0 border" hover responsive>
             <CTableHead color="light">
               <CTableRow>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Type
+                  Candidat
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Date début
+                  Référence
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Date fin
+                  Date de l{"'"}envoi
                 </CTableHeaderCell>
 
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Statut
+                  Objet
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
                   Action
@@ -253,71 +171,59 @@ const ListeConges = () => {
             <CTableBody>
               {currentPosts.map((item, index) => (
                 <CTableRow v-for="item in tableItems" key={index}>
-                  {/* Type*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={() => {
-                        consulterConge(item)
-                      }}
-                    >
-                      {item.type}
-                    </div>
-                  </CTableDataCell>
-                  {/* start date*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={() => {
-                        consulterConge(item)
-                      }}
-                    >
-                      {item.startDate}
-                    </div>
-                  </CTableDataCell>
-                  {/* end date*/}
+                  {/* Etat*/}
                   <CTableDataCell className="text-center">
                     <div
                       className="meduim "
                       onClick={(id) => {
-                        consulterConge(item)
+                        //  handleShowInfo(item.id)
                       }}
                     >
-                      {item.endDate}
+                      {item.candidat.prenom} {item.candidat.nom}
                     </div>
                   </CTableDataCell>
-                  {/* status*/}
+                  {/* Référence*/}
+                  <CTableDataCell className="text-center">
+                    <div
+                      className="meduim "
+                      onClick={(id) => {
+                        // handleShowInfo(item.id)
+                      }}
+                    >
+                      {item.id}
+                    </div>
+                  </CTableDataCell>
+                  {/* Date création*/}
+                  <CTableDataCell className="text-center">
+                    <div
+                      className="meduim "
+                      onClick={(id) => {
+                        // handleShowInfo(item.id)
+                      }}
+                    >
+                      {item.dateenvoie}
+                    </div>
+                  </CTableDataCell>
+                  {/* Objet*/}
                   <CTableDataCell className="text-center">
                     <div
                       className="meduim"
                       onClick={(id) => {
-                        consulterConge(item)
+                        // handleShowInfo(item.id)
                       }}
                     >
-                      {item.status}
+                      {item.objet}
                     </div>
                   </CTableDataCell>
                   {/* Action*/}
                   <CTableDataCell className="text-center">
                     <div>
-                      {item.status == "PENDING" && (
-                        <span onClick={() => supprimerConge(item.id)}>
-                          <i
-                            className="fa fa-trash-o"
-                            aria-hidden="true"
-                            style={{ marginRight: 12, fontSize: 22, color: 'red' }}
-                            title="Supprimer"
-                          ></i>
-                        </span>
-                      )}
-                      <span onClick={() => consulterConge(item)}>
-                        <i
-                          className="fa fa-external-link-square"
-                          aria-hidden="true"
-                          style={{ marginRight: 12, fontSize: 25, color: '#140788' }}
-                          title="Consulter"
-                        ></i>
-                      </span>
+                      <button
+                        className="Button_Repondre"
+                        onClick={() => consulterReclamation(item)}
+                      >
+                        répondre
+                      </button>
                     </div>
                   </CTableDataCell>
                 </CTableRow>
@@ -374,29 +280,8 @@ const ListeConges = () => {
             </a>
           </CPagination>
         </CCard>
-        <Modal
-          size="lg"
-          show={showAjt}
-          onHide={handleCloseAjt}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
-            {' '}
-            <CIcon
-              icon={cilPencil}
-              style={{
-                marginRight: 15,
-              }}
-            />
-            Ajouter congé
-          </Modal.Header>
-          <Modal.Body>
-            <AjouterConge />
-          </Modal.Body>
-        </Modal>
       </div>
     )
   }
 }
-export default ListeConges
+export default ReclamationsAttentes

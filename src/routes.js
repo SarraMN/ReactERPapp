@@ -67,9 +67,17 @@ const reclamations = React.lazy(() => import('./views/Reclamation/SuiviReclamati
 const AjoutReclamation = React.lazy(() => import('./views/Reclamation/AjoutReclamation'))
 const ConsulterReclamation = React.lazy(() => import('./views/Reclamation/ConsulterReclamation'))
 const suivreDemande = React.lazy(() => import('./views/suivreDemande/suivreDemandes'))
+const CongesAttentes = React.lazy(() => import('./views/GestionCongesRH/CongesAttentes'))
+const CongesTraitees = React.lazy(() =>
+  import('./views/GestionCongesRH/CongesTraitees'),
+)
+const ConsulterCongeTraite = React.lazy(() =>
+  import('./views/GestionCongesRH/ConsulterCongeTraite'),
+)
 const ReclamationsAttentes = React.lazy(() =>
   import('./views/GestionReclamation/ReclamationsAttentes'),
 )
+
 const RepondreReclamation = React.lazy(() =>
   import('./views/GestionReclamation/RepondreReclamation'),
 )
@@ -321,6 +329,11 @@ const routes = [
     element: ReclamationsAttentes,
   },
   {
+    path: '/GestionCongesRH/CongesAttentes',
+    name: 'Congés en attentes',
+    element: CongesAttentes,
+  },
+  {
     path: '/GestionReclamation/ReclamationAttentes/RepondreReclamation',
     name: 'Consulter reclamation',
     element: RepondreReclamation,
@@ -331,9 +344,19 @@ const routes = [
     element: ReclamationTraitees,
   },
   {
+    path: '/GestionConges/CongesAttentes/CongesTraitees',
+    name: 'Congés traitées',
+    element: CongesTraitees,
+  },
+  {
     path: '/GestionReclamation/ReclamationAttentes/ReclamationsTraitees/ConsulterReclamationTraitee',
     name: 'Reclamation',
     element: ConsulterReclamationTraitee,
+  },
+  {
+    path: '/GestionCongesRH/CongesTraitees/ConsulterCongeTraite',
+    name: 'Conges traité',
+    element: ConsulterCongeTraite,
   },
   {
     path: '/Gestion_Actualite/Actualites/actualiteInfo',

@@ -83,7 +83,7 @@ const Login = (props) => {
                 navigate('/accueil')
               }
               if (response.data.roles[0].authority === 'User_RH') {
-                navigate('/GestionFormation/listeFormation')
+                navigate('/GestionCompte/gestioncompte')
               }
             })
             .catch((e) => {

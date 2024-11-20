@@ -1,0 +1,79 @@
+.btn-Aj-Recl {
+  background-color: #ffffff;
+  color: #140788;
+  border: 2px solid #140788;
+  width: 180px;
+  height: 40px;
+  outline: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  margin-right: 30px;
+  margin-top: 18px;
+}
+.btn-Aj-Recl:hover {
+  background-color: #140788;
+  color: #ffffff;
+  border: 2px solid #140788;
+}
+.the_card {
+  margin: 0 auto;
+}
+.btnAdd:hover {
+  background-color: #140788;
+  color: white;
+  border: 2px solid #140788;
+}
+
+.btnAdd {
+  font-size: 18px;
+  border-radius: 10px;
+  border-color: #213f77;
+  border: 2px solid;
+  color: #213f77;
+}
+
+.objet_recl {
+  margin-top: 20px;
+  margin-left: 18px;
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.contenu_recl {
+  margin-left: 18px;
+  font-size: medium;
+  font-weight: 400;
+  margin-bottom: 25px;
+  margin-right: 18px;
+}
+
+.pdf_div {
+  display: flex;
+  margin-top: 22px;
+  margin-left: 18px;
+  margin-bottom: 20px;
+}
+
+.Button_Repondre {
+  background-color: #140788;
+  color: white;
+  border: 2px solid #140788;
+  width: 80px;
+  height: 32px;
+  outline: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+.tab_col_recl{
+  color: 'blue';
+  border: 3;
+  font-size: 16;
+  font-weight: 500;
+}

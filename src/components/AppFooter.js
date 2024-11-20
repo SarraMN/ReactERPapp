@@ -8,7 +8,7 @@ const AppFooter = () => {
         {/* <a href="https://coreui.io" target="_blank" rel="noopener noreferrer">
           CoreUI
         </a> */}
-        <span className="ms-1">&copy; 2022 Tac-tic.</span>
+        <span className="ms-1">&copy; 2024 Tek-up.</span>
       </div>
       <div className="ms-auto">
       </div>
