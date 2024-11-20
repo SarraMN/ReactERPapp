@@ -60,6 +60,12 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: 'Mes congés',
+    to: '/Gestion_logs/ListMesLogs',
+    icon: <CIcon icon={cilNewspaper} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
     name: 'Les actualités',
     to: '/consulterActualite/consulterActualite',
     icon: <CIcon icon={cilNewspaper} customClassName="nav-icon" />,

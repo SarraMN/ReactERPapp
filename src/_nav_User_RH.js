@@ -27,6 +27,12 @@ const _nav_User_RH = [
   },
   {
     component: CNavItem,
+    name: 'Logs',
+    to: '/Gestion_logs/ListAllLogs',
+    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
     name: 'Deconnecter',
     to: '/',
     icon: <CIcon icon={cilAccountLogout} customClassName="nav-icon" />,

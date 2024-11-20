@@ -12,6 +12,9 @@ const consulterConge = React.lazy(() => import('./views/Gestion_conges/consulter
 const listeConges = React.lazy(() => import('./views/Gestion_conges/ListeConges'))
 const ajoutEmploye = React.lazy(() => import('./views/GestionUtilisateurs/AjoutEmploye'))
 const compte = React.lazy(() => import('./views/GestionCompte/gestioncompte'))
+const listAllLogs = React.lazy(() => import('./views/Gestion_logs/ListAllLogs'))
+const listAllTraitedLogs = React.lazy(() => import('./views/Gestion_logs/ListLogsTraitees'))
+const mesLogs = React.lazy(() => import('./views/Gestion_logs/ListMesLogs'))
 const formations = React.lazy(() => import('./views/Consulter_formation/formations'))
 const tousFormations = React.lazy(() => import('./views/Consulter_formation/tousFormations'))
 const historique = React.lazy(() =>
@@ -130,6 +133,21 @@ const routes = [
     path: '/GestionCompte/gestioncompte',
     name: 'Mon Compte',
     element: compte,
+  },
+  {
+    path: '/Gestion_logs/ListAllLogs',
+    name: 'Logs',
+    element: listAllLogs,
+  },
+  {
+    path: '/Gestion_logs/ListLogsTraitees',
+    name: 'tarited Logs',
+    element: listAllTraitedLogs,
+  },
+  {
+    path: '/Gestion_logs/ListMesLogs',
+    name: 'Mes journaux',
+    element: mesLogs,
   },
   {
     path: '/Consulter_formation/formations',

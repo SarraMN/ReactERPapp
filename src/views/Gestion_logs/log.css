@@ -1,0 +1,30 @@
+.Button_Accepter {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+  .Button_Refuser {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  .state_Refuser {
+    color: red;
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-weight: bold;
+  }
+  .state_Accepter {
+    color: green;
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-weight: bold;
+  }
+  
