@@ -29,9 +29,6 @@ const CongesAttentes = React.lazy(() => import('./views/GestionCongesRH/CongesAt
 const CongesTraitees = React.lazy(() =>
   import('./views/GestionCongesRH/CongesTraitees'),
 )
-const ConsulterCongeTraite = React.lazy(() =>
-  import('./views/GestionCongesRH/ConsulterCongeTraite'),
-)
 const ReclamationsAttentes = React.lazy(() =>
   import('./views/GestionReclamation/ReclamationsAttentes'),
 )
@@ -187,11 +184,6 @@ const routes = [
     path: '/GestionReclamation/ReclamationAttentes/ReclamationsTraitees/ConsulterReclamationTraitee',
     name: 'Reclamation',
     element: ConsulterReclamationTraitee,
-  },
-  {
-    path: '/GestionCongesRH/CongesTraitees/ConsulterCongeTraite',
-    name: 'Conges traité',
-    element: ConsulterCongeTraite,
   },
   {
     path: '/Gestion_Actualite/Actualites/actualiteInfo',

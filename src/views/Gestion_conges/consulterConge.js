@@ -47,18 +47,6 @@ const consulterConge = () => {
     }
     oReq.send()
   }
-  const downloadContractAdmin = () => {
-    var oReq = new XMLHttpRequest()
-    oReq.open('GET', pAdmin, true)
-    oReq.responseType = 'blob'
-    oReq.onload = function () {
-      const file = new Blob([oReq.response], { type: 'application/pdf' })
-      const fileURL = URL.createObjectURL(file)
-      window.open(fileURL, '_blank')
-    }
-    oReq.send()
-  }
-
   function supprimerConge(id) {
     Swal.fire({
       title: 'Souhaitez-vous supprimer ce congé?',
@@ -83,23 +71,18 @@ const consulterConge = () => {
       }
     })
   }
-  /*getCongesLIst */
+  /*getCongesList */
   useEffect(() => {
     setitemConge(conge.state.state)
     console.log(conge.state.state)
     console.log('status', conge.state.state.status)
-  /*   if (conge.state.state.piececand != null) {
-      setidDocuemnt(reclamation.state.state.piececand.id)
+    if (conge.state.state.pieceJointe != null) {
+      setidDocuemnt(conge.state.state.pieceJointe.id)
       getfile(idDocuemnt).then((response) => {
         setlogo(URL.createObjectURL(response.data))
       })
     }
-    if (reclamation.state.state.traitee == true && reclamation.state.state.pieceadmin != null) {
-      getfile(reclamation.state.state.pieceadmin.id).then((response) => {
-        setPAdmin(URL.createObjectURL(response.data))
-      })
-    } */
-  }, [Bool])
+  }, [Bool, idDocuemnt])
 
   return (
     <div className="SuivreReclamation">
@@ -268,7 +251,7 @@ const consulterConge = () => {
             </span>
             <span className="contenu_recl">{itemConge.endDate}</span>
           </div>
-{/*           {itemConge.piececand != null ? (
+            {itemConge.pieceJointe != null ? (
             <div className="pdf_div">
               <i
                 className="fa fa-file-pdf-o"
@@ -288,7 +271,7 @@ const consulterConge = () => {
             </div>
           ) : (
             <div></div>
-          )} */}
+          )}
           <div>
             <hr noshade style={{ width: 755, height: 1, border: 1, marginLeft: 15 }}></hr>
             <div style={{ marginTop: 20, marginBottom: 30 }}>

@@ -186,12 +186,13 @@ const Gestioncompte = () => {
       e.etat_civil === etat_civil &&
       e.date_de_naissance === date_de_naissance &&
       e.adresse === adressse &&
-      Genre2 === Genre &&
+      e.Genre2 === Genre &&
       e.numero_de_telephone === numero_de_telephone &&
       e.nom === nom &&
       e.prenom === prenom &&
       image2 === image
     ) {
+      console.log(e)
       Notification_pasdechangement()
     } else {
       initialValues2.nom = nom
@@ -220,6 +221,8 @@ const Gestioncompte = () => {
       values.lastLogin = lastLogin
       values.genre = Genre
       values.idimage = idimage
+      console.log('values', values)
+
       if (e.adresse === undefined) {
         values.adressse = adressse
       }
@@ -256,6 +259,7 @@ const Gestioncompte = () => {
           function (error) {},
         )
       } else {
+        alert("yalla")
         updateuser(values).then((response) => {
           if (response.status === 200) {
             Notification_Info1update()
@@ -355,11 +359,6 @@ const Gestioncompte = () => {
     reader.readAsDataURL(e.target.files[0])
   }
 
-  /*   const [initialValues, setinitialValues] = useState({
-    nom: '',
-    prenom: '',
-    image: '',
-  }) */
   const [initialValues2, setinitialValues2] = useState({
     date_de_naissance: '',
     numero_de_telephone: '',
@@ -397,7 +396,7 @@ const Gestioncompte = () => {
               .integer('Un numéro de téléphone ne peut pas inclure de point décimal'),
             adresse: Yup.string()
               .required('Adresse est requis')
-              .min(6, 'adresse doit être au moins de 6 caractères'),
+              .min(4, 'adresse doit être au moins de 4 caractères'),
           })}
           onSubmit={(values) => changerInfo2(values)}
           render={({ errors, status, touched }) => (
@@ -542,8 +541,7 @@ const Gestioncompte = () => {
                                 style={{ 'margin-right': '30px', fontSize: ' medium' }}
                               >
                                 <span>Homme </span>
-                                {                                <input type="radio" checked={Genre === 'Homme'} name="genre" />
-                                 }{' '}
+            
                                 <input
                                   checked={Genre === 'Homme'}
                                   type="radio"
@@ -557,8 +555,6 @@ const Gestioncompte = () => {
                               </label>
                               <label className="radio-container">
                                 <span>Femme </span>
-                                {                                 <input type="radio" checked={Genre === 'Femme'} name="genre" />
-                                 }{' '}
                                 <input
                                   checked={Genre === 'Femme'}
                                   value={(values.genre = 'Femme')}

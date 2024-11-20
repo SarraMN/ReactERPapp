@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import 'src/views/GestionFormation/listeFormation.css'
 import Swal from 'sweetalert2'
 import { DeleteReclamation, ReclamationsTraitees } from 'src/services/ReclamationService'
 import { Link, useNavigate } from 'react-router-dom'
-import 'src/views/GestionReclamation/gestionReclamation.css'
+import 'src/views/GestionCongesRH/gestionCongesRH.css'
+import { getNonPendingLeaves, ApproveConge, RejectConge } from 'src/services/congesService'
 
-import 'src/views/Reclamation/Reclamation.css'
+import 'src/views/Gestion_conges/Leave.css'
 import {
   CCard,
   CPagination,
@@ -18,7 +18,7 @@ import {
   CTableBody,
 } from '@coreui/react'
 
-const ReclamationTraitees = () => {
+const CongesTraitees = () => {
   const [posts, setPosts] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [NextPage, setNextPage] = useState(currentPage + 1)
@@ -26,30 +26,18 @@ const ReclamationTraitees = () => {
   const [activeNumber, setactiveNumber] = useState(1)
   const [postsPerPage, setpostsPerPage] = useState(5)
   const [bool, setBool] = useState(false)
-  const [id, setId] = useState('')
-  const [values, setValues] = useState({
-    id: '',
-    reference: '',
-    objet: '',
-    contenu: '',
-    reponse: '',
-    traitee: '',
-    candidat: { id: '', authority: {} },
-  })
+
   let navigate = useNavigate()
 
-  function consulterReclamation(item) {
-    navigate(
-      '/GestionReclamation/ReclamationAttentes/ReclamationsTraitees/ConsulterReclamationTraitee',
-      {
-        state: { state: item },
-      },
-    )
+  function consulterConge(item) {
+    navigate('/Gestion_conges/consulterConge', {
+      state: { state: item },
+    })
   }
 
   /*getReclamations */
   useEffect(() => {
-    ReclamationsTraitees()
+    getNonPendingLeaves()
       .then((response) => {
         console.log(response.data)
         setPosts(response.data)
@@ -59,7 +47,7 @@ const ReclamationTraitees = () => {
 
   if (posts.length == 0)
     return (
-      <div className="listeFormation reclamation">
+      <div className="listeConges reclamation">
         <CCard style={{ marginTop: '90px' }}>
           <div
             className="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
@@ -70,12 +58,12 @@ const ReclamationTraitees = () => {
                 className="text-white ps-3"
                 style={{ 'font-weight': 'bold', 'font-size': '22px' }}
               >
-                Reclamations traitées
+                Congés traités
               </h6>
             </div>
           </div>
           <div>
-            <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>Aucune réclamation!</div>
+            <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>Aucun congés!</div>
           </div>
         </CCard>
       </div>
@@ -97,7 +85,7 @@ const ReclamationTraitees = () => {
       pageNumbers.push(i)
     }
     return (
-      <div className="listeFormation reclamation">
+      <div className="listeConges reclamation">
         <CCard style={{ marginTop: '90px' }}>
           <div
             className="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
@@ -114,104 +102,89 @@ const ReclamationTraitees = () => {
           </div>
 
           <CTable align="middle" className="mb-0 border" hover responsive>
-            <CTableHead color="light">
-              <CTableRow>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Candidat
-                </CTableHeaderCell>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Référence
-                </CTableHeaderCell>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Date de l{"'"}envoi
-                </CTableHeaderCell>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Date de traitement
-                </CTableHeaderCell>
-
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Objet
-                </CTableHeaderCell>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Action
-                </CTableHeaderCell>
-              </CTableRow>
-            </CTableHead>
-            <CTableBody>
-              {currentPosts.map((item, index) => (
-                <CTableRow v-for="item in tableItems" key={index}>
-                  {/* Etat*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={() => {
-                        consulterReclamation(item)
-                      }}
-                    >
-                      {item.candidat.prenom} {item.candidat.nom}
-                    </div>
-                  </CTableDataCell>
-                  {/* Référence*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={() => {
-                        consulterReclamation(item)
-                      }}
-                    >
-                      {item.id}
-                    </div>
-                  </CTableDataCell>
-                  {/* Date envoie*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={() => {
-                        consulterReclamation(item)
-                      }}
-                    >
-                      {item.dateenvoie}
-                    </div>
-                  </CTableDataCell>
-                  {/* Date traitement*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={() => {
-                        consulterReclamation(item)
-                      }}
-                    >
-                      {item.datetraitement}
-                    </div>
-                  </CTableDataCell>
-                  {/* Objet*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim"
-                      onClick={(id) => {
-                        // handleShowInfo(item.id)
-                      }}
-                    >
-                      {item.objet}
-                    </div>
-                  </CTableDataCell>
-                  {/* Action*/}
-                  <CTableDataCell className="text-center">
-                    <div>
-                      <span onClick={() => consulterReclamation(item)}>
-                        <i
-                          className="fa fa-external-link-square"
-                          aria-hidden="true"
-                          style={{ marginRight: 12, fontSize: 25, color: '#140788' }}
-                          title="Consulter"
-                        ></i>
-                      </span>
-                    </div>
-                  </CTableDataCell>
-                </CTableRow>
-              ))}
-            </CTableBody>
-          </CTable>
+  <CTableHead color="light">
+    <CTableRow>
+      <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+        Type
+      </CTableHeaderCell>
+      <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+        Demander par
+      </CTableHeaderCell>
+      <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+        Date début
+      </CTableHeaderCell>
+      <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+        Date fin
+      </CTableHeaderCell>
+      <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+        Statut
+      </CTableHeaderCell>
+    </CTableRow>
+  </CTableHead>
+  <CTableBody>
+    {currentPosts.map((item, index) => (
+      <CTableRow key={index}>
+        {/* Type */}
+        <CTableDataCell className="text-center">
+          <div className="meduim"
+                onClick={() => {
+                  consulterConge(item)
+              }}
+         >{item.type}</div>
+        </CTableDataCell>
+        {/* Requested by */}
+        <CTableDataCell className="text-center">
+          <div className="meduim"
+               onClick={() => {
+                  consulterConge(item)
+                }}
+           >
+            {item.requestedBy.nom} {item.requestedBy.prenom}
+          </div>
+        </CTableDataCell>
+        {/* Start Date */}
+        <CTableDataCell className="text-center">
+          <div className="meduim"
+           onClick={() => {
+            consulterConge(item)
+          }}>{item.startDate}</div>
+        </CTableDataCell>
+        {/* End Date */}
+        <CTableDataCell className="text-center">
+          <div className="meduim"  
+          onClick={() => {
+          consulterConge(item)
+        }}>{item.endDate}</div>
+        </CTableDataCell>
+        {/* Status */}
+        <CTableDataCell className="text-center" style={{ textAlign: 'right' }}>
+          <div
+            className="meduim"
+            onClick={() => {
+              consulterConge(item)
+            }}
+            style={{
+              backgroundColor:
+                item.status === 'APPROVED'
+                  ? '#008000' // Dark green for APPROVED
+                  : item.status === 'REJECTED'
+                  ? '#8B0000' // Dark red for REJECTED
+                  : '#D3D3D3', // Light gray for other statuses (no transparency)
+              color: item.status === 'APPROVED' || item.status === 'REJECTED' ? 'white' : 'black',
+              padding: '5px',
+              borderRadius: '5px',
+              display: 'inline-block', // Ensures the badge fits its content
+              width: 'auto', // Reduces width to fit content
+              textAlign: 'center', // Centers text inside the badge
+            }}
+          >
+            {item.status}
+          </div>
+        </CTableDataCell>
+      </CTableRow>
+    ))}
+  </CTableBody>
+      </CTable>
           <br></br>
           <div className="row pagination_row" style={{ marginRight: 15, marginBottom: 15 }}>
             <div className="col">
@@ -266,4 +239,4 @@ const ReclamationTraitees = () => {
     )
   }
 }
-export default ReclamationTraitees
+export default CongesTraitees

@@ -3,7 +3,6 @@ import 'src/views/GestionUtilisateurs/userProfile.css'
 import { useLocation } from 'react-router-dom'
 import { getfile } from 'src/services/fileService'
 import avatar8 from './../../assets/images/profile_homme.png'
-import { GetformationsByFormateur } from 'src/services/FormationService'
 
 const Responsable = () => {
   let [formations, setFormations] = useState([])

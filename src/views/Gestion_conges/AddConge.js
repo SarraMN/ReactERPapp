@@ -24,6 +24,7 @@ const AddConge = () => {
   const [startDate, setStartDate] = useState('') // Ajout du champ startDate
   const [endDate, setEndDate] = useState('') // Ajout du champ endDate
   const [soldeLeaves, setSoldeLeaves] = useState('')
+  const [file, setFile] = useState('vide')
   const [values, setValues] = useState({
     id: '',
     type: '',
@@ -31,7 +32,7 @@ const AddConge = () => {
     startDate: '',
     endDate: '',
     requestedBy: { id: '', authority: {} },
-    piececand: { id: '' },
+    pieceJointe: { id: '' },
   })
   const [values2, setValues2] = useState({
     id: '',
@@ -40,7 +41,7 @@ const AddConge = () => {
     startDate: '',
     endDate: '',
     requestedBy: { id: '', authority: {} },
-    piececand: { id: '' },
+    pieceJointe: { id: '' },
   })
 
   function initialiser() {
@@ -115,112 +116,121 @@ const AddConge = () => {
 
   //props.id contient l'id de la formation
   const handleSubmit = (event) => {
-    //console.log('file', file)
+    // Validate that fields are not empty
     if (type === '' || description === '' || startDate === '' || endDate === '') {
-      Notification_NonVide()
-      event.preventDefault()
-      event.stopPropagation()
-      setValidated(true)
-    } else if (new Date(startDate) > new Date(endDate)) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Dates invalides',
-          text: 'La date de début doit être avant la date de fin',
-        })
-        event.preventDefault()
-        event.stopPropagation()
-        setValidated(true)
+      Notification_NonVide();
+      event.preventDefault();
+      event.stopPropagation();
+      setValidated(true);
     } 
-    else if (description.length < 50) {
-        Notification_taille()
-        event.preventDefault()
-        event.stopPropagation()
-        setValidated(true)
-      } 
-    
-/*     else if (file != 'vide') {
-      if (file.type != 'application/pdf') {
-        Notification_PDF()
-        event.preventDefault()
-        event.stopPropagation()
-        setValidated(true)
-      } else if (file.size >= 1048576) {
-        taillefichiertroplarge()
-        event.preventDefault()
-        event.stopPropagation()
-        setValidated(true)
-        setFile('')
-      } else {
-        const formData = new FormData()
-        formData.append('file', file)
-        axios({
-          method: 'post',
-          url: 'http://localhost:8080/file/upload',
-          data: formData,
-          headers: { 'Content-Type': 'multipart/form-data' },
-        }).then(
-          function (response) {
-            if (response.data === 0) {
-              taillefichiertroplarge()
-            } else {
-              values.piececand.id = response.data
-              setValidated(true)
-              values.type = type
-              values.description = description
-              console.log('values', values)
-              CreateConge(values).then((response) => {
-                if (response.status === 200) {
-                  console.log('avec succée')
-                  initialiser()
-                  Notification_Succees()
-                } else {
-                  console.log('failure')
-                  Notification_failure()
-                }
-              })
-            }
-          },
-          function (error) {},
-        )
-      }
-    } */ else {
-    // Calcul du nombre de jours demandés
-    const start = new Date(startDate)
-    const end = new Date(endDate)
-    const daysRequested = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1
-
-    // Vérification du solde
-    if (soldeLeaves < daysRequested) {
+    // Validate the date range (start date should be before end date)
+    else if (new Date(startDate) > new Date(endDate)) {
       Swal.fire({
         icon: 'error',
-        title: 'Solde insuffisant',
-        text: `Votre solde actuel est de ${soldeLeaves} jours. Vous avez demandé ${daysRequested} jours.`,
-      })
-      event.preventDefault()
-      event.stopPropagation()
-      setValidated(true)
-      return
-    }
-
-    // Si tout est valide
-      setValidated(true)
-      values2.type = type
-      values2.startDate = startDate
-      values2.endDate = endDate
-      values2.description = description
-      console.log('values', values2)
-      CreateConge(values2).then((response) => {
-        if (response.status === 200) {
-          console.log('avec succée')
-          initialiser()
-          Notification_Succees()
+        title: 'Dates invalides',
+        text: 'La date de début doit être avant la date de fin',
+      });
+      event.preventDefault();
+      event.stopPropagation();
+      setValidated(true);
+    } 
+    // Calculate the number of requested days and validate balance after date validation
+    else {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      const daysRequested = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+  
+      // Check balance for the requested days
+      if (soldeLeaves < daysRequested) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Solde insuffisant',
+          text: `Votre solde actuel est de ${soldeLeaves} jours. Vous avez demandé ${daysRequested} jours.`,
+        });
+        event.preventDefault();
+        event.stopPropagation();
+        setValidated(true);
+        return;
+      }
+  
+      // Validate the description length
+      if (description.length < 50) {
+        Notification_taille();
+        event.preventDefault();
+        event.stopPropagation();
+        setValidated(true);
+      } 
+      // Validate the file if the solde is sufficient
+      else if (file !== 'vide') {
+        if (file.type !== 'application/pdf') {
+          Notification_PDF();
+          event.preventDefault();
+          event.stopPropagation();
+          setValidated(true);
+        } else if (file.size >= 1048576) {
+          taillefichiertroplarge();
+          event.preventDefault();
+          event.stopPropagation();
+          setValidated(true);
+          setFile('');
         } else {
-          console.log('failure')
-          Notification_failure()
+          const formData = new FormData();
+          formData.append('file', file);
+          axios({
+            method: 'post',
+            url: 'http://localhost:8080/file/upload',
+            data: formData,
+            headers: { 'Content-Type': 'multipart/form-data' },
+          }).then(
+            function (response) {
+              if (response.data === 0) {
+                taillefichiertroplarge();
+              } else {
+                values.pieceJointe.id = response.data;
+                setValidated(true);
+                values.type = type;
+                values.description = description;
+                values.startDate = startDate;
+                values.endDate = endDate;
+                console.log('values', values);
+                CreateConge(values).then((response) => {
+                  if (response.status === 200) {
+                    console.log('avec succée');
+                    initialiser();
+                    Notification_Succees();
+                  } else {
+                    console.log('failure');
+                    Notification_failure();
+                  }
+                });
+              }
+            },
+            function (error) {},
+          );
         }
-      })
+      } 
+      // If no file validation needed, proceed with the form submission
+      else {
+        setValidated(true);
+        values2.type = type;
+        values2.startDate = startDate;
+        values2.endDate = endDate;
+        values2.description = description;
+        console.log('values', values2);
+        CreateConge(values2).then((response) => {
+          if (response.status === 200) {
+            console.log('avec succée');
+            initialiser();
+            Notification_Succees();
+          } else {
+            console.log('failure');
+            Notification_failure();
+          }
+        });
+      }
     }
-  }
+  };
+  
   function imageHandler(e) {
     setFile(e.target.files[0])
   }
@@ -293,7 +303,25 @@ const AddConge = () => {
             <CFormFeedback invalid>Champs requis</CFormFeedback>
             <p style={{ color: 'dimgray' }}>{description.length} caractères</p>
           </CCol>
-
+          <CCol md={6}>
+            <CFormLabel
+              htmlFor="formFileSm"
+              style={{ fontWeight: 'bold' }}
+              accept="application/pdf"
+            >
+              Pièce justificative
+            </CFormLabel>
+            <CFormInput
+              style={{ borderRadius: 40 }}
+              type="file"
+              size="sm"
+              accept="application/pdf"
+              id="formFileSm"
+              onChange={(value) => imageHandler(value)}
+              minLength="50"
+            />
+            <CFormFeedback invalid>Champs requis</CFormFeedback>
+          </CCol>
           <CCol xs={12}>
             <button
               className="btn-Aj-Recl"

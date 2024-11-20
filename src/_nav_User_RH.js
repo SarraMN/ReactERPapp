@@ -8,6 +8,8 @@ import {
 import { CNavItem } from '@coreui/react'
 import { getAllNotTraitedTimeSheets } from 'src/services/logsService'
 import { useDispatch, useSelector } from 'react-redux'
+import { getPendingLeaves, ApproveConge, RejectConge } from 'src/services/congesService'
+
 
 function NbrNotTraitedTimeSheets() {
   const dispatch = useDispatch()
@@ -27,6 +29,25 @@ function NbrNotTraitedTimeSheets() {
   return <span>{nbrNotTraitedTimeSheets !== undefined ? nbrNotTraitedTimeSheets : '...'}</span>
 }
 
+
+function NbrCongesNonTraites() {
+  const dispatch = useDispatch()
+  const nbrCongesNonTraites = useSelector((state) => state.nbrCongesNonTraites)
+
+  useEffect(() => {
+    getPendingLeaves()
+      .then((response) => {
+        dispatch({ type: 'set', nbrCongesNonTraites: response.data.length })
+      })
+      .catch((e) => {
+        console.error('Error fetching time sheets:', e)
+      })
+  }, [dispatch])
+
+  // Return the badge content or a placeholder
+  return <span>{nbrCongesNonTraites !== undefined ? nbrCongesNonTraites : '...'}</span>
+}
+
 const _nav_User_RH = [
   {
     component: CNavItem,
@@ -38,7 +59,7 @@ const _nav_User_RH = [
     component: CNavItem,
     name: 'Journaux',
     to: '/Gestion_logs/ListAllLogs',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
     badge: {
       color: 'info',
       text: <NbrNotTraitedTimeSheets />,
@@ -51,7 +72,7 @@ const _nav_User_RH = [
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
     badge: {
       color: 'info',
-      // text: <NbrReclamations />,
+      text: <NbrCongesNonTraites />,
     },
   },
   {

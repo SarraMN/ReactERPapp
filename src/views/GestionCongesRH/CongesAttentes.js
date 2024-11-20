@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import 'src/views/GestionFormation/listeFormation.css'
+import { getPendingLeaves, ApproveConge, RejectConge } from 'src/services/congesService'
+import { fetchUserData } from 'src/services/UserService'
+import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { DeleteReclamation, ReclamationsNonTraitees } from 'src/services/ReclamationService'
-import { Link, useNavigate } from 'react-router-dom'
-
-import 'src/views/Reclamation/Reclamation.css'
+import 'src/views/Gestion_conges/Leave.css'
 import {
   CCard,
   CPagination,
@@ -18,9 +17,9 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilEnvelopeLetter, cilList } from '@coreui/icons'
-import 'src/views/GestionReclamation/gestionReclamation.css'
+import 'src/views/GestionCongesRH/gestionCongesRH.css'
 
-const ReclamationsAttentes = () => {
+const CongesAttentes = () => {
   const [posts, setPosts] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage, setpostsPerPage] = useState(5)
@@ -29,15 +28,7 @@ const ReclamationsAttentes = () => {
   const [activeNumber, setactiveNumber] = useState(1)
   const [bool, setBool] = useState(false)
   const [id, setId] = useState('')
-  const [values, setValues] = useState({
-    id: '',
-    reference: '',
-    objet: '',
-    contenu: '',
-    reponse: '',
-    traitee: '',
-    candidat: { id: '', authority: {} },
-  })
+
   let navigate = useNavigate()
   //popup
   const [showAjt, setShowAjt] = useState(false)
@@ -47,15 +38,93 @@ const ReclamationsAttentes = () => {
     setShowAjt(false)
   }
 
-  function consulterReclamation(item) {
-    navigate('/GestionReclamation/ReclamationAttentes/RepondreReclamation', {
+  function consulterConge(item) {
+    navigate('/Gestion_conges/consulterConge', {
       state: { state: item },
+    })
+  }
+
+  function approveLeave(id) {
+    Swal.fire({
+      title: 'Souhaitez-vous accepter ce Congé ?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Accepter',
+      denyButtonText: 'Non',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Fetch user data to get approver's ID
+        fetchUserData()
+          .then((response2) => {
+            const approverId = response2.data.id;
+  
+            // Call the approve API
+            ApproveConge(id, approverId)
+              .then((response) => {
+                console.log('Congé approuvé:', response.data);
+  
+                // Refresh the list of unprocessed leaves
+                return getPendingLeaves();
+              })
+              .then((response) => {
+                console.log('Congé updated:', response.data);
+                setPosts(response.data); // Update the posts state
+                Swal.fire('Le congé a été accepté avec succès!', '', 'success');
+              })
+              .catch((error) => {
+                console.error('Error en approuvant le congé:', error);
+                Swal.fire('Une erreur est survenue.', '', 'error');
+              });
+          })
+          .catch((error) => {
+            console.error('Error fetching user data:', error);
+            Swal.fire('Impossible de récupérer les informations de l\'utilisateur.', '', 'error');
+          });
+      } else if (result.isDenied) {
+        Swal.fire('Aucune modification effectuée.', '', 'info');
+      }
+    });
+  }
+  
+  
+
+  function rejectLeave(id) {
+    Swal.fire({
+      title: 'Souhaitez-vous refuser ce congé ?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'refuser',
+      denyButtonText: 'non',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        fetchUserData()
+       .then((response2) => {
+        RejectConge(id,response2.data.id)
+          .then((response) => {
+            console.log('data', response.data)
+            setBool(true)
+            setBool(false)
+          })
+          .catch((e) => {})})
+          .catch((e) => {})
+
+        Swal.fire('ce congé a été rejeter avec succes!', '', 'success')
+        getPendingLeaves()
+        .then((response) => {
+          console.log(response.data)
+          setPosts(response.data)
+        })
+        .catch((e) => {})
+      } else if (result.isDenied) {
+        Swal.fire('Aucune modification ', '', 'info')
+      }
     })
   }
 
   /*getReclamations */
   useEffect(() => {
-    ReclamationsNonTraitees()
+    getPendingLeaves()
       .then((response) => {
         console.log(response.data)
         setPosts(response.data)
@@ -63,7 +132,7 @@ const ReclamationsAttentes = () => {
       .catch((e) => {})
   }, [showAjt, bool])
   function voirhistorique() {
-    navigate('/GestionReclamation/ReclamationAttentes/ReclamationsTraitees')
+    navigate('/GestionConges/CongesAttentes/CongesTraitees')
   }
   if (posts.length === 0)
     return (
@@ -80,7 +149,7 @@ const ReclamationsAttentes = () => {
                   'margin-right': 5,
                 }}
               />
-              Reclamations traitées
+              Congés traités
             </button>
           </div>
         </div>
@@ -91,12 +160,12 @@ const ReclamationsAttentes = () => {
                 className="text-white ps-3"
                 style={{ 'font-weight': 'bold', 'font-size': '22px' }}
               >
-                Reclamations non traitées
+                Congés non traités
               </h6>
             </div>
           </div>
           <div>
-            <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>Aucune réclamation!</div>
+            <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>Aucun congé à traiter!</div>
           </div>
         </CCard>
       </div>
@@ -131,7 +200,7 @@ const ReclamationsAttentes = () => {
                   'margin-right': 5,
                 }}
               />
-              Reclamations traitées
+              Congés traités
             </button>
           </div>
         </div>
@@ -142,7 +211,7 @@ const ReclamationsAttentes = () => {
                 className="text-white ps-3"
                 style={{ 'font-weight': 'bold', 'font-size': '22px' }}
               >
-                Reclamations non traitées
+                Congés non traités
               </h6>
             </div>
           </div>
@@ -151,17 +220,19 @@ const ReclamationsAttentes = () => {
             <CTableHead color="light">
               <CTableRow>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Candidat
+                  Type
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Référence
+                  Demander par
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Date de l{"'"}envoi
+                  Date début
                 </CTableHeaderCell>
-
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Objet
+                  Date fin
+                </CTableHeaderCell>
+                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+                  Statut
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
                   Action
@@ -171,29 +242,18 @@ const ReclamationsAttentes = () => {
             <CTableBody>
               {currentPosts.map((item, index) => (
                 <CTableRow v-for="item in tableItems" key={index}>
-                  {/* Etat*/}
+                  {/* Type*/}
                   <CTableDataCell className="text-center">
                     <div
                       className="meduim "
-                      onClick={(id) => {
-                        //  handleShowInfo(item.id)
+                      onClick={() => {
+                         consulterConge(item)
                       }}
                     >
-                      {item.candidat.prenom} {item.candidat.nom}
+                      {item.type} 
                     </div>
                   </CTableDataCell>
-                  {/* Référence*/}
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim "
-                      onClick={(id) => {
-                        // handleShowInfo(item.id)
-                      }}
-                    >
-                      {item.id}
-                    </div>
-                  </CTableDataCell>
-                  {/* Date création*/}
+                  {/* Request by*/}
                   <CTableDataCell className="text-center">
                     <div
                       className="meduim "
@@ -201,30 +261,73 @@ const ReclamationsAttentes = () => {
                         // handleShowInfo(item.id)
                       }}
                     >
-                      {item.dateenvoie}
+                      {item.requestedBy.nom} {item.requestedBy.prenom}
                     </div>
                   </CTableDataCell>
-                  {/* Objet*/}
+                  {/* Date debut*/}
+                  <CTableDataCell className="text-center">
+                    <div
+                      className="meduim "
+                      onClick={() => {
+                        consulterConge(item)
+                      }}
+                    >
+                      {item.startDate}
+                    </div>
+                  </CTableDataCell>
+                  {/* end date*/}
+                  <CTableDataCell className="text-center">
+                    <div
+                      className="meduim "
+                      onClick={() => {
+                        consulterConge(item)
+                      }}
+                    >
+                      {item.endDate}
+                    </div>
+                  </CTableDataCell>
+                  {/* status*/}
                   <CTableDataCell className="text-center">
                     <div
                       className="meduim"
-                      onClick={(id) => {
-                        // handleShowInfo(item.id)
+                      onClick={() => {
+                        consulterConge(item)
                       }}
                     >
-                      {item.objet}
+                      {item.status}
                     </div>
                   </CTableDataCell>
                   {/* Action*/}
                   <CTableDataCell className="text-center">
-                    <div>
-                      <button
-                        className="Button_Repondre"
-                        onClick={() => consulterReclamation(item)}
-                      >
-                        répondre
-                      </button>
-                    </div>
+                  <div>
+                        {item.status == "PENDING" ? (
+                            <>
+                                <button
+                                className="Button_Accepter"
+                                onClick={() => approveLeave(item.id)}
+                                >
+                                Accepter
+                                </button>
+                                <button
+                                className="Button_Refuser"
+                                onClick={() => rejectLeave(item.id)}
+                                >
+                                Refuser
+                                </button>
+                            </>
+                            ) : (
+                            
+                            <span>
+                            {item.status == "APPROVED" ? (
+                            <>
+                               <span className="state_Accepter"> {item.state}</span>
+                            </>
+                            ) : (
+                            <span className="state_Refuser">{item.state}</span>
+                            )}
+                            </span>
+                            )}
+                        </div>
                   </CTableDataCell>
                 </CTableRow>
               ))}
@@ -284,4 +387,4 @@ const ReclamationsAttentes = () => {
     )
   }
 }
-export default ReclamationsAttentes
+export default CongesAttentes

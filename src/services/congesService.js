@@ -51,30 +51,27 @@ export const CreateConge = (leaveRequest) => {
 };
 
 // Approve a leave request
-export const ApproveConge = (leaveId, approvedBy) => {
+export const ApproveConge = (leaveId, approvedById) => {
   return axios({
     method: 'PUT',
-    url: `${BASE_URL}/api/leaves/${leaveId}/approve`,
+    url: `${BASE_URL}/api/leaves/${leaveId}/approve/${approvedById}`, // Pass both IDs in the URL
     headers: {
       Authorization: 'Bearer ' + getToken(),
-      'Content-Type': 'application/json',
     },
-    data: approvedBy,
   });
 };
 
 // Reject a leave request
-export const RejectConge = (leaveId, disapprovedBy) => {
+export const RejectConge = (leaveId, disapprovedById) => {
   return axios({
     method: 'PUT',
-    url: `${BASE_URL}/api/leaves/${leaveId}/reject`,
+    url: `${BASE_URL}/api/leaves/${leaveId}/reject/${disapprovedById}`, // Pass both IDs in the URL
     headers: {
       Authorization: 'Bearer ' + getToken(),
-      'Content-Type': 'application/json',
     },
-    data: disapprovedBy,
   });
 };
+
 
 // Get all pending leaves
 export const getPendingLeaves = () => {

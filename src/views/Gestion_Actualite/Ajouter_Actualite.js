@@ -16,7 +16,6 @@ import {
 } from '@coreui/react'
 import ReactImg from 'src/assets/images/logo_actualite.jpg'
 
-import { AjoutFormation, archiverformation } from 'src/services/FormationService'
 import { fetchUserData, getUserById } from 'src/services/UserService'
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'

@@ -29,7 +29,7 @@ const AjouterReclamation = () => {
     objet: '',
     contenu: '',
     candidat: { id: '', authority: {} },
-    piececand: { id: '' },
+    pieceJointe: { id: '' },
   })
   const [values2, setValues2] = useState({
     id: '',

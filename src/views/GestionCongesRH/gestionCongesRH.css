@@ -1819,3 +1819,362 @@
   letter-spacing: 0rem;
   color: #344767;
 }
+.Button_Accepter {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.Button_Refuser {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.state_Refuser {
+  color: red;
+  padding: 5px 10px;
+  margin-right: 5px;
+  font-weight: bold;
+}
+.state_Accepter {
+  color: green;
+  padding: 5px 10px;
+  margin-right: 5px;
+  font-weight: bold;
+}
+.listeConges .tutorial-item {
+  padding: 20px;
+  border-radius: 4px;
+  border-width: thick;
+  -webkit-box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
+  background: #fff;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 5px;
+  margin-top: 30px;
+  align-items: stretch;
+}
+.listeConges .tutorial-item .img-wrap {
+  /*   -webkit-box-flex: 0;
+  -ms-flex: 0 0 250px;
+  flex: 0 0 300px; */
+  margin-right: 30px;
+  width: 380px;
+  justify-content: left;
+}
+.listeConges .tutorial-item h3 {
+  margin-bottom: 20px;
+  font-size: 25px;
+}
+.listeConges .btnAdd:hover {
+  background-color: #140788;
+  color: white;
+  border: 2px solid #140788;
+}
+
+.listeConges .btnAdd {
+  font-size: 18px;
+  border-radius: 7px;
+  border-color: #213f77;
+  border: 2px solid;
+  color: #213f77;
+}
+
+.listeConges .tutorial-item h3 a {
+  color: #3399ff;
+  text-decoration: none;
+}
+.listeConges .tutorial-item h3 span {
+  color: #3399ff;
+}
+.listeConges .tutorial-item *:last-child {
+  margin-bottom: 0;
+}
+.listeConges .meta {
+  color: #a6a6a6;
+}
+.listeConges .info-det {
+  color: #384158;
+  font-weight: 500;
+  font-size: 16px;
+  padding-bottom: 5px;
+}
+
+.listeConges .custom-btn {
+  height: 30px;
+  width: 100px;
+  margin-top: 5px;
+  padding-top: 1px;
+}
+.listeConges .it-cont {
+  /* -webkit-box-flex: 0;
+  -ms-flex: 0 0 10px;
+  flex: 0 0 490px; */
+  margin-right: 30px;
+  justify-content: left;
+  width: 350;
+}
+.listeConges .buttons {
+  display: flex;
+  justify-content: right;
+}
+.listeConges .btn-Modf {
+  background: white;
+  border: 2px solid #069653;
+  outline: none;
+  border-radius: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  color: #069653;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  margin-left: 10px;
+  width: 45px;
+  height: 45px;
+}
+
+.listeConges .btn-Modf:hover {
+  background-color: #069653;
+  color: white;
+  border: 2px solid #069653;
+}
+.listeConges .btn-Supp {
+  background: white;
+  border: 2px solid rgb(194, 0, 0);
+  outline: none;
+  border-radius: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(194, 0, 0);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  margin-left: 10px;
+  width: 45px;
+  height: 45px;
+}
+.listeConges .btn-Supp:hover {
+  background-color: rgb(194, 0, 0);
+  color: white;
+  border: 2px solid rgb(194, 0, 0);
+}
+.listeConges .btn-plus {
+  display: flex;
+  background-color: white;
+  color: #321fdb;
+  border: 2px solid #321fdb;
+  outline: none;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  justify-content: left;
+  padding-top: 5px;
+  height: 35px;
+  width: 100px;
+  margin-top: 15px;
+}
+.listeConges .btn-plus:hover {
+  display: flex;
+  background-color: #321fdb;
+  color: white;
+  border: 2px solid #321fdb;
+}
+.listeConges .card-heade {
+  --tw-border-opacity: 1;
+  border-color: rgba(243, 244, 246, var(--tw-border-opacity));
+  border-bottom-width: 0px;
+  display: flex;
+  align-items: stretch;
+  background-color: #e2e2e2;
+  height: 70px;
+}
+.listeConges .card-header-icon,
+.listeConges .card-header-title {
+  display: flex;
+  align-items: center;
+  padding-top: 1.5rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  flex-grow: 1;
+  font-weight: bold;
+  color: #140788;
+
+  font-size: 24px;
+}
+
+.listeConges .card-header-icon {
+  justify-content: center;
+}
+.listeConges .btn-Aj-form {
+  background-color: white;
+  color: #140788;
+  border: 2px solid #140788;
+  width: 90px;
+  height: 40px;
+  outline: none;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+.listeConges .btn-Aj {
+  background-color: #e2e2e2;
+  color: #140788;
+  border: 2px solid #140788;
+  width: 200px;
+  height: 40px;
+  outline: none;
+  border-radius: 3px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 30px;
+  margin-top: 18px;
+  border-radius: 7px;
+}
+.listeConges .btn-arch {
+  background: white;
+  border: 2px solid #140788;
+  outline: none;
+  border-radius: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  color: #140788;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  margin-left: 10px;
+  width: 45px;
+  height: 45px;
+}
+
+.listeConges .btn-arch:hover {
+  background-color: #140788;
+  color: white;
+  border: 2px solid #140788;
+}
+.listeConges .btn-Aj:hover {
+  background-color: #140788;
+  color: #e2e2e2;
+  border: 2px solid #140788;
+}
+/**********pagination***/
+.listeConges .courses_show_text {
+  display: inline-block;
+}
+.listeConges .courses_show_content {
+  display: inline-block;
+  width: 144px;
+  border: solid 1px #ecedee;
+}
+.listeConges .courses_show_content span {
+  line-height: 40px;
+  padding-left: 20px;
+  font-size: 16px;
+  color: #384158;
+}
+
+.listeConges .link-cours {
+  text-decoration: none;
+}
+.listeConges .link-cours:hover {
+  text-decoration: none;
+}
+.listeConges .upload {
+  display: inline-flex;
+}
+.listeConges .upload input[type='file'] {
+  cursor: pointer;
+  height: 100%;
+  opacity: 0;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+}
+.listeConges .button.blue {
+  --tw-bg-opacity: 1;
+  background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
+}
+.listeConges .button.blue:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(37, 99, 235, var(--tw-bg-opacity));
+}
+.listeConges .button.blue {
+  --tw-border-opacity: 1;
+  border-color: rgba(59, 130, 246, var(--tw-border-opacity));
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+.listeConges .mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.listeConges .file {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  position: relative;
+}
+.listeConges .upload input[type='file'] {
+  cursor: pointer;
+  height: 100%;
+  opacity: 0;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+}
+.listeConges .responsive {
+  width: 100%;
+  height: auto;
+}
+
+.listeConges .btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+    -webkit-box-shadow 0.15s ease-in-out;
+}
