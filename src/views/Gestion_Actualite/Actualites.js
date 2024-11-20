@@ -246,7 +246,7 @@ const Actualites = () => {
       etat = 'non archivée'
     }
     Swal.fire({
-      title: 'Cette formation est ' + etat + '! ' + `Voulez vous changez l'état?`,
+      title: 'Cette actualité  est ' + etat + '! ' + `Voulez vous changez l'état?`,
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'oui',

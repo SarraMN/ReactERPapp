@@ -209,7 +209,7 @@ const ListAllLogs = () => {
                 className="text-white ps-3"
                 style={{ 'font-weight': 'bold', 'font-size': '22px' }}
               >
-                Logs non traitées
+                Journaux non traités
               </h6>
             </div>
           </div>
