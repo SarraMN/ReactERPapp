@@ -27,6 +27,12 @@ const _nav_User_RH = [
   },
   {
     component: CNavItem,
+    name: 'Logs',
+    to: '/Gestion_logs/ListAllLogs',
+    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
     name: 'Congés',
     to: '/GestionCongesRH/CongesAttentes',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
