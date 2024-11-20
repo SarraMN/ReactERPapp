@@ -26,7 +26,7 @@ import { getEmployeeList, deleteuser } from 'src/services/gestionutilisateurs'
 
 import { getList ,remove} from 'src/services/evaluationService'
 
-const ListeUtilisateurs = () => {
+const ListeEvaluation = () => {
   let navigate = useNavigate()
   const [profileimg, setProfileimg] = useState(avatar8)
  
@@ -36,12 +36,11 @@ const ListeUtilisateurs = () => {
 
   function notification_deValidation(id) {
     Swal.fire({
-      title: 'Souhaitez-vous supprimer cet utilisateur ?',
+      title: 'Souhaitez-vous supprimer cette evaluation ?',
       showDenyButton: true,
       confirmButtonText: 'valider',
       denyButtonText: `annuler`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         remove(id)
           .then((response) => {
@@ -49,32 +48,20 @@ const ListeUtilisateurs = () => {
           })
           .catch((e) => {})
 
-        Swal.fire('La suppression de ce compte a réussi!', '', 'success')
-        getEmployeeList()
-          .then((response) => {
-            response.data.map((item, index) => {
-              if (item.image == null) {
-                images[item.id] = avatar8
-              } else {
-                getfile(item.image.id)
-                  .then((response) => {
-                    settest(true)
-                    images[item.id] = URL.createObjectURL(response.data)
-                  })
-                  .catch((e) => {})
-              }
-            })
-            setPosts(response.data)
-          })
-          .catch((e) => {})
+        Swal.fire('La suppression de cette evaluation a réussi!', '', 'success')
+        getList()
+        .then((response) => {
+          setPosts(response.data)
+        })
+        .catch((e) => {})
       } else if (result.isDenied) {
         Swal.fire('Les modifications ne sont pas enregistrées', '', 'info')
       }
     })
   }
 
-  function userProfil(user) {
-    navigate('/GestionUtilisateurs/listeUtilisateurs/userProfile', {
+  function consulterEvaluation(user) {
+    navigate('/operation_rh/consulterEvaluation', {
       state: { utilisateur: user },
     })
   }
@@ -374,4 +361,4 @@ const ListeUtilisateurs = () => {
     )
   } else return <div>un probleme de connexion avec le serveur </div>
 }
-export default ListeUtilisateurs
+export default ListeEvaluation

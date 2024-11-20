@@ -14,10 +14,10 @@ export const getList = (authReques) => {
       })
 }
 
-export const remove = (authRequest) => {
+export const remove = (id) => {
   return axios({
     method: 'Delete',
-    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/evaluations`,
+    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/evaluations/${id}`,
     headers: {
       Authorization: 'Bearer ' + getToken(),
     },

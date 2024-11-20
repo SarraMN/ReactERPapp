@@ -1,239 +1,222 @@
-import React, { useEffect, useState } from 'react'
-import 'src/views/GestionUtilisateurs/userProfile.css'
-import { Formik, Field, Form, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
-import 'src/views/GestionUtilisateurs/AjoutUser.css'
-import Swal from 'sweetalert2'
-import { addUser, UserIns } from 'src/services/UserService'
-import { sendMail } from 'src/services/UserService'
-import axios from 'axios'
-import ReactImg from 'src/assets/images/profile_homme.png'
-
+import {
+  CCard,
+  CCardHeader,
+  CCol,
+  CForm,
+  CFormFeedback,
+  CFormInput,
+  CFormLabel,
+  CFormTextarea,
+  CFormSelect ,
+} from '@coreui/react'
+import { createTimeSheet } from 'src/services/logsService';
 import { add } from 'src/services/evaluationService'
+import { getEmployeeList } from 'src/services/gestionutilisateurs'
+
+import 'src/views/Reclamation/Reclamation.css'
+import React, { useEffect, useState } from 'react'
+import Swal from 'sweetalert2'
 import { fetchUserData, getUserById } from 'src/services/UserService'
+const AjoutEvaluation = () => {
+  const [validated, setValidated] = useState(false)
+  const [score, setscore] = useState(0)
+  const [feedback, setfeedback] = useState('')
+  const [employee, setemployee] = useState('')
+  const [employees, setemployees] = useState([]);
 
-const AjoutEmploye = () => {
-  const [image, setImage] = useState(ReactImg)
+  const [selectedEmployee, setSelectedEmployee] = useState('');
 
-  const [profileimg, setProfileimg] = useState(ReactImg)
-  function imageHandler(e) {
-    setImage(e.target.files[0])
-    const reader = new FileReader()
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setProfileimg(reader.result)
-      }
-    }
-    reader.readAsDataURL(e.target.files[0])
-  }
-  const [test, setest] = useState(false)
 
-  ////////////////////
-  const [mail] = useState({
-    destinataire: '',
-    body: '',
-    topic: '',
+  const [values, setValues] = useState({
+    score: 0,
+    feedback: '',
+    employee: { id: '', authority: {} },
+    evaluator: { id: '', authority: {} },
+  })
+  const [values2, setValues2] = useState({
+    score: 0,
+    feedback: '',
+    employee: { id: '', authority: {} },
+    evaluator: { id: '', authority: {} },
   })
 
-  function Notification_succes() {
-    Swal.fire(
-      'La ajout de cet employé a été effectuée avec succès.',
-      'Il va etre informé par un Mail',
-      'success',
-    )
-    mail.destinataire = values.email
-    mail.body =
-      'Votre compte sur le plate-forme GoMyCode est activé , Votre UserName: ' +
-      values.userName +
-      ' et Mot de passe: ' +
-      values.password +
-      ' Lorsque vous vous connectez à votre compte, vous pouvez mettre à jour vos informations personnelles (sur vous-mêmes, vos intérêts etc..). Merci!'
-    mail.topic = 'Bonjour et bienvenue sur GoMyFormation Tunisia'
-    sendMail(mail).then((response) => {
-      if (response.status === 200) {
-        if (response.data == '') {
-          /*    Notification_Echec()
-          Vider_champs(e)
-      */
-        } else {
-        }
-      } else {
-      }
-    })
+  function initialiser() {
+    setscore(0)
+    setValidated(false)
+    setemployee({ id: '', authority: {} })
   }
-  function Notification_problemedesaisie(err) {
-    Swal.fire({
-      icon: 'Error',
-      title: 'Probleme de saisie',
-      text: err,
-    })
-  }
-  function Notification_problemedeimage() {
-    Swal.fire({
-      icon: 'Error',
-      title: 'Probleme de Photo',
-      text: 'La taille du photo choisi est trop grand SVP choisir autre photo',
-    })
-  }
-  function ChoixPhoto() {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Il faut choisir une photo',
-      text: '',
-    })
-  }
-  function Notification_probleme() {
+
+
+  function Notification_taille() {
     Swal.fire({
       icon: 'error',
-      title: 'Probleme !',
-      text: 'Quelque chose ne va pas ! Veuillez réessayer',
+      title: 'Taille minimum',
+      text: 'La taille du description doit être au minimum 50 caractères',
     })
   }
-  const [values, setValues] = useState({
-    evaluator: {id:'',authority: {}},
-    employee: 0,
-    score: 0,
-    evaluation:'',
-  })
-  const handleSubmit = (evt) => {
-    console.log(evt);
-    add(evt);
-    
-    
+  function Notification_failure() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur dans le serveur',
+      text: 'le serveur ne repond pas!',
+    })
   }
 
-  const [initialValues2, setinitialValues2] = useState({
-    employee: 0,
-    score: 0,
-    evaluation:'',
-    evaluator: {id:'',authority: {}},
-  })
+ 
+  function Notification_Succees() {
+    Swal.fire('Succès!', 'Votre réclamation a été ajouter avec succès', 'success')
+  }
+  function Notification_NonVide() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Champs requis',
+      text: 'Tous les champs doivent être remplis',
+    })
+  }
   useEffect(() => {
     fetchUserData()
-    .then((response) => {
-      getUserById(response.data.id).then((response) => {
-        values.evaluator.id = response.data.id
-        values.evaluator.authority = response.data.authority
-        initialValues2.evaluator.id = response.data.id
-        initialValues2.evaluator.authority = response.data.authority
+      .then((response) => {
+        getUserById(response.data.id).then((response) => {
+          values.evaluator.id = response.data.id
+          values.evaluator.authority = response.data.authority
+          values2.evaluator.id = response.data.id
+          values2.evaluator.authority = response.data.authority
+        })
       })
-    })
-    .catch((e) => {})
-    values.employee = 0
-    values.score = 0
-    values.evaluation = ''
-    initialValues2.employee = 0
-    initialValues2.score = 0
-    initialValues2.evaluation = ''
-  }, [test])
+      .catch((e) => {})
 
+      getEmployeeList()
+      .then((response) => {
+        // Directly use response.data as it's already an array
+        setemployees(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching employees:", error);
+        setemployees([]); // Handle errors by setting an empty array
+      });
+  }, []);
+
+  //props.id contient l'id de la formation
+  const handleSubmit = (event) => {
+    //console.log('file', file)
+    if (feedback === '') {
+      Notification_NonVide()
+      event.preventDefault()
+      event.stopPropagation()
+      setValidated(true)
+    }
+    else if (feedback.length < 50) {
+        Notification_taille()
+        event.preventDefault()
+        event.stopPropagation()
+        setValidated(true)
+      } 
+
+    else {
+      setValidated(true)
+      values2.feedback = feedback
+      values2.score =  parseInt(score);
+      const selectedEmployeePayload = {
+        id: selectedEmployee.id,
+        authority: selectedEmployee.authority,
+      };
+      values2.employee = selectedEmployeePayload    
+      console.log('*9baaal',values2)
+      add(values2).then((response) => {
+        if (response.status === 200) {
+          console.log('avec succée')
+          initialiser()
+          Notification_Succees()
+        } else {
+          console.log('failure')
+          Notification_failure()
+        }
+      })
+    }
+  }
   return (
-    <div className="userProfil">
-      <section className="moncompte">
-        <Formik
-          initialValues={initialValues2}
-          validationSchema={Yup.object().shape({
-            employee: Yup.string().required('Employee est requis'),
-            score: Yup.string().required('Score est requis').typeError('Le score doit être un nombre'),
-            evaluation: Yup.string().required('l\'evaluation est requis')
-          })}
-          onSubmit={(values) => handleSubmit(values)}
-          render={({ errors, status, touched }) => (
-            <Form>
-              <>
-                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
-                  <div className="card">
-                    <header className="card-header">
-                      <p className="card-header-title">
-                        <span className="icon">
-                          <i className="mdi mdi-account"></i>
-                        </span>
-                        Ajout Evaluation
-                      </p>
-                    </header>
+    <>
+      <CCard>
+        <CForm
+          className="row g-3 needs-validation"
+          noValidate
+          validated={validated}
+          style={{ padding: 15 }}
+        >
 
-                    <div className="card-content">
-                      <div className="field">
-                        <label className="label">Employee</label>
-                        <div className="control">
-                          <Field
-                            type="number"
-                            name="employee"
-                            placeholder="Employee"
-                            className={'input' + (errors.employee && touched.employee ? ' is-invalid' : '')}
-                          />
-                          <ErrorMessage
-                            style={{ fontSize: 12, color: 'red' }}
-                            name="employee"
-                            component="div"
-                            classNameName="invalid-feedback"
-                          />
-                        </div>
-                      </div>
-                      <div className="field">
-                        <label className="label">Score</label>
-                        <div className="control">
-                          <Field
-                            type="number"
-                            name="score"
-                            placeholder="Score"
-                            className={
-                              'input' + (errors.score && touched.score ? ' is-invalid' : '')
-                            }
-                          />
-                          <ErrorMessage
-                            style={{ fontSize: 12, color: 'red' }}
-                            name="prenom"
-                            component="div"
-                            classNameName="invalid-feedback"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="card">
-                    <div className="card-content">
-                      <div className="field">
-                        <label className="label">Evaluation</label>
-                        <div className="control">
-                          <Field
-                            as="textarea"
-                            id="evaluation"
-                            name="evaluation"
-                            placeholder="Evaluation"
-                            
-                          />
+          <CCol md={6}>
+                <CFormLabel htmlFor="employeeSelect" style={{ fontWeight: 'bold' }}>
+                  Nom de l'employé *
+                </CFormLabel>
+                <CFormSelect
+  id="employeeSelect"
+  required
+  value={selectedEmployee}
+  onChange={(e) => setSelectedEmployee(JSON.parse(e.target.value))} // Parse the value back to JSON
+>
+  <option value="" disabled>
+    -- Sélectionnez un employé --
+  </option>
+  {employees.map((employee) => (
+    <option key={employee.id} value={JSON.stringify(employee)}>
+      {employee.nom} {employee.prenom}
+    </option>
+  ))}
+</CFormSelect>
 
-                          <ErrorMessage
-                            style={{ fontSize: 12, color: 'red' }}
-                            name="evaluation"
-                            component="div"
-                            classNameName="invalid-feedback"
-                          />
-                        </div>
-                      </div>
-                      <div style={{ 'margin-top': '5px', float: 'right', align: 'right' }}>
-                        <div>
-                          <div className="control">
-                            <button
-                              type="submit"
-                              className="button blue"
-                              style={{ width: '100px', 'background-color': '#213f77' }}
-                            >
-                              Valider
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            </Form>
-          )}
-        />
-      </section>
-    </div>
+                <CFormFeedback invalid>Champs requis</CFormFeedback>
+              </CCol>
+
+          <CCol md={6}>
+          <CFormLabel htmlFor="numericField" style={{ fontWeight: 'bold' }}>
+          Score *
+          </CFormLabel>
+          <CFormInput
+              type="number" // Restricts input to numeric values
+              id="numericField"
+              required
+              value={score}
+              onChange={(e) => setscore(e.target.value)}
+          />
+          <CFormFeedback invalid>Champs requis</CFormFeedback>
+          </CCol>
+
+          <CCol md={12}>
+            <CFormLabel htmlFor="description" style={{ fontWeight: 'bold' }}>
+              Feedback (min 50 caractères)
+            </CFormLabel>
+            <CFormTextarea
+              id="description"
+              rows="7"
+              required
+              value={feedback}
+              onChange={(e) => setfeedback(e.target.value)}
+            ></CFormTextarea>
+            <CFormFeedback invalid>Champs requis</CFormFeedback>
+            <p style={{ color: 'dimgray' }}>{feedback.length} caractères</p>
+          </CCol>
+
+          <CCol xs={12}>
+            <button
+              className="btn-Aj-Recl"
+              style={{
+                width: 100,
+                marginTop: 50,
+                marginRight: 20,
+                position: 'absolute',
+                bottom: 0,
+                right: 0,
+              }}
+              type="button"
+              onClick={handleSubmit}
+            >
+              Envoyer
+            </button>
+          </CCol>
+        </CForm>
+      </CCard>
+    </>
   )
 }
-export default AjoutEmploye
+
+export default AjoutEvaluation
