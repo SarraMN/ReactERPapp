@@ -195,6 +195,12 @@ const routes = [
     name: 'Evaluation',
     element: React.lazy(() => import('./views/operation_rh/listEvaluation')),
   },
+
+  {
+    path: '/operation_rh/evaluationsEmployee',
+    name: 'Evaluations',
+    element: React.lazy(() => import('./views/operation_rh/listEvaluationEmployee')),
+  },
   {
     path: '/operation_rh/consulterEvaluation',
     name: 'Consultation Evaluation',

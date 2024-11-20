@@ -56,6 +56,12 @@ const _nav = [
     name: 'Mes journaux',
     to: '/Gestion_logs/ListMesLogs',
     icon: <CIcon icon={cilNewspaper} customClassName="nav-icon" />,
+  },  
+  {
+    component: CNavItem,
+    name: 'Mes évaluations',
+    to: '/operation_rh/evaluationsEmployee',
+    icon: <CIcon icon={cilNewspaper} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,

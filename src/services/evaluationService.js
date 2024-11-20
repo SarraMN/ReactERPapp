@@ -34,3 +34,13 @@ export const add = (addData) => {
     },
   })
 }
+
+export const getEvaluationsByEmployee = (employeeId) => {
+  return axios({
+    method: 'GET',
+    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/evaluations/employee/${employeeId}`,
+    headers: {
+      Authorization: 'Bearer ' + getToken(),
+    },
+  });
+};
