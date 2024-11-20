@@ -80,7 +80,7 @@ const Login = (props) => {
                 navigate('/GestionUtilisateurs/RH')
               }
               if (response.data.roles[0].authority === 'User_Employee') {
-                navigate('/accueil')
+                navigate('/GestionCompte/gestioncompte')
               }
               if (response.data.roles[0].authority === 'User_RH') {
                 navigate('/GestionCompte/gestioncompte')

@@ -41,13 +41,6 @@ function NbrFormationCandidat() {
 const _nav = [
   {
     component: CNavItem,
-    name: 'Accueil',
-    to: '/accueil',
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-  },
-
-  {
-    component: CNavItem,
     name: 'Mon Compte',
     to: '/GestionCompte/gestioncompte',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
@@ -75,12 +68,6 @@ const _nav = [
     name: 'Reclamation',
     to: '/Reclamations/SuiviReclamations',
     icon: <CIcon icon={cilWarning} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'Suivre demandes',
-    to: '/suivreDemande/suivreDemandes',
-    icon: <CIcon icon={cilClone} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,

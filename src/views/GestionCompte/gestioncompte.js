@@ -180,9 +180,6 @@ const Gestioncompte = () => {
     }
   }
   const changerInfo2 = (e) => {
-    console.log('alllli', e)
-    console.log('e.etat_civil', values)
-    console.log('e.etat_civil', adressse)
 
     if (
       e.email === email &&

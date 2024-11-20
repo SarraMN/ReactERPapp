@@ -1,35 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CIcon from '@coreui/icons-react'
 import {
-  cilBell,
-  cilCalculator,
-  cilChartPie,
-  cilCursor,
-  cilDrop,
-  cilFeaturedPlaylist,
-  cilNotes,
   cilPencil,
-  cilPuzzle,
-  cilSchool,
-  cilSpeedometer,
-  cilStar,
-  cilUser,
+  cilNotes,
   cilAccountLogout,
 } from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
-import { getAllNotTraitedTimeSheets } from 'src/services/logsService';
+import { CNavItem } from '@coreui/react'
+import { getAllNotTraitedTimeSheets } from 'src/services/logsService'
 import { useDispatch, useSelector } from 'react-redux'
 
-  function NbrNotTraitedTimeSheets() {
-      const dispatch = useDispatch()
-      const nbrNotTraitedTimeSheets = useSelector((state) => state.nbrNotTraitedTimeSheets)
-      getAllNotTraitedTimeSheets()
-        .then((response) => {
-          dispatch({ type: 'set', nbrNotTraitedTimeSheets: response.data.length })
-        })
-        .catch((e) => {})
-      return nbrNotTraitedTimeSheets
-    }
+function NbrNotTraitedTimeSheets() {
+  const dispatch = useDispatch()
+  const nbrNotTraitedTimeSheets = useSelector((state) => state.nbrNotTraitedTimeSheets)
+
+  useEffect(() => {
+    getAllNotTraitedTimeSheets()
+      .then((response) => {
+        dispatch({ type: 'set', nbrNotTraitedTimeSheets: response.data.length })
+      })
+      .catch((e) => {
+        console.error('Error fetching time sheets:', e)
+      })
+  }, [dispatch])
+
+  // Return the badge content or a placeholder
+  return <span>{nbrNotTraitedTimeSheets !== undefined ? nbrNotTraitedTimeSheets : '...'}</span>
+}
 
 const _nav_User_RH = [
   {
