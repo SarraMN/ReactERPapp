@@ -374,6 +374,16 @@ const routes = [
     name: 'Suivre demandes',
     element: suivreDemande,
   },
+  {
+    path: '/operation_rh/evaluations',
+    name: 'Evaluation',
+    element: React.lazy(() => import('./views/operation_rh/listEvaluation')),
+  },
+  {
+    path: '/operation_rh/evaluations/ajout',
+    name: 'Ajout Evaluation',
+    element: React.lazy(() => import('./views/operation_rh/ajoutEvaluation')),
+  },
 ]
 
 export default routes

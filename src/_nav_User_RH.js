@@ -56,6 +56,16 @@ const _nav_User_RH = [
   },
   {
     component: CNavItem,
+    name: 'Evaluation',
+    to: '/operation_rh/evaluations',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      // text: <NbrReclamations />,
+    },
+  },
+  {
+    component: CNavItem,
     name: 'Deconnecter',
     to: '/',
     icon: <CIcon icon={cilAccountLogout} customClassName="nav-icon" />,
