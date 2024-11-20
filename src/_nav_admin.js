@@ -1,19 +1,7 @@
 import React, { useEffect } from 'react'
 import CIcon from '@coreui/icons-react'
 import {
-  cilBell,
-  cilCalculator,
-  cilChartPie,
-  cilCursor,
-  cilDrop,
-  cilNotes,
-  cilPencil,
-  cilPuzzle,
-  cilSpeedometer,
-  cilStar,
-  cilEnvelopeClosed,
   cilUser,
-  cilBank,
   cilNewspaper,
   cilWarning,
   cilAccountLogout,

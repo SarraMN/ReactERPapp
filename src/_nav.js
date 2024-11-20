@@ -60,7 +60,7 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Mes congés',
+    name: 'Mes journaux',
     to: '/Gestion_logs/ListMesLogs',
     icon: <CIcon icon={cilNewspaper} customClassName="nav-icon" />,
   },

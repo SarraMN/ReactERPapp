@@ -114,20 +114,20 @@ const LogsTraitees = () => {
                   Référence
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                date
+                Date
                 </CTableHeaderCell>
 
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                hoursWorked
+                Heures travaillées
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                taskTitle
+                Titre de la tâche
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                description
+                Description
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Action
+                Statut 
                 </CTableHeaderCell>
               </CTableRow>
             </CTableHead>

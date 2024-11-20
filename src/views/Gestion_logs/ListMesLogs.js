@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import 'src/views/Reclamation/Reclamation.css'
 import Swal from 'sweetalert2'
 import AjouterLog from 'src/views/Gestion_logs/AjoutLog'
-import { getTimeSheetsByEmployee, filterLogsByCriteria, approveTimeSheet, rejectTimeSheet } from 'src/services/logsService';
+import { getTimeSheetsByEmployee, DeleteLog,getTimeSheetById,updateTimeSheet } from 'src/services/logsService';
 
 import { fetchUserData } from 'src/services/UserService'
 import {  useNavigate } from 'react-router-dom'
@@ -11,6 +11,10 @@ import {
   CPagination,
   CPaginationItem,
   CTable,
+  CForm,
+  CCol,CFormLabel,CFormInput,
+  CFormFeedback,
+  CFormTextarea,
   CTableHead,
   CTableRow,
   CTableHeaderCell,
@@ -41,14 +45,105 @@ const ListeMesLogs = () => {
   const handleCloseAjt = () => {
     setShowAjt(false)
   }
+  const handleShowMdf = () => setShowMdf(true)
+  const handleCloseMdf = () => setShowMdf(false)
 
-  function consulterReclamation(item) {
-  /*  navigate('/Reclamations/SuiviReclamations/ConsulterReclamation', {
-      state: { state: item },
-    })*/
+  function ConsulterLog(item) {
+  }
+  const [validated, setValidated] = useState(false)
+  const [id, setId] = useState(false)
+  const [taskTitle, setTaskTitle] = useState('')
+  const [description, setdescription] = useState('')
+  const [hoursWorked, setHoursWorked] = useState('') 
+  const [date, setDate] = useState('') 
+  const [values, setValues] = useState({
+    id: '',
+    taskTitle: '',
+    description: '',
+    hoursWorked: '',
+    date: '',
+    employee: { id: '', authority: {} },
+  })
+
+  const [values2, setValues2] = useState({
+    id: '',
+    taskTitle: '',
+    description: '',
+    hoursWorked: '',
+    date: '',
+    employee: { id: '', authority: {} },
+  })
+
+  function Notification_Succees() {
+    Swal.fire('Succès!', 'La formation a été modifié avec succès', 'success')
+  }
+  function Notification_NonVide() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Champs requis',
+      text: 'Tous les champs doivent être remplis',
+    })
+  }
+  function Notification_tailleDescription() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Taille description',
+      text: 'La taille de la description doit être au minimum 50 caractères',
+    })
   }
 
-  function supprimerReclamation(id) {
+  const handleSubmit = (event) => {
+    //console.log('file', file)
+    if (taskTitle === '' || description === '' || date === '' || hoursWorked === '') {
+      Notification_NonVide()
+      event.preventDefault()
+      event.stopPropagation()
+      setValidated(true)
+    }
+    else if (description.length < 50) {
+        Notification_taille()
+        event.preventDefault()
+        event.stopPropagation()
+        setValidated(true)
+      } 
+    else {
+      setValidated(true)
+      values2.taskTitle = taskTitle
+      values2.date = date
+      values2.id = id
+      values2.hoursWorked = hoursWorked
+      values2.description = description
+      updateTimeSheet(values2.id,values2).then((response) => {
+        if (response.status === 200) {
+          console.log('avec succée')
+          Notification_Succees()
+          setBool(true)
+          setBool(false)
+        } else {
+          console.log('failure')
+          Notification_failure()
+        }
+      })
+    }
+  }
+  
+  function getLogById(id) {
+    setId(id)
+    getTimeSheetById(id)
+      .then((response) => {
+        //setData to the form
+        setTaskTitle(response.data.taskTitle)
+        setHoursWorked(response.data.hoursWorked)
+        setdescription(response.data.description)
+        setDate(response.data.date)
+        values2.employee.authority = response.data.employee.authority
+        values2.employee.id = response.data.employee.id
+
+      })
+      .catch((e) => {})
+  }
+
+  function supprimerLog(id) {
     Swal.fire({
       title: 'Souhaitez-vous supprimer cette journal ?',
       showDenyButton: true,
@@ -56,16 +151,15 @@ const ListeMesLogs = () => {
       confirmButtonText: 'supprimer',
       denyButtonText: 'non',
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-    /*    DeleteReclamation(id)
+          DeleteLog(id)
           .then((response) => {
             setBool(true)
             setBool(false)
           })
           .catch((e) => {})
 
-        Swal.fire('La reclamation a été supprimé avec succes!', '', 'success')*/
+        Swal.fire('La reclamation a été supprimé avec succes!', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('Les modifications ne sont pas enregistrées', '', 'info')
       }
@@ -104,7 +198,7 @@ const ListeMesLogs = () => {
                   'margin-right': 5,
                 }}
               />
-              Nouvelle Log
+              nouveau Journal
             </button>
           </div>
         </div>
@@ -115,14 +209,14 @@ const ListeMesLogs = () => {
                 className="text-white ps-3"
                 style={{ 'font-weight': 'bold', 'font-size': '22px' }}
               >
-                Mes logs
+                Mes journaux
               </h6>
             </div>
           </div>
 
           <div>
             <div style={{ height: 50, marginLeft: 15, marginTop: 15 }}>
-              Vous n{"'"}avez créer aucune log!
+              Vous n{"'"}avez créer aucun journal!
             </div>
           </div>
         </CCard>
@@ -141,7 +235,7 @@ const ListeMesLogs = () => {
                 marginRight: 15,
               }}
             />
-            Ajouter log
+            Ajouter nouveau journal
           </Modal.Header>
           <Modal.Body>
             <AjouterLog />
@@ -187,7 +281,7 @@ const ListeMesLogs = () => {
                   'margin-right': 5,
                 }}
               />
-              Nouvelle log
+              Nouveau journal
             </button>
           </div>
         </div>
@@ -198,7 +292,7 @@ const ListeMesLogs = () => {
                 className="text-white ps-3"
                 style={{ 'font-weight': 'bold', 'font-size': '22px' }}
               >
-                Mes log
+                Mes journaux
               </h6>
             </div>
           </div>
@@ -219,7 +313,7 @@ const ListeMesLogs = () => {
                   marginRight: 15,
                 }}
               />
-              Ajouter log
+              Ajouter journal
             </Modal.Header>
             <Modal.Body>
               <AjouterLog />
@@ -232,20 +326,19 @@ const ListeMesLogs = () => {
                   Référence
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                date
-                </CTableHeaderCell>
-
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                hoursWorked
+                Date
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                taskTitle
+                Heures travaillées
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                description
+                Titre de la tâche
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                  Status
+                Statut 
+                </CTableHeaderCell>
+                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
+                  Action
                 </CTableHeaderCell>
               </CTableRow>
             </CTableHead>
@@ -256,7 +349,7 @@ const ListeMesLogs = () => {
                     <div
                       className="meduim "
                       onClick={(id) => {
-                        // handleShowInfo(item.id)
+                        ConsulterLog(item)
                       }}
                     >
                       {item.id}
@@ -267,7 +360,7 @@ const ListeMesLogs = () => {
                     <div
                       className="meduim "
                       onClick={(id) => {
-                        // handleShowInfo(item.id)
+                        ConsulterLog(item)
                       }}
                     >
                       {item.date}
@@ -278,7 +371,7 @@ const ListeMesLogs = () => {
                     <div
                       className="meduim"
                       onClick={(id) => {
-                        // handleShowInfo(item.id)
+                        ConsulterLog(item)
                       }}
                     >
                       {item.hoursWorked} heures
@@ -288,20 +381,10 @@ const ListeMesLogs = () => {
                     <div
                       className="meduim"
                       onClick={(id) => {
-                        // handleShowInfo(item.id)
+                        ConsulterLog(item)
                       }}
                     >
                       {item.taskTitle}
-                    </div>
-                  </CTableDataCell>
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim"
-                      onClick={(id) => {
-                        // handleShowInfo(item.id)
-                      }}
-                    >
-                      {item.description}
                     </div>
                   </CTableDataCell>
                   {/* Action*/}
@@ -329,6 +412,146 @@ const ListeMesLogs = () => {
                             )}
                         </div>
                     </CTableDataCell>
+                    <CTableDataCell className="text-center">
+                    <div>
+                      {item.state == "PENDING" && (
+                        <span>
+                        <span onClick={() => supprimerLog(item.id)}>
+                          <i
+                            className="fa fa-trash-o"
+                            aria-hidden="true"
+                            style={{ marginRight: 12, fontSize: 22, color: 'red' }}
+                            title="Supprimer"
+                          ></i>
+                        </span>
+
+                        <div className="buttons">
+                <span
+                  className="btn-Modf custom-btn"
+                  title="Modifier"
+                  onClick={() => {
+                    getLogById(item.id)
+                    handleShowMdf()
+                  }}
+                >
+                  <i className="far fa-edit"
+                   style={{ marginRight: 12, fontSize: 22, color: 'green' }}
+                   title="Modifier"
+                  ></i>
+                </span>
+                <Modal
+                  size="lg"
+                  show={showMdf}
+                  onHide={handleCloseMdf}
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                >
+                  <Modal.Header closeButton style={{ color: '#213f77', fontWeight: 'bold' }}>
+                    <CIcon
+                      icon={cilPencil}
+                      style={{
+                        marginRight: 15,
+                      }}
+                    />
+                    Modifier un journal
+                  </Modal.Header>{' '}
+                  <Modal.Body>
+                    {/* <AjoutForm formation={formation} /> */}
+                    <CCard>
+                      <CForm
+                        className="row g-3 needs-validation"
+                        noValidate
+                        validated={validated}
+                        style={{
+                          paddingLeft: 15,
+                          paddingRight: 20,
+                          paddingTop: 15,
+                          paddingBottom: 15,
+                        }}
+                      >
+                      <CCol md={8}>
+                      <CFormLabel htmlFor="type" style={{ fontWeight: 'bold' }}>
+                      Titre de la tâche *
+                      </CFormLabel>
+                      <CFormInput
+                        type="text"
+                        id="type"
+                        required
+                        value={taskTitle}
+                        onChange={(e) => setTaskTitle(e.target.value)}
+                      />
+                      <CFormFeedback invalid>Type est requis</CFormFeedback>
+                    </CCol>
+                    <CCol md={6}>
+                      <CFormLabel htmlFor="startDate" style={{ fontWeight: 'bold' }}>
+                        Date *
+                      </CFormLabel>
+                      <CFormInput
+                        type="date"
+                        id="startDate"
+                        required
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                      />
+                      <CFormFeedback invalid>Champs requis</CFormFeedback>
+                    </CCol>
+          
+                    <CCol md={6}>
+                    <CFormLabel htmlFor="numericField" style={{ fontWeight: 'bold' }}>
+                    Heures travaillées *
+                    </CFormLabel>
+                    <CFormInput
+                        type="number" // Restricts input to numeric values
+                        id="numericField"
+                        required
+                        value={hoursWorked}
+                        onChange={(e) => setHoursWorked(e.target.value)}
+                    />
+                    <CFormFeedback invalid>Champs requis</CFormFeedback>
+                    </CCol>
+
+                    <CCol md={12}>
+                      <CFormLabel htmlFor="description" style={{ fontWeight: 'bold' }}>
+                        Description (min 50 caractères)
+                      </CFormLabel>
+                      <CFormTextarea
+                        id="description"
+                        rows="7"
+                        required
+                        value={description}
+                        onChange={(e) => setdescription(e.target.value)}
+                      ></CFormTextarea>
+                      <CFormFeedback invalid>Champs requis</CFormFeedback>
+                      <p style={{ color: 'dimgray' }}>{description.length} caractères</p>
+                    </CCol>
+          
+                    <CCol xs={12}>
+                      <button
+                        className="btn-Aj-Recl"
+                        style={{
+                          width: 100,
+                          marginTop: 50,
+                          marginRight: 20,
+                          position: 'absolute',
+                          bottom: 0,
+                          right: 0,
+                        }}
+                        type="button"
+                        onClick={handleSubmit}
+                      >
+                        Envoyer
+                      </button>
+                    </CCol>
+                      </CForm>
+                    </CCard>
+                  </Modal.Body>
+                </Modal>
+              
+              </div>
+              </span>
+                      )}
+                    </div>
+                  </CTableDataCell>
                 </CTableRow>
               ))}
             </CTableBody>

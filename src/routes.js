@@ -15,6 +15,7 @@ const compte = React.lazy(() => import('./views/GestionCompte/gestioncompte'))
 const listAllLogs = React.lazy(() => import('./views/Gestion_logs/ListAllLogs'))
 const listAllTraitedLogs = React.lazy(() => import('./views/Gestion_logs/ListLogsTraitees'))
 const mesLogs = React.lazy(() => import('./views/Gestion_logs/ListMesLogs'))
+const ConsulterLog = React.lazy(() => import('./views/Gestion_logs/ConsulterLog.js'))
 const formations = React.lazy(() => import('./views/Consulter_formation/formations'))
 const tousFormations = React.lazy(() => import('./views/Consulter_formation/tousFormations'))
 const historique = React.lazy(() =>
@@ -156,6 +157,11 @@ const routes = [
     path: '/Gestion_logs/ListMesLogs',
     name: 'Mes journaux',
     element: mesLogs,
+  },
+  {
+    path: '/Gestion_logs/ConsulterLog',
+    name: 'Consulter un journal',
+    element: ConsulterLog,
   },
   {
     path: '/Consulter_formation/formations',

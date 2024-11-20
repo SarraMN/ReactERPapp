@@ -150,7 +150,7 @@ import {
           >
             <CCol md={8}>
               <CFormLabel htmlFor="type" style={{ fontWeight: 'bold' }}>
-              Task Title *
+              Titre de la tâche *
               </CFormLabel>
               <CFormInput
                 type="text"
@@ -177,7 +177,7 @@ import {
   
             <CCol md={6}>
             <CFormLabel htmlFor="numericField" style={{ fontWeight: 'bold' }}>
-            hours Worked *
+            Heures travaillées *
             </CFormLabel>
             <CFormInput
                 type="number" // Restricts input to numeric values

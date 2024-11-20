@@ -109,3 +109,12 @@ export const filterLogsByCriteria = (filters) => {
   });
 };
 
+export const DeleteLog = (id) => {
+  return axios({
+    method: 'Delete',
+    url: `${BASE_URL}/${id}`,
+    headers: {
+      Authorization: 'Bearer ' + getToken(),
+    },
+  })
+}

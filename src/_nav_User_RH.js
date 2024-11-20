@@ -17,6 +17,19 @@ import {
   cilAccountLogout,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import { getAllNotTraitedTimeSheets } from 'src/services/logsService';
+import { useDispatch, useSelector } from 'react-redux'
+
+  function NbrNotTraitedTimeSheets() {
+      const dispatch = useDispatch()
+      const nbrNotTraitedTimeSheets = useSelector((state) => state.nbrNotTraitedTimeSheets)
+      getAllNotTraitedTimeSheets()
+        .then((response) => {
+          dispatch({ type: 'set', nbrNotTraitedTimeSheets: response.data.length })
+        })
+        .catch((e) => {})
+      return nbrNotTraitedTimeSheets
+    }
 
 const _nav_User_RH = [
   {
@@ -27,9 +40,13 @@ const _nav_User_RH = [
   },
   {
     component: CNavItem,
-    name: 'Logs',
+    name: 'Journaux',
     to: '/Gestion_logs/ListAllLogs',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: <NbrNotTraitedTimeSheets />,
+    },
   },
   {
     component: CNavItem,

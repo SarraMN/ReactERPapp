@@ -38,7 +38,11 @@ const ListAllLogs = () => {
     navigate('/Gestion_logs/ListLogsTraitees')
     
   }
-  
+  function ConsulterLog(item) {
+    navigate('/Gestion_logs/ConsulterLog', {
+      state: { state: item },
+    })
+  }
 
   function accepterReclamation(id) {
     Swal.fire({
@@ -220,17 +224,14 @@ const ListAllLogs = () => {
                   Référence
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                date
+                Date
                 </CTableHeaderCell>
 
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                hoursWorked
+                Heures travaillées
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                taskTitle
-                </CTableHeaderCell>
-                <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
-                description
+                Titre de la tâche
                 </CTableHeaderCell>
                 <CTableHeaderCell className="text-center" style={{ fontSize: 15 }}>
                   Action
@@ -242,10 +243,10 @@ const ListAllLogs = () => {
                 <CTableRow v-for="item in tableItems" key={index}>
                   {/* Etat*/}
                   <CTableDataCell className="text-center">
-                    <div
+                  <div
                       className="meduim "
                       onClick={(id) => {
-                        //  handleShowInfo(item.id)
+                        ConsulterLog(item)
                       }}
                     >
                       {item.employee.prenom} {item.employee.nom}
@@ -253,10 +254,10 @@ const ListAllLogs = () => {
                   </CTableDataCell>
                   {/* Référence*/}
                   <CTableDataCell className="text-center">
-                    <div
+                  <div
                       className="meduim "
                       onClick={(id) => {
-                        // handleShowInfo(item.id)
+                        ConsulterLog(item)
                       }}
                     >
                       {item.id}
@@ -264,10 +265,10 @@ const ListAllLogs = () => {
                   </CTableDataCell>
                   {/* Date création*/}
                   <CTableDataCell className="text-center">
-                    <div
+                  <div
                       className="meduim "
                       onClick={(id) => {
-                        // handleShowInfo(item.id)
+                        ConsulterLog(item)
                       }}
                     >
                       {item.date}
@@ -275,35 +276,25 @@ const ListAllLogs = () => {
                   </CTableDataCell>
                   {/* Objet*/}
                   <CTableDataCell className="text-center">
-                    <div
-                      className="meduim"
+                  <div
+                      className="meduim "
                       onClick={(id) => {
-                        // handleShowInfo(item.id)
+                        ConsulterLog(item)
                       }}
                     >
                       {item.hoursWorked} heures
                     </div>
                   </CTableDataCell>
                   <CTableDataCell className="text-center">
-                    <div
-                      className="meduim"
+                  <div
+                      className="meduim "
                       onClick={(id) => {
-                        // handleShowInfo(item.id)
+                        ConsulterLog(item)
                       }}
                     >
                       {item.taskTitle}
                     </div>
-                  </CTableDataCell>
-                  <CTableDataCell className="text-center">
-                    <div
-                      className="meduim"
-                      onClick={(id) => {
-                        // handleShowInfo(item.id)
-                      }}
-                    >
-                      {item.description}
-                    </div>
-                  </CTableDataCell>
+                  </CTableDataCell>             
                   {/* Action*/}
                   <CTableDataCell className="text-center">
                         <div>
