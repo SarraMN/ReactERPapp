@@ -35,7 +35,7 @@ export const getListeRhs = (authRequest) => {
 export const deleteuser = (authRequest) => {
   return axios({
     method: 'Delete',
-    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/users/deleteuser/` + authRequest,
+    url: `${process.env.hostUrl || 'http://localhost:8080'}/api/users/` + authRequest,
     headers: {
       Authorization: 'Bearer ' + getToken(),
     },

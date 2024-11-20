@@ -37,13 +37,15 @@ const consulterEvaluation = () => {
           </div>
           <div>
             <div className="objet_recl">
-              Employee :<br></br>
+              Employee : <span className="contenu_recl"  style={{
+                            color: '#213f77',
+                          }}>{evaluation.employee}</span>
             </div>
-            <div className="contenu_recl">{evaluation.employee.nom}</div>
+            
             <span className="objet_recl">
               Date :
             </span>
-            <span className="contenu_recl">{evaluation.evaluationDate}</span>
+            <span className="contenu_recl">{evaluation.date}</span>
             <span className="objet_recl">
             Score :
             </span>
@@ -56,9 +58,12 @@ const consulterEvaluation = () => {
           </div>
           <div>
             <hr noshade style={{ width: 755, height: 1, border: 1, marginLeft: 15 }}></hr>
-            <div style={{ marginTop: 20, marginBottom: 30 }}>
+            <div style={{ marginLeft :20,marginTop: 20, marginBottom: 30 }}>
 
-            <div>evaluator : {evaluation.evaluator.nom}</div>
+            <div className="objet_recl"  style={{
+                            fontSize: 25,
+                            color: '#213f77',
+                          }}>Evaluator : {evaluation.evaluator}</div>
 
             </div>
           </div>

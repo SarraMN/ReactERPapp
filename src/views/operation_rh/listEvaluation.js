@@ -60,9 +60,9 @@ const ListeEvaluation = () => {
     })
   }
 
-  function consulterEvaluation(user) {
+  function consulterEvaluation(item) {
     navigate('/operation_rh/consulterEvaluation', {
-      state: { utilisateur: user },
+      state: { state: item },
     })
   }
 
@@ -115,7 +115,7 @@ const ListeEvaluation = () => {
                 aria-hidden="true"
                 style={{ marginRight: 10 }}
               ></i>
-              Ajouter employé
+              Ajouter evaluation
             </button>
           </div>
         </div>
@@ -216,7 +216,7 @@ const ListeEvaluation = () => {
                           <tr key={index}>
                             <td
                               className="align-middle text-center text-sm"
-                              onClick={(index) => userProfil(item)}
+                              onClick={(index) => consulterEvaluation(item)}
                             >
                               <span
                                 className="align-middle text-center"
@@ -228,7 +228,7 @@ const ListeEvaluation = () => {
 
                             <td
                               className="align-middle text-center text-sm"
-                              onClick={(index) => userProfil(item)}
+                              onClick={(index) => consulterEvaluation(item)}
                             >
                               <span
                                 className="align-middle text-center"
@@ -240,7 +240,7 @@ const ListeEvaluation = () => {
                             
                             <td
                               className="align-middle text-center text-sm"
-                              onClick={(index) => userProfil(item)}
+                              onClick={(index) => consulterEvaluation(item)}
                             >
                               <span
                                 className="align-middle text-center"
@@ -252,7 +252,7 @@ const ListeEvaluation = () => {
 
                             <td
                               className="align-middle text-center text-sm"
-                              onClick={(index) => userProfil(item)}
+                              onClick={(index) => consulterEvaluation(item)}
                             >
                               <span
                                 className="align-middle text-center"
@@ -263,7 +263,7 @@ const ListeEvaluation = () => {
                             </td>
                             <td
                               className="align-middle text-center text-sm"
-                              onClick={(index) => userProfil(item)}
+                              onClick={(index) => consulterEvaluation(item)}
                             >
                               <span
                                 className="align-middle text-center"

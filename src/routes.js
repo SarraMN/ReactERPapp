@@ -97,12 +97,12 @@ const routes = [
   },
   {
     path: '/Gestion_logs/ListAllLogs',
-    name: 'Logs',
+    name: 'les journaux',
     element: listAllLogs,
   },
   {
     path: '/Gestion_logs/ListLogsTraitees',
-    name: 'tarited Logs',
+    name: 'les journaux traités',
     element: listAllTraitedLogs,
   },
   {
@@ -117,7 +117,7 @@ const routes = [
   },
   {
     path: '/GestionUtilisateurs/listeUtilisateurs/userProfile',
-    name: 'userProfile',
+    name: 'Profil utilisateur',
     element: userProfile,
   },
   {
